@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Übergabeprotokoll</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <link rel="stylesheet" href="styles1.css">
+    <script src="farbe.js" defer></script>
+    <script src="rwm.js" defer></script>
+    <script src="addrow.js" defer></script>
+    <script src="addbilder.js" defer></script>
+    <script src="addkeys.js"></script>
+    <script src="addzaehler.js"></script>
+    <!-- <script src="bilder02.js" defer></script> -->
+    <script src="togglerooms.js"></script>
+    <script src="stylechange.js"></script>
+    <script src="immo.js"></script>
+    <script src="addeintenant.js"></script>
+    <script src="addaustenant.js"></script>
+    <script src="addzimmer.js"></script>
+    <!-- <script src="pdfprint.js"></script> -->
+    <script src="script1.js"></script>
+    <script src="suggestion.js"></script>
+    <script src="screenshot.js"></script>
+
+
+
+</head>
+
+<body>
+    <div class="container">
+
+        <!--       <button id="pdf-button">Als PDF speichern</button> -->
+        <button id="stylechange">Ansicht wechseln</button>
+        <button id="screenshot">Screenshot erstellen</button>
+
+        <div class="allgemein" id="allgemein">
+
+
+            <div class="objektdaten" id="objektdaten">
+                <table>
+                    <colgroup>
+                        <col style="width: 15%"> <!-- Label-Spalte -->
+                        <col style="width: 35%"> <!-- Eingabefeld-Spalte -->
+                        <col style="width: 10%"> <!-- Label-Spalte 2 -->
+                        <col style="width: 40%"> <!-- Eingabefeld-Spalte 2 -->
+                    </colgroup>
+                    <tbody>
+                        <!-- 1. Zeile: Protokollart (2 Spalten) -->
+                        <tr>
+                            <td>Art des Protokolls:</td>
+                            <td colspan="3">
+                                <select id="protokollart1" class="full-width">
+                                    <option>-</option>
+                                    <option>Abnahme (Auszug)</option>
+                                    <option>Übergabe (Einzug)</option>
+                                    <option>Abnahme- & Übergabe (Ein- und Auszug)</option>
+                                </select>
+                            </td>
+                        </tr>
+
+                        <!-- 2. Zeile: Mieternummer + Lage -->
+                        <tr>
+                            <td>Mieternummer</td>
+                            <td class="suggestion-container">
+                                <input type="text" id="mieterid" class="textinput">
+                                <div id="mieterSuggestions" class="suggestion-list"></div>
+                            </td>
+                            <td>Lage / Stockwerk</td>
+                            <td>
+                                <input id="lageeinzug2" type="text" class="textinput">
+                            </td>
+                        </tr>
+
+                        <!-- 3. Zeile: PLZ + Datum -->
+                        <tr>
+                            <td>PLZ / Ort</td>
+                            <td>
+                                <input type="text" id="plzeinzug" class="textinput">
+                            </td>
+                            <td>Datum</td>
+                            <td>
+                                <input id="datum" type="date" class="textinput">
+                            </td>
+                        </tr>
+
+                        <!-- 4. Zeile: Objekt/Straße -->
+                        <tr>
+                            <td>Objekt / Straße</td>
+                            <td colspan="3" class="suggestion-container">
+                                <input id="strasseeinzug" type="text" class="textinput">
+                                <div id="strasseSuggestions" class="suggestion-list"></div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+
+
+
+
+
+            <div class="keys" id="keys">
+                <button id="keysbtn">+ Schlüssel hinzufügen</button>
+            </div>
+
+            <div class="zahlercontainer" id="addzaehler">
+                <button id="addzaehlerbtn">+ Zähler hinzufügen</button>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+            <div class="tenant" id="einzugtenantcontainer">
+                <button id="einzugtenant">+ einziehenden Mieter hinzufügen</button>
+            </div>
+
+            <div class="tenant" id="auszugtenantconatainer">
+                <button id="auszugtenant">+ ausziehenden Mieter hinzufügen</button>
+            </div>
+
+
+            <!--         <div class="heatwater" id="heatwater">
+                <table>
+                    <colgroup>
+                        <col style="width: 27%"> 
+                        <col style="width: 23%"> 
+                        <col style="width: 30%"> 
+                        <col style="width: 20%"> 
+                    </colgroup>
+                    <tbody>
+               
+                        <tr>
+                            <td>Heizung zentral / dezentral:</td>
+                            <td>
+                                <select id="heat">
+                                    <option value="na">-</option>
+                                    <option value="zental">zentral</option>
+                                    <option value="dezentral">dezentral</option>
+                                </select>
+                            </td>
+
+                
+                            <td>Warmwasser zentral / dezentral:</td>
+                            <td>
+                                <select id="heat">
+                                    <option value="na">-</option>
+                                    <option value="zental">zentral</option>
+                                    <option value="dezentral">dezentral</option>
+                                </select>
+                            </td>
+
+
+                        </tr>
+
+
+                    </tbody>
+                </table>
+            </div> -->
+
+            <!--             <div class="heatwater" id="heatwater">
+                <table>
+                    <colgroup>
+                        <col style="width: 10%">
+                        <col style="width: 40%">
+                        <col style="width: 10%">
+                        <col style="width: 40%">
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <td>Heizung:</td>
+                            <td>
+                                <div class="radio-group">
+                                    <label><input type="radio" name="heat" value="zentral"> zentral</label>
+                                    <label><input type="radio" name="heat" value="dezentral"> dezentral</label>
+                                </div>
+                            </td>
+
+                            <td>Warmwasser:</td>
+                            <td>
+                                <div class="radio-group">
+                                    <label><input type="radio" name="water" value="zentral"> zentral</label>
+                                    <label><input type="radio" name="water" value="dezentral"> dezentral</label>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div> -->
+
+            <div class="heatwater" id="heatwater">
+                <table>
+                    <colgroup>
+                        <col style="width: 10%">
+                        <col style="width: 40%">
+                        <col style="width: 10%">
+                        <col style="width: 40%">
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <td style="text-align: left;">Heizung:</td>
+                            <td style="text-align: left;">
+                                <div class="radio-group"
+                                    style="display: flex; flex-direction: column; align-items: flex-start;">
+                                    <label style="display: block; text-align: left;">
+                                        <input type="radio" name="heat" value="zentral"> zentral
+                                    </label>
+                                    <label style="display: block; text-align: left;">
+                                        <input type="radio" name="heat" value="dezentral"> dezentral
+                                    </label>
+                                </div>
+                            </td>
+
+                            <td style="text-align: left;">Warmwasser:</td>
+                            <td style="text-align: left;">
+                                <div class="radio-group"
+                                    style="display: flex; flex-direction: column; align-items: flex-start;">
+                                    <label style="display: block; text-align: left;">
+                                        <input type="radio" name="water" value="zentral"> zentral
+                                    </label>
+                                    <label style="display: block; text-align: left;">
+                                        <input type="radio" name="water" value="dezentral"> dezentral
+                                    </label>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+        </div>
+
+
+
+        <div class="allrooms" id="allrooms">
+
+
+            <div class="kueche-section">
+                <div class="kueche-toggle">
+                    <div class="kueche-verfuegbar">
+                        Küche vorhanden?
+                        <div class="radio-group compact">
+                            <label><input type="radio" name="kuchvor" value="ja"> Ja</label>
+                            <label><input type="radio" name="kuchvor" value="nein" checked> Nein</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-container kueche" id="kueche-container" style="display: none;">
+
+
+                    <table>
+
+
+                        <thead>
+                            <tr>
+                                <th colspan="6" class="kueche-header">
+                                    <div class="kueche-verfuegbar">
+                                        Küche
+                                    </div>
+                                </th>
+                            </tr>
+
+                            <tr>
+                                <th class="aa">allgemeiner Zustand</th>
+                                <th class="aa">in Ordnung</th>
+                                <th class="aa">neuwertig</th>
+                                <th class="aa">geringe Gebrauchs - spuren</th>
+                                <th class="aa">stärkerer Gebrauchs - spuren</th>
+                                <th class="aa">nicht renoviert</th>
+                            </tr>
+
+                            <tr>
+                                <td></td>
+                                <td><input type="checkbox" id="boden-p1"></td>
+                                <td><input type="checkbox" id="boden-p2"></td>
+                                <td><input type="checkbox" id="boden-p3"></td>
+                                <td><input type="checkbox" id="boden-p3b"></td>
+                                <td><input type="checkbox" id="boden-p4"></td>
+                            </tr>
+
+
+
+
+                            <tr>
+                                <th class="aa1"></th>
+                                <th class="aa1">in Ordnung</th>
+                                <th class="aa1">geringe Gebrauchs - spuren</th>
+                                <th class="aa1">repa. - bedürftig</th>
+                                <th class="aa1">Reparatur durch den Mieter oder Vermieter</th>
+                                <th class="aa1">nicht vor handen</th>
+                            </tr>
+                        </thead>
+
+
+
+
+                        <tbody>
+                            <tr>
+                                <td>Boden</td>
+                                <td><input type="checkbox" id="boden-p1"></td>
+                                <td><input type="checkbox" id="boden-p2"></td>
+                                <td><input type="checkbox" id="boden-p3"></td>
+                                <td>
+                                    <select id="boden-status">
+                                        <option value="na">-</option>
+                                        <option value="mieter">Mieter</option>
+                                        <option value="landl">Vermieter</option>
+                                        <option value="klar">in Klärung</option>
+                                    </select>
+                                </td>
+                                <td><input type="checkbox" id="boden-p4"></td>
+                            </tr>
+                            </tr>
+
+                            <tr>
+                                <td>Farbe der Wände</td>
+                                <td colspan="5">
+                                    <input type="text" id="wandfarbe" placeholder="Farbe eingeben" class="farbe-input"
+                                        autocomplete="off">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Zimmerschlüssel vorhanden?</td>
+                                <td class="radio-cell" colspan="2">
+                                    <div class="radio-group">
+                                        <label><input type="radio" name="schluessel" value="ja"> Ja</label>
+                                        <label><input type="radio" name="schluessel" value="nein"> Nein</label>
+                                    </div>
+                                </td>
+                                <td colspan="3"></td>
+                            </tr>
+
+                            <tr>
+                                <td>Anzahl Rauchwarnmelder</td>
+                                <td colspan="5">
+                                    <div class="number-input">
+                                        <button type="button" class="number-btn minus">-</button>
+                                        <input type="number" id="rauchmelder-anzahl" min="0" max="9" value="0" readonly>
+                                        <button type="button" class="number-btn plus">+</button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr class="bemerkung-row">
+                                <td>Bemerkungen</td>
+                                <td colspan="5">
+                                    <div class="bemerkung-container">
+                                        <input type="text" class="bemerkung-input" placeholder="Bemerkung eingeben">
+                                        <div class="bemerkung-actions">
+                                            <button type="button" class="add-bemerkung-btn">+</button>
+                                            <button type="button" class="del-bemerkung-btn"
+                                                style="display:none;">×</button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr class="bilder-row">
+                                <td>Fotos</td>
+                                <td colspan="5">
+                                    <div class="bilder-upload-container">
+                                        <button type="button" class="bilder-upload-btn">Fotos hinzufügen</button>
+                                        <div class="bilder-thumbnails"></div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+
+                </div>
+            </div>
+
+
+            <div class="bad-section" style="margin-top: 20px;">
+                <div class="bad-toggle">
+                    <div class="bad-verfuegbar">
+                        Badezimmer vorhanden?
+                        <div class="radio-group compact">
+                            <label><input type="radio" name="bad-vorhanden" value="ja"> Ja</label>
+                            <label><input type="radio" name="bad-vorhanden" value="nein" checked> Nein</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-container bad" id="bad-container" style="margin-top: 0; display: none;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th colspan="6" class="kueche-header">
+                                    <div class="bad-verfuegbar">
+                                        Badezimmer
+                                    </div>
+                                </th>
+                            </tr>
+
+                            <!-- Zustandsbewertung -->
+                            <tr class="zustandszeile">
+                                <th class="aa">allgemeiner Zustand</th>
+                                <th class="aa">in Ordnung</th>
+                                <th class="aa">neuwertig</th>
+                                <th class="aa">geringe Gebrauchsspuren</th>
+                                <th class="aa">stärkere Gebrauchsspuren</th>
+                                <th class="aa">nicht renoviert</th>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td><input type="checkbox" id="boden-pb1"></td>
+                                <td><input type="checkbox" id="boden-pb2"></td>
+                                <td><input type="checkbox" id="boden-pb3"></td>
+                                <td>
+                                    <select id="boden-status2">
+                                        <option value="offen">Offen</option>
+                                        <option value="in-arbeit">In Arbeit</option>
+                                        <option value="fertig">Fertig</option>
+                                    </select>
+                                </td>
+                                <td><input type="checkbox" id="boden-pb4"></td>
+                            </tr>
+
+                            <!-- Bauteil-Überschriften -->
+                            <tr>
+                                <th class="aa1"></th>
+                                <th class="aa1">in Ordnung</th>
+                                <th class="aa1">geringe Gebrauchs - spuren</th>
+                                <th class="aa1">repa. - bedürftig</th>
+                                <th class="aa1">Reparatur durch den Mieter oder Vermieter</th>
+                                <th class="aa1">nicht vor handen</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Sanitäre Elemente -->
+                            <tr>
+                                <td>Waschbecken</td>
+                                <td><input type="checkbox" id="bad-waschbecken-p1"></td>
+                                <td><input type="checkbox" id="bad-waschbecken-p2"></td>
+                                <td><input type="checkbox" id="bad-waschbecken-p3"></td>
+                                <td>
+                                    <select id="bad-waschbecken-status">
+                                        <option value="na">-</option>
+                                        <option value="mieter">Mieter</option>
+                                        <option value="landl">Vermieter</option>
+                                        <option value="klar">in Klärung</option>
+                                    </select>
+                                </td>
+                                <td><input type="checkbox" id="bad-waschbecken-p4"></td>
+                            </tr>
+
+                            <tr>
+                                <td>Schlüssel vorhanden?</td>
+                                <td class="radio-cell" colspan="2">
+                                    <div class="radio-group">
+                                        <label><input type="radio" name="schluesselbad" value="ja"> Ja</label>
+                                        <label><input type="radio" name="schluesselbad" value="nein"> Nein</label>
+                                    </div>
+                                </td>
+                                <td colspan="3"></td>
+                            </tr>
+
+                            <tr>
+                                <td>Farbe der Wände</td>
+                                <td colspan="5">
+                                    <input type="text" id="wandfarbebad" placeholder="Farbe eingeben"
+                                        class="farbe-input" autocomplete="off">
+                                </td>
+                            </tr>
+
+                            <!-- Spezifische Badezimmer-Felder -->
+                            <tr>
+                                <td>Anzahl Rauchwarnmelder</td>
+                                <td colspan="5">
+                                    <div class="number-input">
+                                        <button type="button" class="number-btn minus">-</button>
+                                        <input type="number" id="rauchmelder-anzahlbad" min="0" max="9" value="0"
+                                            readonly>
+                                        <button type="button" class="number-btn plus">+</button>
+                                    </div>
+                                </td>
+                            </tr>
+
+
+
+                            <!-- Gemeinsame Felder -->
+                            <tr class="bemerkung-row">
+                                <td>Bemerkungen</td>
+                                <td colspan="5">
+                                    <div class="bemerkung-container">
+                                        <input type="text" class="bemerkung-input" placeholder="Bemerkung eingeben">
+                                        <div class="bemerkung-actions">
+                                            <button type="button" class="add-bemerkung-btn">+</button>
+                                            <button type="button" class="del-bemerkung-btn"
+                                                style="display:none;">×</button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr class="bilder-row">
+                                <td>Badezimmerfotos</td>
+                                <td colspan="5">
+                                    <div class="bilder-upload-container badezimmer">
+                                        <button type="button" class="bilder-upload-btn">Fotos hinzufügen</button>
+                                        <div class="bilder-thumbnails"></div>
+                                    </div>
+                                </td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="table-container zimmer-n">
+                </div>
+
+
+
+                <div class="addzimmer" id="adzimmer">
+                    <button id="addzimmert">+ Zimmer hinzufügen</button>
+                </div>
+
+            </div>
+
+
+        </div>
+
+        <div id="nebenraumContainer">
+            <div class="rooms">
+                <h3>weitere Flächen</h3>
+                <table>
+                    <tr>
+                        <th>Bereich</th>
+                        <th>in Ordnung</th>
+                        <th>geringe Gebrauchsspuren</th>
+                        <th>repa.bedürftig</th>
+                        <th>Reparatur durch</th>
+                        <th>nicht vorhanden</th>
+                    </tr>
+                    <tr>
+                        <td>Balkon/Terrasse/Loggia</td>
+                        <td><input type="checkbox"></td>
+                        <td><input type="checkbox"></td>
+                        <td><input type="checkbox"></td>
+                        <td>
+                            <select>
+                                <option>-</option>
+                                <option>Mieter</option>
+                                <option>Vermieter</option>
+                            </select>
+                        </td>
+                        <td><input type="checkbox"></td>
+                    </tr>
+                    <tr>
+                        <td>Keller</td>
+                        <td><input type="checkbox"></td>
+                        <td><input type="checkbox"></td>
+                        <td><input type="checkbox"></td>
+                        <td><select>
+                                <option>-</option>
+                                <option>Mieter</option>
+                                <option>Vermieter</option>
+                            </select></td>
+                        <td><input type="checkbox"></td>
+                    </tr>
+                    <tr>
+                        <td>Dachboden</td>
+                        <td><input type="checkbox"></td>
+                        <td><input type="checkbox"></td>
+                        <td><input type="checkbox"></td>
+                        <td><select>
+                                <option>-</option>
+                                <option>Mieter</option>
+                                <option>Vermieter</option>
+                            </select></td>
+                        <td><input type="checkbox"></td>
+                    </tr>
+                    <tr>
+                        <td>Garage/Stellplatz</td>
+                        <td><input type="checkbox"></td>
+                        <td><input type="checkbox"></td>
+                        <td><input type="checkbox"></td>
+                        <td><select>
+                                <option>-</option>
+                                <option>Mieter</option>
+                                <option>Vermieter</option>
+                            </select></td>
+                        <td><input type="checkbox"></td>
+                    </tr>
+
+
+                    <tr class="bemerkung-row">
+                        <td>Bemerkungen</td>
+                        <td colspan="5">
+                            <div class="bemerkung-container">
+                                <input type="text" class="bemerkung-input" placeholder="Bemerkung eingeben">
+                                <div class="bemerkung-actions">
+                                    <button type="button" class="add-bemerkung-btn">+</button>
+                                    <button type="button" class="del-bemerkung-btn" style="display:none;">×</button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+
+
+                    <tr class="bilder-row">
+                        <td>Fotos</td>
+                        <td colspan="5">
+                            <div class="bilder-upload-container">
+                                <button type="button" class="bilder-upload-btn">Fotos hinzufügen</button>
+                                <div class="bilder-thumbnails"></div>
+                            </div>
+                        </td>
+                    </tr>
+
+
+
+                </table>
+            </div>
+        </div>
+
+        <div id="regelungen">
+            <div class="rooms">
+                <h3>Regelung Mängelbeseitigung</h3>
+                <table>
+                    <tr>
+                        <th></th>
+                        <th style="text-align:center;">ja</th>
+                        <th>nein</th>
+                        <th>nicht zutreffend</th>
+                    </tr>
+                    <tr>
+                        <td>Der ausziehende Mieter erkennt die in diesem Protokoll aufgeführten Mängel an und... </td>
+                        <td><input type="checkbox"></td>
+                        <td><input type="checkbox"></td>
+                        <td><input type="checkbox"></td>
+
+                    </tr>
+                    <tr>
+                        <td>...verpflichtet sich für die Beseitigung erforderlichen Arbeiten bis zum auf seine Kosten
+                            auszuführen oder ausführen zu lassen oder...</td>
+                        <td><input type="checkbox"></td>
+                        <td><input type="checkbox"></td>
+                        <td><input type="checkbox"></td>
+
+                    </tr>
+                    <tr>
+                        <td>...ermächtigt den Vermieter, die erforderlichen Arbeiten zu beauftragen. Er verpflichtet
+                            sich, die dadurch entstehenden Kosten nach Rechnungsstellung zu bezahlen, ggf. mit der
+                            Mietsicherheit verrechnen zu lassen oder...</td>
+                        <td><input type="checkbox"></td>
+                        <td><input type="checkbox"></td>
+                        <td><input type="checkbox"></td>
+
+                    </tr>
+                    <tr>
+                        <td>...wird diese Verpflichtung durch Zahlung eines Pauschalbetrages von € abgegolten. </td>
+                        <td><input type="number" class="euro">€</td>
+                        <td><input type="checkbox"></td>
+                        <td><input type="checkbox"></td>
+
+                    </tr>
+
+
+                    <tr class="bemerkung-row">
+                        <td colspan="1">Bemerkungen zur Mängelbeseitigung</td>
+                        <td colspan="3" class="long">
+                            <div class="bemerkung-container">
+                                <input type="text" class="bemerkung-input" placeholder="Bemerkung eingeben">
+                                <div class="bemerkung-actions">
+                                    <button type="button" class="add-bemerkung-btn">+</button>
+                                    <button type="button" class="del-bemerkung-btn" style="display:none;">×</button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+
+
+
+
+
+
+                </table>
+            </div>
+        </div>
+
+        <div id="weiterebemerkungen">
+            <div class="rooms">
+                <h3>weitere sonstige Bemerkungen</h3>
+                <table>
+                    <tr>
+                        <th></th>
+                        <th style="text-align:center;"></th>
+
+                    </tr>
+
+                    <tr>
+                        <td>Dieses Protokoll ist Bestandteil des Mietvertrags (bei Einzug)</td>
+                        <td class="radio-cell" colspan="2">
+                            <div class="radio-group">
+                                <label><input type="radio" name="schluessel" value="ja"> Ja</label>
+                                <label><input type="radio" name="schluessel" value="nein"> Nein</label>
+                            </div>
+                        </td>
+                    
+                    </tr>
+
+
+                    <tr class="bemerkung-row">
+                        <td colspan="1">sonstige Bemerkungen</td>
+                        <td colspan="3" class="long">
+                            <div class="bemerkung-container">
+                                <input type="text" class="bemerkung-input" placeholder="Bemerkung eingeben">
+                                <div class="bemerkung-actions">
+                                    <button type="button" class="add-bemerkung-btn">+</button>
+                                    <button type="button" class="del-bemerkung-btn" style="display:none;">×</button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+ 
+
+
+
+
+
+
+                </table>
+            </div>
+        </div>
+
+
+        <div id="sign">
+
+            <div class="signContainer">
+                <h3>Unterschriften</h3>
+                <table>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+
+
+
+
+                    <tr class="bemerkung-row">
+                        <td colspan="1">Objekt</td>
+                        <td colspan="1" class="long">
+                            <div class="bemerkung-container">
+                                <input type="text" id="objektclon" class="bemerkung-input">
+
+                            </div>
+                        </td>
+                        <td colspan="1">PLZ / Ort</td>
+                        <td colspan="1" class="long">
+                            <div class="bemerkung-container">
+                                <input type="text" id="ortclon" class="bemerkung-input">
+
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr class="bemerkung-row">
+                        <td colspan="1">Lage</td>
+                        <td colspan="1" class="long">
+                            <div class="bemerkung-container">
+                                <input type="text" id="lageclon" class="bemerkung-input">
+
+                            </div>
+                        </td>
+                        <td colspan="1">Mieternummer</td>
+                        <td colspan="1" class="long">
+                            <div class="bemerkung-container">
+                                <input type="text" id="mietidtclon" class="bemerkung-input">
+
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr class="bemerkung-row">
+                        <td colspan="1">Datum</td>
+                        <td colspan="3" class="long">
+                            <div class="bemerkung-container">
+                                <input type="date" id="datum2" class="bemerkung-input">
+
+                            </div>
+                        </td>
+                    </tr>
+
+
+                    <tr class="bemerkung-row">
+                        <td colspan="4">Dieses Protokoll erkennen die Unterzeichner an. Es ist Bestandteil des
+                            Mieterverhältnisses / Mietvertrags.</td>
+                    </tr>
+
+
+                    <tr class="bemerkung-row">
+                        <td colspan="4">Info: Für Ummeldungen beim Energieversorger sind die Mieter zuständig! </td>
+                    </tr>
+
+                    <tr class="bemerkung-row">
+                        <td colspan="1">Protokoll ausgefüllt von</td>
+                        <td colspan="1" class="long">
+                            <div class="bemerkung-container">
+                                <input type="text" id="suggestionname1" class="bemerkung-input">
+
+                            </div>
+                        </td>
+                        <td colspan="1">Firma</td>
+                        <td colspan="1" class="long">
+                            <div class="bemerkung-container">
+                                <input type="text" class="bemerkung-input" value="Sauer Immobilien GmbH">
+                            </div>
+                        </td>
+                    </tr>
+
+
+
+
+
+
+
+                </table>
+            </div>
+
+            <div class="signtenant" id="signtenant1"></div>
+        </div>
+
+
+
+
+        <div class="bildergalerie-container">
+            <h3 id="kueche-galerie-title"></h3>
+            <div class="kueche-galerie" id="kueche-galerie"></div>
+            <h3 id="bad-galerie-title"></h3>
+            <div class="badezimmer-galerie" id="bad-galerie"></div>
+            <div id="nebenraum-galerie"></div>
+            <div id="nebenraum-galerie-title" style="display:none;"></div>
+        </div>
+
+
+
+
+</body>
+
+</html>
