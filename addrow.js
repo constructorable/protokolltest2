@@ -1,4 +1,15 @@
 document.addEventListener('DOMContentLoaded', function () {
+    // Counter für Bemerkungszeilen pro Raum
+    const bemerkungCounters = {
+        kueche: 1,
+        bad: 1,
+        WC: 1,
+        flur: 1,
+        abstell: 1,
+        nebenraum: 1,
+        regelungen: 1
+    };
+
     // Event Delegation für alle Tabellen
     document.addEventListener('click', function (e) {
         // Küche
@@ -11,23 +22,32 @@ document.addEventListener('DOMContentLoaded', function () {
             e.target.closest('.table-container.bad')) {
             addBemerkungRow(e.target.closest('tr'), 'bad');
         }
+        else if (e.target.classList.contains('add-bemerkung-btn') &&
+            e.target.closest('.table-container.WC')) {
+            addBemerkungRow(e.target.closest('tr'), 'WC');
+        }
+        else if (e.target.classList.contains('add-bemerkung-btn') &&
+            e.target.closest('.table-container.flur')) {
+            addBemerkungRow(e.target.closest('tr'), 'flur');
+        }
+        else if (e.target.classList.contains('add-bemerkung-btn') &&
+            e.target.closest('.table-container.abstell')) {
+            addBemerkungRow(e.target.closest('tr'), 'abstell');
+        }
         // Nebenräume
         else if (e.target.classList.contains('add-bemerkung-btn') &&
             e.target.closest('#nebenraumContainer')) {
             addBemerkungRow(e.target.closest('tr'), 'nebenraum');
         }
-
         // Regelungen
         else if (e.target.classList.contains('add-bemerkung-btn') &&
             e.target.closest('#regelungen')) {
             addBemerkungRow(e.target.closest('tr'), 'regelungen');
         }
-
         else if (e.target.classList.contains('add-bemerkung-btn') &&
             e.target.closest('#weiterebemerkungen')) {
             addBemerkungRow(e.target.closest('tr'), 'regelungen');
         }
-
 
         // Löschen für alle
         if (e.target.classList.contains('del-bemerkung-btn')) {
@@ -35,15 +55,21 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
+    function generateBemerkungId(raum) {
+        return `bemerkung-${raum}-${bemerkungCounters[raum]++}`;
+    }
+
     function addBemerkungRow(sourceRow, raum) {
         const newRow = document.createElement('tr');
         newRow.className = 'bemerkung-row';
+        const bemerkungId = generateBemerkungId(raum);
 
         newRow.innerHTML = `
-            <td></td>
+            <td>Bemerkungen</td>
             <td colspan="5">
-                <div class="bemerkung-container">
-                    <input type="text" class="bemerkung-input" placeholder="Weitere Bemerkung" data-raum="${raum}">
+                <div class="bemerkung-container" data-bemerkung-id="${bemerkungId}">
+                    <input type="text" id="${bemerkungId}" class="bemerkung-input" 
+                           placeholder="Bemerkung eingeben" data-raum="${raum}">
                     <div class="bemerkung-actions">
                         <button type="button" class="add-bemerkung-btn">+</button>
                         <button type="button" class="del-bemerkung-btn" style="display:none;">×</button>
