@@ -466,7 +466,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     const bemerkungId = `zimmer${count}-bem${String(bemerkungCounter).padStart(2, '0')}`;
                     bemerkung.innerHTML = `
                     <input type="text" id="${bemerkungId}" 
-                           class="bemerkung-input-field" value="${text}" readonly>
+                           class="bemerkung-input" value="${text}" readonly>
                     <button type="button" class="del-bemerkung-btn">×</button>
                 `;
                     container.insertBefore(bemerkung, e.target.closest('.bemerkung-eingabe'));
