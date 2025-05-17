@@ -3,90 +3,16 @@ document.addEventListener('DOMContentLoaded', function () {
     let tenantCounter = 1;
 
     tenantButton.addEventListener('click', function () {
-        // Erstelle eine neue Tabelle für den Mieter
-        const tenantTable = document.createElement('div');
-        tenantTable.className = 'table-container tenant-table';
-        tenantTable.id = `tenant-table-${tenantCounter}`;
-        tenantTable.innerHTML = `
-            <table>
-                <thead>
-                    <tr>
-                        <th colspan="6" class="kueche-header">
-                            <div class="kueche-verfuegbar">
-                                einziehender Mieter hinzufügen (${tenantCounter})
-                            </div>
-                        </th>
-                    </tr>
-                  </thead>
-                <tbody>
-                    <tr>
-                        <td>Name</td>
-                        <td colspan="5">
-                            <input type="text" id="tenant-name-${tenantCounter}" class="tenant-input" required>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Vorname</td>
-                        <td colspan="5">
-                            <input type="text" id="tenant-vorname-${tenantCounter}" class="tenant-input" required>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Telefon</td>
-                        <td colspan="5">
-                            <input type="tel" id="tenant-tel-${tenantCounter}" class="tenant-input">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>E-Mail</td>
-                        <td colspan="5">
-                            <input type="email" id="tenant-email-${tenantCounter}" class="tenant-input">
-                        </td>
-                    </tr>
-                    <tr class="tenant-actions-row">
-                        <td></td>
-                        <td colspan="5">
-                            <button type="button" class="save-tenant-btn" data-tenant-id="${tenantCounter}">Speichern</button>
-                            <button type="button" class="cancel-tenant-btn" data-tenant-id="${tenantCounter}">Abbrechen</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        `;
-
-        // Füge die Tabelle vor dem Button ein
-        tenantButton.parentNode.insertBefore(tenantTable, tenantButton);
-
-        // Event Listener für die Buttons
-        document.querySelector(`.save-tenant-btn[data-tenant-id="${tenantCounter}"]`).addEventListener('click', saveTenant);
-        document.querySelector(`.cancel-tenant-btn[data-tenant-id="${tenantCounter}"]`).addEventListener('click', cancelTenant);
-
-        tenantCounter++;
-    });
-
-    function saveTenant(e) {
-        const tenantId = e.target.getAttribute('data-tenant-id');
-        const name = document.getElementById(`tenant-name-${tenantId}`).value;
-        const vorname = document.getElementById(`tenant-vorname-${tenantId}`).value;
-        const tel = document.getElementById(`tenant-tel-${tenantId}`).value;
-        const email = document.getElementById(`tenant-email-${tenantId}`).value;
-
-        if (!name || !vorname) {
-            alert('Name und Vorname sind Pflichtfelder!');
-            return;
-        }
-
-        // Erstelle eine Anzeige-Tabelle für den gespeicherten Mieter
         const tenantDisplay = document.createElement('div');
         tenantDisplay.className = 'table-container tenant-display';
-        tenantDisplay.id = `tenant-display-${tenantId}`;
+        tenantDisplay.id = `tenant-display-${tenantCounter}`;
         tenantDisplay.innerHTML = `
-            <table>
+            <table id="tenant-display-table-${tenantCounter}">
                 <thead>
                     <tr>
                         <th colspan="6" class="kueche-header">
-                            <div class="kueche-verfuegbar">
-                                einziehender Mieter ${tenantId}
+                            <div class="kueche-verfuegbar" id="tenant-display-header-${tenantCounter}">
+                                einziehender Mieter ${tenantCounter}
                             </div>
                         </th>
                     </tr>
@@ -96,259 +22,124 @@ document.addEventListener('DOMContentLoaded', function () {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr id="tenant-display-name-row-${tenantCounter}">
                         <td>Name</td>
-                        <td colspan="5">${name}</td>
+                        <td colspan="5">
+                            <input type="text" id="tenant-display-name-${tenantCounter}" class="bemerkung-input">
+                        </td>
                     </tr>
-                    <tr>
+                    <tr id="tenant-display-firstname-row-${tenantCounter}">
                         <td>Vorname</td>
-                        <td colspan="5">${vorname}</td>
+                        <td colspan="5">
+                            <input type="text" id="tenant-display-firstname-${tenantCounter}" class="bemerkung-input">
+                        </td>
                     </tr>
-                    ${tel ? `<tr><td>Telefon</td><td colspan="5">${tel}</td></tr>` : ''}
-                    ${email ? `<tr><td>E-Mail</td><td colspan="5">${email}</td></tr>` : ''}
-                    <tr class="tenant-actions-row">
+                    <tr id="tenant-display-phone-row-${tenantCounter}">
+                        <td>Telefon</td>
+                        <td colspan="5">
+                            <input type="tel" id="tenant-display-phone-${tenantCounter}" class="bemerkung-input">
+                        </td>
+                    </tr>
+                    <tr id="tenant-display-email-row-${tenantCounter}">
+                        <td>E-Mail</td>
+                        <td colspan="5">
+                            <input type="email" id="tenant-display-email-${tenantCounter}" class="bemerkung-input">
+                        </td>
+                    </tr>
+                    <tr class="tenant-actions-row" id="tenant-display-actions-row-${tenantCounter}">
                         <td>Aktionen</td>
                         <td colspan="5">
-                            <button type="button" class="edit-tenant-btn" data-tenant-id="${tenantId}">Bearbeiten</button>
-                            <button type="button" class="delete-tenant-btn" data-tenant-id="${tenantId}">Löschen</button>
+                            <button type="button" class="delete-tenant-btn" id="tenant-delete-btn-${tenantCounter}" data-tenant-id="${tenantCounter}">Löschen</button>
                         </td>
                     </tr>
                 </tbody>
             </table>
         `;
 
-        // Entferne das Eingabe-Formular
-        const form = document.getElementById(`tenant-table-${tenantId}`);
-        form.remove();
+        // Füge das Formular oberhalb des Buttons ein
+        tenantButton.insertAdjacentElement('beforebegin', tenantDisplay);
 
-        // Füge die Anzeige hinzu
-        document.querySelector('.tenant').appendChild(tenantDisplay);
+        // Event Listener für den Löschen-Button
+        document.getElementById(`tenant-delete-btn-${tenantCounter}`).addEventListener('click', deleteTenant);
 
-        // Event Listener für die Buttons
-        document.querySelector(`.edit-tenant-btn[data-tenant-id="${tenantId}"]`).addEventListener('click', editTenant);
-        document.querySelector(`.delete-tenant-btn[data-tenant-id="${tenantId}"]`).addEventListener('click', deleteTenant);
+        // Event Listener für Input-Änderungen
+        document.getElementById(`tenant-display-name-${tenantCounter}`).addEventListener('change', updateSignatureName);
+        document.getElementById(`tenant-display-firstname-${tenantCounter}`).addEventListener('change', updateSignatureName);
 
-        // Erstelle das Unterschriftenfeld mit Canvas
+        // Unterschriftenfeld erstellen (mit leeren Werten initialisieren)
+        createSignatureField(tenantCounter, '');
+
+        tenantCounter++;
+    });
+
+    function updateSignatureName(e) {
+        const tenantId = e.target.id.split('-')[3];
+        const name = document.getElementById(`tenant-display-name-${tenantId}`).value;
+        const firstname = document.getElementById(`tenant-display-firstname-${tenantId}`).value;
+        
+        const signatureName = document.getElementById(`tenant-signature-name-${tenantId}`);
+        if (signatureName) {
+            signatureName.textContent = `${firstname} ${name}`;
+        }
+    }
+
+    function createSignatureField(tenantId, fullName) {
         const signatureContainer = document.createElement('div');
         signatureContainer.className = 'signature-block';
+        signatureContainer.id = `tenant-signature-container-${tenantId}`;
         signatureContainer.innerHTML = `
-    
-    <canvas id="signature-canvas-${tenantId}" width="300" height="100" style="border:1px solid #000;"></canvas>
-    <p><strong>einziehender Mieter: <span class="signature-name" id="tenant-signature-name-${tenantId}">${vorname} ${name}</span></strong></p>
-    <div>
-        <button type="button" id="clear-signature-${tenantId}">x</button>
-    </div>
-`;
+            <canvas id="tenant-signature-canvas-${tenantId}" width="300" height="100" style="border:1px solid #000;"></canvas>
+            <p><strong>einziehender Mieter: <span class="signature-name" id="tenant-signature-name-${tenantId}">${fullName}</span></strong></p>
+            <div>
+                <button type="button" id="tenant-clear-signature-${tenantId}">Unterschrift löschen</button>
+            </div>
+        `;
 
         document.getElementById('signtenant1').appendChild(signatureContainer);
 
-        // Canvas zeichnen initialisieren
-        const canvas = document.getElementById(`signature-canvas-${tenantId}`);
+        // Canvas initialisieren
+        const canvas = document.getElementById(`tenant-signature-canvas-${tenantId}`);
         const ctx = canvas.getContext('2d');
         let drawing = false;
 
-        canvas.addEventListener('mousedown', () => drawing = true);
-        canvas.addEventListener('mouseup', () => drawing = false);
-        canvas.addEventListener('mouseout', () => drawing = false);
-        canvas.addEventListener('mousemove', (e) => {
-            if (!drawing) return;
-            const rect = canvas.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            ctx.lineWidth = 2;
-            ctx.lineCap = 'round';
-            ctx.strokeStyle = '#000';
-            ctx.lineTo(x, y);
-            ctx.stroke();
-            ctx.beginPath();
-            ctx.moveTo(x, y);
-        });
-
         canvas.addEventListener('mousedown', (e) => {
+            drawing = true;
             const rect = canvas.getBoundingClientRect();
             ctx.beginPath();
             ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
         });
 
-        // Unterschrift löschen
-        document.getElementById(`clear-signature-${tenantId}`).addEventListener('click', () => {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        canvas.addEventListener('mousemove', (e) => {
+            if (!drawing) return;
+            const rect = canvas.getBoundingClientRect();
+            ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
+            ctx.stroke();
         });
 
+        canvas.addEventListener('mouseup', () => drawing = false);
+        canvas.addEventListener('mouseout', () => drawing = false);
 
-    }
-
-    function cancelTenant(e) {
-        const tenantId = e.target.getAttribute('data-tenant-id');
-        const form = document.getElementById(`tenant-table-${tenantId}`);
-        form.remove();
-    }
-
-    function editTenant(e) {
-        const tenantId = e.target.getAttribute('data-tenant-id');
-        const display = document.getElementById(`tenant-display-${tenantId}`);
-
-        // Hole die aktuellen Werte
-        const rows = display.querySelectorAll('tbody tr');
-        const name = rows[0].querySelector('td:last-child').textContent;
-        const vorname = rows[1].querySelector('td:last-child').textContent;
-        const tel = rows.length > 2 && rows[2].querySelector('td:first-child').textContent === 'Telefon'
-            ? rows[2].querySelector('td:last-child').textContent : '';
-        const email = rows.length > 2 && rows[rows.length - 2].querySelector('td:first-child').textContent === 'E-Mail'
-            ? rows[rows.length - 2].querySelector('td:last-child').textContent : '';
-
-        // Erstelle eine Bearbeitungstabelle
-        const editTable = document.createElement('div');
-        editTable.className = 'table-container tenant-table';
-        editTable.id = `tenant-edit-${tenantId}`;
-        editTable.innerHTML = `
-            <table>
-                <thead>
-                    <tr>
-                        <th colspan="6" class="kueche-header">
-                            <div class="kueche-verfuegbar">
-                                Mieter ${tenantId} bearbeiten
-                            </div>
-                        </th>
-                    </tr>
-                    <tr>
-                        <th class="aa">Daten</th>
-                        <th class="aa" colspan="5">Eingabe</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Name</td>
-                        <td colspan="5">
-                            <input type="text" id="edit-tenant-name-${tenantId}" class="tenant-input" value="${name}" required>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Vorname</td>
-                        <td colspan="5">
-                            <input type="text" id="edit-tenant-vorname-${tenantId}" class="tenant-input" value="${vorname}" required>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Telefon</td>
-                        <td colspan="5">
-                            <input type="tel" id="edit-tenant-tel-${tenantId}" class="tenant-input" value="${tel}">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>E-Mail</td>
-                        <td colspan="5">
-                            <input type="email" id="edit-tenant-email-${tenantId}" class="tenant-input" value="${email}">
-                        </td>
-                    </tr>
-                    <tr class="tenant-actions-row">
-                        <td>Aktionen</td>
-                        <td colspan="5">
-                            <button type="button" class="save-edit-tenant-btn" data-tenant-id="${tenantId}">Speichern</button>
-                            <button type="button" class="cancel-edit-tenant-btn" data-tenant-id="${tenantId}">Abbrechen</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        `;
-
-        // Ersetze die Anzeige durch das Bearbeitungsformular
-        display.replaceWith(editTable);
-
-        // Event Listener für die Buttons
-        document.querySelector(`.save-edit-tenant-btn[data-tenant-id="${tenantId}"]`).addEventListener('click', saveEditedTenant);
-        document.querySelector(`.cancel-edit-tenant-btn[data-tenant-id="${tenantId}"]`).addEventListener('click', cancelEditTenant);
-    }
-
-    function saveEditedTenant(e) {
-        const tenantId = e.target.getAttribute('data-tenant-id');
-        const name = document.getElementById(`edit-tenant-name-${tenantId}`).value;
-        const vorname = document.getElementById(`edit-tenant-vorname-${tenantId}`).value;
-        const tel = document.getElementById(`edit-tenant-tel-${tenantId}`).value;
-        const email = document.getElementById(`edit-tenant-email-${tenantId}`).value;
-
-        if (!name || !vorname) {
-            alert('Name und Vorname sind Pflichtfelder!');
-            return;
-        }
-
-        // Aktualisiere die Anzeige-Tabelle
-        const tenantDisplay = document.createElement('div');
-        tenantDisplay.className = 'table-container tenant-display';
-        tenantDisplay.id = `tenant-display-${tenantId}`;
-        tenantDisplay.innerHTML = `
-            <table>
-                <thead>
-                    <tr>
-                        <th colspan="6" class="kueche-header">
-                            <div class="kueche-verfuegbar">
-                                einziehender Mieter ${tenantId}
-                            </div>
-                        </th>
-                    </tr>
-                    <tr>
-                        <th class="aa">Daten</th>
-                        <th class="aa" colspan="5">Informationen</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Name</td>
-                        <td colspan="5">${name}</td>
-                    </tr>
-                    <tr>
-                        <td>Vorname</td>
-                        <td colspan="5">${vorname}</td>
-                    </tr>
-                    ${tel ? `<tr><td>Telefon</td><td colspan="5">${tel}</td></tr>` : ''}
-                    ${email ? `<tr><td>E-Mail</td><td colspan="5">${email}</td></tr>` : ''}
-                    <tr class="tenant-actions-row">
-                        <td>Aktionen</td>
-                        <td colspan="5">
-                            <button type="button" class="edit-tenant-btn" data-tenant-id="${tenantId}">Bearbeiten</button>
-                            <button type="button" class="delete-tenant-btn" data-tenant-id="${tenantId}">Löschen</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        `;
-
-        // Ersetze das Bearbeitungsformular durch die aktualisierte Anzeige
-        const form = document.getElementById(`tenant-edit-${tenantId}`);
-        form.replaceWith(tenantDisplay);
-
-        // Event Listener für die Buttons
-        document.querySelector(`.edit-tenant-btn[data-tenant-id="${tenantId}"]`).addEventListener('click', editTenant);
-        document.querySelector(`.delete-tenant-btn[data-tenant-id="${tenantId}"]`).addEventListener('click', deleteTenant);
-    }
-
-    function cancelEditTenant(e) {
-        const tenantId = e.target.getAttribute('data-tenant-id');
-        const form = document.getElementById(`tenant-edit-${tenantId}`);
-
-        // Hier könnten Sie die ursprünglichen Werte wiederherstellen
-        // Für dieses Beispiel rufen wir einfach die saveEditedTenant-Funktion auf
-        saveEditedTenant(e);
+        // Löschen-Button
+        document.getElementById(`tenant-clear-signature-${tenantId}`).addEventListener('click', () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        });
     }
 
     function deleteTenant(e) {
         const tenantId = e.target.getAttribute('data-tenant-id');
-
-        // Anzeige entfernen
-        const display = document.getElementById(`tenant-display-${tenantId}`);
-        if (display) {
-            display.remove();
-        }
-
-        // Unterschriftenfeld entfernen
-        const signatureBlock = document.getElementById(`signature-canvas-${tenantId}`);
-        if (signatureBlock) {
-            signatureBlock.parentElement.remove(); // Entfernt den gesamten div.signature-block
+        
+        if (confirm('Möchten Sie diesen Mieter wirklich löschen?')) {
+            // Anzeige entfernen
+            const display = document.getElementById(`tenant-display-${tenantId}`);
+            if (display) {
+                display.remove();
+            }
+            
+            // Unterschriftsfeld entfernen
+            const signatureContainer = document.getElementById(`tenant-signature-container-${tenantId}`);
+            if (signatureContainer) {
+                signatureContainer.remove();
+            }
         }
     }
-
-
-
-
 });
-
