@@ -1,9 +1,11 @@
 // rwm.js - Rauchwarnmelder Logik für Küche und Bad
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Initialisiere beide Rauchmelder-Zähler
     const rauchmelderInputs = {
         kueche: document.getElementById('rauchmelder-anzahl'),
-        bad: document.getElementById('rauchmelder-anzahlbad')
+        bad: document.getElementById('rauchmelder-anzahlbad'),
+        flur: document.getElementById('rauchmelder-anzahl2'),
+        abstell: document.getElementById('rauchmelder-anzahl3')
     };
 
     // Funktion zur Steuerung der Zähler
@@ -53,4 +55,23 @@ document.addEventListener('DOMContentLoaded', function() {
             badContainer.querySelector('.plus')
         );
     }
+
+    if (rauchmelderInputs.flur) {
+        const flurContainer = rauchmelderInputs.flur.closest('.number-input');
+        setupRauchmelderCounter(
+            rauchmelderInputs.flur,
+            flurContainer.querySelector('.minus'),
+            flurContainer.querySelector('.plus')
+        );
+    }
+
+    if (rauchmelderInputs.abstell) {
+        const abstellContainer = rauchmelderInputs.abstell.closest('.number-input');
+        setupRauchmelderCounter(
+            rauchmelderInputs.abstell,
+            abstellContainer.querySelector('.minus'),
+            abstellContainer.querySelector('.plus')
+        );
+    }
+
 });
