@@ -34,14 +34,11 @@ document.addEventListener('DOMContentLoaded', function() {
                             </div>
                         </th>
                     </tr>
-                    <tr>
-                        <th class="aa">Daten</th>
-                        <th class="aa" colspan="5">Eingabe</th>
-                    </tr>
+               
                 </thead>
                 <tbody>
                     <tr id="zaehler-type-row-${zaehlerCounter}">
-                        <td>Zählertyp*</td>
+                        <td>Zählertyp</td>
                         <td colspan="5">
                             <select id="zaehler-type-select-${zaehlerCounter}" class="zaehler-type-select" required>
                                 <option value="">-- Bitte auswählen --</option>
@@ -56,15 +53,15 @@ document.addEventListener('DOMContentLoaded', function() {
                         </td>
                     </tr>
                     <tr id="zaehler-number-row-${zaehlerCounter}">
-                        <td>Zählernummer*</td>
+                        <td>Zählernummer</td>
                         <td colspan="5"><input type="text" class="textinput" id="zaehler-number-input-${zaehlerCounter}" required></td>
                     </tr>
                     <tr id="zaehler-location-row-${zaehlerCounter}">
-                        <td>Einbaulage*</td>
+                        <td>Einbaulage</td>
                         <td colspan="5"><input type="text" class="textinput" id="zaehler-location-input-${zaehlerCounter}" required></td>
                     </tr>
                     <tr id="zaehler-value-row-${zaehlerCounter}">
-                        <td>Zählerstand*</td>
+                        <td>Zählerstand</td>
                         <td colspan="5">
                             <input type="number" class="textinput" id="zaehler-value-input-${zaehlerCounter}" step="0.01" required>
                         </td>
