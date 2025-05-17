@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Konfiguration für alle Räume
     const roomConfigs = [
         {
@@ -16,6 +16,30 @@ document.addEventListener('DOMContentLoaded', function() {
             titleElementId: 'bad-galerie-title'
         },
         {
+            name: 'badezimmer2',
+            uploadBtnSelector: '.badezimmer2 .bilder-upload-btn',
+            thumbnailContainerSelector: '.badezimmer2 .bilder-thumbnails',
+            galleryContainerId: 'WC-galerie',
+            titleElementId: 'WC-galerie-title'
+        },
+
+        {
+            name: 'flur',
+            uploadBtnSelector: '.flur .bilder-upload-btn',
+            thumbnailContainerSelector: '.flur .bilder-thumbnails',
+            galleryContainerId: 'flur-galerie',
+            titleElementId: 'flur-galerie-title'
+        },
+
+        {
+            name: 'abstell',
+            uploadBtnSelector: '.abstell .bilder-upload-btn',
+            thumbnailContainerSelector: '.abstell .bilder-thumbnails',
+            galleryContainerId: 'abstell-galerie',
+            titleElementId: 'abstell-galerie-title'
+        },
+
+        {
             name: 'nebenraum',
             uploadBtnSelector: '#nebenraumContainer .bilder-upload-btn',
             thumbnailContainerSelector: '#nebenraumContainer .bilder-thumbnails',
@@ -30,42 +54,87 @@ document.addEventListener('DOMContentLoaded', function() {
         roomImages[room.name] = [];
     });
 
-    // Initialisierung für jeden Raum
-    roomConfigs.forEach(room => {
-        const uploadBtn = document.querySelector(room.uploadBtnSelector);
-        const thumbnailContainer = document.querySelector(room.thumbnailContainerSelector);
-        const galleryContainer = document.getElementById(room.galleryContainerId);
-        const titleElement = document.getElementById(room.titleElementId);
+    // Hilfsfunktion zum Warten auf Elemente
+    function waitForElement(selector) {
+        return new Promise(resolve => {
+            const element = document.querySelector(selector);
+            if (element) {
+                return resolve(element);
+            }
 
-        // Event Listener für Upload-Button
-        uploadBtn.addEventListener('click', () => {
-            handleImageUpload(
-                roomImages[room.name],
+            const observer = new MutationObserver(() => {
+                const element = document.querySelector(selector);
+                if (element) {
+                    observer.disconnect();
+                    resolve(element);
+                }
+            });
+
+            observer.observe(document.body, {
+                childList: true,
+                subtree: true
+            });
+        });
+    }
+
+    // Initialisierung für jeden Raum
+    async function initializeRoom(room) {
+        try {
+            const [uploadBtn, thumbnailContainer] = await Promise.all([
+                waitForElement(room.uploadBtnSelector),
+                waitForElement(room.thumbnailContainerSelector)
+            ]);
+
+            const galleryContainer = document.getElementById(room.galleryContainerId);
+            const titleElement = document.getElementById(room.titleElementId);
+
+            console.log(`Successfully initialized ${room.name}:`, {
+                uploadBtn,
                 thumbnailContainer,
                 galleryContainer,
                 titleElement
-            );
-        });
+            });
 
-        // Event Delegation für Löschen von Thumbnails
-        thumbnailContainer.addEventListener('click', function(e) {
-            if (e.target.classList.contains('thumbnail-remove')) {
-                const index = e.target.getAttribute('data-index');
-                
-                // URLs freigeben
-                URL.revokeObjectURL(roomImages[room.name][index].originalUrl);
-                URL.revokeObjectURL(roomImages[room.name][index].thumbnailUrl);
-                URL.revokeObjectURL(roomImages[room.name][index].galerieUrl);
-                
-                roomImages[room.name].splice(index, 1);
-                updateThumbnails(roomImages[room.name], thumbnailContainer);
-                updateGalerie(roomImages[room.name], galleryContainer, titleElement);
-            }
-        });
-    });
+            // Event Listener für Upload-Button
+            uploadBtn.addEventListener('click', () => {
+                handleImageUpload(
+                    roomImages[room.name],
+                    thumbnailContainer,
+                    galleryContainer,
+                    titleElement
+                );
+            });
+
+            // Event Delegation für Löschen von Thumbnails
+            thumbnailContainer.addEventListener('click', function (e) {
+                if (e.target.classList.contains('thumbnail-remove')) {
+                    const index = e.target.getAttribute('data-index');
+
+                    // URLs freigeben
+                    if (roomImages[room.name][index]) {
+                        URL.revokeObjectURL(roomImages[room.name][index].originalUrl);
+                        URL.revokeObjectURL(roomImages[room.name][index].thumbnailUrl);
+                        URL.revokeObjectURL(roomImages[room.name][index].galerieUrl);
+                    }
+
+                    roomImages[room.name].splice(index, 1);
+                    updateThumbnails(roomImages[room.name], thumbnailContainer);
+                    updateGalerie(roomImages[room.name], galleryContainer, titleElement);
+                }
+            });
+
+            // Initiale Galerie aktualisieren
+            updateGalerie(roomImages[room.name], galleryContainer, titleElement);
+
+        } catch (error) {
+            console.error(`Error initializing ${room.name}:`, error);
+        }
+    }
 
     // Funktion zum Aktualisieren der Sichtbarkeit der Titel
     function updateTitleVisibility(container, titleElement) {
+        if (!container || !titleElement) return;
+
         if (container.children.length > 0) {
             titleElement.style.display = 'block';
             titleElement.style.animation = '0.3s ease-in-out fadeIn';
@@ -80,19 +149,19 @@ document.addEventListener('DOMContentLoaded', function() {
             const canvas = document.createElement('canvas');
             let width = image.width;
             let height = image.height;
-            
+
             if (width > maxWidth || height > maxHeight) {
                 const ratio = Math.min(maxWidth / width, maxHeight / height);
                 width = Math.floor(width * ratio);
                 height = Math.floor(height * ratio);
             }
-            
+
             canvas.width = width;
             canvas.height = height;
-            
+
             const ctx = canvas.getContext('2d');
             ctx.drawImage(image, 0, 0, width, height);
-            
+
             canvas.toBlob((blob) => {
                 resolve(blob);
             }, 'image/jpeg', quality);
@@ -105,43 +174,43 @@ document.addEventListener('DOMContentLoaded', function() {
         input.type = 'file';
         input.accept = 'image/*';
         input.multiple = true;
-        
-        input.onchange = async function(e) {
+
+        input.onchange = async function (e) {
             const files = e.target.files;
             if (files.length > 0) {
                 for (const file of Array.from(files)) {
                     try {
                         const originalImage = await loadImage(file);
-                        
+
                         // Originalbild (max 3500x3500)
                         const resizedBlob = await resizeImage(originalImage, 3500, 3500);
                         const resizedUrl = URL.createObjectURL(resizedBlob);
-                        
+
                         // Thumbnail (75x75)
                         const thumbnailBlob = await resizeImage(originalImage, 75, 75);
                         const thumbnailUrl = URL.createObjectURL(thumbnailBlob);
-                        
+
                         // Galeriebild (1000x1000)
                         const galerieBlob = await resizeImage(originalImage, 1000, 1000);
                         const galerieUrl = URL.createObjectURL(galerieBlob);
-                        
+
                         const bildData = {
                             originalUrl: resizedUrl,
                             thumbnailUrl: thumbnailUrl,
                             galerieUrl: galerieUrl
                         };
-                        
+
                         bilderArray.push(bildData);
                         updateThumbnails(bilderArray, thumbnailContainer);
                         updateGalerie(bilderArray, galleryContainer, titleElement);
-                        
+
                     } catch (error) {
                         console.error('Fehler beim Verarbeiten des Bildes:', error);
                     }
                 }
             }
         };
-        
+
         input.click();
     }
 
@@ -150,25 +219,27 @@ document.addEventListener('DOMContentLoaded', function() {
         return new Promise((resolve, reject) => {
             const img = new Image();
             const url = URL.createObjectURL(file);
-            
+
             img.onload = () => {
                 URL.revokeObjectURL(url);
                 resolve(img);
             };
-            
+
             img.onerror = () => {
                 URL.revokeObjectURL(url);
                 reject(new Error('Bild konnte nicht geladen werden'));
             };
-            
+
             img.src = url;
         });
     }
 
     // Thumbnails aktualisieren
     function updateThumbnails(bilderArray, container) {
+        if (!container) return;
+
         container.innerHTML = '';
-        
+
         bilderArray.forEach((bild, index) => {
             const thumb = document.createElement('div');
             thumb.className = 'thumbnail';
@@ -182,6 +253,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Galerie aktualisieren
     function updateGalerie(bilderArray, container, titleElement) {
+        if (!container || !titleElement) return;
+
         container.innerHTML = '';
 
         // Den Raumnamen aus dem Container ableiten (z. B. "kueche-galerie" → "kueche")
@@ -201,10 +274,8 @@ document.addEventListener('DOMContentLoaded', function() {
         updateTitleVisibility(container, titleElement);
     }
 
-    // Initiale Sichtbarkeit der Titel setzen
+    // Alle Räume initialisieren
     roomConfigs.forEach(room => {
-        const galleryContainer = document.getElementById(room.galleryContainerId);
-        const titleElement = document.getElementById(room.titleElementId);
-        updateTitleVisibility(galleryContainer, titleElement);
+        initializeRoom(room);
     });
 });
