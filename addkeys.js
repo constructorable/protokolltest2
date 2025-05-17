@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
             <table id="key-table-${keyCounter}">
                 <thead>
                     <tr>
-                        <th colspan="6" class="kueche-header">
+                        <th colspan="6" class="header">
                             <div class="kueche-verfuegbar" id="key-header-${keyCounter}">
                                 Schlüssel ${currentKeyNumber}
                             </div>
@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 </thead>
                 <tbody>
                     <tr id="key-type-row-${keyCounter}">
-                        <td>Schlüsselart*</td>
+                        <td>Schlüsselart</td>
                         <td colspan="5">
                             <select id="key-type-select-${keyCounter}" required>
                                 <option value="">-- Bitte auswählen --</option>
@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         </td>
                     </tr>
                     <tr id="key-amount-row-${keyCounter}">
-                        <td>Anzahl*</td>
+                        <td>Anzahl</td>
                         <td colspan="5">
                             <div class="number-input" id="key-number-input-${keyCounter}">
                                 <button type="button" class="number-btn minus" id="key-minus-btn-${keyCounter}">-</button>
