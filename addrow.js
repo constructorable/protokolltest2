@@ -23,8 +23,8 @@ document.addEventListener('DOMContentLoaded', function () {
             addBemerkungRow(e.target.closest('tr'), 'bad');
         }
         else if (e.target.classList.contains('add-bemerkung-btn') &&
-            e.target.closest('.table-container.WC')) {
-            addBemerkungRow(e.target.closest('tr'), 'WC');
+            e.target.closest('.table-container.wc')) {
+            addBemerkungRow(e.target.closest('tr'), 'wc');
         }
         else if (e.target.classList.contains('add-bemerkung-btn') &&
             e.target.closest('.table-container.flur')) {
@@ -36,8 +36,8 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         // Nebenräume
         else if (e.target.classList.contains('add-bemerkung-btn') &&
-            e.target.closest('#nebenraumContainer')) {
-            addBemerkungRow(e.target.closest('tr'), 'nebenraum');
+            e.target.closest('.table-container.neben')) {
+            addBemerkungRow(e.target.closest('tr'), 'neben');
         }
         // Regelungen
         else if (e.target.classList.contains('add-bemerkung-btn') &&
