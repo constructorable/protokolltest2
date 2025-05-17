@@ -14,7 +14,6 @@
     <script src="addbilder.js" defer></script>
     <script src="addkeys.js"></script>
     <script src="addzaehler.js"></script>
-    <!-- <script src="bilder02.js" defer></script> -->
     <script src="togglerooms.js"></script>
     <script src="stylechange.js"></script>
     <script src="immo.js"></script>
@@ -25,6 +24,7 @@
     <script src="script1.js"></script>
     <script src="suggestion.js"></script>
     <script src="screenshot.js"></script>
+    <script src="importexport.js"></script>
     <script src="saveloadlocal.js"></script>
 
 
@@ -36,11 +36,13 @@
     <div class="container">
 
         <div class="sticky">
-            <button id="stylechange">Ansicht wechseln</button>
-            <button id="savelocal">Zwischenspeichern</button>
-            <button id="loadlocal">Laden</button>
-            <button id="delete">alle Eingaben löschen</button>
-            <button id="screenshot">PDF erstellen</button>
+            <button id="stylechange" class="button">Ansicht wechseln</button>
+            <button id="savelocal" class="button">Zwischenspeichern</button>
+            <button id="loadlocal" class="button">Laden</button>
+            <button id="delete" class="button">alle Eingaben löschen</button>
+            <button id="export" class="button">Export</button>
+            <button id="import" class="button">Import</button>
+            <button id="screenshot" class="button">PDF erstellen</button>
         </div>
 
 
@@ -2231,7 +2233,24 @@
                 <button id="addzimmert">+ Zimmer hinzufügen</button>
             </div>
 
+
+
+
         </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         <div id="regelungen">
             <div class="rooms">
@@ -2445,13 +2464,24 @@
                             </td>
                         </tr>
 
+
+
+
+
+
+
                     </tbody>
                 </table>
             </div>
 
             <div class="signtenant" id="signtenant1"></div>
 
+
+
         </div>
+
+
+
 
         <div class="bildergalerie-container">
 
