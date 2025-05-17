@@ -20,6 +20,7 @@ body {
     max-width: 900px;
     margin: 0 auto;
     padding: 20px;
+    margin-top: 44px;
 }
 
 .table-container {
@@ -757,7 +758,8 @@ select::-ms-expand {
 .save-zaehler-btn,
 .cancel-zaehler-btn,
 .save-key-btn,
-.cancel-key-btn {
+.cancel-key-btn,
+.button {
     background-color: #607d8b;
     color: white;
     border: none;
@@ -1484,6 +1486,20 @@ tr.bemerkung-row:nth-child(7)>td:nth-child(4) {
     gap: 10px;
     border-bottom: 1px solid #ccc;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.sticky {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px; /* Abstand zwischen den Buttons */
+    padding: 10px;
+}
+
+.button {
+    /* Optional: Stil für die Buttons */
+    padding: 8px 16px;
+    margin: 2px;
 }
 
 .saved-states-dialog {
