@@ -159,7 +159,8 @@ input[type="radio"] {
 
 /* Farbe Autocomplete */
 /* Farbe Autocomplete */
-.farbe-vorschlaege-container {
+.farbe-vorschlaege-container,
+.boden-vorschlaege-container {
     position: absolute;
     background: white;
     border: 1px solid #ddd;
@@ -177,7 +178,8 @@ input[type="radio"] {
 }
 
 /* Falls der Platz nach unten nicht ausreicht */
-.farbe-vorschlaege-container.upwards {
+.farbe-vorschlaege-container.upwards,
+.boden-vorschlaege-container.upwards {
     bottom: 100%;
     top: auto;
     margin-top: 0;
@@ -185,7 +187,8 @@ input[type="radio"] {
     border-radius: 4px 4px 0 0;
 }
 
-.farbe-vorschlag {
+.farbe-vorschlag,
+.boden-vorschlag {
     padding: 8px 12px;
     cursor: pointer;
     transition: background-color 0.2s;
@@ -262,28 +265,6 @@ tr.bemerkung-row .bemerkung-actions {
     gap: 5px;
     margin-left: 5px;
 }
-
-/* Webkit-Browser (Chrome, Safari) */
-/* #rauchmelder-anzahl::-webkit-outer-spin-button,
-#rauchmelder-anzahl::-webkit-inner-spin-button,
-#rauchmelder-anzahlbad::-webkit-outer-spin-button,
-#rauchmelder-anzahlbad::-webkit-inner-spin-button,
-#rauchmelder-anzahl-1::-webkit-outer-spin-button,
-#rauchmelder-anzahl-2::-webkit-outer-spin-button,
-#rauchmelder-anzahl-3::-webkit-outer-spin-button,
-#rauchmelder-anzahl-4::-webkit-outer-spin-button,
-#rauchmelder-anzahl-5::-webkit-outer-spin-button,
-#rauchmelder-anzahl-6::-webkit-outer-spin-button,
-#rauchmelder-anzahl-1::-webkit-inner-spin-button,
-#rauchmelder-anzahl-2::-webkit-inner-spin-button,
-#rauchmelder-anzahl-3::-webkit-inner-spin-button,
-#rauchmelder-anzahl-4::-webkit-inner-spin-button,
-#rauchmelder-anzahl-5::-webkit-inner-spin-button,
-#rauchmelder-anzahl-6::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-} */
-
 
 /* Eingabefeld ohne Pfeile */
 .no-spin::-webkit-inner-spin-button,
@@ -399,7 +380,11 @@ select::-ms-expand {
 }
 
 .kueche-verfuegbar,
-.bad-verfuegbar {
+.bad-verfuegbar,
+.WC-verfuegbar,
+.flur-verfuegbar,
+.abstell-verfuegbar,
+.nebenraum-verfuegbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -495,12 +480,13 @@ select::-ms-expand {
 
 
 /* Badezimmer-spezifisches Styling */
-.bad-header {
+.bad-header, .WC-header, .flur-header, .abstell-header, .nebenraum-header {
     background-color: #4a7b9d;
     /* Anderer Blauton für Unterscheidung */
     color: white;
     padding: 5px 15px;
 }
+
 
 /* .bad-verfuegbar {
     display: flex;
@@ -621,11 +607,11 @@ select::-ms-expand {
     border-radius: 8px;
 }
 
-.kueche-galerie {
+/* .kueche-galerie {
     display: flex;
     flex-wrap: wrap;
     gap: 15px;
-}
+} */
 
 .galerie-bild {
     width: calc(33.333% - 10px);
@@ -650,7 +636,7 @@ select::-ms-expand {
 /* Animationen */
 @keyframes fadeIn {
     from {
-        opacity: 0;
+        opacity: 0.9;
         transform: translateY(-10px);
     }
 
@@ -667,19 +653,27 @@ select::-ms-expand {
     }
 
     to {
-        opacity: 0;
+        opacity: 0.9;
         transform: translateY(-10px);
     }
 }
 
 /* Allgemeine Stile für die Toggle-Bereiche */
 .kueche-section,
-.bad-section {
+.bad-section,
+.WC-section,
+.flur-section,
+.abstell-section,
+.nebenraum-section {
     margin-bottom: 0px;
 }
 
 .kueche-toggle,
-.bad-toggle {
+.bad-toggle,
+.WC-toggle,
+.flur-toggle,
+.abstell-toggle,
+.nebenraum-toggle {
     background-color: #f5f5f5;
     padding: 15px;
     border-radius: 5px;
@@ -691,7 +685,11 @@ select::-ms-expand {
 }
 
 .kueche-toggle:hover,
-.bad-toggle:hover {
+.bad-toggle:hover,
+.WC-toggle:hover,
+.flur-toggle:hover,
+.abstell-toggle:hover,
+.nebenraum-toggle:hover {
     background-color: #e9e9e9;
 }
 
@@ -722,7 +720,11 @@ select::-ms-expand {
 }
 
 .kueche-galerie,
-.badezimmer-galerie {
+.badezimmer-galerie,
+.badezimmer2-galerie,
+.flur-galerie,
+.abstell-galerie,
+.nebenraum-galerie {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 15px;
@@ -1175,7 +1177,7 @@ select::-ms-expand {
 .del-bemerkung-btn {
     background: none;
     border: none;
-    color: #999;
+    color: #e80000;
     cursor: pointer;
     font-size: 16px;
     padding: 0 6px;
@@ -1190,7 +1192,7 @@ select::-ms-expand {
     color: white;
     border: none;
     border-radius: 4px;
-    padding: 0 12px;
+    padding: 0 9px;
     cursor: pointer;
 }
 
@@ -1411,3 +1413,262 @@ tr.bemerkung-row:nth-child(7)>td:nth-child(4) {
     border-radius: 3px;
 }
 
+@media print {
+    .container>div {
+        page-break-after: always;
+        /* Sicherer Seitenumbruch */
+    }
+}
+
+/* Vermeidet ungewollte Seitentrennungen */
+@media print {
+    div {
+        page-break-inside: avoid;
+    }
+    img, table {
+        break-inside: avoid-page;
+    }
+}
+
+/* Temporäre PDF-Elemente */
+.temp-pdf-section {
+    background: white !important;
+    box-shadow: none !important;
+}
+
+.key-actions-row td:last-child {
+    text-align: right;
+}
+
+.delete-key-btn {
+    margin-left: auto;
+    padding: 2px 8px;
+    border: none;
+    background: #f5f5f5;
+    color: #ff0000;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.delete-key-btn:hover {
+    background: #ffebee;
+}
+
+.zaehler-actions-row td:last-child {
+    text-align: right;
+}
+
+.delete-zaehler-btn {
+    margin-left: auto;
+    padding: 2px 8px;
+    border: none;
+    background: #f5f5f5;
+    color: #ff0000;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.delete-zaehler-btn:hover {
+    background: #ffebee;
+}
+
+.sticky {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: white;
+    z-index: 9999;
+    padding: 10px;
+    display: flex;
+    gap: 10px;
+    border-bottom: 1px solid #ccc;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.saved-states-dialog {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.saved-states-container {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    max-width: 80%;
+    max-height: 80%;
+    overflow: auto;
+}
+
+.saved-states-container ul {
+    list-style: none;
+    padding: 0;
+}
+
+.saved-states-container li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.saved-states-container button {
+    margin-left: 10px;
+    padding: 3px 8px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.toggle-options {
+    display: inline-flex;
+    position: relative;
+    border-radius: 50px;
+    overflow: hidden;
+    margin-left: 12px;
+    background: #f8fafc;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+    padding: 2px;
+    border: 1px solid #e2e8f0;
+}
+
+.toggle-option {
+    position: relative;
+    padding: 6px 14px;
+    cursor: pointer;
+    z-index: 1;
+    color: #64748b;
+    font-weight: 500;
+    font-size: 0.9em;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    text-align: center;
+    min-width: 56px;
+}
+
+.toggle-option:not(.active):hover {
+    color: #475569;
+    background: rgba(226, 232, 240, 0.4);
+    }
+
+.toggle-option.active {
+    color: #ffffff;
+}
+
+.toggle-options::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    height: calc(100% - 4px);
+    width: calc(50% - 2px);
+    background: linear-gradient(to right, #607d8b, #6b8490);
+    border-radius: 50px;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.toggle-options[data-active-option="0"]::after {
+    transform: translateX(0);
+}
+
+.toggle-options[data-active-option="1"]::after {
+    transform: translateX(100%);
+}
+
+/* Icons - dezenter */
+.toggle-option i {
+    margin-right: 5px;
+    font-size: 13px;
+    opacity: 0.9;
+}
+
+/* Container - noch dezenter */
+.room-container {
+    margin-top: 12px;
+    padding: 1px;
+    border-radius: 5px;
+    background: none;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    border: none;
+    transition: all 0.25s ease-out;
+}
+
+/* Verfeinerte Animationen */
+@keyframes fadeIn {
+    from { 
+        opacity: 0.9;
+        transform: translateY(3px);
+    }
+    to { 
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeOut {
+    from { 
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to { 
+        opacity: 0.9;
+        transform: translateY(3px);
+    }
+}
+
+/* Optional: Dunkler Modus Unterstützung */
+@media (prefers-color-scheme: dark) {
+    .toggle-options {
+        background: #1e293b;
+        border-color: #334155;
+    }
+    
+    .toggle-option {
+        color: #94a3b8;
+    }
+    
+    .toggle-option:not(.active):hover {
+        color: #e2e8f0;
+        background: rgba(30, 41, 59, 0.6);
+    }
+    
+    .toggle-options::after {
+        background: linear-gradient(to right, #607d8b, #ad6d2e);
+    }
+    
+    .room-container {
+        background: #1e293b;
+        border-color: #334155;
+    }
+}
+
+.room-toggle {
+    padding-left:15px;
+    margin-bottom: 15px;
+    font-weight: 600;
+    box-shadow: 1px 3px 4px 0px #0202021a;
+    border-radius: 5px;
+    width: 99%;
+    margin-left: 5px;
+    padding: 8px 17px 2px 15px;
+    margin-top: 30px;
+    padding: 8px 0px 0px 0px;
+}
