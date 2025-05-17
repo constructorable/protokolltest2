@@ -16,11 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             </div>
                         </th>
                     </tr>
-                    <tr>
-                        <th class="aa">Daten</th>
-                        <th class="aa" colspan="5">Informationen</th>
-                    </tr>
-                </thead>
+                               </thead>
                 <tbody>
                     <tr id="tenant-display-name-row-${tenantCounter}">
                         <td>Name</td>
@@ -47,9 +43,9 @@ document.addEventListener('DOMContentLoaded', function () {
                         </td>
                     </tr>
                     <tr class="tenant-actions-row" id="tenant-display-actions-row-${tenantCounter}">
-                        <td>Aktionen</td>
-                        <td colspan="5">
-                            <button type="button" class="delete-tenant-btn" id="tenant-delete-btn-${tenantCounter}" data-tenant-id="${tenantCounter}">Löschen</button>
+                        <td></td>
+                        <td colspan="5" style="text-align:right";>
+                            <button type="button" class="delete-tenant-btn" id="tenant-delete-btn-${tenantCounter}" data-tenant-id="${tenantCounter}">x</button>
                         </td>
                     </tr>
                 </tbody>
@@ -66,11 +62,30 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById(`tenant-display-name-${tenantCounter}`).addEventListener('change', updateSignatureName);
         document.getElementById(`tenant-display-firstname-${tenantCounter}`).addEventListener('change', updateSignatureName);
 
+        // E-Mail-Validierung hinzufügen
+        const emailInput = document.getElementById(`tenant-display-email-${tenantCounter}`);
+        emailInput.addEventListener('input', validateEmail);
+
         // Unterschriftenfeld erstellen (mit leeren Werten initialisieren)
         createSignatureField(tenantCounter, '');
 
         tenantCounter++;
     });
+
+    // Funktion zur E-Mail-Validierung
+    function validateEmail(e) {
+        const emailInput = e.target;
+        const email = emailInput.value.trim();
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (email === '') {
+            emailInput.style.border = ''; // Zurücksetzen
+        } else if (!emailRegex.test(email)) {
+            emailInput.style.border = '3px solid red'; // Dicker roter Rahmen
+        } else {
+            emailInput.style.border = '3px solid green'; // Dicker grüner Rahmen
+        }
+    }
 
     function updateSignatureName(e) {
         const tenantId = e.target.id.split('-')[3];
