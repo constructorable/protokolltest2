@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function () {
+/* document.addEventListener('DOMContentLoaded', function () {
     // Funktion, die prüft, ob eine Galerie Bilder enthält
     function checkGalleryHasImages(galleryId, titleId) {
         const gallery = document.getElementById(galleryId);
@@ -19,6 +19,9 @@ document.addEventListener('DOMContentLoaded', function () {
     // Alle Galerien prüfen
     checkGalleryHasImages('kueche-galerie', 'kueche-galerie-title');
     checkGalleryHasImages('bad-galerie', 'bad-galerie-title');
+    checkGalleryHasImages('WC-galerie', 'WC-galerie-title');
+    checkGalleryHasImages('flur-galerie', 'flur-galerie-title');
+    checkGalleryHasImages('abstell-galerie', 'abstell-galerie-title');
 
     // Diese Prüfung kann auch nach dem Hochladen neuer Bilder ausgeführt werden
     // Beispiel, wie man die Prüfung nach einem Upload-Event aufrufen könnte:
@@ -26,10 +29,13 @@ document.addEventListener('DOMContentLoaded', function () {
     function afterImageUpload() {
         checkGalleryHasImages('kueche-galerie', 'kueche-galerie-title');
         checkGalleryHasImages('bad-galerie', 'bad-galerie-title');
+        checkGalleryHasImages('WC-galerie', 'WC-galerie-title');
+        checkGalleryHasImages('flur-galerie', 'flur-galerie-title');
+        checkGalleryHasImages('abstell-galerie', 'abstell-galerie-title');
     }
 
 });
-
+ */
 
 // script1.js
 setTimeout(function () {
@@ -256,3 +262,6 @@ document.addEventListener('DOMContentLoaded', function () {
         document.head.appendChild(style);
     }
 });
+
+
+
