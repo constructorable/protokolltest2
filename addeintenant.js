@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function () {
         signatureContainer.className = 'signature-block';
         signatureContainer.id = `tenant-signature-container-${tenantId}`;
         signatureContainer.innerHTML = `
-            <canvas id="tenant-signature-canvas-${tenantId}" width="300" height="100" style="border:1px solid #000;"></canvas>
+            <canvas id="tenant-signature-canvas-${tenantId}" width="300" height="100" style="border:1px solid #000; touch-action: none;"></canvas>
             <p><strong>einziehender Mieter: <span class="signature-name" id="tenant-signature-name-${tenantId}">${fullName}</span></strong></p>
             <div>
                 <button type="button" id="tenant-clear-signature-${tenantId}">Unterschrift löschen</button>
@@ -102,22 +102,43 @@ document.addEventListener('DOMContentLoaded', function () {
         const ctx = canvas.getContext('2d');
         let drawing = false;
 
-        canvas.addEventListener('mousedown', (e) => {
+        // Funktion zum Starten der Zeichnung
+        function startDrawing(e) {
             drawing = true;
             const rect = canvas.getBoundingClientRect();
+            const x = e.clientX ? e.clientX : e.touches[0].clientX;
+            const y = e.clientY ? e.clientY : e.touches[0].clientY;
             ctx.beginPath();
-            ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
-        });
+            ctx.moveTo(x - rect.left, y - rect.top);
+            e.preventDefault(); // Verhindert Scrollen bei Touch-Events
+        }
 
-        canvas.addEventListener('mousemove', (e) => {
+        // Funktion zum Zeichnen
+        function draw(e) {
             if (!drawing) return;
             const rect = canvas.getBoundingClientRect();
-            ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
+            const x = e.clientX ? e.clientX : e.touches[0].clientX;
+            const y = e.clientY ? e.clientY : e.touches[0].clientY;
+            ctx.lineTo(x - rect.left, y - rect.top);
             ctx.stroke();
-        });
+            e.preventDefault(); // Verhindert Scrollen bei Touch-Events
+        }
 
-        canvas.addEventListener('mouseup', () => drawing = false);
-        canvas.addEventListener('mouseout', () => drawing = false);
+        // Funktion zum Beenden der Zeichnung
+        function stopDrawing() {
+            drawing = false;
+        }
+
+        // Maus-Events
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseup', stopDrawing);
+        canvas.addEventListener('mouseout', stopDrawing);
+
+        // Touch-Events für mobile Geräte
+        canvas.addEventListener('touchstart', startDrawing);
+        canvas.addEventListener('touchmove', draw);
+        canvas.addEventListener('touchend', stopDrawing);
 
         // Löschen-Button
         document.getElementById(`tenant-clear-signature-${tenantId}`).addEventListener('click', () => {
