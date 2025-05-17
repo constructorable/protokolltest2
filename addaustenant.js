@@ -47,9 +47,9 @@ document.addEventListener('DOMContentLoaded', function () {
                         </td>
                     </tr>
                     <tr class="tenant-actions-row" id="moveout-display-actions-row-${moveOutTenantCounter}">
-                        <td>Aktionen</td>
-                        <td colspan="5">
-                            <button type="button" class="delete-moveout-btn" id="moveout-delete-btn-${moveOutTenantCounter}" data-tenant-id="${moveOutTenantCounter}">Löschen</button>
+                        <td></td>
+                        <td colspan="5" style="text-align:right";>
+                            <button type="button" class="delete-moveout-btn" id="moveout-delete-btn-${moveOutTenantCounter}" data-tenant-id="${moveOutTenantCounter}">x</button>
                         </td>
                     </tr>
                 </tbody>
@@ -65,11 +65,30 @@ document.addEventListener('DOMContentLoaded', function () {
         // Event Listener für Input-Änderungen
         document.getElementById(`moveout-display-name-${moveOutTenantCounter}`).addEventListener('change', updateMoveOutSignatureName);
 
+        // E-Mail-Validierung mit 3px Rahmen
+        const emailInput = document.getElementById(`moveout-display-email-${moveOutTenantCounter}`);
+        emailInput.addEventListener('input', validateMoveOutEmail);
+
         // Unterschriftenfeld erstellen (mit leeren Werten initialisieren)
         createMoveOutSignatureField(moveOutTenantCounter, '');
 
         moveOutTenantCounter++;
     });
+
+    // E-Mail-Validierung für ausziehende Mieter
+    function validateMoveOutEmail(e) {
+        const emailInput = e.target;
+        const email = emailInput.value.trim();
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (email === '') {
+            emailInput.style.border = '3px solid #ccc'; // Neutral bei leerem Feld
+        } else if (!emailRegex.test(email)) {
+            emailInput.style.border = '3px solid red'; // Dicker roter Rahmen bei Ungültig
+        } else {
+            emailInput.style.border = '3px solid green'; // Dicker grüner Rahmen bei Gültig
+        }
+    }
 
     function updateMoveOutSignatureName(e) {
         const tenantId = e.target.id.split('-')[3];
