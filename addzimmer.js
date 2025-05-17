@@ -171,8 +171,8 @@ document.addEventListener('DOMContentLoaded', function () {
                         <th class="aa">allgemeiner Zustand</th>
                         <th class="aa">in Ordnung</th>
                         <th class="aa">neuwertig</th>
-                        <th class="aa">geringe Gebrauchsspuren</th>
-                        <th class="aa">stärkere Gebrauchsspuren</th>
+                        <th class="aa">geringe Gebrauchs - spuren</th>
+                        <th class="aa">stärkere Gebrauchs - spuren</th>
                         <th class="aa">nicht renoviert</th>
                     </tr>
                     <tr>
