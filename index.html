@@ -52,10 +52,10 @@
             <div class="objektdaten" id="objektdaten">
                 <table>
                     <colgroup>
-                        <col style="width: 15%"> <!-- Label-Spalte -->
-                        <col style="width: 35%"> <!-- Eingabefeld-Spalte -->
-                        <col style="width: 10%"> <!-- Label-Spalte 2 -->
-                        <col style="width: 40%"> <!-- Eingabefeld-Spalte 2 -->
+                        <col style="width: 18%"> <!-- Label-Spalte -->
+                        <col style="width: 32%"> <!-- Eingabefeld-Spalte -->
+                        <col style="width: 20%"> <!-- Label-Spalte 2 -->
+                        <col style="width: 30%"> <!-- Eingabefeld-Spalte 2 -->
                     </colgroup>
                     <tbody>
                         <!-- 1. Zeile: Protokollart (2 Spalten) -->
@@ -135,17 +135,25 @@
                 <button id="auszugtenant">+ ausziehenden Mieter hinzufügen</button>
             </div>
 
+
             <div class="heatwater" id="heatwater">
-                <table style="width: 100%;">
+                <table style="width: 100%; border-collapse: collapse;">
                     <tbody>
-                        <tr style="display: flex; align-items: center;">
-                            <td style="text-align: right; padding-right: 10px; min-width: 70px;">Heizung:</td>
-                            <td style="padding-right: 20px;">
-                                <div style="display: flex; gap: 15px;">
+                        <tr>
+                            <!-- Heizung -->
+                            <td
+                                style="width: 15%; text-align: right; padding: 8px 10px; vertical-align: middle; white-space: nowrap; font-weight:600;">
+                                Heizung:
+                            </td>
+
+                            <td style="width: 35%; padding: 8px 10px;">
+                                <div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center;">
+
                                     <label style="display: flex; align-items: center; gap: 5px;">
                                         <input type="checkbox" name="heat_zentral" value="zentral" id="heatzent">
                                         zentral
                                     </label>
+
                                     <label style="display: flex; align-items: center; gap: 5px;">
                                         <input type="checkbox" name="heat_dezentral" value="dezentral" id="heatdezen">
                                         dezentral
@@ -153,9 +161,13 @@
                                 </div>
                             </td>
 
-                            <td style="text-align: right; padding-right: 10px; min-width: 90px;">Warmwasser:</td>
-                            <td>
-                                <div style="display: flex; gap: 15px;">
+                            <!-- Warmwasser -->
+                            <td
+                                style="width: 15%; text-align: right; padding: 8px 10px; vertical-align: middle; white-space: nowrap; font-weight:600;">
+                                Warmwasser:
+                            </td>
+                            <td style="width: 35%; padding: 8px 10px;">
+                                <div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center;">
                                     <label style="display: flex; align-items: center; gap: 5px;">
                                         <input type="checkbox" name="water_zentral" value="zentral" id="watazent">
                                         zentral
@@ -170,8 +182,6 @@
                     </tbody>
                 </table>
             </div>
-
-
 
         </div>
 
@@ -637,8 +647,8 @@
                                     <th class="aa">allgemeiner Zustand</th>
                                     <th class="aa">in Ordnung</th>
                                     <th class="aa">neuwertig</th>
-                                    <th class="aa">geringe Gebrauchsspuren</th>
-                                    <th class="aa">stärkere Gebrauchsspuren</th>
+                                    <th class="aa">geringe Gebrauchs - spuren</th>
+                                    <th class="aa">stärkere Gebrauchs - spuren</th>
                                     <th class="aa">nicht renoviert</th>
                                 </tr>
                                 <tr>
@@ -646,13 +656,7 @@
                                     <td><input type="checkbox" id="boden-pb1"></td>
                                     <td><input type="checkbox" id="boden-pb2"></td>
                                     <td><input type="checkbox" id="boden-pb3"></td>
-                                    <td>
-                                        <select id="boden-status2">
-                                            <option value="offen" id="158">Offen</option>
-                                            <option value="in-arbeit" id="159">In Arbeit</option>
-                                            <option value="fertig" id="160">Fertig</option>
-                                        </select>
-                                    </td>
+                                    <td><input type="checkbox" id="boden-pb3b"></td>
                                     <td><input type="checkbox" id="boden-pb4"></td>
                                 </tr>
 
@@ -1096,8 +1100,8 @@
                                     <th class="aa">allgemeiner Zustand</th>
                                     <th class="aa">in Ordnung</th>
                                     <th class="aa">neuwertig</th>
-                                    <th class="aa">geringe Gebrauchsspuren</th>
-                                    <th class="aa">stärkere Gebrauchsspuren</th>
+                                    <th class="aa">geringe Gebrauchs - spuren</th>
+                                    <th class="aa">stärkere Gebrauchs - spuren</th>
                                     <th class="aa">nicht renoviert</th>
                                 </tr>
                                 <tr>
@@ -1105,13 +1109,7 @@
                                     <td><input type="checkbox" id="334"></td>
                                     <td><input type="checkbox" id="335"></td>
                                     <td><input type="checkbox" id="336"></td>
-                                    <td>
-                                        <select id="boden-status2">
-                                            <option value="offen" id="337">Offen</option>
-                                            <option value="in-arbeit" id="338">In Arbeit</option>
-                                            <option value="fertig" id="339">Fertig</option>
-                                        </select>
-                                    </td>
+                                    <td><input type="checkbox" id="3361"></td>
                                     <td><input type="checkbox" id="boden-pb4"></td>
                                 </tr>
 
@@ -1567,8 +1565,8 @@
                                     <th class="aa">allgemeiner Zustand</th>
                                     <th class="aa">in Ordnung</th>
                                     <th class="aa">neuwertig</th>
-                                    <th class="aa">geringe Gebrauchsspuren</th>
-                                    <th class="aa">stärkere Gebrauchsspuren</th>
+                                    <th class="aa">geringe Gebrauchs - spuren</th>
+                                    <th class="aa">stärkere Gebrauchs - spuren</th>
                                     <th class="aa">nicht renoviert</th>
                                 </tr>
                                 <tr>
@@ -1845,8 +1843,8 @@
                                     <th class="aa">allgemeiner Zustand</th>
                                     <th class="aa">in Ordnung</th>
                                     <th class="aa">neuwertig</th>
-                                    <th class="aa">geringe Gebrauchsspuren</th>
-                                    <th class="aa">stärkere Gebrauchsspuren</th>
+                                    <th class="aa">geringe Gebrauchs - spuren</th>
+                                    <th class="aa">stärkere Gebrauchs - spuren</th>
                                     <th class="aa">nicht renoviert</th>
                                 </tr>
                                 <tr>
@@ -1854,13 +1852,7 @@
                                     <td><input type="checkbox" id="587"></td>
                                     <td><input type="checkbox" id="588"></td>
                                     <td><input type="checkbox" id="589"></td>
-                                    <td>
-                                        <select id="boden-status4">
-                                            <option value="offen" id="590">Offen</option>
-                                            <option value="in-arbeit" id="591">In Arbeit</option>
-                                            <option value="fertig" id="592">Fertig</option>
-                                        </select>
-                                    </td>
+                                    <td><input type="checkbox" id="5891"></td>
                                     <td><input type="checkbox" id="593"></td>
                                 </tr>
 
@@ -2128,7 +2120,7 @@
                                 <tr">
                                     <th style="background-color: #8da5b2">Bereich</th>
                                     <th style="background-color: #8da5b2">in Ordnung</th>
-                                    <th style="background-color: #8da5b2">geringe Gebrauchsspuren</th>
+                                    <th style="background-color: #8da5b2">geringe Gebrauchs - spuren</th>
                                     <th style="background-color: #8da5b2">repa.bedürftig</th>
                                     <th style="background-color: #8da5b2">Reparatur durch</th>
                                     <th style="background-color: #8da5b2">nicht vorhanden</th>
@@ -2254,15 +2246,17 @@
 
         <div id="regelungen">
             <div class="rooms">
-                <h3>Regelung Mängelbeseitigung</h3>
+
                 <table>
                     <tbody>
-                        <tr>
-                            <th></th>
-                            <th style="text-align:center;">ja</th>
-                            <th>nein</th>
-                            <th>nicht zutreffend</th>
-                        </tr>
+
+
+                        <th colspan="6" class="header-regel">
+                            <div>
+                                Regelung Mängelbeseitigung
+                            </div>
+                        </th>
+
                         <tr>
                             <td>Der ausziehende Mieter erkennt die in diesem Protokoll aufgeführten Mängel an
                                 und...
@@ -2330,9 +2324,16 @@
 
         <div id="weiterebemerkungen">
             <div class="rooms">
-                <h3>weitere sonstige Bemerkungen</h3>
+
                 <table>
                     <tbody>
+
+                        <th colspan="6" class="header-further">
+                            <div>
+                                weitere sonstige Bemerkungen
+                            </div>
+                        </th>
+
                         <tr>
                             <th></th>
                             <th style="text-align:center;"></th>
@@ -2346,7 +2347,7 @@
                                     <label style="display: flex; align-items: center; gap: 5px;">
                                         <input type="checkbox" id="691" name="protokoll_ja" value="ja"> Ja
                                     </label>
-                                   <!--  <label style="display: flex; align-items: center; gap: 5px;">
+                                    <!--  <label style="display: flex; align-items: center; gap: 5px;">
                                         <input type="checkbox" id="692" name="protokoll_nein" value="nein"> Nein
                                     </label> -->
                                 </div>
@@ -2376,103 +2377,109 @@
         <div id="sign">
 
             <div class="signContainer">
-                <h3>Unterschriften</h3>
+
                 <table>
+
                     <tbody>
                         <tr>
+                            <th class="header-further">
+                                Unterschriften
+                            </th>
                             <th></th>
                             <th></th>
                             <th></th>
-                            <th></th>
-
-
-
-
                         </tr>
-                        <tr class="bemerkung-row">
-                            <td colspan="1">Objekt</td>
-                            <td colspan="1" class="long">
-                                <div class="bemerkung-container">
-                                    <input type="text" id="objektclon" class="bemerkung-input">
 
-                                </div>
+                        <tr>
+                            <td>Objekt</td>
+                            <td>
+                                <input type="text" id="objektclon" class="textinput">
                             </td>
-                            <td colspan="1">PLZ / Ort</td>
-                            <td colspan="1" class="long">
-                                <div class="bemerkung-container">
-                                    <input type="text" id="ortclon" class="bemerkung-input">
-
+                            <td>PLZ / Ort</td>
+                            <td>
+                                <div>
+                                    <input type="text" id="ortclon" class="textinput">
                                 </div>
                             </td>
                         </tr>
 
-                        <tr class="bemerkung-row">
-                            <td colspan="1">Lage</td>
-                            <td colspan="1" class="long">
-                                <div class="bemerkung-container">
-                                    <input type="text" id="lageclon" class="bemerkung-input">
+                        <tr>
+                            <td>Lage</td>
+                            <td>
 
-                                </div>
+                                <input type="text" id="lageclon" class="textinput">
+
+
                             </td>
-                            <td colspan="1">Mieternummer</td>
-                            <td colspan="1" class="long">
-                                <div class="bemerkung-container">
-                                    <input type="text" id="mietidtclon" class="bemerkung-input">
+                            <td>Mieternummer</td>
+                            <td>
+                                <div>
+                                    <input type="text" id="mietidtclon" class="textinput">
 
                                 </div>
                             </td>
                         </tr>
 
-                        <tr class="bemerkung-row">
-                            <td colspan="1">Datum</td>
-                            <td colspan="3" class="long">
-                                <div class="bemerkung-container">
-                                    <input type="date" id="datum2" class="bemerkung-input">
-
-                                </div>
+                        <tr>
+                            <td>Datum</td>
+                            <td>
+                                <input type="date" id="datum2">
                             </td>
+                            <td></td>
+                            <td></td>
                         </tr>
 
+                        <tr>
+                            <td colspan="4">&nbsp;</td>
+                        </tr>
 
-                        <tr class="bemerkung-row">
-                            <td colspan="4">Dieses Protokoll erkennen die Unterzeichner an. Es ist Bestandteil
-                                des
+                        <tr>
+                            <td colspan="4">Dieses Protokoll erkennen die Unterzeichner an. Es ist Bestandteil des
                                 Mieterverhältnisses / Mietvertrags.</td>
                         </tr>
 
-
-                        <tr class="bemerkung-row">
-                            <td colspan="4">Info: Für Ummeldungen beim Energieversorger sind die Mieter
-                                zuständig! </td>
+                        <tr>
+                            <td colspan="4">&nbsp;</td>
                         </tr>
 
-                        <tr class="bemerkung-row">
-                            <td colspan="1">Protokoll ausgefüllt von</td>
-                            <td colspan="1" class="long">
-                                <div class="bemerkung-container">
-                                    <input type="text" id="suggestionname1" class="bemerkung-input">
+                        <tr>
+                            <td colspan="4">Info: Für Ummeldungen beim Energieversorger sind die Mieter
+                                zuständig!</td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="4">&nbsp;</td>
+                        </tr>
+
+
+                        <tr>
+                            <td>Protokoll ausgefüllt von</td>
+                            <td>
+                                <div>
+                                    <input type="text" id="suggestionname1" class="textinput">
 
                                     <div id="name-suggestions-container" class="suggestion-list" style="display: none;">
                                     </div>
                                 </div>
                             </td>
-                            <td colspan="1">Firma</td>
-                            <td colspan="1" class="long">
-                                <div class="bemerkung-container">
-                                    <input type="text" id="firma1" class="bemerkung-input" value="Sauer Immobilien GmbH">
-                                </div>
+                            <td>Firma</td>
+                            <td>
+
+                                <input type="text" id="firma1" value="Sauer Immobilien GmbH" class="textinput">
+
                             </td>
                         </tr>
-
-
-
-
-
-
-
                     </tbody>
                 </table>
             </div>
+
+
+
+
+
+
+
+
 
             <div class="signtenant" id="signtenant1"></div>
 
