@@ -1,61 +1,114 @@
-// screenshot.js
 document.addEventListener('DOMContentLoaded', function() {
-    // HTML2Canvas einbinden (falls nicht schon im <head>)
+    // Bibliotheken laden
     if (!window.html2canvas) {
         const script = document.createElement('script');
         script.src = 'https://html2canvas.hertzen.com/dist/html2canvas.min.js';
         document.head.appendChild(script);
     }
+    if (!window.jspdf) {
+        const script = document.createElement('script');
+        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+        document.head.appendChild(script);
+    }
 
-    // Screenshot-Funktion mit Ihrem Button verknüpfen
-    document.getElementById('screenshot').addEventListener('click', function() {
-        // Button während der Verarbeitung deaktivieren
+    document.getElementById('screenshot').addEventListener('click', async function() {
         const button = this;
         button.disabled = true;
-        button.textContent = 'Wird erstellt...';
+        button.textContent = 'PDF wird erstellt...';
 
-        // Screenshot erstellen
-        html2canvas(document.querySelector('.container'), {
-            scale: 1,
-            logging: false,
-            useCORS: true,
-            allowTaint: true
-        }).then(canvas => {
-            // Bild-Daten als Data-URL
-            const imgData = canvas.toDataURL('image/jpeg', 0.5); // 0.5 = 50% Qualität
+        try {
+            // Warte auf jsPDF
+            await new Promise(resolve => {
+                const checkJSPDF = () => window.jspdf ? resolve() : setTimeout(checkJSPDF, 100);
+                checkJSPDF();
+            });
+
+            const { jsPDF } = window.jspdf;
+            const container = document.querySelector('.container');
             
-            // Bild in neuem Tab öffnen (OHNE Download-Dialog)
-            const newTab = window.open();
-            newTab.document.write(`
-                <!DOCTYPE html>
-                <html>
-                <head>
-                    <title>Wohnungsübergabeprotokoll</title>
-                    <style>
-                        body { margin: 0; padding: 20px; background: #f5f5f5; }
-                        img { max-width: 100%; height: auto; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-                        .controls { margin-top: 20px; }
-                        button { padding: 10px 15px; background: #4CAF50; color: white; border: none; cursor: pointer; }
-                    </style>
-                </head>
-                <body>
-                    <img src="${imgData}" alt="Protokoll-Screenshot">
-                    <div class="controls">
-                        <button onclick="window.print()">Drucken</button>
-                        <button onclick="window.close()">Schließen</button>
-                    </div>
-                </body>
-                </html>
-            `);
+            // Erstelle vollständigen Screenshot
+            const canvas = await html2canvas(container, {
+                scale: 1,
+                logging: false,
+                useCORS: true,
+                allowTaint: true
+            });
 
-            // Button zurücksetzen
-            button.disabled = false;
-            button.textContent = 'Screenshot erstellen';
-        }).catch(error => {
+            // PDF-Einstellungen mit Seitenrändern
+            const pdf = new jsPDF({
+                orientation: 'portrait',
+                unit: 'mm'
+            });
+
+            // Bilddimensionen berechnen
+            const imgWidth = canvas.width;
+            const imgHeight = canvas.height;
+            
+            // Seitenberechnung mit Rändern
+            const pageWidth = 210; // DIN A4 Breite in mm
+            const pageHeight = 297; // DIN A4 Höhe in mm
+            
+            // Randdefinition (in mm)
+            const marginLeft = 10;
+            const marginRight = 10;
+            const marginTop = 10;
+            const marginBottom = 10;
+            
+            // Nutzbare Breite und Höhe
+            const usableWidth = pageWidth - marginLeft - marginRight;
+            const usableHeight = pageHeight - marginTop - marginBottom;
+            
+            const pxPerMm = imgWidth / usableWidth;
+            const contentHeightPerPage = usableHeight * pxPerMm * 0.95; // 5% Überlapp
+
+            let currentPosition = 0;
+            let pageCount = 1;
+
+            while (currentPosition < imgHeight) {
+                if (pageCount > 1) {
+                    pdf.addPage();
+                    currentPosition -= (pxPerMm * marginTop); // Überlapp für Kontinuität
+                }
+                
+                // Ausschnitt berechnen
+                const sectionHeight = Math.min(contentHeightPerPage, imgHeight - currentPosition);
+                const tempCanvas = document.createElement('canvas');
+                tempCanvas.width = imgWidth;
+                tempCanvas.height = sectionHeight;
+                
+                // Bildausschnitt zeichnen
+                const ctx = tempCanvas.getContext('2d');
+                ctx.drawImage(
+                    canvas, 
+                    0, currentPosition, imgWidth, sectionHeight,
+                    0, 0, imgWidth, sectionHeight
+                );
+
+                // PDF-Seite hinzufügen mit Rändern
+                const imgData = tempCanvas.toDataURL('image/jpeg', 0.7);
+                pdf.addImage(
+                    imgData, 
+                    'JPEG', 
+                    marginLeft, 
+                    marginTop, 
+                    usableWidth, 
+                    usableHeight,
+                    undefined, 
+                    'FAST'
+                );
+
+                currentPosition += contentHeightPerPage;
+                pageCount++;
+            }
+
+            pdf.save('Wohnungsprotokoll.pdf');
+
+        } catch (error) {
             console.error('Fehler:', error);
-            alert('Screenshot konnte nicht erstellt werden.');
+            alert('PDF konnte nicht erstellt werden: ' + error.message);
+        } finally {
             button.disabled = false;
-            button.textContent = 'Screenshot erstellen';
-        });
+            button.textContent = 'PDF erstellen';
+        }
     });
 });
