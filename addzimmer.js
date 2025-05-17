@@ -1,28 +1,77 @@
-/**
- * Zimmerverwaltung mit Bildupload-Funktionalität
- * 
- * Diese Skript ermöglicht das dynamische Hinzufügen von Zimmern mit:
- * - Farbauswahl mit Vorschlägen
- * - Bemerkungsverwaltung
- * - Rauchmelder-Zähler
- * - Bildupload mit Thumbnails und Galerieansicht
- */
-
 document.addEventListener('DOMContentLoaded', function () {
     // Konfiguration
     const CONFIG = {
-        maxImages: 20, // Maximale Anzahl an Bildern pro Zimmer
-        thumbnailSize: 75, // Größe der Thumbnails in Pixeln
-        gallerySize: 800, // Größe der Galeriebilder in Pixeln
-        maxImageSize: 3500 // Maximale Größe der Originalbilder
+        maxImages: 20,
+        thumbnailSize: 75,
+        gallerySize: 800,
+        maxImageSize: 3500
     };
 
     // Klassische Wandfarben für Vorschläge
     const CLASSIC_WALL_COLORS = [
-        "Weiß", "Elfenbein", "Beige", "Creme", "Hellgrau",
-        "Grau", "Taupe", "Weinrot", "Navyblau", "Dunkelgrün",
-        "Pastellblau", "Himmelblau", "Terrakotta", "Ocker", "Vanille",
-        "Magnolia", "Alabaster", "Champagner", "Mokka", "Anthrazit"
+        "weiß",
+        "beige",
+        "grau",
+        "hellgrau",
+        "anthrazit",
+        "creme",
+        "creme-weiß",
+        "elfenbein",
+        "taubenblau",
+        "hellblau",
+        "dunkelblau",
+        "mintgrün",
+        "pastellrosa",
+        "sand",
+        "terrakotta",
+        "olivgrün",
+        "taupe",
+        "vanille",
+        "himmelblau",
+        "lachs",
+        "moosgrün",
+        "zitronengelb",
+        "sonstige",
+
+        "rot",
+        "hellrot",
+        "dunkelrot",
+        "karminrot",
+        "weinrot",
+
+        "grün",
+        "hellgrün",
+        "dunkelgrün",
+        "waldgrün",
+        "apfelgrün",
+
+        "braun",
+        "hellbraun",
+        "dunkelbraun",
+        "kakao",
+        "mahagoni",
+
+        "mittelgrau",
+        "steingrau",
+        "silbergrau",
+
+        "lila",
+        "helllila",
+        "dunkellila",
+        "flieder",
+        "lavendel",
+
+        "rosa",
+        "hellrosa",
+        "dunkelrosa",
+        "puderrosa",
+        "altrosa",
+
+        "gelb",
+        "hellgelb",
+        "dunkelgelb",
+        "sonnenblumengelb",
+        "goldgelb"
     ];
 
     // Globale Variablen
@@ -32,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // DOM-Elemente
     const addZimmerButton = document.getElementById('addzimmert');
-   /*  const zimmerContainer = document.getElementById('adzimmer'); */
+    /*  const zimmerContainer = document.getElementById('adzimmer'); */
     const galerieContainer = document.querySelector('.bildergalerie-container');
 
     // Initialisierung
@@ -64,11 +113,15 @@ document.addEventListener('DOMContentLoaded', function () {
         const zimmerContainer = document.querySelector('.table-container.zimmer-n');
         zimmerContainer.appendChild(section);
 
-
         initColorSuggestions(count);
         initBemerkungen(count);
         initRauchmelder(count);
         initImageUpload(count);
+
+        if (window.initBodenForZimmer) {
+            window.initBodenForZimmer(count);
+        }
+
     }
 
     function createGalerieSection(count) {
@@ -140,21 +193,104 @@ document.addEventListener('DOMContentLoaded', function () {
                     </tr>
                 </thead>
                 <tbody>
+
+
                     <tr>
-                        <td>Türen</td>
-                        <td><input type="checkbox" id="zimm${count}-waschbecken-p1"></td>
-                        <td><input type="checkbox" id="zimm${count}-waschbecken-p2"></td>
-                        <td><input type="checkbox" id="zimm${count}-waschbecken-p3"></td>
+                        <td>Türen / Zarge / Beschläge</td>
+                        <td><input type="checkbox" id="zimm${count}-tuer-p1"></td>
+                        <td><input type="checkbox" id="zimm${count}-tuer-p2"></td>
+                        <td><input type="checkbox" id="zimm${count}-tuer-p3"></td>
                         <td>
-                            <select id="zimm${count}-waschbecken-status">
-                                <option value="na">-</option>
-                                <option value="mieter">Mieter</option>
-                                <option value="landl">Vermieter</option>
-                                <option value="klar">in Klärung</option>
+                            <select id="zimm${count}-tuer-status">
+                                <option value="na" id="zimm${count}-optuer1">-</option>
+                                <option value="mieter" id="zimm${count}-optuer2">Mieter</option>
+                                <option value="landl" id="zimm${count}-optuer3">Vermieter</option>
+                                <option value="klar" id="zimm${count}-optuer4">in Klärung</option>
                             </select>
                         </td>
-                        <td><input type="checkbox" id="zimm${count}-waschbecken-p4"></td>
+                        <td><input type="checkbox" id="zimm${count}-optuer5"></td>
                     </tr>
+
+
+                    <tr>
+    <td>Zimmerschlüssel vorhanden?</td>
+    <td class="select-cell" colspan="2">
+        <select id="zimm${count}-select" name="schluessel-${count}" style="padding: 5px; min-width: 120px;">
+            <option value="">-- Bitte auswählen --</option>
+            <option value="ja">Ja</option>
+            <option value="nein">Nein</option>
+        </select>
+    </td>
+    <td colspan="3"></td>
+</tr>
+
+
+                    <tr>
+                        <td>Fenster / Beschläge / Glas</td>
+                        <td><input type="checkbox" id="zimm${count}-glas-p1"></td>
+                        <td><input type="checkbox" id="zimm${count}-glas-p2"></td>
+                        <td><input type="checkbox" id="zimm${count}-glas-p3"></td>
+                        <td>
+                            <select id="zimm${count}-glas-status">
+                                <option value="na" id="zimm${count}-opglas1">-</option>
+                                <option value="mieter" id="zimm${count}-opglas2">Mieter</option>
+                                <option value="landl" id="zimm${count}-opglas3">Vermieter</option>
+                                <option value="klar" id="zimm${count}-opglas4">in Klärung</option>
+                            </select>
+                        </td>
+                        <td><input type="checkbox" id="zimm${count}-opglas5"></td>
+                    </tr>
+
+                                        <tr>
+                        <td>Jalousie / Rolläden / Klappäden</td>
+                        <td><input type="checkbox" id="zimm${count}-roll-p1"></td>
+                        <td><input type="checkbox" id="zimm${count}-roll-p2"></td>
+                        <td><input type="checkbox" id="zimm${count}-roll-p3"></td>
+                        <td>
+                            <select id="zimm${count}-roll-status">
+                                <option value="na" id="zimm${count}-oproll1">-</option>
+                                <option value="mieter" id="zimm${count}-oproll2">Mieter</option>
+                                <option value="landl" id="zimm${count}-oproll3">Vermieter</option>
+                                <option value="klar" id="zimm${count}-oproll4">in Klärung</option>
+                            </select>
+                        </td>
+                        <td><input type="checkbox" id="zimm${count}-oproll5"></td>
+                    </tr>
+
+                                        <tr>
+                        <td>Decke</td>
+                        <td><input type="checkbox" id="zimm${count}-deck-p1"></td>
+                        <td><input type="checkbox" id="zimm${count}-deck-p2"></td>
+                        <td><input type="checkbox" id="zimm${count}-deck-p3"></td>
+                        <td>
+                            <select id="zimm${count}-deck-status">
+                                <option value="na" id="zimm${count}-opdeck1">-</option>
+                                <option value="mieter" id="zimm${count}-opdeck2">Mieter</option>
+                                <option value="landl" id="zimm${count}-opdeck3">Vermieter</option>
+                                <option value="klar" id="zimm${count}-opdeck4">in Klärung</option>
+                            </select>
+                        </td>
+                        <td><input type="checkbox" id="zimm${count}-opdeck5"></td>
+                    </tr>
+
+                                        <tr>
+                        <td>Wände / Tapeten</td>
+                        <td><input type="checkbox" id="zimm${count}-wand-p1"></td>
+                        <td><input type="checkbox" id="zimm${count}-wand-p2"></td>
+                        <td><input type="checkbox" id="zimm${count}-wand-p3"></td>
+                        <td>
+                            <select id="zimm${count}-wand-status">
+                                <option value="na" id="zimm${count}-opwand1">-</option>
+                                <option value="mieter" id="zimm${count}-opwand2">Mieter</option>
+                                <option value="landl" id="zimm${count}-opwand3">Vermieter</option>
+                                <option value="klar" id="zimm${count}-opwand4">in Klärung</option>
+                            </select>
+                        </td>
+                        <td><input type="checkbox" id="zimm${count}-opwand5"></td>
+                    </tr>
+
+
+
                     <tr>
                         <td>Farbe der Wände</td>
                         <td colspan="5">
@@ -162,16 +298,89 @@ document.addEventListener('DOMContentLoaded', function () {
                             <div id="farbvorschlaege-${count}" class="farbvorschlaege-container" style="display:none;"></div>
                         </td>
                     </tr>
-                    <tr>
-                        <td>Zimmerschlüssel vorhanden?</td>
-                        <td class="radio-cell" colspan="2">
-                            <div class="radio-group">
-                                <label><input type="radio" name="schluessel-${count}" value="ja"> Ja</label>
-                                <label><input type="radio" name="schluessel-${count}" value="nein"> Nein</label>
-                            </div>
+
+                                                            <tr>
+                        <td>Heizkörper / Ventile / Rohre</td>
+                        <td><input type="checkbox" id="zimm${count}-heiz-p1"></td>
+                        <td><input type="checkbox" id="zimm${count}-heiz-p2"></td>
+                        <td><input type="checkbox" id="zimm${count}-heiz-p3"></td>
+                        <td>
+                            <select id="zimm${count}-heiz-status">
+                                <option value="na" id="zimm${count}-opheiz1">-</option>
+                                <option value="mieter" id="zimm${count}-opheiz2">Mieter</option>
+                                <option value="landl" id="zimm${count}-opheiz3">Vermieter</option>
+                                <option value="klar" id="zimm${count}-opheiz4">in Klärung</option>
+                            </select>
                         </td>
-                        <td colspan="3"></td>
+                        <td><input type="checkbox" id="zimm${count}-opheiz5"></td>
                     </tr>
+
+
+ 
+
+
+                                                                                <tr>
+                        <td>Fußboden / Leisten</td>
+                        <td><input type="checkbox" id="zimm${count}-fuss-p1"></td>
+                        <td><input type="checkbox" id="zimm${count}-fuss-p2"></td>
+                        <td><input type="checkbox" id="zimm${count}-fuss-p3"></td>
+                        <td>
+                            <select id="zimm${count}-fuss-status">
+                                <option value="na" id="zimm${count}-opfuss1">-</option>
+                                <option value="mieter" id="zimm${count}-opfuss2">Mieter</option>
+                                <option value="landl" id="zimm${count}-opfuss3">Vermieter</option>
+                                <option value="klar" id="zimm${count}-opfuss4">in Klärung</option>
+                            </select>
+                        </td>
+                        <td><input type="checkbox" id="zimm${count}-opfuss5"></td>
+                    </tr>
+
+
+                            <tr>
+                                <td>Bodenbelag</td>
+                                <td colspan="5">
+                                    <input type="text" id="fussbodenzimm${count}" placeholder="Bodenbelag auswählen"
+                                        class="farbe-input" autocomplete="off">
+                                </td>
+                            </tr>
+
+
+                                                                                <tr>
+                        <td>Radio- / Fernseh- / Internetdose</td>
+                        <td><input type="checkbox" id="zimm${count}-fern-p1"></td>
+                        <td><input type="checkbox" id="zimm${count}-fern-p2"></td>
+                        <td><input type="checkbox" id="zimm${count}-fern-p3"></td>
+                        <td>
+                            <select id="zimm${count}-fern-status">
+                                <option value="na" id="zimm${count}-opfern1">-</option>
+                                <option value="mieter" id="zimm${count}-opfern2">Mieter</option>
+                                <option value="landl" id="zimm${count}-opfern3">Vermieter</option>
+                                <option value="klar" id="zimm${count}-opfern4">in Klärung</option>
+                            </select>
+                        </td>
+                        <td><input type="checkbox" id="zimm${count}-opfern5"></td>
+                    </tr>
+
+
+                                                                                                   <tr>
+                        <td>Steckdosen / Lichtschalter</td>
+                        <td><input type="checkbox" id="zimm${count}-licht-p1"></td>
+                        <td><input type="checkbox" id="zimm${count}-licht-p2"></td>
+                        <td><input type="checkbox" id="zimm${count}-licht-p3"></td>
+                        <td>
+                            <select id="zimm${count}-licht-status">
+                                <option value="na" id="zimm${count}-oplicht1">-</option>
+                                <option value="mieter" id="zimm${count}-oplicht2">Mieter</option>
+                                <option value="landl" id="zimm${count}-oplicht3">Vermieter</option>
+                                <option value="klar" id="zimm${count}-oplicht4">in Klärung</option>
+                            </select>
+                        </td>
+                        <td><input type="checkbox" id="zimm${count}-oplicht5"></td>
+                    </tr>
+                    
+
+
+               
                     <tr>
                         <td>Anzahl Rauchwarnmelder</td>
                         <td colspan="5">
@@ -187,7 +396,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         <td colspan="5">
                             <div class="bemerkungen-container" id="bemerkungen-container-${count}">
                                 <div class="bemerkung-eingabe">
-                                    <input type="text" class="bemerkung-input" placeholder="Bemerkung eingeben">
+                                    <input type="text" id="bemerkungen-input-${count}" class="bemerkung-input" placeholder="Bemerkung eingeben">
                                     <div class="bemerkung-actions">
                                         <button type="button" class="add-bemerkung-btn">+</button>
                                     </div>
@@ -243,6 +452,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function initBemerkungen(count) {
         const container = document.getElementById(`bemerkungen-container-${count}`);
+        let bemerkungCounter = 1; // Zähler für fortlaufende Nummerierung
 
         container.addEventListener('click', (e) => {
             if (e.target.classList.contains('add-bemerkung-btn')) {
@@ -252,17 +462,23 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (text) {
                     const bemerkung = document.createElement('div');
                     bemerkung.className = 'bemerkung-zeile';
+                    // Format: zimmer-1-bemerkung-01, zimmer-1-bemerkung-02 usw.
+                    const bemerkungId = `zimmer${count}-bem${String(bemerkungCounter).padStart(2, '0')}`;
                     bemerkung.innerHTML = `
-                        <div class="bemerkung-text">${text}</div>
-                        <button type="button" class="del-bemerkung-btn">×</button>
-                    `;
+                    <input type="text" id="${bemerkungId}" 
+                           class="bemerkung-input-field" value="${text}" readonly>
+                    <button type="button" class="del-bemerkung-btn">×</button>
+                `;
                     container.insertBefore(bemerkung, e.target.closest('.bemerkung-eingabe'));
                     input.value = '';
+                    bemerkungCounter++; // Zähler erhöhen für nächste Bemerkung
                 }
             }
 
             if (e.target.classList.contains('del-bemerkung-btn')) {
                 e.target.closest('.bemerkung-zeile').remove();
+                // Optional: Hier könnten Sie den Zähler zurücksetzen oder neu nummerieren
+                // wenn Sie die Lücken in der Nummerierung vermeiden wollen
             }
         });
     }
