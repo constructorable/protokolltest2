@@ -2,18 +2,76 @@ document.addEventListener('DOMContentLoaded', function() {
     // Beide Farb-Eingabefelder auswählen
     const farbeInputs = {
         kueche: document.getElementById('wandfarbe'),
-        bad: document.getElementById('wandfarbebad')
+        bad: document.getElementById('wandfarbebad'),
+        wc: document.getElementById('wandfarbewc'),
+        flur: document.getElementById('wandfarbeflur'),
+        abstell: document.getElementById('wandfarbeabstell')
     };
 
     const farbeVorschlaege = [
-        'Weiß', 'Cremeweiß', 'Elfenbein', 
-        'Beige', 'Hellgrau', 'Grau', 'Anthrazit',
-        'Pastellblau', 'Himmelblau', 'Taubenblau',
-        'Pastellgrün', 'Minzgrün', 'Olivgrün',
-        'Pastellgelb', 'Sonnenblumengelb', 'Senfgelb',
-        'Pastellrosa', 'Altrosa', 'Koralle',
-        'Terrakotta', 'Ocker', 'Taupe',
-        'Weinrot', 'Bordeaux', 'Dunkelrot'
+   "weiß",
+    "beige",
+    "grau",        
+    "hellgrau",    
+    "anthrazit",
+    "creme",
+    "creme-weiß",
+    "elfenbein",
+    "taubenblau",
+    "hellblau",
+    "dunkelblau",
+    "mintgrün",    
+    "pastellrosa", 
+    "sand",
+    "terrakotta",
+    "olivgrün",    
+    "taupe",
+    "vanille",
+    "himmelblau",
+    "lachs",       
+    "moosgrün",    
+    "zitronengelb",
+    "sonstige",
+
+    "rot",
+    "hellrot",
+    "dunkelrot",
+    "karminrot",
+    "weinrot",
+
+    "grün",
+    "hellgrün",
+    "dunkelgrün",
+    "waldgrün",
+    "apfelgrün",
+
+    "braun",
+    "hellbraun",
+    "dunkelbraun",
+    "kakao",
+    "mahagoni",
+
+    "mittelgrau",
+    "steingrau",
+    "silbergrau",
+
+    "lila",
+    "helllila",
+    "dunkellila",
+    "flieder",
+    "lavendel",
+
+    "rosa",
+    "hellrosa",
+    "dunkelrosa",
+    "puderrosa",
+    "altrosa",
+
+    "gelb",
+    "hellgelb",
+    "dunkelgelb",
+    "sonnenblumengelb",
+    "goldgelb"
     ];
 
     // Funktionen für beide Eingabefelder
