@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const bemerkungId = generateBemerkungId(raum);
 
         newRow.innerHTML = `
-            <td>Bemerkungen</td>
+            <td></td>
             <td colspan="5">
                 <div class="bemerkung-container" data-bemerkung-id="${bemerkungId}">
                     <input type="text" id="${bemerkungId}" class="bemerkung-input" 
