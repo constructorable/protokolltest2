@@ -16,11 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             </div>
                         </th>
                     </tr>
-                    <tr>
-                        <th class="aa">Daten</th>
-                        <th class="aa" colspan="5">Informationen</th>
-                    </tr>
-                </thead>
+                                  </thead>
                 <tbody>
                     <tr id="moveout-display-name-row-${moveOutTenantCounter}">
                         <td>Name, Vorname</td>
@@ -105,10 +101,10 @@ document.addEventListener('DOMContentLoaded', function () {
         signatureContainer.className = 'signature-block';
         signatureContainer.id = `moveout-signature-container-${tenantId}`;
         signatureContainer.innerHTML = `
-            <canvas id="moveout-signature-canvas-${tenantId}" width="300" height="100" style="border:1px solid #000; touch-action: none;"></canvas>
+            <canvas id="moveout-signature-canvas-${tenantId}" width="666" height="222" style="border:1px solid #000; touch-action: none;"></canvas>
             <p><strong>ausziehender Mieter: <span class="signature-name" id="moveout-signature-name-${tenantId}">${fullName}</span></strong></p>
             <div>
-                <button type="button" id="moveout-clear-signature-${tenantId}">Unterschrift löschen</button>
+                <button type="button" id="moveout-clear-signature-${tenantId}" class="delete-key-btn">x</button>
             </div>
         `;
 
@@ -117,7 +113,20 @@ document.addEventListener('DOMContentLoaded', function () {
         // Canvas initialisieren
         const canvas = document.getElementById(`moveout-signature-canvas-${tenantId}`);
         const ctx = canvas.getContext('2d');
+        
+        
+        // Canvas-Stil anpassen für sehr dicke, weiche Linien
+        ctx.lineWidth = 7; // Sehr dicke Linie (7 Pixel)
+        ctx.lineJoin = 'round'; // Runde Linienverbindungen
+        ctx.lineCap = 'round'; // Runde Linienenden
+        ctx.strokeStyle = '#373d41'; // Schwarze Farbe
+
+
+
         let drawing = false;
+        let lastX = 0;
+        let lastY = 0;
+
 
         // Funktion zum Starten der Zeichnung
         function startDrawing(e) {
