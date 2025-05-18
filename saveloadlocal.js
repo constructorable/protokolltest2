@@ -1,9 +1,11 @@
 document.addEventListener('DOMContentLoaded', function () {
     // Event-Listener für Touch und Click
     const addUniversalListener = (element, event, handler) => {
-        element.addEventListener(event, handler);
-        if (event === 'click') {
-            element.addEventListener('touchend', handler, { passive: true });
+        if (element) {
+            element.addEventListener(event, handler);
+            if (event === 'click') {
+                element.addEventListener('touchend', handler, { passive: true });
+            }
         }
     };
 
@@ -27,11 +29,16 @@ document.addEventListener('DOMContentLoaded', function () {
             <ul class="saved-states-list">`;
 
         for (const [name, data] of Object.entries(saves)) {
-            html += `<li>
-                <span>${name}</span>
-                <div class="button-group">
-                    <button class="load-btn" data-name="${name}">Laden</button>
-                    <button class="delete-btn" data-name="${name}">Löschen</button>
+            const timestamp = new Date(data.timestamp).toLocaleString();
+            html += `
+            <li class="saved-state-item">
+                <div class="saved-state-row">
+                    <span class="saved-state-name">${name}</span>
+                    <span class="saved-state-date">${timestamp}</span>
+                    <div class="saved-state-buttons">
+                        <button class="button load-btn" data-name="${name}">Laden</button>
+                        <button class="delete-btn2" data-name="${name}">x</button>
+                    </div>
                 </div>
             </li>`;
         }
@@ -39,26 +46,27 @@ document.addEventListener('DOMContentLoaded', function () {
         html += '</ul></div>';
 
         // Dialog anzeigen
-        // Dialog anzeigen
         const dialog = document.createElement('div');
-        dialog.className = 'modal-overlay';
-        dialog.innerHTML = html; // verwende das zuvor generierte HTML
-
+        dialog.className = 'modal-overlay saved-states-dialog';
+        dialog.innerHTML = html;
         document.body.appendChild(dialog);
 
-
-        document.body.appendChild(dialog);
-
-        // Event-Delegation für Buttons
         // Event-Delegation für Buttons
         dialog.addEventListener('click', (e) => {
-            if (e.target.classList.contains('close-dialog')) {
+            e.stopPropagation();
+            const target = e.target;
+
+            if (target.classList.contains('close-dialog')) {
                 dialog.remove();
-            } else if (e.target.classList.contains('load-btn')) {
-                loadSpecificState(e.target.dataset.name);
+            } else if (target.classList.contains('load-btn')) {
+                loadSpecificState(target.dataset.name);
                 dialog.remove();
-            } else if (e.target.classList.contains('delete-btn')) {
-                deleteState(e.target.dataset.name);
+            } else if (target.classList.contains('delete-btn2')) {
+                if (confirm(`Speicherstand "${target.dataset.name}" wirklich löschen?`)) {
+                    deleteState(target.dataset.name);
+                    dialog.remove();
+                    showSavedStates(); // Aktualisierte Liste anzeigen
+                }
             }
         });
 
@@ -71,22 +79,31 @@ document.addEventListener('DOMContentLoaded', function () {
             } else if (target.classList.contains('load-btn')) {
                 loadSpecificState(target.dataset.name);
                 dialog.remove();
-            } else if (target.classList.contains('delete-btn')) {
-                deleteState(target.dataset.name);
+            } else if (target.classList.contains('delete-btn2')) {
+                if (confirm(`Speicherstand "${target.dataset.name}" wirklich löschen?`)) {
+                    deleteState(target.dataset.name);
+                    dialog.remove();
+                    showSavedStates(); // Aktualisierte Liste anzeigen
+                }
             }
-        });
+        }, { passive: false });
     }
 
     // Mobile-freundliche Namenseingabe
+    // Mobile-freundliche Namenseingabe
     function promptSaveName() {
+        // Wert aus dem strasseeinzug-Feld holen und Unterstrich anhängen
+        const strasseValue = document.getElementById('strasseeinzug').value.trim();
+        const defaultName = strasseValue ? `${strasseValue}_` : `Speicherstand_${new Date().toLocaleDateString('de-DE')}`;
+
         const html = `
-    <div class="modal-overlay">
+    <div class="modal-overlay save-name-dialog">
         <div class="modal-box">
             <h3>Speicherstand benennen</h3>
-            <input type="text" id="saveNameInput" class="modal-input" placeholder="Name eingeben">
+            <input type="text" id="saveNameInput" class="textinput" placeholder="Name eingeben" value="${defaultName}">
             <div class="modal-buttons">
-                <button id="cancelSave" class="modal-btn cancel">Abbrechen</button>
-                <button id="confirmSave" class="modal-btn confirm">Speichern</button>
+                <button id="cancelSave" class="modal-btn cancel button">Abbrechen</button>
+                <button id="confirmSave" class="modal-btn button">Speichern</button>
             </div>
         </div>
     </div>`;
@@ -95,29 +112,37 @@ document.addEventListener('DOMContentLoaded', function () {
         dialog.innerHTML = html;
         document.body.appendChild(dialog);
 
+        const inputField = document.getElementById('saveNameInput');
+        inputField.focus();
+        // Cursor an das Ende setzen, ohne Text zu markieren
+        inputField.selectionStart = inputField.selectionEnd = defaultName.length;
+
         document.getElementById('confirmSave').addEventListener('click', () => {
-            const name = document.getElementById('saveNameInput').value.trim();
+            const name = inputField.value.trim();
             if (name) {
                 saveFormData(name);
                 dialog.remove();
+                showMobileAlert('Speicherstand erfolgreich gespeichert!', 'success');
+            } else {
+                inputField.focus();
             }
         });
 
         document.getElementById('cancelSave').addEventListener('click', () => dialog.remove());
     }
 
-
-    // Mobile-freundliche Bestätigung
-    function showMobileAlert(message) {
+    // Mobile-freundliche Bestätigung mit Erfolgs-/Fehlermeldung
+    function showMobileAlert(message, type = 'info') {
+        const icon = type === 'success' ? '✓' : type === 'error' ? '⚠' : '';
         const html = `
-    <div class="modal-overlay">
-        <div class="modal-box">
-            <p>${message}</p>
-            <div class="modal-buttons">
-                <button class="modal-btn confirm alert-ok">OK</button>
+        <div class="modal-overlay alert-dialog ${type}">
+            <div class="modal-box">
+                <p>${icon} ${message}</p>
+                <div class="modal-buttons">
+                    <button class="modal-btn confirm alert-ok button">OK</button>
+                </div>
             </div>
-        </div>
-    </div>`;
+        </div>`;
 
         const alertDiv = document.createElement('div');
         alertDiv.innerHTML = html;
@@ -127,7 +152,6 @@ document.addEventListener('DOMContentLoaded', function () {
             alertDiv.remove();
         });
     }
-
 
     // Funktion zum Speichern mit bestimmten Namen
     function saveFormData(saveName) {
@@ -166,8 +190,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Speichern
         localStorage.setItem('formSaves', JSON.stringify(allSaves));
-        /* alert(`Speicherstand "${saveName}" wurde gespeichert!`); */
     }
+
+
+
+
+
+
 
     // Funktion zum Laden eines bestimmten Zustands
     window.loadSpecificState = function (saveName) {
@@ -175,7 +204,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const formData = allSaves[saveName]?.data;
 
         if (!formData) {
-            alert('Speicherstand nicht gefunden!');
+            showMobileAlert('Speicherstand nicht gefunden!', 'error');
             return;
         }
 
@@ -206,28 +235,81 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
 
-        // Dialog schließen
-        const dialog = document.querySelector('.saved-states-dialog');
-        if (dialog) document.body.removeChild(dialog);
+        // Erfolgsmeldung anzeigen
+        showMobileAlert('Speicherstand erfolgreich geladen!', 'success');
+    }
 
-        /*  alert(`Speicherstand "${saveName}" wurde geladen!`); */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // Funktion zum Löschen eines bestimmten Zustands
+    window.loadSpecificState = function (saveName) {
+        const allSaves = getAllSaves();
+        const formData = allSaves[saveName]?.data;
+
+        if (!formData) {
+            showMobileAlert('Speicherstand nicht gefunden!', 'error');
+            return;
+        }
+
+        // Formular zurücksetzen
+        clearAllInputs(false); // ohne LocalStorage zu löschen
+
+        // Daten laden
+        for (const [id, value] of Object.entries(formData)) {
+            if (id === 'radioGroups') continue;
+
+            const element = document.getElementById(id);
+            if (element) {
+                if (element.type === 'checkbox') {
+                    element.checked = value;
+                } else if (element.type === 'select-one') {
+                    element.value = value;
+                } else {
+                    element.value = value;
+                }
+            }
+        }
+
+        // Radio-Buttons laden
+        if (formData.radioGroups) {
+            for (const [name, value] of Object.entries(formData.radioGroups)) {
+                const radio = document.querySelector(`input[name="${name}"][value="${value}"]`);
+                if (radio) radio.checked = true;
+            }
+        }
+
+        // Erfolgsmeldung anzeigen
+        showMobileAlert('Speicherstand erfolgreich geladen!', 'success');
     }
 
     // Funktion zum Löschen eines bestimmten Zustands
     window.deleteState = function (saveName) {
-        if (!confirm(`Speicherstand "${saveName}" wirklich löschen?`)) return;
-
         const allSaves = getAllSaves();
         delete allSaves[saveName];
         localStorage.setItem('formSaves', JSON.stringify(allSaves));
-
-        // Dialog aktualisieren
-        showSavedStates();
+        showMobileAlert('Speicherstand erfolgreich gelöscht!', 'success');
     }
 
     // Hilfsfunktion: Alle Speicherstände holen
     function getAllSaves() {
-        return JSON.parse(localStorage.getItem('formSaves')) || {};
+        try {
+            return JSON.parse(localStorage.getItem('formSaves')) || {};
+        } catch (e) {
+            console.error('Fehler beim Zugriff auf localStorage:', e);
+            return {};
+        }
     }
 
     // Funktion zum Löschen aller Eingaben
@@ -252,48 +334,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (clearStorage) {
             localStorage.removeItem('formData');
+            showMobileAlert('Alle Eingaben wurden gelöscht!', 'success');
         }
     }
-
-    // Nummern-Input Handhabung
-    document.querySelectorAll('.number-btn').forEach(button => {
-        button.addEventListener('click', function () {
-            const input = this.parentElement.querySelector('input[type="number"]');
-            if (input) {
-                if (this.classList.contains('plus')) {
-                    input.stepUp();
-                } else if (this.classList.contains('minus')) {
-                    input.stepDown();
-                }
-                const event = new Event('change');
-                input.dispatchEvent(event);
-            }
-        });
-    });
-
-    if (!document.getElementById('savelocal') || !document.getElementById('loadlocal') || !document.getElementById('delete')) {
-        console.error('Ein oder mehrere Buttons wurden nicht gefunden!');
-    }
-
-    function getAllSaves() {
-        try {
-            return JSON.parse(localStorage.getItem('formSaves')) || {};
-        } catch (e) {
-            console.error('Fehler beim Zugriff auf localStorage:', e);
-            return {};
-        }
-    }
-
 });
 
-document.addEventListener('DOMContentLoaded', function () {
-    // ... [vorheriger Code bleibt gleich bis zur mobileStyles Definition] ...
-});
-
+// Styling für die Dialoge
 const mobileStyles = `
 <style>
-    /* Dialog-Hintergrund */
-    .saved-states-dialog {
+    /* Allgemeine Dialog-Stile */
+    .modal-overlay {
         position: fixed;
         top: 0;
         left: 0;
@@ -307,18 +357,26 @@ const mobileStyles = `
         padding: 15px;
         box-sizing: border-box;
     }
+
+    .close-dialog {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #444;
+}
     
-    /* Dialog-Container */
-    .saved-states-container {
+    .modal-box {
         background: white;
         border-radius: 12px;
         width: 100%;
         max-width: 500px;
-        max-height: 80vh;
-        overflow-y: auto;
+        padding: 20px;
         box-shadow: 0 4px 20px rgba(0,0,0,0.15);
         position: relative;
-        padding: 20px;
         animation: fadeIn 0.3s ease-out;
     }
     
@@ -327,7 +385,17 @@ const mobileStyles = `
         to { opacity: 1; transform: translateY(0); }
     }
     
-    /* Titel */
+    /* Speicherstände Dialog spezifisch */
+    .saved-states-container {
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+
+    .saved-states-container {
+    position: relative; /* WICHTIG für .close-dialog */
+    padding-top: 40px;   /* damit der Button nicht überlappt */
+}
+    
     .saved-states-container h3 {
         margin: 0 0 15px 0;
         font-size: 1.3rem;
@@ -335,46 +403,55 @@ const mobileStyles = `
         text-align: center;
     }
     
-    /* Liste */
     .saved-states-list {
         list-style: none;
         padding: 0;
         margin: 0;
     }
     
-    /* Listenelemente */
-    .saved-states-list li {
-        display: flex;
-        flex-direction: column;
+    .saved-state-item {
         padding: 12px 0;
         border-bottom: 1px solid #f0f0f0;
     }
     
-    /* Name des Speicherstands */
-    .saved-states-list li span {
-        font-weight: 500;
-        margin-bottom: 8px;
-        word-break: break-word;
-    }
-    
-    /* Button-Gruppe */
-    .button-group {
+    .saved-state-row {
         display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
         gap: 10px;
-        justify-content: flex-end;
     }
     
-    /* Allgemeine Button-Styles */
-    .button-group button {
+    .saved-state-name {
+        font-weight: 500;
+        flex: 1;
+        min-width: 120px;
+    }
+    
+    .saved-state-date {
+        font-size: 0.9rem;
+        color: #666;
+        flex: 1;
+        min-width: 150px;
+    }
+    
+    .saved-state-buttons {
+        display: flex;
+        gap: 8px;
+        flex-wrap: nowrap;
+    }
+    
+    /* Button-Styles */
+    .button {
         padding: 8px 15px;
         border: none;
         border-radius: 6px;
         font-size: 0.9rem;
         cursor: pointer;
-        transition: background-color 0.2s;
+        transition: all 0.2s;
+        white-space: nowrap;
     }
     
-    /* Laden-Button */
     .load-btn {
         background-color: #4CAF50;
         color: white;
@@ -384,52 +461,51 @@ const mobileStyles = `
         background-color: #3e8e41;
     }
     
-    /* Löschen-Button */
-    .delete-btn {
-        background-color: #f44336;
-        color: white;
+    .delete-btn2 {
+padding: 0px 15px;
+  border: none;
+  border-radius: 5px;
+  background-color: #a62e2e;
+  color:#fff;
     }
     
-    .delete-btn:hover {
+    .delete-btn2:hover {
         background-color: #d32f2f;
     }
     
-    /* Schließen-Button */
     .close-dialog {
         position: absolute;
         top: 10px;
         right: 10px;
         background: none;
         border: none;
-        font-size: 24px;
+        font-size: 1.5rem;
         cursor: pointer;
         color: #777;
         padding: 5px;
+        line-height: 1;
     }
     
-    .close-dialog:hover {
-        color: #333;
-    }
-    
-    /* Responsive Anpassungen für sehr kleine Geräte */
-    @media (max-width: 480px) {
-        .saved-states-container {
-            width: 95%;
-            padding: 15px;
-        }
-        
-        .button-group {
+    /* Responsive Anpassungen */
+    @media (max-width: 600px) {
+        .saved-state-row {
             flex-direction: column;
+            align-items: flex-start;
             gap: 8px;
         }
         
-        .button-group button {
+        .saved-state-buttons {
             width: 100%;
+            justify-content: flex-end;
+        }
+        
+        .button {
             padding: 10px;
+            width: 100%;
         }
     }
     
-    /* Scrollbar für die Liste */
+    /* Scrollbar */
     .saved-states-container::-webkit-scrollbar {
         width: 6px;
     }
@@ -443,10 +519,43 @@ const mobileStyles = `
         background: #888;
         border-radius: 3px;
     }
-    
-    .saved-states-container::-webkit-scrollbar-thumb:hover {
-        background: #555;
+
+        /* Allgemeine Dialog-Stile */
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0,0,0,0.7);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 10000;
+        padding: 15px;
+        box-sizing: border-box;
     }
+
+    
+    .alert-dialog.error .modal-box {
+        border-top: 4px solid #f44336;
+    }
+    
+    .alert-dialog.success p {
+        color:rgb(18, 31, 148);
+    }
+    
+    .alert-dialog.error p {
+        color: #f44336;
+    }
+
+    .alert-dialog.success .modal-box, .alert-dialog.success .modal-box p {
+  border-top: none;
+  text-align: center;
+  font-size: 1.4rem;
+  color: #333;
+}
+
 </style>
 `;
 
