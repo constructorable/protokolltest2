@@ -113,12 +113,12 @@ function sendEmail(fileName, emails, client) {
         `Datum: ${formatDateForEmail(datum)}\n\n`;
 
     // Mieterdaten hinzufügen
-    if (einziehendeMieter.length > 0) {
+/*     if (einziehendeMieter.length > 0) {
         bodyText += `Einziehende Mieter:\n${formatMieterListe(einziehendeMieter, 'einziehend')}\n`;
     }
     if (ausziehendeMieter.length > 0) {
         bodyText += `Ausziehende Mieter:\n${formatMieterListe(ausziehendeMieter, 'ausziehend')}\n`;
-    }
+    } */
 
     bodyText += `Mit freundlichen Grüßen\n\n` +
         `Sauer Immobilien GmbH\n` +
