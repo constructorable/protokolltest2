@@ -15,31 +15,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Funktion zum Anzeigen aller gespeicherten Zustände
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
     function showSavedStates() {
         const saves = getAllSaves();
 
@@ -264,20 +239,6 @@ document.addEventListener('DOMContentLoaded', function () {
         // Erfolgsmeldung anzeigen
         showMobileAlert('Speicherstand erfolgreich geladen!', 'success');
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     // Funktion zum Löschen eines bestimmten Zustands
     window.loadSpecificState = function (saveName) {
