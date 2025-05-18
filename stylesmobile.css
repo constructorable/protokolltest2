@@ -51,6 +51,7 @@ td {
 
 td {
     padding: 0;
+    height:3rem;
 }
 
 th {
@@ -1236,7 +1237,7 @@ input[type="number"] {
 .suggestion-item {
     border-bottom: 1px solid #eee !important;
     border-bottom: none !important;
-    background-color: #dce9f0;
+    background-color: #f9fdff;
     border-radius: 5px;
     box-shadow: 2px 3px 2px -1px #c1c5d291;
 }
@@ -1609,13 +1610,14 @@ tr.bemerkung-row:nth-child(7)>td:nth-child(4) {
     justify-content: space-between;
     gap: 0.8rem;
     margin-top: 1rem;
+    justify-content: center;
 }
 
 .modal-btn {
     padding: 0.5rem 1rem;
     border: none;
     border-radius: 6px;
-    font-weight: 600;
+    font-weight: 300;
     cursor: pointer;
     transition: background 0.2s;
 }
@@ -1626,7 +1628,7 @@ tr.bemerkung-row:nth-child(7)>td:nth-child(4) {
 }
 
 .modal-btn.confirm {
-    background: #4caf50;
+    background: #607d8b;
     color: #fff;
 }
 
@@ -1694,4 +1696,25 @@ tr.bemerkung-row:nth-child(7)>td:nth-child(4) {
 #\36 91 {
     margin-left: 10px;
     margin-right: 11px;
+}
+
+#signtenant1 {
+    margin-top: 55px;
+}
+
+
+#tenant-signature-container-1>p:nth-child(2),
+#tenant-signature-container-2>p:nth-child(2),
+#tenant-signature-container-3>p:nth-child(2),
+#tenant-signature-container-4>p:nth-child(2),
+#tenant-signature-container-5>p:nth-child(2),
+#tenant-signature-container-6>p:nth-child(2),
+#moveout-signature-container-1>p:nth-child(2),
+#moveout-signature-container-2>p:nth-child(2),
+#moveout-signature-container-3>p:nth-child(2),
+#moveout-signature-container-4>p:nth-child(2),
+#moveout-signature-container-5>p:nth-child(2),
+#moveout-signature-container-6>p:nth-child(2) {
+    margin-top: 1px;
+    margin-bottom: 1px;
 }
