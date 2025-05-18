@@ -1,59 +1,9 @@
-/* document.addEventListener('DOMContentLoaded', function () {
-    // Funktion, die prüft, ob eine Galerie Bilder enthält
-    function checkGalleryHasImages(galleryId, titleId) {
-        const gallery = document.getElementById(galleryId);
-        const title = document.getElementById(titleId);
-
-        if (!gallery || !title) return; // Falls Elemente nicht gefunden wurden
-
-        // Prüfen, ob Bilder in der Galerie vorhanden sind
-        const hasImages = gallery.querySelectorAll('img').length > 0;
-
-        // Überschrift nur anzeigen, wenn Bilder vorhanden sind
-        title.style.display = hasImages ? 'block' : 'none';
-
-        // Optional: auch die Galerie selbst ausblenden, wenn keine Bilder da sind
-        gallery.style.display = hasImages ? 'block' : 'none';
-    }
-
-    // Alle Galerien prüfen
-    checkGalleryHasImages('kueche-galerie', 'kueche-galerie-title');
-    checkGalleryHasImages('bad-galerie', 'bad-galerie-title');
-    checkGalleryHasImages('WC-galerie', 'WC-galerie-title');
-    checkGalleryHasImages('flur-galerie', 'flur-galerie-title');
-    checkGalleryHasImages('abstell-galerie', 'abstell-galerie-title');
-
-    // Diese Prüfung kann auch nach dem Hochladen neuer Bilder ausgeführt werden
-    // Beispiel, wie man die Prüfung nach einem Upload-Event aufrufen könnte:
-
-    function afterImageUpload() {
-        checkGalleryHasImages('kueche-galerie', 'kueche-galerie-title');
-        checkGalleryHasImages('bad-galerie', 'bad-galerie-title');
-        checkGalleryHasImages('WC-galerie', 'WC-galerie-title');
-        checkGalleryHasImages('flur-galerie', 'flur-galerie-title');
-        checkGalleryHasImages('abstell-galerie', 'abstell-galerie-title');
-    }
-
-});
- */
 
 // script1.js
 setTimeout(function () {
     const heute = new Date();
     document.getElementById('datum').valueAsDate = heute;
 }, 100);
-
-
-
-
-
-
-
-
-
-
-
-
 
 document.addEventListener('DOMContentLoaded', function () {
     // Funktion zum Kopieren der Werte
@@ -163,9 +113,9 @@ document.addEventListener('DOMContentLoaded', function () {
     ];
 
     // 2. Input-Feld und Container finden
-    const inputField = document.getElementById('suggestionname1');
+    const inputField = document.getElementById('firma1');
     if (!inputField) {
-        console.error('Input-Feld mit ID "suggestionname1" nicht gefunden!');
+        console.error('Input-Feld mit ID "firma" nicht gefunden!');
         return;
     }
 
@@ -176,11 +126,8 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // 3. Vorschlagsliste erstellen
-    const suggestionContainer = document.createElement('div');
-    suggestionContainer.id = 'name-suggestions-container';
-    suggestionContainer.className = 'suggestion-list';
-    suggestionContainer.style.display = 'none';
-    bemerkungContainer.appendChild(suggestionContainer);
+    const suggestionContainer = document.getElementById('name-suggestions-container');
+
 
     // 4. Funktionen für die Vorschlagsanzeige
     function showSuggestions(suggestions) {
@@ -262,6 +209,3 @@ document.addEventListener('DOMContentLoaded', function () {
         document.head.appendChild(style);
     }
 });
-
-
-
