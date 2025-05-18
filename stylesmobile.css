@@ -1,8 +1,8 @@
 body {
 
     font-family: 'Arial', sans-serif;
-    background-color: #9eb0cc;
-    padding: 20px;
+    background-color: #ffffff;
+    padding: 20px 5px 20px 5px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -17,7 +17,7 @@ html {
 .container {
     width: 100%;
     margin: 0 auto;
-    padding: 20px;
+    padding: 20px 5px 20px 5px;
     margin-top: 5rem;
 }
 
@@ -288,7 +288,7 @@ tr.bemerkung-row .bemerkung-actions {
 
 
 #keys {
-    margin-bottom: 25px;
+    margin-bottom: 20px;
 }
 
 
@@ -301,10 +301,10 @@ select::-ms-expand {
 
 
 
-#keysbtn {
+/* #keysbtn {
     margin: 15px 0;
 }
-
+ */
 .number-input input {
     width: 50px;
     text-align: center;
@@ -543,13 +543,14 @@ select::-ms-expand {
 
 
 .galerie-bild {
-    width: calc(33.333% - 10px);
+    /* width: calc(33.333% - 10px); */
+    width: calc(100% - 10px);
     margin-bottom: 15px;
 }
 
 .galerie-bild img {
     width: 100%;
-    max-width: 600px;
+    /*   max-width: 600px; */
     height: auto;
     border: 1px solid #ddd;
     border-radius: 4px;
@@ -655,7 +656,8 @@ select::-ms-expand {
     background-color: white;
     padding: 0;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+    box-shadow: none;
 }
 
 .keys,
@@ -1110,13 +1112,15 @@ select::-ms-expand {
 
 
 .allgemein {
-    background: rgb(211, 226, 236);
+    background: rgb(255, 255, 255);
+    /*  background: rgb(211, 226, 236); */
     /*   border: 3px solid black; */
 }
 
 .allrooms {
     margin-top: 25px;
-    background: rgb(219, 226, 230);
+    background: rgb(255, 255, 255);
+    /* background: rgb(219, 226, 230); */
     /*  border: 3px solid black; */
 }
 
@@ -1332,6 +1336,12 @@ tr.bemerkung-row:nth-child(7)>td:nth-child(4) {
     margin-left: 1px !important;
 }
 
+#heatwater {
+    margin-top: 50px;
+    margin-bottom: 35px;
+}
+
+
 
 
 .sticky {
@@ -1348,7 +1358,7 @@ tr.bemerkung-row:nth-child(7)>td:nth-child(4) {
     flex-wrap: wrap;
     gap: 10px;
     padding: 10px;
-    max-width: 90%;
+    max-width: 93%;
     margin: 0 auto;
     opacity: 0.9;
     border-radius: 5px;
@@ -1419,7 +1429,7 @@ tr.bemerkung-row:nth-child(7)>td:nth-child(4) {
     padding: 6px 14px;
     cursor: pointer;
     z-index: 1;
-    color: #64748b;
+    color: #c9c9c9;
     font-weight: 500;
     font-size: 1rem;
     transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1430,8 +1440,12 @@ tr.bemerkung-row:nth-child(7)>td:nth-child(4) {
 
 
 .toggle-option.active {
-    color: #ffffff;
+    color: #fff;
+    border: 2px solid #253943ab;
+    border-radius: 22px;
+    box-shadow: 0px 3px 4px 1px #848484;
 }
+
 
 .toggle-options::after {
     content: '';
@@ -1523,7 +1537,7 @@ tr.bemerkung-row:nth-child(7)>td:nth-child(4) {
     padding-left: 15px;
     margin-bottom: 15px;
     font-weight: 600;
-    box-shadow: 1px 3px 4px 0px #0202021a;
+    box-shadow: none;
     border-radius: 5px;
     width: 99%;
     margin-left: 5px;
