@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const tenantId = e.target.id.split('-')[3];
         const name = document.getElementById(`tenant-display-name-${tenantId}`).value;
         const firstname = document.getElementById(`tenant-display-firstname-${tenantId}`).value;
-        
+
         const signatureName = document.getElementById(`tenant-signature-name-${tenantId}`);
         if (signatureName) {
             signatureName.textContent = `${firstname} ${name}`;
@@ -103,10 +103,10 @@ document.addEventListener('DOMContentLoaded', function () {
         signatureContainer.className = 'signature-block';
         signatureContainer.id = `tenant-signature-container-${tenantId}`;
         signatureContainer.innerHTML = `
-            <canvas id="tenant-signature-canvas-${tenantId}" width="300" height="100" style="border:1px solid #000; touch-action: none;"></canvas>
+            <canvas id="tenant-signature-canvas-${tenantId}" width="666" height="222" style="border:1px solid #000; touch-action: none;"></canvas>
             <p><strong>einziehender Mieter: <span class="signature-name" id="tenant-signature-name-${tenantId}">${fullName}</span></strong></p>
             <div>
-                <button type="button" id="tenant-clear-signature-${tenantId}">Unterschrift löschen</button>
+                <button type="button" id="tenant-clear-signature-${tenantId}" class="delete-key-btn">x</button>
             </div>
         `;
 
@@ -115,7 +115,19 @@ document.addEventListener('DOMContentLoaded', function () {
         // Canvas initialisieren
         const canvas = document.getElementById(`tenant-signature-canvas-${tenantId}`);
         const ctx = canvas.getContext('2d');
+
+
+        // Canvas-Stil anpassen für sehr dicke, weiche Linien
+        ctx.lineWidth = 7; // Sehr dicke Linie (7 Pixel)
+        ctx.lineJoin = 'round'; // Runde Linienverbindungen
+        ctx.lineCap = 'round'; // Runde Linienenden
+        ctx.strokeStyle = '#373d41'; // Schwarze Farbe
+
+
+
         let drawing = false;
+        let lastX = 0;
+        let lastY = 0;
 
         // Funktion zum Starten der Zeichnung
         function startDrawing(e) {
@@ -163,14 +175,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function deleteTenant(e) {
         const tenantId = e.target.getAttribute('data-tenant-id');
-        
+
         if (confirm('Möchten Sie diesen Mieter wirklich löschen?')) {
             // Anzeige entfernen
             const display = document.getElementById(`tenant-display-${tenantId}`);
             if (display) {
                 display.remove();
             }
-            
+
             // Unterschriftsfeld entfernen
             const signatureContainer = document.getElementById(`tenant-signature-container-${tenantId}`);
             if (signatureContainer) {
