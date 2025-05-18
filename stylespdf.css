@@ -1,20 +1,24 @@
 body {
 
     font-family: 'Arial', sans-serif;
-    background-color: #d5a6a6;
-    padding: 20px;
+    background-color: #ffb1b1;
+    padding: 20px 5px 20px 5px;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
 }
 
+html {
+    font-size: 16px;
+    /* somit entspricht 1rem 24 Pixel */
+}
+
 .container {
     width: 100%;
-    max-width: 900px;
     margin: 0 auto;
-    padding: 20px;
-    margin-top: 44px;
+    padding: 20px 5px 20px 5px;
+    margin-top: 5rem;
 }
 
 .table-container {
@@ -32,7 +36,8 @@ table {
     border-radius: 8px;
     overflow: hidden;
     min-width: 600px;
-    border: 1px solid #ddd;
+    /* border: 1px solid #ddd; */
+    border: none;
 }
 
 th,
@@ -42,6 +47,8 @@ td {
     text-align: left;
     vertical-align: middle;
 }
+
+
 
 th {
     background-color: #607d8b;
@@ -69,20 +76,20 @@ tr:nth-child(even) {
 
 /* Formularelemente Styling */
 input[type="checkbox"] {
-    transform: scale(1.3);
+    transform: scale(1);
     cursor: pointer;
     margin: 0 auto;
     display: block;
 }
 
 select {
-    padding: 5px 12px;
+    padding: 1px 12px;
     border: 1px solid #ddd;
     border-radius: 4px;
     background-color: white;
-    font-size: 14px;
+    font-size: 1rem;
     width: 100%;
-    max-width: 150px;
+    max-width: 90%;
     cursor: pointer;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -118,7 +125,7 @@ input[type="radio"] {
     th,
     td {
         padding: 10px 8px;
-        font-size: 14px;
+        font-size: 1rem;
     }
 
     .radio-group {
@@ -182,10 +189,14 @@ td[colspan="5"] {
 
 .farbe-input {
     width: 100%;
-    padding: 8px 12px;
+    padding: 1px 12px;
     border: 1px solid #ddd;
     border-radius: 4px;
-    font-size: 14px;
+    font-size: 1rem;
+}
+
+#keySelect {
+padding: 1px 11px 1px 11px !important;
 }
 
 .farbe-input::placeholder {
@@ -240,10 +251,10 @@ td[colspan="5"] {
 .euro {
     width: 50px;
     text-align: center;
-    padding: 5px;
+    padding: 1px;
     border: 1px solid #ddd;
     border-radius: 4px;
-    font-size: 14px;
+    font-size: 1rem;
 }
 
 /* Stil für die feste Bemerkungszeile */
@@ -278,7 +289,7 @@ tr.bemerkung-row .bemerkung-actions {
 
 
 #keys {
-    margin-bottom: 25px;
+    margin-bottom: 5px;
 }
 
 
@@ -291,10 +302,10 @@ select::-ms-expand {
 
 
 
-#keysbtn {
+/* #keysbtn {
     margin: 15px 0;
 }
-
+ */
 .number-input input {
     width: 50px;
     text-align: center;
@@ -319,13 +330,11 @@ select::-ms-expand {
     border: none;
     color: #e80000;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 1rem;
     padding: 0 6px;
 }
 
-.del-bemerkung-btn:hover {
-    color: #f00;
-}
+
 
 
 .del-bemerkung-btn {
@@ -335,17 +344,29 @@ select::-ms-expand {
     background-color: #fff5f5;
     color: #ff6b6b;
     border-radius: 4px;
-    font-size: 16px;
+    font-size: 1rem;
     cursor: pointer;
     transition: all 0.2s;
 }
 
 
+.header,
+.header-regel,
 .kueche-header {
     background-color: #607d8b;
     color: white;
-    padding: 5px 15px;
+    padding: 0;
     text-align: left;
+}
+
+
+.header-regel,
+.header-further,
+.header-sign {
+
+    padding: 15px;
+    /*     margin-top: 15px; */
+
 }
 
 .kueche-verfuegbar,
@@ -362,7 +383,7 @@ select::-ms-expand {
     border-radius: 5px;
     color: white;
     font-weight: 200;
-    font-size: 14px;
+    font-size: 1rem;
     padding-left: 15px;
     padding-right: 20px;
 }
@@ -438,18 +459,17 @@ select::-ms-expand {
 }
 
 
-/* Badezimmer-spezifisches Styling */
-.bad-header,
+/* .bad-header,
 .WC-header,
 .flur-header,
 .abstell-header,
-.nebenraum-header {
+.nebenraum-header,
+.header-regel {
     background-color: #4a7b9d;
-    /* Anderer Blauton für Unterscheidung */
     color: white;
     padding: 5px 15px;
 }
-
+ */
 
 /* Küchen-spezifisches Bilderstyling */
 /* Küchen-spezifisches Bilderstyling */
@@ -463,6 +483,7 @@ select::-ms-expand {
 }
 
 .bilder-upload-btn {
+    display:none;
     background-color: #607d8b;
     color: white;
     border: none;
@@ -470,11 +491,12 @@ select::-ms-expand {
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s;
+    font-size: 1rem;
 }
 
 
 .bilder-thumbnails {
-    display: flex;
+    display: none;
     gap: 8px;
     margin-top: 10px;
     flex-wrap: wrap;
@@ -497,18 +519,18 @@ select::-ms-expand {
 }
 
 .thumbnail-remove {
-    position: absolute;
-    top: 2px;
-    right: 2px;
-    background: rgba(255, 0, 0, 0.7);
-    color: white;
-    border: none;
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    font-size: 10px;
-    line-height: 16px;
-    cursor: pointer;
+position: absolute;
+  top: 2px;
+  right: 3px;
+  background: rgba(188, 0, 0, 0.7);
+  color: white;
+  border: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  font-size: 1rem;
+  line-height: 16px;
+  cursor: pointer;
 }
 
 /* Bildergalerie */
@@ -523,13 +545,14 @@ select::-ms-expand {
 
 
 .galerie-bild {
-    width: calc(33.333% - 10px);
+    /* width: calc(33.333% - 10px); */
+    width: calc(100% - 10px);
     margin-bottom: 15px;
 }
 
 .galerie-bild img {
     width: 100%;
-    max-width: 600px;
+    /*   max-width: 600px; */
     height: auto;
     border: 1px solid #ddd;
     border-radius: 4px;
@@ -537,7 +560,7 @@ select::-ms-expand {
 
 .bild-info {
     margin-top: 5px;
-    font-size: 0.9em;
+    font-size: 1rem;
     color: #666;
 }
 
@@ -593,14 +616,6 @@ select::-ms-expand {
     transition: background-color 0.2s;
 }
 
-.kueche-toggle:hover,
-.bad-toggle:hover,
-.WC-toggle:hover,
-.flur-toggle:hover,
-.abstell-toggle:hover,
-.nebenraum-toggle:hover {
-    background-color: #e9e9e9;
-}
 
 /* Tabellencontainer */
 .table-container {
@@ -639,17 +654,17 @@ select::-ms-expand {
 .keys,
 .addzimmer,
 .zahlercontainer {
-    margin-bottom: 20px;
+    margin-bottom: 3px;
     background-color: white;
-    padding: 15px;
+    padding: 0;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+    box-shadow: none;
 }
 
 .keys,
 .addzimmer {
-    /* margin-bottom: 20px; */
-    padding: 0 0 0 15px;
+    padding: 0;
     margin-bottom: 1px;
 
 }
@@ -663,6 +678,7 @@ select::-ms-expand {
 .save-key-btn,
 .cancel-key-btn,
 .button {
+    display:none;
     background-color: #607d8b;
     color: white;
     border: none;
@@ -670,20 +686,42 @@ select::-ms-expand {
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s;
-    font-size: 14px;
+    font-size: 1rem;
 }
+
+.tenant button,
+#keysbtn,
+#addzimmert,
+#addzaehlerbtn,
+.save-zaehler-btn,
+.cancel-zaehler-btn,
+.save-key-btn,
+.cancel-key-btn,
+.button {
+    display:none;
+    background-color: #607d8b;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 1rem;
+}
+
+#screenshot {
+  display:block;
+}
+
 
 .addzimmer {
     padding: 15px;
 }
 
 #objektdaten {
-    margin-bottom: 25px;
+    margin-bottom: 5px;
 }
 
-.tenant button:hover {
-    background-color: #4a7b9d;
-}
 
 /* Tenant Form Styles */
 .tenant-form {
@@ -698,7 +736,7 @@ select::-ms-expand {
 .tenant-form h3 {
     color: #607d8b;
     margin-bottom: 15px;
-    font-size: 1.1em;
+    font-size: 1rem;
 }
 
 .form-group {
@@ -711,7 +749,7 @@ select::-ms-expand {
     width: 100px;
     font-weight: 500;
     color: #555;
-    font-size: 14px;
+    font-size: 1rem;
 }
 
 .form-group input {
@@ -719,7 +757,7 @@ select::-ms-expand {
     padding: 8px 12px;
     border: 1px solid #ddd;
     border-radius: 4px;
-    font-size: 14px;
+    font-size: 1rem;
     transition: border-color 0.3s;
 }
 
@@ -737,7 +775,7 @@ select::-ms-expand {
 .tenant-form-buttons button {
     padding: 8px 15px;
     border-radius: 4px;
-    font-size: 14px;
+    font-size: 1rem;
     cursor: pointer;
     transition: all 0.2s;
 }
@@ -748,9 +786,7 @@ select::-ms-expand {
     border: none;
 }
 
-.save-tenant-btn:hover {
-    background-color: #3e8e41;
-}
+
 
 .cancel-tenant-btn {
     background-color: #f44336;
@@ -758,9 +794,7 @@ select::-ms-expand {
     border: none;
 }
 
-.cancel-tenant-btn:hover {
-    background-color: #d32f2f;
-}
+
 
 /* Tenant Display Styles */
 .tenant-display {
@@ -775,12 +809,12 @@ select::-ms-expand {
 .tenant-display h4 {
     color: #607d8b;
     margin-bottom: 10px;
-    font-size: 1.1em;
+    font-size: 1rem;
 }
 
 .tenant-display p {
     margin-bottom: 8px;
-    font-size: 14px;
+    font-size: 1rem;
     color: #555;
 }
 
@@ -801,12 +835,10 @@ select::-ms-expand {
     border: none;
     padding: 6px 12px;
     border-radius: 4px;
-    font-size: 14px;
+    font-size: 1rem;
 }
 
-.edit-tenant-btn:hover {
-    background-color: #0b7dda;
-}
+
 
 .delete-tenant-btn {
     background-color: #ff9800;
@@ -814,7 +846,7 @@ select::-ms-expand {
     border: none;
     padding: 6px 12px;
     border-radius: 4px;
-    font-size: 14px;
+    font-size: 1rem;
 }
 
 
@@ -856,7 +888,7 @@ select::-ms-expand {
     padding: 5px 12px;
     border: 1px solid #ddd;
     border-radius: 4px;
-    font-size: 14px;
+    font-size: 1rem;
     transition: border-color 0.3s;
 }
 
@@ -899,24 +931,20 @@ select::-ms-expand {
 
 
 
-
 .suggestion-item {
     padding: 8px 12px !important;
     height: var(--item-height, 36px) !important;
     cursor: pointer !important;
     font-family: Arial, sans-serif !important;
-    font-size: 14px !important;
+    font-size: 1rem !important;
     border-bottom: 1px solid #f0f0f0 !important;
 }
 
-.suggestion-item:hover {
-    background-color: #f5f5f5 !important;
-}
 
 .tenant-actions-row button {
     padding: 8px 15px;
     border-radius: 4px;
-    font-size: 14px;
+    font-size: 1rem;
     cursor: pointer;
     transition: all 0.2s;
     margin-right: 10px;
@@ -924,7 +952,7 @@ select::-ms-expand {
 
 .tenant-display td {
     padding: 5px 15px;
-    border: 1px solid #ddd;
+    border: none;
 }
 
 .tenant-display tr:nth-child(even) {
@@ -939,10 +967,7 @@ select::-ms-expand {
     border: none;
 }
 
-.save-tenant-btn:hover,
-.save-edit-tenant-btn:hover {
-    background-color: #3e8e41;
-}
+
 
 .cancel-tenant-btn,
 .cancel-edit-tenant-btn {
@@ -951,10 +976,7 @@ select::-ms-expand {
     border: none;
 }
 
-.cancel-tenant-btn:hover,
-.cancel-edit-tenant-btn:hover {
-    background-color: #d32f2f;
-}
+
 
 .edit-tenant-btn {
     background-color: #2196F3;
@@ -962,9 +984,7 @@ select::-ms-expand {
     border: none;
 }
 
-.edit-tenant-btn:hover {
-    background-color: #0b7dda;
-}
+
 
 .delete-tenant-btn {
     background-color: #ff9800;
@@ -972,9 +992,7 @@ select::-ms-expand {
     border: none;
 }
 
-.delete-tenant-btn:hover {
-    background-color: #e68a00;
-}
+
 
 .signature-block {
     margin-top: 20px;
@@ -988,7 +1006,7 @@ select::-ms-expand {
 }
 
 .signature-name {
-    font-size: 14px;
+    font-size: 1rem;
     margin-top: 5px;
 }
 
@@ -1008,9 +1026,7 @@ select::-ms-expand {
     cursor: pointer;
 }
 
-.farbvorschlag:hover {
-    background-color: #f0f0f0;
-}
+
 
 /* Stile für Bemerkungen */
 .bemerkungen-container {
@@ -1027,16 +1043,16 @@ select::-ms-expand {
 
 .bemerkung-input {
     flex: 1;
-    font-size: 14px;
+    font-size: 1rem;
     flex-grow: 1;
-    padding: 6px 12px;
+    padding: 1px 12px;
     border: 1px solid #ddd;
     border-radius: 4px;
     width: 100%
 }
 
 .textinput {
-    font-size: 14px;
+    font-size: 1rem;
     padding: 6px 12px;
     border: 1px solid #ddd;
     border-radius: 4px;
@@ -1047,7 +1063,7 @@ select::-ms-expand {
     font-family: Arial, Helvetica, sans-serif;
     /*    margin-top: 5px;
     margin-bottom: 5px; */
-    font-size: 14px;
+    font-size: 1rem;
     padding: 6px 12px;
     border: 1px solid #ddd;
     border-radius: 4px;
@@ -1071,15 +1087,15 @@ select::-ms-expand {
     border: none;
     color: #e80000;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 1rem;
     padding: 0 6px;
+    margin-top: 10px;
 }
 
-.del-bemerkung-btn:hover {
-    color: #f00;
-}
 
 .add-bemerkung-btn {
+    display:none !important;
+    margin: 12px 1px 1px 1px;
     background: #a5c2c5;
     color: white;
     border: none;
@@ -1090,10 +1106,6 @@ select::-ms-expand {
 
 
 
-.number-btn:hover {
-    background: #e0e0e0;
-}
-
 .number-input input {
     width: 40px;
     text-align: center;
@@ -1101,6 +1113,7 @@ select::-ms-expand {
     padding: 5px;
     border: 1px solid #ddd;
     border-radius: 4px;
+    font-size: 1rem;
 }
 
 
@@ -1114,12 +1127,13 @@ select::-ms-expand {
 
 
 .number-btn {
+    display:none !important;
     width: 30px;
     height: 30px;
     background-color: #f0f0f0;
     border: 1px solid #ddd;
     border-radius: 4px;
-    font-size: 16px;
+    font-size: 1rem;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -1128,14 +1142,16 @@ select::-ms-expand {
 
 
 .allgemein {
-    background: rgb(211, 226, 236);
-    border: 3px solid black;
+    background: rgb(255, 255, 255);
+    /*  background: rgb(211, 226, 236); */
+    /*   border: 3px solid black; */
 }
 
 .allrooms {
     margin-top: 25px;
-    background: rgb(219, 226, 230);
-    border: 3px solid black;
+    background: rgb(255, 255, 255);
+    /* background: rgb(219, 226, 230); */
+    /*  border: 3px solid black; */
 }
 
 /* Tabellen-Layout */
@@ -1146,14 +1162,14 @@ select::-ms-expand {
 }
 
 .objektdaten td {
-    padding: 8px;
+    padding: 3px;
     vertical-align: top;
 }
 
 /* Eingabefelder */
 .textinput,
 .full-width {
-    width: 100%;
+    /*    width: 100%; */
     box-sizing: border-box;
     padding: 5px 8px;
     border: 1px solid #ddd;
@@ -1188,10 +1204,6 @@ select::-ms-expand {
     text-overflow: ellipsis;
     /* ... bei zu langem Text */
     cursor: pointer;
-}
-
-.suggestion-item:hover {
-    background-color: #f5f5f5;
 }
 
 /* Lange Texte im Dropdown */
@@ -1246,17 +1258,15 @@ input[type="number"] {
 .suggestion-item {
     padding: 8px 12px;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 1rem;
 }
 
-.suggestion-item:hover {
-    background-color: #f5f5f5;
-}
+
 
 .suggestion-item {
     border-bottom: 1px solid #eee !important;
     border-bottom: none !important;
-    background-color: #dce9f0;
+    background-color: #f9fdff;
     border-radius: 5px;
     box-shadow: 2px 3px 2px -1px #c1c5d291;
 }
@@ -1311,17 +1321,24 @@ tr.bemerkung-row:nth-child(7)>td:nth-child(4) {
     color: #ff0000;
     cursor: pointer;
     border-radius: 3px;
+    font-size: 1rem;
 }
 
-.delete-key-btn:hover {
-    background: #ffebee;
-}
+
 
 .zaehler-actions-row td:last-child {
     text-align: right;
 }
 
-.delete-zaehler-btn {
+.delete-zaehler-btn,
+#tenant-delete-btn-1,
+#tenant-delete-btn-2,
+#tenant-delete-btn-3,
+#tenant-delete-btn-4,
+#moveout-delete-btn-1,
+#moveout-delete-btn-2,
+#moveout-delete-btn-3,
+#moveout-delete-btn-4 {
     margin-left: auto;
     padding: 2px 8px;
     border: none;
@@ -1329,40 +1346,60 @@ tr.bemerkung-row:nth-child(7)>td:nth-child(4) {
     color: #ff0000;
     cursor: pointer;
     border-radius: 3px;
+    font-size: 1rem;
+
 }
 
-.delete-zaehler-btn:hover {
-    background: #ffebee;
+
+
+
+#heatzent,
+#heatdezen,
+#watazent,
+#watadezent {
+    margin-right: 12px;
+    margin-left: 12px;
 }
+
+#heatzent,
+#watazent {
+    margin-left: 1px !important;
+}
+
+#heatwater {
+    margin-top: 1px;
+    margin-bottom: 1px;
+}
+
+
+
 
 .sticky {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    background-color: white;
+    background-color: rgb(242, 251, 255);
     z-index: 9999;
-    padding: 10px;
-    display: flex;
-    gap: 10px;
     border-bottom: 1px solid #ccc;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.sticky {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     gap: 10px;
-    /* Abstand zwischen den Buttons */
     padding: 10px;
+    max-width: 93%;
+    margin: 0 auto;
+    opacity: 0.9;
+    border-radius: 5px;
 }
+
 
 .button {
     /* Optional: Stil für die Buttons */
     padding: 8px 16px;
     margin: 2px;
-    
+
 }
 
 .saved-states-dialog {
@@ -1385,6 +1422,7 @@ tr.bemerkung-row:nth-child(7)>td:nth-child(4) {
     max-width: 80%;
     max-height: 80%;
     overflow: auto;
+    width: 80vw;
 }
 
 .saved-states-container ul {
@@ -1413,31 +1451,32 @@ tr.bemerkung-row:nth-child(7)>td:nth-child(4) {
     margin-left: 12px;
     background: #f8fafc;
     box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
-    padding: 2px;
+    padding: 0;
     border: 1px solid #e2e8f0;
 }
 
 .toggle-option {
     position: relative;
-    padding: 6px 14px;
+    padding: 1px 14px;
     cursor: pointer;
     z-index: 1;
-    color: #64748b;
+    color: #c9c9c9;
     font-weight: 500;
-    font-size: 0.9em;
+    font-size: 1rem;
     transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     text-align: center;
     min-width: 56px;
 }
 
-.toggle-option:not(.active):hover {
-    color: #475569;
-    background: rgba(226, 232, 240, 0.4);
-}
+
 
 .toggle-option.active {
-    color: #ffffff;
+    color: #fff;
+    border: 2px solid #253943ab;
+    border-radius: 22px;
+    box-shadow: 0px 3px 4px 1px #848484;
 }
+
 
 .toggle-options::after {
     content: '';
@@ -1463,7 +1502,7 @@ tr.bemerkung-row:nth-child(7)>td:nth-child(4) {
 /* Icons - dezenter */
 .toggle-option i {
     margin-right: 5px;
-    font-size: 13px;
+    font-size: 1rem;
     opacity: 0.9;
 }
 
@@ -1514,10 +1553,6 @@ tr.bemerkung-row:nth-child(7)>td:nth-child(4) {
         color: #94a3b8;
     }
 
-    .toggle-option:not(.active):hover {
-        color: #e2e8f0;
-        background: rgba(30, 41, 59, 0.6);
-    }
 
     .toggle-options::after {
         background: linear-gradient(to right, #607d8b, #ad6d2e);
@@ -1530,16 +1565,16 @@ tr.bemerkung-row:nth-child(7)>td:nth-child(4) {
 }
 
 .room-toggle {
-    padding-left: 15px;
-    margin-bottom: 15px;
-    font-weight: 600;
-    box-shadow: 1px 3px 4px 0px #0202021a;
-    border-radius: 5px;
-    width: 99%;
-    margin-left: 5px;
-    padding: 8px 17px 2px 15px;
-    margin-top: 30px;
-    padding: 8px 0px 0px 0px;
+ padding-left: 15px;
+  margin-bottom: 1px;
+  font-weight: 600;
+  box-shadow: none;
+  border-radius: 5px;
+  width: 99%;
+  margin-left: 5px;
+  padding: 8px 17px 2px 15px;
+  margin-top: 1px;
+  padding: 3px 0px 0px 0px;
 }
 
 @media (max-width: 480px) {
@@ -1605,13 +1640,14 @@ tr.bemerkung-row:nth-child(7)>td:nth-child(4) {
     justify-content: space-between;
     gap: 0.8rem;
     margin-top: 1rem;
+    justify-content: center;
 }
 
 .modal-btn {
     padding: 0.5rem 1rem;
     border: none;
     border-radius: 6px;
-    font-weight: 600;
+    font-weight: 300;
     cursor: pointer;
     transition: background 0.2s;
 }
@@ -1622,13 +1658,10 @@ tr.bemerkung-row:nth-child(7)>td:nth-child(4) {
 }
 
 .modal-btn.confirm {
-    background: #4caf50;
+    background: #607d8b;
     color: #fff;
 }
 
-.modal-btn:hover {
-    opacity: 0.9;
-}
 
 @keyframes fadeInScale {
     from {
@@ -1668,5 +1701,212 @@ tr.bemerkung-row:nth-child(7)>td:nth-child(4) {
 
 .saved-states-list button {
     padding: 0.3rem 0.6rem;
-    font-size: 0.85rem;
+    font-size: 1rem;
+}
+
+.kueche>table:nth-child(1)>thead:nth-child(1)>tr:nth-child(3),
+.bad>table:nth-child(1)>thead:nth-child(1)>tr:nth-child(3),
+.wc>table:nth-child(1)>thead:nth-child(1)>tr:nth-child(3),
+.abstell>table:nth-child(1)>thead:nth-child(1)>tr:nth-child(4),
+#zimmer-container-1>table:nth-child(1)>thead:nth-child(1)>tr:nth-child(4),
+#zimmer-container-1>table:nth-child(1)>thead:nth-child(1)>tr:nth-child(4),
+#zimmer-container-2>table:nth-child(1)>thead:nth-child(1)>tr:nth-child(4),
+#zimmer-container-3>table:nth-child(1)>thead:nth-child(1)>tr:nth-child(4),
+#zimmer-container-4>table:nth-child(1)>thead:nth-child(1)>tr:nth-child(4),
+#zimmer-container-5>table:nth-child(1)>thead:nth-child(1)>tr:nth-child(4),
+#zimmer-container-6>table:nth-child(1)>thead:nth-child(1)>tr:nth-child(4),
+#zimmer-container-7>table:nth-child(1)>thead:nth-child(1)>tr:nth-child(4),
+#zimmer-container-8>table:nth-child(1)>thead:nth-child(1)>tr:nth-child(4),
+#zimmer-container-9>table:nth-child(1)>thead:nth-child(1)>tr:nth-child(4) {
+    height: 1.5rem;
+}
+
+
+/* weitere sonstige Bemerkungen */
+#\36 91 {
+    margin-left: 10px;
+    margin-right: 11px;
+}
+
+#signtenant1 {
+    margin-top: 55px;
+}
+
+
+#tenant-signature-container-1>p:nth-child(2),
+#tenant-signature-container-2>p:nth-child(2),
+#tenant-signature-container-3>p:nth-child(2),
+#tenant-signature-container-4>p:nth-child(2),
+#tenant-signature-container-5>p:nth-child(2),
+#tenant-signature-container-6>p:nth-child(2),
+#moveout-signature-container-1>p:nth-child(2),
+#moveout-signature-container-2>p:nth-child(2),
+#moveout-signature-container-3>p:nth-child(2),
+#moveout-signature-container-4>p:nth-child(2),
+#moveout-signature-container-5>p:nth-child(2),
+#moveout-signature-container-6>p:nth-child(2) {
+    margin-top: 1px;
+    margin-bottom: 1px;
+}
+
+td {
+    padding: 0;
+    height:1rem;
+}
+
+/* Modal Overlay */
+.pdf-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.pdf-modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Modal Container */
+.pdf-modal {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    width: 90%;
+    max-width: 500px;
+    padding: 25px;
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+}
+
+.pdf-modal-overlay.active .pdf-modal {
+    transform: translateY(0);
+}
+
+/* Modal Header */
+.pdf-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.pdf-modal-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+}
+
+/* Progress Bar */
+.pdf-progress-container {
+    width: 100%;
+    background-color: #f3f3f3;
+    border-radius: 4px;
+    margin: 15px 0;
+    overflow: hidden;
+}
+
+.pdf-progress-bar {
+    width: 0%;
+    height: 20px;
+    background-color: #4CAF50;
+    transition: width 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 0.8rem;
+}
+
+/* Status Message */
+.pdf-status-message {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.pdf-status-message.success {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+.pdf-status-message.error {
+    background-color: #ffebee;
+    color: #c62828;
+}
+
+/* Close Button */
+.pdf-modal-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #666;
+    transition: color 0.2s;
+}
+
+.pdf-modal-close:hover {
+    color: #333;
+}
+
+/* Responsive Anpassungen */
+@media (max-width: 600px) {
+    .pdf-modal {
+        width: 95%;
+        padding: 15px;
+    }
+    
+    .pdf-modal-title {
+        font-size: 1.2rem;
+    }
+}
+
+.pdf-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    display: flex; /* Wird jetzt per JS gesetzt */
+}
+
+.pdf-modal-overlay.active {
+    opacity: 1;
+}
+
+.tenant button,
+#keysbtn,
+#addzimmert,
+#addzaehlerbtn,
+.save-zaehler-btn,
+.cancel-zaehler-btn,
+.save-key-btn,
+.cancel-key-btn
+ {
+    display:block !important;
+    background-color: #607d8c;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 1rem;
 }
