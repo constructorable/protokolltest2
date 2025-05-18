@@ -14,6 +14,32 @@ document.addEventListener('DOMContentLoaded', function () {
     addUniversalListener(document.getElementById('delete'), 'click', clearAllInputs);
 
     // Funktion zum Anzeigen aller gespeicherten Zustände
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
     function showSavedStates() {
         const saves = getAllSaves();
 
@@ -423,9 +449,11 @@ const mobileStyles = `
     }
     
     .saved-state-name {
-        font-weight: 500;
+        font-weight: 400;
         flex: 1;
         min-width: 120px;
+        width:444px;
+
     }
     
     .saved-state-date {
@@ -455,10 +483,6 @@ const mobileStyles = `
     .load-btn {
         background-color: #4CAF50;
         color: white;
-    }
-    
-    .load-btn:hover {
-        background-color: #3e8e41;
     }
     
     .delete-btn2 {
