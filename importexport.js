@@ -5,15 +5,49 @@ document.addEventListener('DOMContentLoaded', () => {
     // Feedback-System
     const feedback = createFeedbackElement();
     const showFeedback = (message, isSuccess) => {
-        feedback.textContent = message;
-        feedback.style.backgroundColor = isSuccess ? '#4CAF50' : '#F44336';
-        feedback.style.display = 'block';
+        // Message Content (erstes Child ist der close button)
+        if (feedback.childNodes.length > 1) {
+            feedback.childNodes[1].textContent = message;
+        } else {
+            const msg = document.createElement('div');
+            msg.textContent = message;
+            msg.style.padding = '20px 30px 20px 20px'; // Rechts mehr Platz für X
+            feedback.appendChild(msg);
+        }
+
+        feedback.style.backgroundColor = isSuccess ? 'rgb(252, 254, 255)' : '#F44336';
+
+        // Stile für zentrierte Positionierung
+        feedback.style.position = 'fixed';
+        feedback.style.top = '50%';
+        feedback.style.left = '50%';
+        feedback.style.transform = 'translate(-50%, -50%)';
+        feedback.style.zIndex = '1000';
+        feedback.style.borderRadius = '5px';
+        feedback.style.color = 'rgb(45, 45, 45)';
+        feedback.style.textAlign = 'center';
+        feedback.style.boxShadow = '0 4px 8px rgba(0,0,0,0.2)';
+        feedback.style.maxWidth = '80%';
+        feedback.style.minWidth = '300px';
+        feedback.style.width = 'auto';
+
+        // Animationseinstellungen
+        feedback.style.display = 'flex';
+        feedback.style.alignItems = 'center';
+        feedback.style.justifyContent = 'center';
         feedback.style.opacity = '1';
-        
-        setTimeout(() => {
-            feedback.style.opacity = '0';
-            setTimeout(() => feedback.style.display = 'none', 500);
-        }, 3000);
+
+        // Automatisches Ausblenden nach 5 Sekunden
+        const timeoutId = setTimeout(() => {
+            hideFeedback(feedback);
+        }, 15000);
+
+        // Timeout bei manuellem Schließen löschen
+        feedback.closeBtn = feedback.querySelector('span');
+        feedback.closeBtn.timeoutId = timeoutId;
+        feedback.closeBtn.addEventListener('click', () => {
+            clearTimeout(timeoutId);
+        });
     };
 
     // Export-Funktion
@@ -25,10 +59,10 @@ document.addEventListener('DOMContentLoaded', () => {
             // Alle relevanten Elemente sammeln
             document.querySelectorAll('input, select, textarea').forEach(element => {
                 if (element.type === 'button' || element.type === 'submit') return;
-                
+
                 const identifier = element.name || element.id;
                 if (!identifier) return;
-                
+
                 if (element.type === 'checkbox' || element.type === 'radio') {
                     formData[identifier] = element.checked;
                     if (element.checked) hasData = true;
@@ -60,28 +94,28 @@ document.addEventListener('DOMContentLoaded', () => {
                 .replace(/[:.]/g, '-')
                 .replace('T', '_')
                 .slice(0, 19);
-            
+
             // Sonderzeichen aus Straßennamen entfernen
             const cleanStraßenname = straßenname
                 .replace(/[^a-zA-Z0-9äöüÄÖÜß\- ]/g, '')
                 .trim()
                 .replace(/\s+/g, '_');
-            
+
             const dateiname = `Export_${cleanStraßenname}_${datumZeit}.json`;
 
             // Datei erstellen und herunterladen
             const dataStr = JSON.stringify(formData, null, 2);
             const blob = new Blob([dataStr], { type: 'application/json' });
             const url = URL.createObjectURL(blob);
-            
+
             const link = document.createElement('a');
             link.href = url;
             link.download = dateiname;
             link.click();
-            
+
             showFeedback("Daten erfolgreich exportiert", true);
             setTimeout(() => URL.revokeObjectURL(url), 100);
-            
+
         } catch (error) {
             console.error("Export-Fehler:", error);
             showFeedback("Fehler beim Export: " + error.message, false);
@@ -93,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const fileInput = document.createElement('input');
         fileInput.type = 'file';
         fileInput.accept = '.json';
-        
+
         fileInput.addEventListener('change', (event) => {
             const file = event.target.files[0];
             if (!file) return;
@@ -102,19 +136,19 @@ document.addEventListener('DOMContentLoaded', () => {
             reader.onload = (e) => {
                 try {
                     const formData = JSON.parse(e.target.result);
-                    
-/*                     if (!confirm(`Daten aus "${file.name}" importieren?`)) {
-                        showFeedback("Import abgebrochen", false);
-                        return;
-                    } */
+
+                    /*                     if (!confirm(`Daten aus "${file.name}" importieren?`)) {
+                                            showFeedback("Import abgebrochen", false);
+                                            return;
+                                        } */
 
                     let importedCount = 0;
-                    
+
                     // Standard-Elemente importieren
                     document.querySelectorAll('input, select, textarea').forEach(element => {
                         const identifier = element.name || element.id;
                         if (!identifier || !formData.hasOwnProperty(identifier)) return;
-                        
+
                         if (element.type === 'checkbox' || element.type === 'radio') {
                             element.checked = formData[identifier];
                         } else {
@@ -138,7 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
 
                     showFeedback(`${importedCount} Felder erfolgreich importiert`, true);
-                    
+
                 } catch (error) {
                     showFeedback("Ungültige Datei: " + error.message, false);
                 }
@@ -150,16 +184,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function createFeedbackElement() {
         const feedback = document.createElement('div');
-        feedback.style.position = 'fixed';
-        feedback.style.bottom = '20px';
-        feedback.style.right = '20px';
-        feedback.style.padding = '15px';
-        feedback.style.borderRadius = '5px';
-        feedback.style.color = 'white';
-        feedback.style.zIndex = '10000';
-        feedback.style.transition = 'opacity 0.5s';
         feedback.style.display = 'none';
+        feedback.style.transition = 'opacity 0.5s ease';
+        feedback.style.opacity = '0';
+
+        // Close Button erstellen
+        const closeBtn = document.createElement('span');
+        closeBtn.innerHTML = '&times;';
+        closeBtn.style.position = 'absolute';
+        closeBtn.style.top = '5px';
+        closeBtn.style.right = '10px';
+        closeBtn.style.cursor = 'pointer';
+        closeBtn.style.fontSize = '1rem';
+        closeBtn.addEventListener('click', () => {
+            hideFeedback(feedback);
+        });
+
+        feedback.appendChild(closeBtn);
         document.body.appendChild(feedback);
         return feedback;
     }
+
+    function hideFeedback(element) {
+        element.style.opacity = '0';
+        setTimeout(() => {
+            element.style.display = 'none';
+        }, 500);
+    }
+
+
 });
