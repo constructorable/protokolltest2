@@ -26,10 +26,7 @@
     <script src="screenshot.js"></script>
     <script src="importexport.js"></script>
     <script src="saveloadlocal.js"></script>
-
-
-
-
+    <script src="email.js"></script>
 </head>
 
 <body>
@@ -43,6 +40,7 @@
             <button id="export" class="button">Export</button>
             <button id="import" class="button">Import</button>
             <button id="screenshot" class="button">PDF erstellen</button>
+            <button id="mail" class="button">E-Mail öffnen</button>
         </div>
 
 
@@ -108,24 +106,13 @@
                 </table>
             </div>
 
-
-
-
-
-
-
             <div class="keys" id="keys">
                 <button id="keysbtn">+ Schlüssel hinzufügen</button>
             </div>
 
-
-
-
             <div class="zahlercontainer" id="addzaehler">
                 <button id="addzaehlerbtn">+ Zähler hinzufügen</button>
             </div>
-
-
 
             <div class="tenant" id="einzugtenantcontainer">
                 <button id="einzugtenant">+ einziehenden Mieter hinzufügen</button>
@@ -134,7 +121,6 @@
             <div class="tenant" id="auszugtenantconatainer">
                 <button id="auszugtenant">+ ausziehenden Mieter hinzufügen</button>
             </div>
-
 
             <div class="heatwater" id="heatwater">
                 <table style="width: 100%; border-collapse: collapse;">
@@ -1517,7 +1503,7 @@
                                 <tr class="bilder-row">
                                     <td>Bilder</td>
                                     <td colspan="5">
-                                        <div class="bilder-upload-container badezimmer2">
+                                        <div class="bilder-upload-container wc">
                                             <button type="button" class="bilder-upload-btn">Fotos
                                                 hinzufügen</button>
                                             <div class="bilder-thumbnails"></div>
@@ -1787,7 +1773,7 @@
                                 <tr class="bilder-row">
                                     <td>Bilder</td>
                                     <td colspan="5">
-                                        <div class="bilder-upload-container badezimmer2">
+                                        <div class="bilder-upload-container flur">
                                             <button type="button" class="bilder-upload-btn">Fotos
                                                 hinzufügen</button>
                                             <div class="bilder-thumbnails"></div>
@@ -1801,8 +1787,6 @@
                     </div>
                 </div>
             </div>
-
-
 
 
             <div class="room-toggle" data-room="abstell">
@@ -2230,20 +2214,6 @@
 
         </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         <div id="regelungen">
             <div class="rooms">
 
@@ -2310,12 +2280,6 @@
                                 </div>
                             </td>
                         </tr>
-
-
-
-
-
-
 
                     </tbody>
                 </table>
@@ -2474,7 +2438,9 @@
             </div>
 
             <div class="signtenant" id="signtenant1"></div>
+
         </div>
+
         <div class="bildergalerie-container">
 
             <h3 id="kueche-galerie-title" style="display: none;"></h3>
@@ -2483,8 +2449,8 @@
             <h3 id="bad-galerie-title" style="display: none;"></h3>
             <div class="bad-galerie" id="bad-galerie" style="display: none;"></div>
 
-            <h3 id="WC-galerie-title" style="display: none;"></h3>
-            <div class="WC-galerie" id="WC-galerie" style="display: none;"></div>
+            <h3 id="wc-galerie-title" style="display: none;"></h3>
+            <div class="wc-galerie" id="wc-galerie" style="display: none;"></div>
 
             <h3 id="flur-galerie-title" style="display: none;"></h3>
             <div class="flur-galerie" id="flur-galerie" style="display: none;"></div>
@@ -2498,6 +2464,9 @@
             <div id="zimmer-galerien-container"></div>
         </div>
     </div>
+
     <div id="suggestionList" style="display: none;"></div>
+
 </body>
+
 </html>
