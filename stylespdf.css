@@ -43,7 +43,7 @@ table {
 th,
 td {
     border: none;
-    padding: 5px 15px;
+    padding: 1px 15px;
     text-align: left;
     vertical-align: middle;
 }
@@ -195,8 +195,12 @@ td[colspan="5"] {
     font-size: 1rem;
 }
 
-#keySelect {
-padding: 1px 11px 1px 11px !important;
+#keySelect,
+#keySelect1,
+#keySelect2,
+#keySelect3,
+#keySelect4 {
+    padding: 1px 11px 1px 11px !important;
 }
 
 .farbe-input::placeholder {
@@ -483,7 +487,7 @@ select::-ms-expand {
 }
 
 .bilder-upload-btn {
-    display:none;
+    display: none;
     background-color: #607d8b;
     color: white;
     border: none;
@@ -519,24 +523,24 @@ select::-ms-expand {
 }
 
 .thumbnail-remove {
-position: absolute;
-  top: 2px;
-  right: 3px;
-  background: rgba(188, 0, 0, 0.7);
-  color: white;
-  border: none;
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  font-size: 1rem;
-  line-height: 16px;
-  cursor: pointer;
+    position: absolute;
+    top: 2px;
+    right: 3px;
+    background: rgba(188, 0, 0, 0.7);
+    color: white;
+    border: none;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    font-size: 1rem;
+    line-height: 16px;
+    cursor: pointer;
 }
 
 /* Bildergalerie */
 .bildergalerie-container {
-    margin: 30px auto;
-    padding: 20px;
+    margin: 3px auto;
+    padding: 5px;
     max-width: 900px;
     background: #f5f5f5;
     border-radius: 8px;
@@ -678,7 +682,7 @@ position: absolute;
 .save-key-btn,
 .cancel-key-btn,
 .button {
-    display:none;
+    display: none;
     background-color: #607d8b;
     color: white;
     border: none;
@@ -698,7 +702,7 @@ position: absolute;
 .save-key-btn,
 .cancel-key-btn,
 .button {
-    display:none;
+    display: none;
     background-color: #607d8b;
     color: white;
     border: none;
@@ -710,12 +714,13 @@ position: absolute;
 }
 
 #screenshot {
-  display:block;
+    display: block;
 }
 
 
 .addzimmer {
     padding: 15px;
+    display: none;
 }
 
 #objektdaten {
@@ -1064,7 +1069,7 @@ position: absolute;
     /*    margin-top: 5px;
     margin-bottom: 5px; */
     font-size: 1rem;
-    padding: 6px 12px;
+    padding: 1px 12px;
     border: 1px solid #ddd;
     border-radius: 4px;
 }
@@ -1094,7 +1099,7 @@ position: absolute;
 
 
 .add-bemerkung-btn {
-    display:none !important;
+    display: none !important;
     margin: 12px 1px 1px 1px;
     background: #a5c2c5;
     color: white;
@@ -1110,7 +1115,7 @@ position: absolute;
     width: 40px;
     text-align: center;
     margin: 0 5px;
-    padding: 5px;
+    padding: 1px;
     border: 1px solid #ddd;
     border-radius: 4px;
     font-size: 1rem;
@@ -1127,7 +1132,7 @@ position: absolute;
 
 
 .number-btn {
-    display:none !important;
+    display: none !important;
     width: 30px;
     height: 30px;
     background-color: #f0f0f0;
@@ -1171,7 +1176,7 @@ position: absolute;
 .full-width {
     /*    width: 100%; */
     box-sizing: border-box;
-    padding: 5px 8px;
+    padding: 1px 8px;
     border: 1px solid #ddd;
     border-radius: 4px;
 }
@@ -1314,6 +1319,7 @@ tr.bemerkung-row:nth-child(7)>td:nth-child(4) {
 }
 
 .delete-key-btn {
+    display:none;
     margin-left: auto;
     padding: 2px 8px;
     border: none;
@@ -1339,6 +1345,7 @@ tr.bemerkung-row:nth-child(7)>td:nth-child(4) {
 #moveout-delete-btn-2,
 #moveout-delete-btn-3,
 #moveout-delete-btn-4 {
+    display: none !important;
     margin-left: auto;
     padding: 2px 8px;
     border: none;
@@ -1565,16 +1572,16 @@ tr.bemerkung-row:nth-child(7)>td:nth-child(4) {
 }
 
 .room-toggle {
- padding-left: 15px;
-  margin-bottom: 1px;
-  font-weight: 600;
-  box-shadow: none;
-  border-radius: 5px;
-  width: 99%;
-  margin-left: 5px;
-  padding: 8px 17px 2px 15px;
-  margin-top: 1px;
-  padding: 3px 0px 0px 0px;
+    padding-left: 15px;
+    margin-bottom: 1px;
+    font-weight: 600;
+    box-shadow: none;
+    border-radius: 5px;
+    width: 99%;
+    margin-left: 5px;
+    padding: 8px 17px 2px 15px;
+    margin-top: 1px;
+    padding: 3px 0px 0px 0px;
 }
 
 @media (max-width: 480px) {
@@ -1729,7 +1736,7 @@ tr.bemerkung-row:nth-child(7)>td:nth-child(4) {
 }
 
 #signtenant1 {
-    margin-top: 55px;
+    margin-top: 10px;
 }
 
 
@@ -1751,7 +1758,7 @@ tr.bemerkung-row:nth-child(7)>td:nth-child(4) {
 
 td {
     padding: 0;
-    height:1rem;
+    height: 1rem;
 }
 
 /* Modal Overlay */
@@ -1866,7 +1873,7 @@ td {
         width: 95%;
         padding: 15px;
     }
-    
+
     .pdf-modal-title {
         font-size: 1.2rem;
     }
@@ -1884,7 +1891,8 @@ td {
     z-index: 1000;
     opacity: 0;
     transition: opacity 0.3s ease;
-    display: flex; /* Wird jetzt per JS gesetzt */
+    display: flex;
+    /* Wird jetzt per JS gesetzt */
 }
 
 .pdf-modal-overlay.active {
@@ -1898,15 +1906,38 @@ td {
 .save-zaehler-btn,
 .cancel-zaehler-btn,
 .save-key-btn,
-.cancel-key-btn
- {
-    display:block !important;
+.cancel-key-btn {
+    display: block !important;
     background-color: #607d8c;
     color: white;
     border: none;
-    padding: 8px 15px;
+    padding: 1px 15px;
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s;
     font-size: 1rem;
+}
+
+#regelungen,
+#weiterebemerkungen,
+#sign {
+    margin-top: 22px;
+}
+
+
+#weiterebemerkungen>div:nth-child(1)>table:nth-child(1)>tbody:nth-child(1)>tr:nth-child(2) {
+    display: none;
+}
+
+#stylechange {
+    display: block;
+}
+
+tr.bilder-row:nth-child(24),
+.bad>table:nth-child(1)>tbody:nth-child(2)>tr:nth-child(26)>td:nth-child(1),
+div.room-toggle:nth-child(3)>div:nth-child(2)>div:nth-child(1)>table:nth-child(1)>tbody:nth-child(2)>tr:nth-child(26),
+tr.bilder-row:nth-child(13),
+tr.bilder-row:nth-child(14)>td:nth-child(1),
+tr.bilder-row:nth-child(7) > td:nth-child(1)  {
+    display: none;
 }
