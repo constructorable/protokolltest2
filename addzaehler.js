@@ -2,12 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const addZaehlerBtn = document.getElementById('addzaehlerbtn');
     const zaehlerContainer = document.getElementById('addzaehler');
     let zaehlerCounter = 1;
-    let nextZaehlerNumber = 1;
-
-    if (!addZaehlerBtn || !zaehlerContainer) {
-        console.error("Element(e) nicht gefunden: addzaehlerbtn oder addzaehler");
-        return;
-    }
+    let headersCreated = false;
 
     const zaehlerTypes = [
         "Stromzähler",
@@ -17,88 +12,228 @@ document.addEventListener('DOMContentLoaded', function() {
         "Sonstiger Zähler"
     ];
 
+    // Erstelle die Überschriften
+    function createHeaders() {
+        if (headersCreated) return;
+        
+        const headerContainer = document.createElement('div');
+        headerContainer.className = 'zaehler-headers';
+        
+        // Hauptüberschrift
+        const mainHeader = document.createElement('h2');
+        mainHeader.textContent = 'Zähler';
+        
+        // Spaltenüberschriften
+        const columnHeaders = document.createElement('div');
+        columnHeaders.className = 'column-headers';
+        
+        const headers = ['Zählertyp', 'Zählernummer', 'Einbaulage', 'Zählerstand', ''];
+        headers.forEach(headerText => {
+            const header = document.createElement('span');
+            header.textContent = headerText;
+            columnHeaders.appendChild(header);
+        });
+        
+        headerContainer.appendChild(mainHeader);
+        headerContainer.appendChild(columnHeaders);
+        addZaehlerBtn.insertAdjacentElement('beforebegin', headerContainer);
+        
+        headersCreated = true;
+    }
+
     // Funktion zum Erstellen eines neuen Zähler-Eintrags
     function createZaehlerEntry() {
-        const currentZaehlerNumber = nextZaehlerNumber;
+        // Überschriften erstellen beim ersten Klick
+        if (!headersCreated) {
+            createHeaders();
+        }
+
         const zaehlerEntry = document.createElement('div');
-        zaehlerEntry.className = 'table-container zaehler-entry';
+        zaehlerEntry.className = 'zaehler-entry';
         zaehlerEntry.id = `zaehler-entry-${zaehlerCounter}`;
         
-        zaehlerEntry.innerHTML = `
-            <table id="zaehler-table-${zaehlerCounter}">
-                <thead>
-                    <tr>
-                        <th colspan="6" class="kueche-header">
-                            <div class="kueche-verfuegbar" id="zaehler-header-${zaehlerCounter}">
-                                Zähler ${currentZaehlerNumber}
-                            </div>
-                        </th>
-                    </tr>
-               
-                </thead>
-                <tbody>
-                    <tr id="zaehler-type-row-${zaehlerCounter}">
-                        <td>Zählertyp</td>
-                        <td colspan="5">
-                            <select id="zaehler-type-select-${zaehlerCounter}" class="zaehler-type-select" required>
-                                <option value="">-- Bitte auswählen --</option>
-                                ${zaehlerTypes.filter(type => type !== "Sonstiger Zähler").map(type => 
-                                    `<option value="${type}">${type}</option>`
-                                ).join('')}
-                                <option value="custom">Sonstiger Zähler</option>
-                            </select>
-                            <div id="zaehler-custom-container-${zaehlerCounter}" style="display:none; margin-top:5px;">
-                                <input type="text" id="zaehler-custom-type-${zaehlerCounter}" placeholder="Zählertyp eingeben">
-                            </div>
-                        </td>
-                    </tr>
-                    <tr id="zaehler-number-row-${zaehlerCounter}">
-                        <td>Zählernummer</td>
-                        <td colspan="5"><input type="text" class="textinput" id="zaehler-number-input-${zaehlerCounter}" required></td>
-                    </tr>
-                    <tr id="zaehler-location-row-${zaehlerCounter}">
-                        <td>Einbaulage</td>
-                        <td colspan="5"><input type="text" class="textinput" id="zaehler-location-input-${zaehlerCounter}" required></td>
-                    </tr>
-                    <tr id="zaehler-value-row-${zaehlerCounter}">
-                        <td>Zählerstand</td>
-                        <td colspan="5">
-                            <input type="number" class="textinput" id="zaehler-value-input-${zaehlerCounter}" step="0.01" required>
-                        </td>
-                    </tr>
-                    <tr class="zaehler-actions-row" id="zaehler-actions-row-${zaehlerCounter}">
-                        <td></td>
-                        <td colspan="5" style="text-align: right;">
-                            <button type="button" class="delete-zaehler-btn" id="zaehler-delete-btn-${zaehlerCounter}" data-zaehler-id="${zaehlerCounter}">x</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        `;
-
+        // Zählertyp
+        const typeCell = document.createElement('div');
+        typeCell.className = 'zaehler-type';
+        const typeSelect = document.createElement('select');
+        typeSelect.id = `zaehler-type-select-${zaehlerCounter}`;
+        typeSelect.required = true;
+        
+        const defaultOption = document.createElement('option');
+        defaultOption.value = '';
+        defaultOption.textContent = '-- Bitte auswählen --';
+        typeSelect.appendChild(defaultOption);
+        
+        zaehlerTypes.forEach(type => {
+            if (type !== "Sonstiger Zähler") {
+                const option = document.createElement('option');
+                option.value = type;
+                option.textContent = type;
+                typeSelect.appendChild(option);
+            }
+        });
+        
+        const customOption = document.createElement('option');
+        customOption.value = "custom";
+        customOption.textContent = "Sonstiger Zähler";
+        typeSelect.appendChild(customOption);
+        
+        const customContainer = document.createElement('div');
+        customContainer.id = `zaehler-custom-container-${zaehlerCounter}`;
+        customContainer.style.display = 'none';
+        customContainer.style.marginTop = '5px';
+        
+        const customInput = document.createElement('input');
+        customInput.type = 'text';
+        customInput.id = `zaehler-custom-type-${zaehlerCounter}`;
+        customInput.placeholder = 'Zählertyp eingeben';
+        customContainer.appendChild(customInput);
+        
+        typeCell.appendChild(typeSelect);
+        typeCell.appendChild(customContainer);
+        
+        // Zählernummer
+        const numberCell = document.createElement('div');
+        numberCell.className = 'zaehler-number';
+        const numberInput = document.createElement('input');
+        numberInput.type = 'text';
+        numberInput.id = `zaehler-number-input-${zaehlerCounter}`;
+        numberInput.required = true;
+        numberCell.appendChild(numberInput);
+        
+        // Einbaulage
+        const locationCell = document.createElement('div');
+        locationCell.className = 'zaehler-location';
+        const locationInput = document.createElement('input');
+        locationInput.type = 'text';
+        locationInput.id = `zaehler-location-input-${zaehlerCounter}`;
+        locationInput.required = true;
+        locationCell.appendChild(locationInput);
+        
+        // Zählerstand
+        const valueCell = document.createElement('div');
+        valueCell.className = 'zaehler-value';
+        const valueInput = document.createElement('input');
+        valueInput.type = 'number';
+        valueInput.id = `zaehler-value-input-${zaehlerCounter}`;
+        valueInput.step = '0.01';
+        valueInput.required = true;
+        valueCell.appendChild(valueInput);
+        
+        // Löschen-Button
+        const deleteCell = document.createElement('div');
+        deleteCell.className = 'zaehler-delete';
+        const deleteBtn = document.createElement('button');
+        deleteBtn.type = 'button';
+        deleteBtn.className = 'delete-zaehler-btn';
+        deleteBtn.id = `zaehler-delete-btn-${zaehlerCounter}`;
+        deleteBtn.dataset.zaehlerId = zaehlerCounter;
+        deleteBtn.textContent = '×';
+        deleteCell.appendChild(deleteBtn);
+        
+        // Alles zusammenfügen
+        zaehlerEntry.appendChild(typeCell);
+        zaehlerEntry.appendChild(numberCell);
+        zaehlerEntry.appendChild(locationCell);
+        zaehlerEntry.appendChild(valueCell);
+        zaehlerEntry.appendChild(deleteCell);
+        
+        // Einfügen in DOM
         addZaehlerBtn.insertAdjacentElement('beforebegin', zaehlerEntry);
         
-        // Event Listener für die Zählerart-Auswahl
-        document.getElementById(`zaehler-type-select-${zaehlerCounter}`).addEventListener('change', function() {
-            const customContainer = document.getElementById(`zaehler-custom-container-${zaehlerCounter}`);
+        // Event Listener
+        typeSelect.addEventListener('change', function() {
             customContainer.style.display = this.value === "custom" ? "block" : "none";
         });
-
-        // Event Listener für Löschen-Button
-        document.getElementById(`zaehler-delete-btn-${zaehlerCounter}`).addEventListener('click', function() {
+        
+        deleteBtn.addEventListener('click', function() {
             if (confirm('Möchten Sie diesen Zähler wirklich löschen?')) {
                 zaehlerEntry.remove();
             }
         });
-
+        
         zaehlerCounter++;
-        nextZaehlerNumber++;
     }
+
+    // CSS dynamisch hinzufügen
+    const style = document.createElement('style');
+    style.textContent = `
+        .addzaehler {
+            width: 100%;
+            font-family: Arial, sans-serif;
+            margin: 20px 0;
+        }
+        
+        .zaehler-headers {
+            margin-bottom: 10px;
+        }
+        
+        .zaehler-headers h2 {
+            font-size: 1.4rem;
+            margin: 0 0 5px 0;
+            color: #333;
+        }
+        
+        .column-headers {
+            display: grid;
+            grid-template-columns: 2fr 2fr 2fr 1fr 40px;
+            gap: 10px;
+            font-weight: bold;
+            padding: 5px 0;
+            border-bottom: 2px solid #ddd;
+        }
+        
+        .zaehler-entry {
+            display: grid;
+            grid-template-columns: 2fr 2fr 2fr 1fr 40px;
+            gap: 10px;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+            align-items: center;
+        }
+        
+        select, input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 6px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        
+        .delete-zaehler-btn {
+            background: none;
+            border: none;
+            color: #ff4444;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 0 8px;
+        }
+        
+        #addzaehlerbtn {
+            margin-top: 10px;
+            padding: 8px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        @media (max-width: 600px) {
+            .column-headers,
+            .zaehler-entry {
+                grid-template-columns: 1.5fr 1.5fr 1.5fr 1fr 30px;
+                gap: 5px;
+                font-size: 0.9rem;
+            }
+        }
+    `;
+    document.head.appendChild(style);
 
     // Event Listener für den "Zähler hinzufügen"-Button
     addZaehlerBtn.addEventListener('click', createZaehlerEntry);
 
-    // Funktion zum Sammeln aller Zählerdaten für das Formular
+    // Funktion zum Sammeln aller Zählerdaten
     window.getAllZaehlerData = function() {
         const zaehlerData = [];
         document.querySelectorAll('.zaehler-entry').forEach(entry => {
@@ -111,7 +246,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const location = document.getElementById(`zaehler-location-input-${id}`).value;
             const value = document.getElementById(`zaehler-value-input-${id}`).value;
 
-            if (type && number && location && value) {  // Nur vollständige Zähler speichern
+            if (type && number && location && value) {
                 zaehlerData.push({
                     id: id,
                     type: type,
