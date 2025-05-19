@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const addKeyButton = document.getElementById('keysbtn');
     const keysContainer = document.getElementById('keys');
     let keyCounter = 1;
-    let nextKeyNumber = 1;
+    let headersCreated = false; // Flag um zu prüfen ob Überschriften bereits erstellt wurden
 
     // Vordefinierte Schlüsseltypen
     const keyTypes = [
@@ -16,13 +16,40 @@ document.addEventListener('DOMContentLoaded', function () {
         "Sonstiger Schlüssel"
     ];
 
+    // Erstelle die Überschriften
+    function createHeaders() {
+        if (headersCreated) return;
+        
+        const headerContainer = document.createElement('div');
+        headerContainer.className = 'key-headers';
+        
+        // Hauptüberschrift
+        const mainHeader = document.createElement('h2');
+        mainHeader.textContent = 'Schlüssel';
+        
+        // Spaltenüberschriften
+        const columnHeaders = document.createElement('div');
+        columnHeaders.className = 'column-headers';
+        
+        const headers = ['Bezeichnung', 'Anzahl', 'Bemerkung', ''];
+        headers.forEach(headerText => {
+            const header = document.createElement('span');
+            header.textContent = headerText;
+            columnHeaders.appendChild(header);
+        });
+        
+        headerContainer.appendChild(mainHeader);
+        headerContainer.appendChild(columnHeaders);
+        addKeyButton.insertAdjacentElement('beforebegin', headerContainer);
+        
+        headersCreated = true;
+    }
+
     // Funktion zur Steuerung der Zähler
     function setupNumberCounter(inputFeld, minusBtn, plusBtn) {
-        if (!inputFeld) return;
-
         minusBtn.addEventListener('click', () => {
             let value = parseInt(inputFeld.value);
-            if (value > 1) {  // Mindestanzahl auf 1 gesetzt
+            if (value > 1) {
                 inputFeld.value = value - 1;
             }
         });
@@ -36,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         inputFeld.addEventListener('change', () => {
             let value = parseInt(inputFeld.value);
-            if (isNaN(value) || value < 1) {  // Mindestanzahl auf 1 gesetzt
+            if (isNaN(value) || value < 1) {
                 inputFeld.value = 1;
             } else if (value > 9) {
                 inputFeld.value = 9;
@@ -46,93 +73,142 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Funktion zum Erstellen eines neuen Schlüssel-Eintrags
     function createKeyEntry() {
-        const currentKeyNumber = nextKeyNumber;
+        // Überschriften erstellen beim ersten Klick
+        if (!headersCreated) {
+            createHeaders();
+        }
+
         const keyEntry = document.createElement('div');
-        keyEntry.className = 'table-container key-entry';
+        keyEntry.className = 'key-entry';
         keyEntry.id = `key-entry-${keyCounter}`;
-        keyEntry.innerHTML = `
-            <table id="key-table-${keyCounter}">
-                <thead>
-                    <tr>
-                        <th colspan="6" class="header">
-                            <div class="kueche-verfuegbar" id="key-header-${keyCounter}">
-                                Schlüssel ${currentKeyNumber}
-                            </div>
-                        </th>
-                    </tr>
-    
-                </thead>
-                <tbody>
-                    <tr id="key-type-row-${keyCounter}">
-                        <td>Schlüsselart</td>
-                        <td colspan="5">
-                            <select id="key-type-select-${keyCounter}" required>
-                                <option value="">-- Bitte auswählen --</option>
-                                ${keyTypes.map(type => `<option value="${type}">${type}</option>`).join('')}
-                            </select>
-                            <div id="key-custom-container-${keyCounter}" style="display:none; margin-top:5px;">
-                                <input type="text" class="no-spin" id="key-custom-type-${keyCounter}" placeholder="Schlüsselart eingeben">
-                            </div>
-                        </td>
-                    </tr>
-                    <tr id="key-amount-row-${keyCounter}">
-                        <td>Anzahl</td>
-                        <td colspan="5">
-                            <div class="number-input" id="key-number-input-${keyCounter}">
-                                <button type="button" class="number-btn minus" id="key-minus-btn-${keyCounter}">-</button>
-                                <input type="number" id="key-amount-input-${keyCounter}" min="1" max="9" value="1" class="no-spin">
-                                <button type="button" class="number-btn plus" id="key-plus-btn-${keyCounter}">+</button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr id="key-note-row-${keyCounter}">
-                        <td>Bemerkung</td>
-                        <td colspan="5">
-                            <input class="bemerkung-input" type="text" id="key-note-input-${keyCounter}">
-                        </td>
-                    </tr>
-                   <tr class="key-actions-row" id="key-actions-row-${keyCounter}">
-    <td></td>
-    <td colspan="5" style="text-align: right;">
-        <button type="button" class="delete-key-btn" id="key-delete-btn-${keyCounter}" data-key-id="${keyCounter}" style="margin-left: auto;">x</button>
-    </td>
-</tr>
-                </tbody>
-            </table>
-        `;
-
+        
+        // Bezeichnung
+        const typeCell = document.createElement('div');
+        typeCell.className = 'key-type';
+        const typeSelect = document.createElement('select');
+        typeSelect.id = `key-type-select-${keyCounter}`;
+        typeSelect.required = true;
+        
+        const defaultOption = document.createElement('option');
+        defaultOption.value = '';
+        defaultOption.textContent = '-- Bitte auswählen --';
+        typeSelect.appendChild(defaultOption);
+        
+        keyTypes.forEach(type => {
+            const option = document.createElement('option');
+            option.value = type;
+            option.textContent = type;
+            typeSelect.appendChild(option);
+        });
+        
+        const customContainer = document.createElement('div');
+        customContainer.id = `key-custom-container-${keyCounter}`;
+        customContainer.style.display = 'none';
+        customContainer.style.marginTop = '5px';
+        
+        const customInput = document.createElement('input');
+        customInput.type = 'text';
+        customInput.id = `key-custom-type-${keyCounter}`;
+        customInput.placeholder = 'Eingabe';
+        customInput.className = 'no-spin';
+        customContainer.appendChild(customInput);
+        
+        typeCell.appendChild(typeSelect);
+        typeCell.appendChild(customContainer);
+        
+        // Anzahl
+        const amountCell = document.createElement('div');
+        amountCell.className = 'key-amount';
+        const numberInput = document.createElement('div');
+        numberInput.className = 'number-input';
+        
+        const minusBtn = document.createElement('button');
+        minusBtn.type = 'button';
+        minusBtn.className = 'number-btn minus';
+        minusBtn.id = `key-minus-btn-${keyCounter}`;
+        minusBtn.textContent = '-';
+        
+        const amountInput = document.createElement('input');
+        amountInput.type = 'number';
+        amountInput.id = `key-amount-input-${keyCounter}`;
+        amountInput.min = '1';
+        amountInput.max = '9';
+        amountInput.value = '1';
+        amountInput.className = 'no-spin';
+        
+        const plusBtn = document.createElement('button');
+        plusBtn.type = 'button';
+        plusBtn.className = 'number-btn plus';
+        plusBtn.id = `key-plus-btn-${keyCounter}`;
+        plusBtn.textContent = '+';
+        
+        numberInput.appendChild(minusBtn);
+        numberInput.appendChild(amountInput);
+        numberInput.appendChild(plusBtn);
+        amountCell.appendChild(numberInput);
+        
+        // Bemerkung
+        const noteCell = document.createElement('div');
+        noteCell.className = 'key-note';
+        const noteInput = document.createElement('input');
+        noteInput.type = 'text';
+        noteInput.id = `key-note-input-${keyCounter}`;
+        noteInput.className = 'bemerkung-input';
+        noteCell.appendChild(noteInput);
+        
+        // Löschen-Button
+        const deleteCell = document.createElement('div');
+        deleteCell.className = 'key-delete';
+        const deleteBtn = document.createElement('button');
+        deleteBtn.type = 'button';
+        deleteBtn.className = 'delete-key-btn';
+        deleteBtn.id = `key-delete-btn-${keyCounter}`;
+        deleteBtn.dataset.keyId = keyCounter;
+        deleteBtn.textContent = '×';
+        deleteCell.appendChild(deleteBtn);
+        
+        // Alles zusammenfügen
+        keyEntry.appendChild(typeCell);
+        keyEntry.appendChild(amountCell);
+        keyEntry.appendChild(noteCell);
+        keyEntry.appendChild(deleteCell);
+        
+        // Einfügen in DOM
         addKeyButton.insertAdjacentElement('beforebegin', keyEntry);
-
-        // Event Listener für die Schlüsselart-Auswahl
-        document.getElementById(`key-type-select-${keyCounter}`).addEventListener('change', function () {
-            const customContainer = document.getElementById(`key-custom-container-${keyCounter}`);
+        
+        // Event Listener
+        typeSelect.addEventListener('change', function() {
             customContainer.style.display = this.value === "Sonstiger Schlüssel" ? "block" : "none";
         });
-
-        // Initialisiere das Nummernfeld
-        const amountInput = document.getElementById(`key-amount-input-${keyCounter}`);
-        setupNumberCounter(
-            amountInput,
-            document.getElementById(`key-minus-btn-${keyCounter}`),
-            document.getElementById(`key-plus-btn-${keyCounter}`)
-        );
-
-        // Event Listener für Löschen-Button
-        document.getElementById(`key-delete-btn-${keyCounter}`).addEventListener('click', function () {
+        
+        setupNumberCounter(amountInput, minusBtn, plusBtn);
+        
+        deleteBtn.addEventListener('click', function() {
             if (confirm('Möchten Sie diesen Schlüssel wirklich löschen?')) {
                 keyEntry.remove();
             }
         });
-
+        
         keyCounter++;
-        nextKeyNumber++;
     }
+
+    // CSS dynamisch hinzufügen
+    const style = document.createElement('style');
+    style.textContent = `
+        .keys {
+            width: 100%;
+            font-family: Arial, sans-serif;
+            margin: 20px 0;
+        }
+        
+    `;
+    document.head.appendChild(style);
 
     // Event Listener für den "Schlüssel hinzufügen"-Button
     addKeyButton.addEventListener('click', createKeyEntry);
 
-    // Funktion zum Sammeln aller Schlüsseldaten für das Formular
-    window.getAllKeysData = function () {
+    // Funktion zum Sammeln aller Schlüsseldaten
+    window.getAllKeysData = function() {
         const keysData = [];
         document.querySelectorAll('.key-entry').forEach(entry => {
             const id = entry.id.split('-')[2];
@@ -143,7 +219,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const amount = document.getElementById(`key-amount-input-${id}`).value;
             const note = document.getElementById(`key-note-input-${id}`).value;
 
-            if (keyType) {  // Nur Schlüssel mit Typ speichern
+            if (keyType) {
                 keysData.push({
                     id: id,
                     type: keyType,
