@@ -16,11 +16,11 @@ document.addEventListener('DOMContentLoaded', function () {
             titleElementId: 'bad-galerie-title'
         },
         {
-            name: 'badezimmer2',
-            uploadBtnSelector: '.badezimmer2 .bilder-upload-btn',
-            thumbnailContainerSelector: '.badezimmer2 .bilder-thumbnails',
-            galleryContainerId: 'WC-galerie',
-            titleElementId: 'WC-galerie-title'
+            name: 'wc',
+            uploadBtnSelector: '.wc .bilder-upload-btn',
+            thumbnailContainerSelector: '.wc .bilder-thumbnails',
+            galleryContainerId: 'wc-galerie',
+            titleElementId: 'wc-galerie-title'
         },
 
         {
@@ -266,7 +266,7 @@ document.addEventListener('DOMContentLoaded', function () {
             bildElement.style.marginBottom = '20px';
             bildElement.innerHTML = `
                 <div style="margin-bottom: 5px;">${roomName.charAt(0).toUpperCase() + roomName.slice(1)} – Bild ${index + 1}</div>
-                <img src="${bild.galerieUrl}" alt="Foto" style="max-width:1000px; max-height:1000px;">
+                <img src="${bild.galerieUrl}" alt="Foto" style="max-width:1000px;">
             `;
             container.appendChild(bildElement);
         });
