@@ -1,76 +1,190 @@
 document.addEventListener('DOMContentLoaded', function () {
     const tenantButton = document.getElementById('einzugtenant');
+    const signatureContainer = document.getElementById('signtenant1');
     let tenantCounter = 1;
+    let headersCreated = false;
 
-    tenantButton.addEventListener('click', function () {
-        const tenantDisplay = document.createElement('div');
-        tenantDisplay.className = 'table-container tenant-display';
-        tenantDisplay.id = `tenant-display-${tenantCounter}`;
-        tenantDisplay.innerHTML = `
-            <table id="tenant-display-table-${tenantCounter}">
-                <thead>
-                    <tr>
-                        <th colspan="6" class="kueche-header">
-                            <div class="kueche-verfuegbar" id="tenant-display-header-${tenantCounter}">
-                                einziehender Mieter ${tenantCounter}
-                            </div>
-                        </th>
-                    </tr>
-                               </thead>
-                <tbody>
-                    <tr id="tenant-display-name-row-${tenantCounter}">
-                        <td>Name</td>
-                        <td colspan="5">
-                            <input type="text" id="tenant-display-name-${tenantCounter}" class="bemerkung-input">
-                        </td>
-                    </tr>
-                    <tr id="tenant-display-firstname-row-${tenantCounter}">
-                        <td>Vorname</td>
-                        <td colspan="5">
-                            <input type="text" id="tenant-display-firstname-${tenantCounter}" class="bemerkung-input">
-                        </td>
-                    </tr>
-                    <tr id="tenant-display-phone-row-${tenantCounter}">
-                        <td>Telefon</td>
-                        <td colspan="5">
-                            <input type="tel" id="tenant-display-phone-${tenantCounter}" class="bemerkung-input">
-                        </td>
-                    </tr>
-                    <tr id="tenant-display-email-row-${tenantCounter}">
-                        <td>E-Mail</td>
-                        <td colspan="5">
-                            <input type="email" id="tenant-display-email-${tenantCounter}" class="bemerkung-input">
-                        </td>
-                    </tr>
-                    <tr class="tenant-actions-row" id="tenant-display-actions-row-${tenantCounter}">
-                        <td></td>
-                        <td colspan="5" style="text-align:right";>
-                            <button type="button" class="delete-tenant-btn" id="tenant-delete-btn-${tenantCounter}" data-tenant-id="${tenantCounter}">x</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        `;
+    // Erstelle die Überschriften
+    function createHeaders() {
+        if (headersCreated) return;
+        
+        const headerContainer = document.createElement('div');
+        headerContainer.className = 'tenant-headers';
+        
+        // Hauptüberschrift
+        const mainHeader = document.createElement('h2');
+        mainHeader.textContent = 'Einziehende Mieter';
+        
+        // Spaltenüberschriften
+        const columnHeaders = document.createElement('div');
+        columnHeaders.className = 'column-headers';
+        
+        const headers = ['Name', 'Vorname', 'Telefon', 'E-Mail', ''];
+        headers.forEach(headerText => {
+            const header = document.createElement('span');
+            header.textContent = headerText;
+            columnHeaders.appendChild(header);
+        });
+        
+        headerContainer.appendChild(mainHeader);
+        headerContainer.appendChild(columnHeaders);
+        tenantButton.insertAdjacentElement('beforebegin', headerContainer);
+        
+        headersCreated = true;
+    }
 
-        // Füge das Formular oberhalb des Buttons ein
-        tenantButton.insertAdjacentElement('beforebegin', tenantDisplay);
+    // Funktion zum Erstellen eines neuen Mieter-Eintrags
+    function createTenantEntry() {
+        // Überschriften erstellen beim ersten Klick
+        if (!headersCreated) {
+            createHeaders();
+        }
 
-        // Event Listener für den Löschen-Button
-        document.getElementById(`tenant-delete-btn-${tenantCounter}`).addEventListener('click', deleteTenant);
-
-        // Event Listener für Input-Änderungen
-        document.getElementById(`tenant-display-name-${tenantCounter}`).addEventListener('change', updateSignatureName);
-        document.getElementById(`tenant-display-firstname-${tenantCounter}`).addEventListener('change', updateSignatureName);
-
-        // E-Mail-Validierung hinzufügen
-        const emailInput = document.getElementById(`tenant-display-email-${tenantCounter}`);
+        const tenantEntry = document.createElement('div');
+        tenantEntry.className = 'tenant-entry';
+        tenantEntry.id = `tenant-entry-${tenantCounter}`;
+        
+        // Name
+        const nameCell = document.createElement('div');
+        nameCell.className = 'tenant-name';
+        const nameInput = document.createElement('input');
+        nameInput.type = 'text';
+        nameInput.id = `tenant-name-${tenantCounter}`;
+        nameInput.className = 'bemerkung-input';
+        nameCell.appendChild(nameInput);
+        
+        // Vorname
+        const firstnameCell = document.createElement('div');
+        firstnameCell.className = 'tenant-firstname';
+        const firstnameInput = document.createElement('input');
+        firstnameInput.type = 'text';
+        firstnameInput.id = `tenant-firstname-${tenantCounter}`;
+        firstnameInput.className = 'bemerkung-input';
+        firstnameCell.appendChild(firstnameInput);
+        
+        // Telefon
+        const phoneCell = document.createElement('div');
+        phoneCell.className = 'tenant-phone';
+        const phoneInput = document.createElement('input');
+        phoneInput.type = 'tel';
+        phoneInput.id = `tenant-phone-${tenantCounter}`;
+        phoneInput.className = 'bemerkung-input';
+        phoneCell.appendChild(phoneInput);
+        
+        // E-Mail
+        const emailCell = document.createElement('div');
+        emailCell.className = 'tenant-email';
+        const emailInput = document.createElement('input');
+        emailInput.type = 'email';
+        emailInput.id = `tenant-email-${tenantCounter}`;
+        emailInput.className = 'bemerkung-input';
+        emailCell.appendChild(emailInput);
+        
+        // Löschen-Button
+        const deleteCell = document.createElement('div');
+        deleteCell.className = 'tenant-delete';
+        const deleteBtn = document.createElement('button');
+        deleteBtn.type = 'button';
+        deleteBtn.className = 'delete-tenant-btn';
+        deleteBtn.id = `tenant-delete-btn-${tenantCounter}`;
+        deleteBtn.dataset.tenantId = tenantCounter;
+        deleteBtn.textContent = '×';
+        deleteCell.appendChild(deleteBtn);
+        
+        // Alles zusammenfügen
+        tenantEntry.appendChild(nameCell);
+        tenantEntry.appendChild(firstnameCell);
+        tenantEntry.appendChild(phoneCell);
+        tenantEntry.appendChild(emailCell);
+        tenantEntry.appendChild(deleteCell);
+        
+        // Einfügen in DOM
+        tenantButton.insertAdjacentElement('beforebegin', tenantEntry);
+        
+        // Event Listener
+        nameInput.addEventListener('change', updateSignatureName);
+        firstnameInput.addEventListener('change', updateSignatureName);
         emailInput.addEventListener('input', validateEmail);
+        
+        deleteBtn.addEventListener('click', function() {
+            if (confirm('Möchten Sie diesen Mieter wirklich löschen?')) {
+                tenantEntry.remove();
+                const signatureContainer = document.getElementById(`tenant-signature-container-${tenantCounter}`);
+                if (signatureContainer) signatureContainer.remove();
+            }
+        });
 
-        // Unterschriftenfeld erstellen (mit leeren Werten initialisieren)
+        // Unterschriftenfeld erstellen
         createSignatureField(tenantCounter, '');
-
+        
         tenantCounter++;
-    });
+    }
+
+    // CSS dynamisch hinzufügen
+    const style = document.createElement('style');
+    style.textContent = `
+           .tenant-headers {
+            margin-bottom: 10px;
+        }
+        
+        .tenant-headers h2 {
+            font-size: 1.4rem;
+            margin: 0 0 5px 0;
+            color: #fff;
+        }
+        
+        .column-headers {
+            display: grid;
+            grid-template-columns: 2fr 2fr 1.5fr 2fr 40px;
+            gap: 10px;
+            font-weight: bold;
+            padding: 5px 0;
+            border-bottom: 2px solid #ddd;
+        }
+        
+        .tenant-entry {
+            display: grid;
+            grid-template-columns: 2fr 2fr 1.5fr 2fr 40px;
+            gap: 10px;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+            align-items: center;
+        }
+        
+        .tenant-entry input {
+            width: 100%;
+            padding: 6px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        
+        .delete-tenant-btn {
+            background: none;
+            border: none;
+            color: #ff4444;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 0 8px;
+        }
+        
+        .signature-block {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        .signature-block canvas {
+            background-color: #f9f9f9;
+        }
+        
+           
+    `;
+    document.head.appendChild(style);
+
+    // Event Listener für den "Mieter hinzufügen"-Button
+    tenantButton.addEventListener('click', createTenantEntry);
 
     // Funktion zur E-Mail-Validierung
     function validateEmail(e) {
@@ -79,18 +193,18 @@ document.addEventListener('DOMContentLoaded', function () {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
         if (email === '') {
-            emailInput.style.border = ''; // Zurücksetzen
+            emailInput.style.border = '';
         } else if (!emailRegex.test(email)) {
-            emailInput.style.border = '3px solid red'; // Dicker roter Rahmen
+            emailInput.style.border = '3px solid red';
         } else {
-            emailInput.style.border = '3px solid green'; // Dicker grüner Rahmen
+            emailInput.style.border = '3px solid green';
         }
     }
 
     function updateSignatureName(e) {
-        const tenantId = e.target.id.split('-')[3];
-        const name = document.getElementById(`tenant-display-name-${tenantId}`).value;
-        const firstname = document.getElementById(`tenant-display-firstname-${tenantId}`).value;
+        const tenantId = e.target.id.split('-')[2];
+        const name = document.getElementById(`tenant-name-${tenantId}`).value;
+        const firstname = document.getElementById(`tenant-firstname-${tenantId}`).value;
 
         const signatureName = document.getElementById(`tenant-signature-name-${tenantId}`);
         if (signatureName) {
@@ -115,21 +229,15 @@ document.addEventListener('DOMContentLoaded', function () {
         // Canvas initialisieren
         const canvas = document.getElementById(`tenant-signature-canvas-${tenantId}`);
         const ctx = canvas.getContext('2d');
-
-
-        // Canvas-Stil anpassen für sehr dicke, weiche Linien
-        ctx.lineWidth = 7; // Sehr dicke Linie (7 Pixel)
-        ctx.lineJoin = 'round'; // Runde Linienverbindungen
-        ctx.lineCap = 'round'; // Runde Linienenden
-        ctx.strokeStyle = '#373d41'; // Schwarze Farbe
-
-
+        ctx.lineWidth = 7;
+        ctx.lineJoin = 'round';
+        ctx.lineCap = 'round';
+        ctx.strokeStyle = '#373d41';
 
         let drawing = false;
         let lastX = 0;
         let lastY = 0;
 
-        // Funktion zum Starten der Zeichnung
         function startDrawing(e) {
             drawing = true;
             const rect = canvas.getBoundingClientRect();
@@ -137,10 +245,9 @@ document.addEventListener('DOMContentLoaded', function () {
             const y = e.clientY ? e.clientY : e.touches[0].clientY;
             ctx.beginPath();
             ctx.moveTo(x - rect.left, y - rect.top);
-            e.preventDefault(); // Verhindert Scrollen bei Touch-Events
+            e.preventDefault();
         }
 
-        // Funktion zum Zeichnen
         function draw(e) {
             if (!drawing) return;
             const rect = canvas.getBoundingClientRect();
@@ -148,21 +255,18 @@ document.addEventListener('DOMContentLoaded', function () {
             const y = e.clientY ? e.clientY : e.touches[0].clientY;
             ctx.lineTo(x - rect.left, y - rect.top);
             ctx.stroke();
-            e.preventDefault(); // Verhindert Scrollen bei Touch-Events
+            e.preventDefault();
         }
 
-        // Funktion zum Beenden der Zeichnung
         function stopDrawing() {
             drawing = false;
         }
 
-        // Maus-Events
+        // Event Listeners
         canvas.addEventListener('mousedown', startDrawing);
         canvas.addEventListener('mousemove', draw);
         canvas.addEventListener('mouseup', stopDrawing);
         canvas.addEventListener('mouseout', stopDrawing);
-
-        // Touch-Events für mobile Geräte
         canvas.addEventListener('touchstart', startDrawing);
         canvas.addEventListener('touchmove', draw);
         canvas.addEventListener('touchend', stopDrawing);
@@ -171,23 +275,5 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById(`tenant-clear-signature-${tenantId}`).addEventListener('click', () => {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
         });
-    }
-
-    function deleteTenant(e) {
-        const tenantId = e.target.getAttribute('data-tenant-id');
-
-        if (confirm('Möchten Sie diesen Mieter wirklich löschen?')) {
-            // Anzeige entfernen
-            const display = document.getElementById(`tenant-display-${tenantId}`);
-            if (display) {
-                display.remove();
-            }
-
-            // Unterschriftsfeld entfernen
-            const signatureContainer = document.getElementById(`tenant-signature-container-${tenantId}`);
-            if (signatureContainer) {
-                signatureContainer.remove();
-            }
-        }
     }
 });
