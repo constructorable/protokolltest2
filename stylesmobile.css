@@ -51,7 +51,7 @@ td {
 
 td {
     padding: 0;
-    height:3rem;
+    height: 3rem;
 }
 
 th {
@@ -388,6 +388,8 @@ select::-ms-expand {
     padding-right: 20px;
 }
 
+
+
 .radio-group.compact {
     display: flex;
     gap: 15px;
@@ -520,12 +522,12 @@ select::-ms-expand {
 .thumbnail-remove {
     position: absolute;
     top: 2px;
-    right: 2px;
-    background: rgba(255, 0, 0, 0.7);
+    right: 3px;
+    background: rgba(188, 0, 0, 0.7);
     color: white;
     border: none;
-    width: 16px;
-    height: 16px;
+    width: 26px;
+    height: 26px;
     border-radius: 50%;
     font-size: 1rem;
     line-height: 16px;
@@ -676,7 +678,10 @@ select::-ms-expand {
 .cancel-zaehler-btn,
 .save-key-btn,
 .cancel-key-btn,
-.button {
+.button,
+.zaehler-headers,
+.tenant-headers,
+.moveout-headers {
     background-color: #607d8b;
     color: white;
     border: none;
@@ -686,6 +691,20 @@ select::-ms-expand {
     transition: background-color 0.3s;
     font-size: 1rem;
 }
+
+
+
+.zaehler-headers {
+    margin-bottom: 10px;
+}
+
+.zaehler-headers h2,
+.tenant-headers h2 {
+    font-size: 1.4rem;
+    margin: 0 0 5px 0;
+    color: #fdfdfd;
+}
+
 
 .addzimmer {
     padding: 15px;
@@ -1313,7 +1332,7 @@ tr.bemerkung-row:nth-child(7)>td:nth-child(4) {
     margin-left: auto;
     padding: 2px 8px;
     border: none;
-    background: #f5f5f5;
+    background: #fff;
     color: #ff0000;
     cursor: pointer;
     border-radius: 3px;
@@ -1722,7 +1741,7 @@ tr.bemerkung-row:nth-child(7)>td:nth-child(4) {
 
 td {
     padding: 0;
-    height:3rem;
+    height: 3rem;
 }
 
 /* Modal Overlay */
@@ -1753,7 +1772,7 @@ td {
     border-radius: 8px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
     width: 90%;
-    max-width: 500px;
+    max-width: 900px;
     padding: 25px;
     transform: translateY(20px);
     transition: transform 0.3s ease;
@@ -1763,16 +1782,10 @@ td {
     transform: translateY(0);
 }
 
-/* Modal Header */
-.pdf-modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
 
 .pdf-modal-title {
     font-size: 1.5rem;
+    text-align: center;
     font-weight: 600;
     color: #333;
     margin: 0;
@@ -1785,27 +1798,32 @@ td {
     border-radius: 4px;
     margin: 15px 0;
     overflow: hidden;
+    border-radius: 22px;
 }
 
 .pdf-progress-bar {
     width: 0%;
-    height: 20px;
+    height: 35px;
     background-color: #4CAF50;
     transition: width 0.3s ease;
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
-    font-size: 0.8rem;
+    font-size: 1rem;
+    border-radius: 22px;
 }
 
-/* Status Message */
+
 .pdf-status-message {
-    margin-top: 15px;
+    margin-top: 50px;
     padding: 10px;
     border-radius: 4px;
     text-align: center;
+    font-size: 1.2rem;
 }
+
+
 
 .pdf-status-message.success {
     background-color: #e8f5e9;
@@ -1817,19 +1835,8 @@ td {
     color: #c62828;
 }
 
-/* Close Button */
-.pdf-modal-close {
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: #666;
-    transition: color 0.2s;
-}
 
-.pdf-modal-close:hover {
-    color: #333;
-}
+
 
 /* Responsive Anpassungen */
 @media (max-width: 600px) {
@@ -1837,7 +1844,7 @@ td {
         width: 95%;
         padding: 15px;
     }
-    
+
     .pdf-modal-title {
         font-size: 1.2rem;
     }
@@ -1855,9 +1862,322 @@ td {
     z-index: 1000;
     opacity: 0;
     transition: opacity 0.3s ease;
-    display: flex; /* Wird jetzt per JS gesetzt */
+    display: flex;
+    /* Wird jetzt per JS gesetzt */
 }
 
 .pdf-modal-overlay.active {
     opacity: 1;
+}
+
+.heading {
+    font-weight: 600;
+    font-size: 36px;
+}
+
+.haus {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-left: 8px;
+}
+
+.haus i {
+    font-size: 28px;
+    color: #4e4e4e;
+
+}
+
+h3 i.fas {
+    color: #575757 !important;
+}
+
+.fa-home {
+    font-size: 25px !important;
+}
+
+.pdf-modal-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.pdf-modal-close {
+    position: absolute;
+    right: 10px;
+    top: -11px;
+    background-color: #fff;
+    border: none;
+    font-size: 1.5rem;
+    color: #424242;
+
+
+}
+
+.pdf-modal-close:hover {
+    color: #333;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.key-headers {
+    margin-bottom: 10px;
+}
+
+.key-headers h2 {
+    font-size: 1.4rem;
+    margin: 0 0 5px 0;
+    color: #333;
+}
+
+.column-headers {
+    display: grid;
+    grid-template-columns: 1.5fr 0.7fr 2.5fr auto;
+    gap: 10px;
+    font-weight: bold;
+    padding: 5px 0;
+
+}
+
+.key-entry {
+    display: grid;
+    grid-template-columns: 1.5fr 0.7fr 2.5fr auto;
+    gap: 10px;
+    padding: 8px 0;
+
+    align-items: center;
+}
+
+select,
+input[type="text"],
+input[type="number"] {
+    width: 100%;
+    padding: 6px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.number-input {
+    display: flex;
+    align-items: center;
+}
+
+.number-btn {
+    padding: 0 8px;
+    cursor: pointer;
+}
+
+.delete-key-btn {
+    background: none;
+    border: none;
+    color: #ff4444;
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 0 8px;
+}
+
+
+.key-headers {
+    background: #607d8b;
+    padding: 8px;
+    border-radius: 5px;
+    color: white;
+    font-weight: 200;
+    font-size: 1rem;
+    padding-left: 15px;
+    padding-right: 20px;
+
+}
+
+.key-headers h2 {
+    color: white;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.column-headers {
+    display: grid;
+    grid-template-columns: 2fr 2fr 2fr 1fr 40px;
+    gap: 10px;
+    font-weight: bold;
+    padding: 5px 0;
+
+}
+
+.zaehler-entry {
+    display: grid;
+    grid-template-columns: 2fr 2fr 2fr 1fr 40px;
+    gap: 10px;
+    padding: 8px 0;
+
+    align-items: center;
+}
+
+select,
+input[type="text"],
+input[type="number"] {
+    width: 100%;
+    padding: 6px;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.delete-zaehler-btn {
+    background: none;
+    border: none;
+    color: #ff4444;
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 0 8px;
+}
+
+
+@media (max-width: 600px) {
+
+    .column-headers,
+    .zaehler-entry {
+        grid-template-columns: 1.5fr 1.5fr 1.5fr 1fr 30px;
+        gap: 5px;
+        font-size: 0.9rem;
+    }
+}
+
+
+#zaehler-number-input-1,
+#zaehler-number-input-2,
+#zaehler-number-input-3,
+#zaehler-number-input-4,
+#zaehler-number-input-5,
+#zaehler-number-input-6,
+#zaehler-number-input-7,
+#zaehler-number-input-8,
+#zaehler-number-input-9,
+#zaehler-number-input-10,
+#zaehler-location-input-1,
+#zaehler-location-input-2,
+#zaehler-location-input-3,
+#zaehler-location-input-4,
+#zaehler-location-input-5,
+#zaehler-location-input-6,
+#zaehler-location-input-7,
+#zaehler-location-input-8,
+#zaehler-location-input-9,
+#zaehler-location-input-10,
+#zaehler-value-input-1,
+#zaehler-value-input-2,
+#zaehler-value-input-3,
+#zaehler-value-input-4,
+#zaehler-value-input-5,
+#zaehler-value-input-6,
+#zaehler-value-input-7,
+#zaehler-value-input-8,
+#zaehler-value-input-9,
+#zaehler-value-input-10 {
+    font-size: 1rem;
+}
+
+
+#zaehler-entry-1,
+#zaehler-entry-2,
+#zaehler-entry-3,
+#zaehler-entry-4,
+#zaehler-entry-5,
+#zaehler-entry-6,
+#zaehler-entry-7,
+#zaehler-entry-8,
+#zaehler-entry-9,
+#zaehler-entry-10,
+#zaehler-entry-11 {
+    border: none !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.column-headers {
+    display: grid;
+    grid-template-columns: 2fr 2fr 1.5fr 2fr 40px;
+    gap: 10px;
+    font-weight: bold;
+    padding: 5px 0;
+    border-bottom: 2px solid #ddd;
+}
+
+.tenant-entry {
+    display: grid;
+    grid-template-columns: 2fr 2fr 1.5fr 2fr 40px;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: none;
+    align-items: center;
+}
+
+.tenant-entry input {
+    width: 100%;
+    padding: 6px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.delete-tenant-btn {
+    background: none;
+    border: none;
+    color: #ff4444;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 0 8px;
+}
+
+
+
+.signature-block {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.signature-block canvas {
+    background-color: #f9f9f9;
 }
