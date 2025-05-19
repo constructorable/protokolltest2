@@ -196,7 +196,7 @@ document.addEventListener('DOMContentLoaded', function () {
             button.textContent = 'PDF erstellen';
 
             // Modal nach 5 Sekunden automatisch schließen
-            setTimeout(closeModal, 25000);
+            setTimeout(closeModal, 65000);
         }
     });
 });
