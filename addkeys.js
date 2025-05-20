@@ -29,9 +29,9 @@ document.addEventListener('DOMContentLoaded', function () {
         
         // Spaltenüberschriften
         const columnHeaders = document.createElement('div');
-        columnHeaders.className = 'column-headers';
+        columnHeaders.className = 'column-key-headers';
         
-        const headers = ['Bezeichnung', 'Anzahl', 'Bemerkung', ''];
+        const headers = ['Art', 'Anzahl', 'Bemerkung', ''];
         headers.forEach(headerText => {
             const header = document.createElement('span');
             header.textContent = headerText;
