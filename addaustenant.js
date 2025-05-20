@@ -7,33 +7,33 @@ document.addEventListener('DOMContentLoaded', function () {
     // Erstelle die Überschriften
     function createHeaders() {
         if (headersCreated) return;
-        
+
         const headerContainer = document.createElement('div');
         headerContainer.className = 'moveout-headers';
-        
+
         // Hauptüberschrift
         const mainHeader = document.createElement('h2');
-        mainHeader.textContent = 'Ausziehende Mieter';
-        
+        mainHeader.textContent = 'ausziehende Mieter';
+
         // Spaltenüberschriften
         const columnHeaders = document.createElement('div');
         columnHeaders.className = 'column-headers';
-        
-        const headers = ['Name, Vorname', 'Neue Straße', 'PLZ, Ort', 'E-Mail', ''];
+
+        const headers = ['', '', '', '', ''];
         headers.forEach(headerText => {
             const header = document.createElement('span');
             header.textContent = headerText;
             columnHeaders.appendChild(header);
         });
-        
+
         headerContainer.appendChild(mainHeader);
         headerContainer.appendChild(columnHeaders);
         moveOutButton.insertAdjacentElement('beforebegin', headerContainer);
-        
+
         headersCreated = true;
     }
 
-    // Funktion zum Erstellen eines neuen Mieter-Eintrags
+    // Funktion zum Erstellen eines neuen ausziehenden Mieter-Eintrags
     function createMoveOutEntry() {
         // Überschriften erstellen beim ersten Klick
         if (!headersCreated) {
@@ -41,36 +41,39 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         const moveOutEntry = document.createElement('div');
-        moveOutEntry.className = 'moveout-entry';
+        moveOutEntry.className = 'tenant-entry moveout-entry';
         moveOutEntry.id = `moveout-entry-${moveOutTenantCounter}`;
-        
-        // Name, Vorname
+
+        // Name
         const nameCell = document.createElement('div');
         nameCell.className = 'moveout-name';
         const nameInput = document.createElement('input');
         nameInput.type = 'text';
         nameInput.id = `moveout-name-${moveOutTenantCounter}`;
         nameInput.className = 'bemerkung-input';
+        nameInput.placeholder = 'Vor- / Nachname eingeben';
         nameCell.appendChild(nameInput);
-        
-        // Neue Straße
-        const streetCell = document.createElement('div');
-        streetCell.className = 'moveout-street';
-        const streetInput = document.createElement('input');
-        streetInput.type = 'text';
-        streetInput.id = `moveout-street-${moveOutTenantCounter}`;
-        streetInput.className = 'bemerkung-input';
-        streetCell.appendChild(streetInput);
-        
-        // PLZ, Ort
-        const zipCityCell = document.createElement('div');
-        zipCityCell.className = 'moveout-zipcity';
-        const zipCityInput = document.createElement('input');
-        zipCityInput.type = 'text';
-        zipCityInput.id = `moveout-zipcity-${moveOutTenantCounter}`;
-        zipCityInput.className = 'bemerkung-input';
-        zipCityCell.appendChild(zipCityInput);
-        
+
+        // Vorname
+        const firstnameCell = document.createElement('div');
+        firstnameCell.className = 'moveout-firstname';
+        const firstnameInput = document.createElement('input');
+        firstnameInput.type = 'text';
+        firstnameInput.id = `moveout-firstname-${moveOutTenantCounter}`;
+        firstnameInput.className = 'bemerkung-input';
+        firstnameInput.placeholder = 'neue Straße';
+        firstnameCell.appendChild(firstnameInput);
+
+        // Telefon
+        const phoneCell = document.createElement('div');
+        phoneCell.className = 'moveout-phone';
+        const phoneInput = document.createElement('input');
+        phoneInput.type = 'tel';
+        phoneInput.id = `moveout-phone-${moveOutTenantCounter}`;
+        phoneInput.className = 'bemerkung-input';
+        phoneInput.placeholder = 'PLZ / Ort';
+        phoneCell.appendChild(phoneInput);
+
         // E-Mail
         const emailCell = document.createElement('div');
         emailCell.className = 'moveout-email';
@@ -78,8 +81,9 @@ document.addEventListener('DOMContentLoaded', function () {
         emailInput.type = 'email';
         emailInput.id = `moveout-email-${moveOutTenantCounter}`;
         emailInput.className = 'bemerkung-input';
+        emailInput.placeholder = 'E-Mail-Adresse eingeben';
         emailCell.appendChild(emailInput);
-        
+
         // Löschen-Button
         const deleteCell = document.createElement('div');
         deleteCell.className = 'moveout-delete';
@@ -90,22 +94,23 @@ document.addEventListener('DOMContentLoaded', function () {
         deleteBtn.dataset.tenantId = moveOutTenantCounter;
         deleteBtn.textContent = '×';
         deleteCell.appendChild(deleteBtn);
-        
+
         // Alles zusammenfügen
         moveOutEntry.appendChild(nameCell);
-        moveOutEntry.appendChild(streetCell);
-        moveOutEntry.appendChild(zipCityCell);
+        moveOutEntry.appendChild(firstnameCell);
+        moveOutEntry.appendChild(phoneCell);
         moveOutEntry.appendChild(emailCell);
         moveOutEntry.appendChild(deleteCell);
-        
+
         // Einfügen in DOM
         moveOutButton.insertAdjacentElement('beforebegin', moveOutEntry);
-        
+
         // Event Listener
         nameInput.addEventListener('change', updateMoveOutSignatureName);
+        firstnameInput.addEventListener('change', updateMoveOutSignatureName);
         emailInput.addEventListener('input', validateMoveOutEmail);
-        
-        deleteBtn.addEventListener('click', function() {
+
+        deleteBtn.addEventListener('click', function () {
             if (confirm('Möchten Sie diesen Mieter wirklich löschen?')) {
                 moveOutEntry.remove();
                 const signatureContainer = document.getElementById(`moveout-signature-container-${moveOutTenantCounter}`);
@@ -115,15 +120,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Unterschriftenfeld erstellen
         createMoveOutSignatureField(moveOutTenantCounter, '');
-        
+
         moveOutTenantCounter++;
     }
 
     // CSS dynamisch hinzufügen
     const style = document.createElement('style');
     style.textContent = `
-
-    
+        .moveout-headers {
+            margin-bottom: 10px;
+        }
         
         .moveout-headers h2 {
             font-size: 1.4rem;
@@ -133,28 +139,32 @@ document.addEventListener('DOMContentLoaded', function () {
         
         .column-headers {
             display: grid;
-            grid-template-columns: 2fr 2fr 1.5fr 2fr 40px;
+            grid-template-columns: 2fr 2fr 1.5fr 2fr auto;
             gap: 10px;
             font-weight: bold;
             padding: 5px 0;
-            border-bottom: 2px solid #ddd;
         }
         
         .moveout-entry {
             display: grid;
-            grid-template-columns: 2fr 2fr 1.5fr 2fr 40px;
+            grid-template-columns: 2fr 2fr 1.5fr 2fr auto;
             gap: 10px;
-            padding: 8px 0;
-            border-bottom: 1px solid #eee;
+            padding: 1px 0;
             align-items: center;
+            border-bottom: 2px solid #ccc;
         }
         
         .moveout-entry input {
             width: 100%;
-            padding: 6px;
+            padding: 1px;
             border: 1px solid #ddd;
             border-radius: 4px;
             box-sizing: border-box;
+        }
+
+        .moveout-entry input::placeholder {
+            color: #aaa;
+            font-style: italic;
         }
         
         .delete-moveout-btn {
@@ -165,7 +175,6 @@ document.addEventListener('DOMContentLoaded', function () {
             cursor: pointer;
             padding: 0 8px;
         }
-        
         
         .signature-block {
             margin-top: 20px;
@@ -178,11 +187,60 @@ document.addEventListener('DOMContentLoaded', function () {
             background-color: #f9f9f9;
         }
         
-
+        /* Anpassung für zweispaltige Ansicht */
+        @media (max-width: 1680px) {
+            .column-headers {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+                margin-top: 10px;
+            }
+            
+            .moveout-entry {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: repeat(2, auto);
+                gap: 10px;
+                margin-bottom: 15px;
+                border-bottom: 2px solid #ccc;
+                position: relative;
+            }
+            
+            /* Erstes Feld (Name) */
+            .moveout-name {
+                grid-column: 1;
+                grid-row: 1;
+            }
+            
+            /* Zweites Feld (Vorname) */
+            .moveout-firstname {
+                grid-column: 2;
+                grid-row: 1;
+            }
+            
+            /* Drittes Feld (Telefon) */
+            .moveout-phone {
+                grid-column: 1;
+                grid-row: 2;
+            }
+            
+            /* Viertes Feld (E-Mail) */
+            .moveout-email {
+                grid-column: 2;
+                grid-row: 2;
+            }
+            
+            /* Löschen-Button rechts neben dem Formular platzieren */
+            .moveout-delete {
+                position: absolute;
+                right: 1px;
+                top: 98px;
+            }
+        }
     `;
     document.head.appendChild(style);
 
-    // Event Listener für den "Mieter hinzufügen"-Button
+    // Event Listener für den "Ausziehenden Mieter hinzufügen"-Button
     moveOutButton.addEventListener('click', createMoveOutEntry);
 
     // Funktion zur E-Mail-Validierung
@@ -192,7 +250,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
         if (email === '') {
-            emailInput.style.border = '3px solid #ccc';
+            emailInput.style.border = '';
         } else if (!emailRegex.test(email)) {
             emailInput.style.border = '3px solid red';
         } else {
@@ -203,10 +261,11 @@ document.addEventListener('DOMContentLoaded', function () {
     function updateMoveOutSignatureName(e) {
         const tenantId = e.target.id.split('-')[2];
         const name = document.getElementById(`moveout-name-${tenantId}`).value;
+        const firstname = ""; // Fester Wert statt Wert aus dem Eingabefeld
 
         const signatureName = document.getElementById(`moveout-signature-name-${tenantId}`);
         if (signatureName) {
-            signatureName.textContent = name;
+            signatureName.textContent = `${firstname} ${name}`;
         }
     }
 
@@ -273,5 +332,14 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById(`moveout-clear-signature-${tenantId}`).addEventListener('click', () => {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
         });
+    }
+
+    // Falls bereits ein Input-Feld existiert, füge Placeholder hinzu
+    const initialMoveOutEntry = document.getElementById('moveout-entry-1');
+    if (initialMoveOutEntry) {
+        document.getElementById('moveout-name-1').placeholder = 'Nachname eingeben';
+        document.getElementById('moveout-firstname-1').placeholder = 'Vorname eingeben';
+        document.getElementById('moveout-phone-1').placeholder = 'Telefonnummer eingeben';
+        document.getElementById('moveout-email-1').placeholder = 'E-Mail-Adresse eingeben';
     }
 });
