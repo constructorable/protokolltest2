@@ -257,6 +257,10 @@ td[colspan="5"] {
     font-size: 1rem;
 }
 
+.euro {
+    width: 75px !important;
+}
+
 /* Stil für die feste Bemerkungszeile */
 tr.bemerkung-row td:first-child {
     width: 40% !important;
@@ -1919,24 +1923,6 @@ h3 i.fas {
     color: #333;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .key-headers {
     margin-bottom: 10px;
 }
@@ -2010,20 +1996,6 @@ input[type="number"] {
 .key-headers h2 {
     color: white;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .column-headers {
     display: grid;
@@ -2121,19 +2093,6 @@ input[type="number"] {
     border: none !important;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 .column-headers {
     display: grid;
     grid-template-columns: 2fr 2fr 1.5fr 2fr 40px;
@@ -2180,4 +2139,292 @@ input[type="number"] {
 
 .signature-block canvas {
     background-color: #f9f9f9;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Einziehender Mieter zweizeilig */
+/* Einziehender Mieter zweizeilig */
+/* Einziehender Mieter zweizeilig */
+
+.tenant {
+    width: 100%;
+    max-width: 100%;
+}
+
+.tenant-headers {
+    margin-bottom: 15px;
+}
+
+.column-headers {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.column-headers span:nth-child(3),
+.column-headers span:nth-child(4),
+.column-headers span:nth-child(5) {
+    display: none;
+    /* Ausblenden der Spaltenüberschriften für die zweite Zeile */
+}
+
+.tenant-entry {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, auto);
+    gap: 10px;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+/* Erstes Feld (Name) */
+.tenant-name {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+/* Zweites Feld (Vorname) */
+.tenant-firstname {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+/* Drittes Feld (Telefon) */
+.tenant-phone {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+/* Viertes Feld (E-Mail) */
+.tenant-email {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+/* Löschen-Button rechts neben dem Formular platzieren */
+.tenant-delete {
+    position: absolute;
+    right: -30px;
+    top: 0;
+}
+
+/* Feldbreite anpassen */
+.bemerkung-input {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Button-Styling */
+#einzugtenant {
+    margin-top: 10px;
+}
+
+/* Responsive Design für kleinere Bildschirme */
+@media (max-width: 576px) {
+    .tenant-entry {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(4, auto);
+    }
+
+    .tenant-name,
+    .tenant-firstname,
+    .tenant-phone,
+    .tenant-email {
+        grid-column: 1;
+    }
+
+    .tenant-name {
+        grid-row: 1;
+    }
+
+    .tenant-firstname {
+        grid-row: 2;
+    }
+
+    .tenant-phone {
+        grid-row: 3;
+    }
+
+    .tenant-email {
+        grid-row: 4;
+    }
+
+    .column-headers {
+        grid-template-columns: 1fr;
+    }
+
+    .tenant-delete {
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+}
+
+
+
+/* Ausziehender Mieter zweizeilig */
+/* Ausziehender Mieter zweizeilig */
+/* Ausziehender Mieter zweizeilig */
+
+/* Basis-Layout für die ausziehenden Mieter */
+.moveout-headers {
+    margin-bottom: 15px;
+}
+
+.moveout-headers h2 {
+    font-size: 1.4rem;
+    margin: 0 0 5px 0;
+    color: #fff;
+}
+
+.column-headers {
+    display: grid;
+    grid-template-columns: 2fr 2fr 1.5fr 2fr 40px;
+    gap: 10px;
+    font-weight: bold;
+    padding: 5px 0;
+}
+
+.moveout-entry {
+    display: grid;
+    grid-template-columns: 2fr 2fr 1.5fr 2fr 40px;
+    gap: 10px;
+    padding: 1px 0 15px 0;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #ccc;
+    align-items: center;
+}
+
+.moveout-entry input {
+    width: 100%;
+    padding: 1px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.delete-moveout-btn {
+    background: none;
+    border: none;
+    color: #ff4444;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 0 8px;
+}
+
+/* Anpassung für zweispaltige Ansicht */
+@media (max-width: 992px) {
+    .column-headers {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    .column-headers span:nth-child(3),
+    .column-headers span:nth-child(4),
+    .column-headers span:nth-child(5) {
+        display: none;
+        /* Ausblenden der Spaltenüberschriften für die zweite Zeile */
+    }
+
+    .moveout-entry {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, auto);
+        gap: 10px;
+        margin-bottom: 15px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #ccc;
+        position: relative;
+    }
+
+    /* Erstes Feld (Name) */
+    .moveout-name {
+        grid-column: 1;
+        grid-row: 1;
+    }
+
+    /* Zweites Feld (Straße) */
+    .moveout-street {
+        grid-column: 2;
+        grid-row: 1;
+    }
+
+    /* Drittes Feld (PLZ, Ort) */
+    .moveout-zipcity {
+        grid-column: 1;
+        grid-row: 2;
+    }
+
+    /* Viertes Feld (E-Mail) */
+    .moveout-email {
+        grid-column: 2;
+        grid-row: 2;
+    }
+
+    /* Löschen-Button rechts neben dem Formular platzieren */
+    .moveout-delete {
+        position: absolute;
+        right: -30px;
+        top: 0;
+    }
+}
+
+
+
+#tenant-name-1,
+#tenant-name-2,
+#tenant-name-3,
+#tenant-name-4,
+#tenant-name-5,
+#tenant-name-6,
+#tenant-firstname-1,
+#tenant-firstname-2,
+#tenant-firstname-3,
+#tenant-firstname-4,
+#tenant-firstname-5,
+#tenant-firstname-6,
+#tenant-phone-1,
+#tenant-phone-2,
+#tenant-phone-3,
+#tenant-phone-4,
+#tenant-phone-5,
+#tenant-phone-6,
+#tenant-email-1,
+#tenant-email-2,
+#tenant-email-3,
+#tenant-email-4,
+#tenant-email-5,
+#tenant-email-6,
+#moveout-name-1,
+#moveout-name-2,
+#moveout-name-3,
+#moveout-name-4,
+#moveout-firstname-1,
+#moveout-firstname-2,
+#moveout-firstname-3,
+#moveout-firstname-4,
+#moveout-phone-1,
+#moveout-phone-2,
+#moveout-phone-3,
+#moveout-phone-4,
+#moveout-email-1,
+#moveout-email-2,
+#moveout-email-3,
+#moveout-email-4 {
+  padding: 8px;
 }
