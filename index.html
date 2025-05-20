@@ -2225,57 +2225,84 @@
 
                 <table>
                     <tbody>
+                        <tr>
+                            <th colspan="7" class="header-regel">
+                                <div>Regelung Mängelbeseitigung</div>
+                            </th>
+                        </tr>
 
-
-                        <th colspan="6" class="header-regel">
-                            <div>
-                                Regelung Mängelbeseitigung
-                            </div>
-                        </th>
+                        <!-- Header für die Optionsspalten -->
+                        <tr class="options-header">
+                            <td width="50%">Beschreibung</td>
+                            <td width="10%"></td>
+                            <td width="10%">Ja</td>
+                            <td width="10%"></td>
+                            <td width="10%">Nein</td>
+                            <td width="10%"></td>
+                            <td width="10%">Nicht zutreffend</td>
+                        </tr>
 
                         <tr>
-                            <td>Der ausziehende Mieter erkennt die in diesem Protokoll aufgeführten Mängel an
-                                und...
+                            <td>Der ausziehende Mieter erkennt die in diesem Protokoll aufgeführten Mängel an und...
                             </td>
+                            <td></td>
                             <td><input type="checkbox" id="678"></td>
+                            <td></td>
                             <td><input type="checkbox" id="679"></td>
+                            <td></td>
                             <td><input type="checkbox" id="680"></td>
-
                         </tr>
+
                         <tr>
-                            <td>...verpflichtet sich für die Beseitigung erforderlichen Arbeiten bis zum auf
-                                seine
-                                Kosten
-                                auszuführen oder ausführen zu lassen oder...</td>
+                            <td>...verpflichtet sich für die Beseitigung erforderlichen Arbeiten bis zum auf seine
+                                Kosten auszuführen oder ausführen zu lassen oder...</td>
+                            <td></td>
                             <td><input type="checkbox" id="681"></td>
+                            <td></td>
                             <td><input type="checkbox" id="682"></td>
+                            <td></td>
                             <td><input type="checkbox" id="683"></td>
-
                         </tr>
+
                         <tr>
-                            <td>...ermächtigt den Vermieter, die erforderlichen Arbeiten zu beauftragen. Er
-                                verpflichtet
-                                sich, die dadurch entstehenden Kosten nach Rechnungsstellung zu bezahlen, ggf.
-                                mit der
+                            <td>...ermächtigt den Vermieter, die erforderlichen Arbeiten zu beauftragen. Er verpflichtet
+                                sich, die dadurch entstehenden Kosten nach Rechnungsstellung zu bezahlen, ggf. mit der
                                 Mietsicherheit verrechnen zu lassen oder...</td>
+                            <td></td>
                             <td><input type="checkbox" id="684"></td>
+                            <td></td>
                             <td><input type="checkbox" id="685"></td>
+                            <td></td>
                             <td><input type="checkbox" id="686"></td>
-
                         </tr>
-                        <tr>
-                            <td>...wird diese Verpflichtung durch Zahlung eines Pauschalbetrages von €
-                                abgegolten. </td>
-                            <td><input type="number" id="687" class="euro">€</td>
-                            <td><input type="checkbox" id="688"></td>
-                            <td><input type="checkbox" id="689"></td>
 
+                        <tr>
+                            <td>...wird diese Verpflichtung durch Zahlung eines Pauschalbetrages von € abgegolten.</td>
+                            <td><input type="number" id="687" class="euro"> €</td>
+                            <td><input type="checkbox" id="688"></td>
+                            <td></td>
+                            <td><input type="checkbox" id="689"></td>
+                            <td></td>
+                            <td><input type="checkbox" id="689b"></td>
+                        </tr>
+
+                        <tr class="bemerkung-row">
+                            <td style="font-weight:bold;">Bemerkungen zur Mängelbeseitigung</td>
+                            <!--     <td colspan="6" class="long">
+                                <div class="bemerkung-container">
+                                    <input type="text" id="690" class="bemerkung-input"
+                                        placeholder="Bemerkung eingeben">
+                                    <div class="bemerkung-actions">
+                                        <button type="button" class="add-bemerkung-btn">+</button>
+                                        <button type="button" class="del-bemerkung-btn" style="display:none;">×</button>
+                                    </div>
+                                </div>
+                            </td> -->
                         </tr>
 
 
                         <tr class="bemerkung-row">
-                            <td colspan="1">Bemerkungen zur Mängelbeseitigung</td>
-                            <td colspan="3" class="long">
+                            <td colspan="7" class="long">
                                 <div class="bemerkung-container">
                                     <input type="text" id="690" class="bemerkung-input"
                                         placeholder="Bemerkung eingeben">
@@ -2287,10 +2314,158 @@
                             </td>
                         </tr>
 
+
+
+
                     </tbody>
                 </table>
             </div>
         </div>
+
+
+
+        <!--                 <div id="regelungen">
+<div id="weitereBemerkungenContainer">
+                <div class="rooms" id="weitereBemerkungen">
+                    <h3>Regelung Mängelbeseitigung</h3>
+                    <table style="display: table;">
+                        <tbody>
+                            <tr>
+                                <td style="border-top: 10px solid rgb(255, 255, 255); border-bottom: 5px solid rgb(255, 255, 255);">
+                                    Der ausziehende Mieter erkennt die in diesem Protokoll aufgeführten Mängel an und...
+                                </td>
+                                <td class="no-border-right text-right" style="text-align: right; background-color:#fff;">
+                                    JA
+                                </td>
+                                <td>
+                                    <input type="radio" id="weitereBemerkungen1" name="weitereBemerkungen1" value="ja">
+                                    <label for="weitereBemerkungen1" class="radio-label"></label>
+                                </td>
+                                <td class="no-border-right text-right" style="text-align: right; background-color:#fff; padding-left:40px">
+                                    NEIN
+                                </td>
+                                <td style="padding-right:11px" ;="">
+                                    <input type="radio" id="weitereBemerkungen3" name="weitereBemerkungen1" value="nichtzutreffend">
+                                    <label for="weitereBemerkungen3" class="radio-label"></label>
+                                </td>
+                                <td class="no-border-right text-right" style="text-align: right; background-color:#fff;">
+                                    nicht zutreffend
+                                </td>
+                                <td>
+                                    <input type="radio" id="weitereBemerkungen2" name="weitereBemerkungen1" value="nein">
+                                    <label for="weitereBemerkungen2" class="radio-label"></label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="background-color:#f1f1f1;">
+                                    ...verpflichtet sich für die Beseitigung erforderlichen Arbeiten bis zum
+                                    <span class="date-input-container">
+                                        <input type="date" id="arbeitsdatum" name="arbeitsdatum" class="elegant-date-input">
+                                        <span id="formatted-date"></span>
+                                    </span>
+                                    auf seine Kosten auszuführen oder ausführen zu lassen oder...
+                                </td>
+                                <td class="no-border-right text-right" style="text-align: right;">
+                                    JA
+                                </td>
+                                <td style="background-color:#f1f1f1;">
+                                    <input type="radio" id="weitereBemerkungen4" name="weitereBemerkungen2" value="ja">
+                                    <label for="weitereBemerkungen4" class="radio-label"></label>
+                                </td>
+                                <td class="no-border-right text-right" style="text-align:right;">
+                                    NEIN
+                                </td>
+                                <td style="background-color:#f1f1f1;">
+                                    <input type="radio" id="weitereBemerkungen5" name="weitereBemerkungen2" value="nein">
+                                    <label for="weitereBemerkungen5" class="radio-label"></label>
+                                </td>
+                                <td class="no-border-right text-right" style="text-align:right;">
+                                    nicht zutreffend
+                                </td>
+                                <td style="background-color:#f1f1f1;">
+                                    <input type="radio" id="weitereBemerkungen6" name="weitereBemerkungen2" value="nichtzutreffend">
+                                    <label for="weitereBemerkungen6" class="radio-label"></label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>...ermächtigt den Vermieter, die erforderlichen Arbeiten zu beauftragen. Er
+                                    verpflichtet
+                                    sich, die dadurch entstehenden Kosten nach Rechnungsstellung zu bezahlen, ggf. mit
+                                    der
+                                    Mietsicherheit verrechnen zu lassen oder...</td>
+                                <td class="no-border-right text-right" style="text-align:right; background-color:#fff;">
+                                    JA
+                                </td>
+                                <td>
+                                    <input type="radio" id="weitereBemerkungen7" name="weitereBemerkungen3" value="ja">
+                                    <label for="weitereBemerkungen7" class="radio-label"></label>
+                                </td>
+                                <td class="no-border-right text-right" style="text-align:right; background-color:#fff;">
+                                    NEIN
+                                </td>
+                                <td>
+                                    <input type="radio" id="weitereBemerkungen8" name="weitereBemerkungen3" value="nein">
+                                    <label for="weitereBemerkungen8" class="radio-label"></label>
+                                </td>
+                                <td class="no-border-right text-right" style="text-align:right; background-color:#fff;">
+                                    nicht zutreffend
+                                </td>
+                                <td>
+                                    <input type="radio" id="weitereBemerkungen9" name="weitereBemerkungen3" value="nichtzutreffend">
+                                    <label for="weitereBemerkungen9" class="radio-label"></label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="background-color:#f1f1f1;">
+                                    ...wird diese Verpflichtung durch Zahlung eines Pauschalbetrages von € abgegolten.
+                                </td>
+                                <td class="no-border-right text-right" style="background-color:#f1f1f1;">
+                                    <div class="input-euro-container">
+                                        <input type="number" id="pauschalbetrag" name="pauschalbetrag" class="elegant-number-input" min="0" step="1">
+                                        <div class="euro-symbol">€</div>
+                                    </div>
+                                </td>
+                                <td style="text-align:right; background-color:#f1f1f1;" colspan="4" class="no-border-right text-right">
+                                    nicht zutreffend
+                                </td>
+                                <td colspan="4" style="text-align: center; font-weight: bold;">
+                                    <input type="checkbox" id="nichtZutreffendCheckbox2" name="nichtZutreffendCheckbox2" value="nichtzutreffend" hidden="">
+                                    <label for="nichtZutreffendCheckbox2" class="checkbox-label"></label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: top; font-weight:600; padding-top:15px;">Bemerkungen:</td>
+                            </tr>
+                            <tr class="original-row">
+                                <td colspan="7">
+                                    <div class="dupli-container">
+                                        <input type="text" id="duplimaengelbeseit" class="dupli autoscale" placeholder="" maxlength="115" style="font-size: 18px;">
+                                        <button class="dupli-button" onclick="duplicateRow(this)">
+                                            +
+                                        </button>
+                                        <button class="deletedupli-button" onclick="deleteRow(this)">
+                                            -
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: top; padding-top:35px; background-color:rgb(255, 255, 255);">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div> -->
+
+
+
+
+
+
+
+
 
         <div id="weiterebemerkungen">
             <div class="rooms">
