@@ -1789,7 +1789,7 @@ td {
     border-radius: 8px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
     width: 90%;
-    max-width: 500px;
+    max-width: 900px;
     padding: 25px;
     transform: translateY(20px);
     transition: transform 0.3s ease;
@@ -1809,6 +1809,7 @@ td {
 
 .pdf-modal-title {
     font-size: 1.5rem;
+    text-align: center;
     font-weight: 600;
     color: #333;
     margin: 0;
@@ -1825,14 +1826,15 @@ td {
 
 .pdf-progress-bar {
     width: 0%;
-    height: 20px;
+    height: 35px;
     background-color: #4CAF50;
     transition: width 0.3s ease;
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
-    font-size: 0.8rem;
+    font-size: 1rem;
+    border-radius: 22px;
 }
 
 /* Status Message */
@@ -1846,6 +1848,7 @@ td {
 .pdf-status-message.success {
     background-color: #e8f5e9;
     color: #2e7d32;
+    font-size: 1.5rem;
 }
 
 .pdf-status-message.error {
@@ -1999,33 +2002,25 @@ h3 i.fas {
     margin: 0 0 5px 0;
 }
 
-.column-headers {
-    display: grid;
-    grid-template-columns: 0.7fr 0.3fr 3fr auto;
-    gap: 10px;
-    font-weight: bold;
-    padding: 5px 0;
-
-}
 
 .key-entry {
     display: grid;
-    grid-template-columns: 0.7fr 0.3fr 3fr auto;
+    grid-template-columns: 0.8fr 0.2fr 3fr auto;
     gap: 10px;
     padding: 1px 0;
-    border-bottom: 1px solid #eee;
+    border-bottom: none;
     align-items: center;
 }
 
-/* select,
-input[type="text"],
-input[type="number"] {
-    width: 100%;
-    padding: 6px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    box-sizing: border-box;
-} */
+.column-key-headers {
+    display: grid;
+    grid-template-columns: 0.8fr 0.2fr 3fr auto;
+    gap: 10px;
+    font-weight: bold;
+    padding: 5px 0;
+    border-bottom: none !important;
+}
+
 
 .number-input {
     display: flex;
@@ -2046,16 +2041,18 @@ input[type="number"] {
     padding: 0 8px;
 }
 
-.key-headers, .zaehler-headers {
+.key-headers,
+.zaehler-headers {
     background: #607d8b;
-    padding: 8px;
+    padding: 3px 8px !important;
     border-radius: 5px;
     color: white;
     font-weight: 200;
     font-size: 1rem;
     padding-left: 15px;
     padding-right: 20px;
-    border:none !important;
+    border: none !important;
+    margin-bottom: 3px !important;
 
 }
 
@@ -2075,21 +2072,15 @@ input[type="number"] {
     color: #ededed;
 }
 
-.column-headers {
-    display: grid;
-    grid-template-columns: 2fr 2fr 2fr 1fr auto;
-    gap: 10px;
-    font-weight: bold;
-    padding: 5px 0;
-    border-bottom: 2px solid #ddd;
-}
 
-.zaehler-entry {
+
+.zaehler-entry,
+.column-zaehler-headers {
     display: grid;
-    grid-template-columns: 2fr 2fr 2fr 1fr auto;
-    gap: 10px;
+    grid-template-columns: 1.9fr 1.9fr 2.2fr 1.2fr auto;
+    gap: 5px;
     padding: 1px 0;
-    border-bottom: 1px solid #eee;
+    border-bottom: none;
     align-items: center;
 }
 
@@ -2116,5 +2107,60 @@ input[type="number"] {
 select,
 input[type="text"],
 input[type="number"] {
-    font-size:16px;
+    font-size: 16px;
+}
+
+#key-note-input-1,
+#key-note-input-2,
+#key-note-input-3,
+#key-note-input-4,
+#key-note-input-5,
+#key-note-input-6,
+#key-note-input-7,
+#key-note-input-8,
+#key-note-input-9,
+#key-note-input-10 {
+    padding: 1px 1px 1px 1px;
+}
+
+
+#zaehler-number-input-1,
+#zaehler-number-input-2,
+#zaehler-number-input-3,
+#zaehler-number-input-4,
+#zaehler-number-input-5,
+#zaehler-number-input-6,
+#zaehler-number-input-7,
+#zaehler-number-input-8,
+#zaehler-number-input-9,
+#zaehler-number-input-10,
+#zaehler-location-input-1,
+#zaehler-location-input-2,
+#zaehler-location-input-3,
+#zaehler-location-input-4,
+#zaehler-location-input-5,
+#zaehler-location-input-6,
+#zaehler-location-input-7,
+#zaehler-location-input-8,
+#zaehler-location-input-9,
+#zaehler-location-input-10,
+#zaehler-value-input-1,
+#zaehler-value-input-2,
+#zaehler-value-input-3,
+#zaehler-value-input-4,
+#zaehler-value-input-5,
+#zaehler-value-input-6,
+#zaehler-value-input-7,
+#zaehler-value-input-8,
+#zaehler-value-input-9,
+#zaehler-value-input-10 {
+    padding: 1px;
+}
+
+.column-headers {
+    border: none !important;
+}
+
+.tenant-headers {
+    margin-bottom: 2px !important;
 }
