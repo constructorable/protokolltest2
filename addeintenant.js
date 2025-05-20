@@ -13,13 +13,13 @@ document.addEventListener('DOMContentLoaded', function () {
         
         // Hauptüberschrift
         const mainHeader = document.createElement('h2');
-        mainHeader.textContent = 'Einziehende Mieter';
+        mainHeader.textContent = 'einziehende Mieter';
         
         // Spaltenüberschriften
         const columnHeaders = document.createElement('div');
         columnHeaders.className = 'column-headers';
         
-        const headers = ['Name', 'Vorname', 'Telefon', 'E-Mail', ''];
+        const headers = ['', '', '', '', ''];
         headers.forEach(headerText => {
             const header = document.createElement('span');
             header.textContent = headerText;
@@ -51,6 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
         nameInput.type = 'text';
         nameInput.id = `tenant-name-${tenantCounter}`;
         nameInput.className = 'bemerkung-input';
+        nameInput.placeholder = 'Nachname eingeben';
         nameCell.appendChild(nameInput);
         
         // Vorname
@@ -60,6 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
         firstnameInput.type = 'text';
         firstnameInput.id = `tenant-firstname-${tenantCounter}`;
         firstnameInput.className = 'bemerkung-input';
+        firstnameInput.placeholder = 'Vorname eingeben';
         firstnameCell.appendChild(firstnameInput);
         
         // Telefon
@@ -69,6 +71,7 @@ document.addEventListener('DOMContentLoaded', function () {
         phoneInput.type = 'tel';
         phoneInput.id = `tenant-phone-${tenantCounter}`;
         phoneInput.className = 'bemerkung-input';
+        phoneInput.placeholder = 'Telefonnummer eingeben';
         phoneCell.appendChild(phoneInput);
         
         // E-Mail
@@ -78,6 +81,7 @@ document.addEventListener('DOMContentLoaded', function () {
         emailInput.type = 'email';
         emailInput.id = `tenant-email-${tenantCounter}`;
         emailInput.className = 'bemerkung-input';
+        emailInput.placeholder = 'E-Mail-Adresse eingeben';
         emailCell.appendChild(emailInput);
         
         // Löschen-Button
@@ -123,7 +127,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // CSS dynamisch hinzufügen
     const style = document.createElement('style');
     style.textContent = `
-           .tenant-headers {
+        .tenant-headers {
             margin-bottom: 10px;
         }
         
@@ -135,25 +139,25 @@ document.addEventListener('DOMContentLoaded', function () {
         
         .column-headers {
             display: grid;
-            grid-template-columns: 2fr 2fr 1.5fr 2fr 40px;
+            grid-template-columns: 2fr 2fr 1.5fr 2fr auto;
             gap: 10px;
             font-weight: bold;
             padding: 5px 0;
-            border-bottom: 2px solid #ddd;
+            
         }
         
         .tenant-entry {
             display: grid;
-            grid-template-columns: 2fr 2fr 1.5fr 2fr 40px;
+            grid-template-columns: 2fr 2fr 1.5fr 2fr auto;
             gap: 10px;
-            padding: 8px 0;
-            border-bottom: 1px solid #eee;
+            padding: 1px 0;
             align-items: center;
+            border-bottom: 2px solid #ccc;
         }
         
         .tenant-entry input {
             width: 100%;
-            padding: 6px;
+            padding: 1px;
             border: 1px solid #ddd;
             border-radius: 4px;
             box-sizing: border-box;
@@ -179,7 +183,56 @@ document.addEventListener('DOMContentLoaded', function () {
             background-color: #f9f9f9;
         }
         
-           
+        /* Anpassung für zweispaltige Ansicht */
+        @media (max-width: 1680px) {
+            .column-headers {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+                margin-top: 10px;
+            }
+            
+            .tenant-entry {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: repeat(2, auto);
+                gap: 10px;
+                margin-bottom: 15px;
+                 border-bottom: 2px solid #ccc;
+                position: relative;
+            }
+            
+            /* Erstes Feld (Name) */
+            .tenant-name {
+                grid-column: 1;
+                grid-row: 1;
+            }
+            
+            /* Zweites Feld (Vorname) */
+            .tenant-firstname {
+                grid-column: 2;
+                grid-row: 1;
+            }
+            
+            /* Drittes Feld (Telefon) */
+            .tenant-phone {
+                grid-column: 1;
+                grid-row: 2;
+            }
+            
+            /* Viertes Feld (E-Mail) */
+            .tenant-email {
+                grid-column: 2;
+                grid-row: 2;
+            }
+            
+            /* Löschen-Button rechts neben dem Formular platzieren */
+            .tenant-delete {
+                position: absolute;
+                right: 1px;
+                top: 98px;
+            }
+        }
     `;
     document.head.appendChild(style);
 
@@ -197,7 +250,7 @@ document.addEventListener('DOMContentLoaded', function () {
         } else if (!emailRegex.test(email)) {
             emailInput.style.border = '3px solid red';
         } else {
-            emailInput.style.border = '3px solid green';
+            emailInput.style.border = '1px solid #ddd';
         }
     }
 
@@ -275,5 +328,14 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById(`tenant-clear-signature-${tenantId}`).addEventListener('click', () => {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
         });
+    }
+    
+    // Falls bereits ein Input-Feld existiert, füge Placeholder hinzu
+    const initialTenantEntry = document.getElementById('tenant-entry-1');
+    if (initialTenantEntry) {
+        document.getElementById('tenant-name-1').placeholder = 'Nachname eingeben';
+        document.getElementById('tenant-firstname-1').placeholder = 'Vorname eingeben';
+        document.getElementById('tenant-phone-1').placeholder = 'Telefonnummer eingeben';
+        document.getElementById('tenant-email-1').placeholder = 'E-Mail-Adresse eingeben';
     }
 });
