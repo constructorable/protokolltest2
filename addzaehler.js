@@ -25,9 +25,9 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Spaltenüberschriften
         const columnHeaders = document.createElement('div');
-        columnHeaders.className = 'column-headers';
+        columnHeaders.className = 'column-zaehler-headers';
         
-        const headers = ['Zählertyp', 'Zählernummer', 'Einbaulage', 'Zählerstand', ''];
+        const headers = ['Typ', 'Zählernummer', 'Einbaulage', 'Zählerstand', ''];
         headers.forEach(headerText => {
             const header = document.createElement('span');
             header.textContent = headerText;
@@ -174,18 +174,18 @@ document.addEventListener('DOMContentLoaded', function() {
             color: #333;
         }
         
-        .column-headers {
+        .column-zaehler-headers {
             display: grid;
-            grid-template-columns: 2fr 2fr 2fr 1fr 40px;
+            grid-template-columns: 1.8fr 1.8fr 2.2fr 1.2fr auto;
             gap: 10px;
             font-weight: bold;
             padding: 5px 0;
-            border-bottom: 2px solid #ddd;
+           
         }
         
         .zaehler-entry {
             display: grid;
-            grid-template-columns: 2fr 2fr 2fr 1fr 40px;
+            grid-template-columns: 1.8fr 1.8fr 2.2fr 1.2fr auto;
             gap: 10px;
             padding: 8px 0;
             border-bottom: 1px solid #eee;
@@ -218,16 +218,7 @@ document.addEventListener('DOMContentLoaded', function() {
             border-radius: 4px;
             cursor: pointer;
         }
-        
-        @media (max-width: 600px) {
-            .column-headers,
-            .zaehler-entry {
-                grid-template-columns: 1.5fr 1.5fr 1.5fr 1fr 30px;
-                gap: 5px;
-                font-size: 0.9rem;
-            }
-        }
-    `;
+            `;
     document.head.appendChild(style);
 
     // Event Listener für den "Zähler hinzufügen"-Button
