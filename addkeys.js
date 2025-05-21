@@ -26,19 +26,20 @@ document.addEventListener('DOMContentLoaded', function () {
         // Hauptüberschrift
         const mainHeader = document.createElement('h2');
         mainHeader.textContent = 'Schlüssel';
+        headerContainer.appendChild(mainHeader);
         
-        // Spaltenüberschriften
+        // Spaltenüberschriften im Grid-Layout
         const columnHeaders = document.createElement('div');
-        columnHeaders.className = 'column-key-headers';
+        columnHeaders.className = 'column-key-headers key-grid';
         
         const headers = ['Art', 'Anzahl', 'Bemerkung', ''];
-        headers.forEach(headerText => {
-            const header = document.createElement('span');
+        headers.forEach((headerText, index) => {
+            const header = document.createElement('div');
+            header.className = `grid-header grid-col-${index + 1}`;
             header.textContent = headerText;
             columnHeaders.appendChild(header);
         });
         
-        headerContainer.appendChild(mainHeader);
         headerContainer.appendChild(columnHeaders);
         addKeyButton.insertAdjacentElement('beforebegin', headerContainer);
         
@@ -79,12 +80,12 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         const keyEntry = document.createElement('div');
-        keyEntry.className = 'key-entry';
+        keyEntry.className = 'key-entry key-grid';
         keyEntry.id = `key-entry-${keyCounter}`;
         
-        // Bezeichnung
+        // Bezeichnung (1. Spalte)
         const typeCell = document.createElement('div');
-        typeCell.className = 'key-type';
+        typeCell.className = 'key-type grid-col-1';
         const typeSelect = document.createElement('select');
         typeSelect.id = `key-type-select-${keyCounter}`;
         typeSelect.required = true;
@@ -116,9 +117,9 @@ document.addEventListener('DOMContentLoaded', function () {
         typeCell.appendChild(typeSelect);
         typeCell.appendChild(customContainer);
         
-        // Anzahl
+        // Anzahl (2. Spalte)
         const amountCell = document.createElement('div');
-        amountCell.className = 'key-amount';
+        amountCell.className = 'key-amount grid-col-2';
         const numberInput = document.createElement('div');
         numberInput.className = 'number-input';
         
@@ -147,18 +148,18 @@ document.addEventListener('DOMContentLoaded', function () {
         numberInput.appendChild(plusBtn);
         amountCell.appendChild(numberInput);
         
-        // Bemerkung
+        // Bemerkung (3. Spalte)
         const noteCell = document.createElement('div');
-        noteCell.className = 'key-note';
+        noteCell.className = 'key-note grid-col-3';
         const noteInput = document.createElement('input');
         noteInput.type = 'text';
         noteInput.id = `key-note-input-${keyCounter}`;
         noteInput.className = 'bemerkung-input';
         noteCell.appendChild(noteInput);
         
-        // Löschen-Button
+        // Löschen-Button (4. Spalte)
         const deleteCell = document.createElement('div');
-        deleteCell.className = 'key-delete';
+        deleteCell.className = 'key-delete grid-col-4';
         const deleteBtn = document.createElement('button');
         deleteBtn.type = 'button';
         deleteBtn.className = 'delete-key-btn';
@@ -201,6 +202,81 @@ document.addEventListener('DOMContentLoaded', function () {
             margin: 20px 0;
         }
         
+        /* Grid-Layout für Schlüsseleinträge */
+        .key-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 0.7fr 2.5fr auto;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        /* Spalten-Klassen für individuelle Anpassungen */
+        .grid-col-1 {
+            /* Art-Spalte */
+        }
+        
+        .grid-col-2 {
+            /* Anzahl-Spalte */
+        }
+        
+        .grid-col-3 {
+            /* Bemerkung-Spalte */
+        }
+        
+        .grid-col-4 {
+            /* Löschen-Spalte */
+            justify-self: center;
+        }
+        
+        .column-key-headers {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        /* Styling für Eingabefelder */
+        select, .bemerkung-input, .no-spin {
+            width: 100%;
+            padding: 5px;
+            box-sizing: border-box;
+        }
+        
+        .number-input {
+            display: flex;
+            align-items: center;
+        }
+        
+        .number-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 1px solid #ccc;
+            background: #f5f5f5;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .number-input input {
+            width: 40px;
+            text-align: center;
+            margin: 0 5px;
+        }
+        
+        .delete-key-btn {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: none;
+            background: #ff4d4d;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
     `;
     document.head.appendChild(style);
 
