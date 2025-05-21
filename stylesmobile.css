@@ -2759,7 +2759,6 @@ input.no-spin {
     font-weight: 600;
     color: #fff;
 }
-
 #objektdaten>table:nth-child(1)>tbody:nth-child(2)>tr:nth-child(4)>td:nth-child(2) {
     background: #fff !important;
 }
