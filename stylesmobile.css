@@ -1156,7 +1156,7 @@ select::-ms-expand {
 }
 
 .objektdaten td {
-    padding: 8px;
+    padding: 4px;
     vertical-align: top;
 }
 
@@ -1896,8 +1896,10 @@ h3 i.fas {
     color: #575757 !important;
 }
 
+
 .fa-home {
-    font-size: 25px !important;
+    font-size: 32px !important;
+    padding-bottom: 8px;
 }
 
 .pdf-modal-header {
@@ -2426,5 +2428,338 @@ input[type="number"] {
 #moveout-email-2,
 #moveout-email-3,
 #moveout-email-4 {
-  padding: 8px;
+    padding: 8px;
+}
+
+
+#objektdaten>table:nth-child(1)>tbody:nth-child(2)>tr:nth-child(1)>td:nth-child(1),
+#objektdaten>table:nth-child(1)>tbody:nth-child(2)>tr:nth-child(1)>td:nth-child(2) {
+    height: 1rem !important;
+}
+
+.signContainer>table:nth-child(1)>tbody:nth-child(1)>tr:nth-child(8)>td:nth-child(3) {
+    margin-left: 11px;
+    border-left: 11px solid #f9f9f9;
+}
+
+.signContainer>table:nth-child(1)>tbody:nth-child(1)>tr:nth-child(2)>td:nth-child(3),
+.signContainer>table:nth-child(1)>tbody:nth-child(1)>tr:nth-child(3)>td:nth-child(3) {
+    padding-left: 11px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Grundlegende Tabellen-Stile */
+.signature-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* Spaltenbreiten individuell einstellbar */
+.signature-col-1 {
+    width: 15%;
+    /* Erste Spalte (Labels) */
+}
+
+.signature-col-2 {
+    width: 35%;
+    /* Zweite Spalte (Erste Eingabefelder) */
+}
+
+.signature-col-3 {
+    width: 15%;
+    /* Dritte Spalte (Zweite Labels) */
+}
+
+.signature-col-4 {
+    width: 35%;
+    /* Vierte Spalte (Zweite Eingabefelder) */
+}
+
+/* Zusätzliche Stile */
+.signature-label {
+    font-weight: 500;
+    padding: 8px 4px;
+}
+
+.signature-input {
+    padding: 4px;
+}
+
+.signature-header-row th {
+    text-align: left;
+    padding: 10px 5px;
+    background-color: #f5f5f5;
+}
+
+.textinput,
+.dateinput {
+    width: 100%;
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.signature-spacer {
+    height: 20px;
+}
+
+/* Responsive Anpassung */
+@media (max-width: 768px) {
+
+    .signature-col-1,
+    .signature-col-3 {
+        width: 25%;
+    }
+
+    .signature-col-2,
+    .signature-col-4 {
+        width: 25%;
+    }
+}
+
+/* Für mobile Ansicht */
+@media (max-width: 480px) {
+    .signature-table {
+        table-layout: fixed;
+    }
+}
+
+#strasseeinzug {
+    width: 255%;
+}
+
+#objektdaten>table:nth-child(1)>tbody:nth-child(2)>tr:nth-child(2)>td:nth-child(2) {
+    width: 97%;
+}
+
+#objektdaten>table:nth-child(1)>tbody:nth-child(2)>tr:nth-child(4)>td:nth-child(1) {
+    background-color: #fff;
+}
+
+Element #objektdaten>table:nth-child(1)>tbody:nth-child(2)>tr:nth-child(4)>td:nth-child(2) {
+    background-color: #fff;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Schlüssel-Manager Grid-Layout */
+.key-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 0.7fr 2.5fr auto;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 12px;
+    width: 100%;
+}
+
+/* Spalten für feinere Anpassung */
+.grid-col-1 {
+    /* Art-Spalte */
+}
+
+.grid-col-2 {
+    /* Anzahl-Spalte */
+    justify-self: center;
+}
+
+.grid-col-3 {
+    /* Bemerkung-Spalte */
+}
+
+.grid-col-4 {
+    /* Löschen-Spalte */
+    justify-self: center;
+}
+
+/* Header-Styling */
+.key-headers h2 {
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+}
+
+.column-key-headers {
+    font-weight: bold;
+    margin-bottom: 5px;
+    padding-bottom: 0px;
+    border-bottom: none;
+}
+
+
+.grid-header {
+    font-weight: 600;
+    color: #444;
+}
+
+/* Verbessertes Styling für Eingabefelder */
+select,
+.bemerkung-input,
+.no-spin {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+select:focus,
+.bemerkung-input:focus,
+.no-spin:focus {
+    border-color: #0066cc;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.2);
+}
+
+/* Anzahl-Eingabe Styling */
+.number-input {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.number-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 5%;
+    border: 1px solid #ccc;
+    background: #f5f5f5;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    transition: background-color 0.2s;
+}
+
+.number-btn:hover {
+    background-color: #e0e0e0;
+}
+
+.number-input input {
+    width: 40px;
+    text-align: center;
+    margin: 0 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 4px 0;
+}
+
+/* Verstecke Pfeilchen bei Number-Input */
+input.no-spin::-webkit-outer-spin-button,
+input.no-spin::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input.no-spin {
+    -moz-appearance: textfield;
+}
+
+/* Löschen-Button Styling */
+.delete-key-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 5%;
+    border: none;
+    background: #fff;
+    color: #b40000;
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.2s;
+}
+
+.delete-key-btn:hover {
+    background-color: #ff3333;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .key-grid {
+        grid-template-columns: 1.2fr 0.8fr 1.8fr auto;
+        gap: 8px;
+    }
+}
+
+@media (max-width: 576px) {
+    .key-grid {
+        grid-template-columns: 1fr 0.8fr;
+        gap: 8px;
+        row-gap: 15px;
+    }
+
+    /* Umordnung der Elemente bei kleinen Bildschirmen */
+    .grid-col-1 {
+        grid-column: 1;
+        grid-row: 1;
+    }
+
+    .grid-col-2 {
+        grid-column: 2;
+        grid-row: 1;
+    }
+
+    .grid-col-3 {
+        grid-column: 1 / span 2;
+        grid-row: 2;
+    }
+
+    .grid-col-4 {
+        grid-column: 1 / span 2;
+        grid-row: 3;
+        justify-self: flex-end;
+    }
+}
+
+.grid-header {
+    font-weight: 600;
+    color: #fff;
+}
+
+#objektdaten>table:nth-child(1)>tbody:nth-child(2)>tr:nth-child(4)>td:nth-child(2) {
+    background: #fff !important;
 }
