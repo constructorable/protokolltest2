@@ -216,7 +216,7 @@ document.addEventListener('DOMContentLoaded', function () {
     <td>Zimmerschlüssel vorhanden?</td>
     <td class="select-cell" colspan="2">
         <select id="zimm${count}-select" name="schluessel-${count}" style="padding: 5px; min-width: 120px;">
-            <option value="">-- Bitte auswählen --</option>
+            <option value=""></option>
             <option value="ja">Ja</option>
             <option value="nein">Nein</option>
         </select>
@@ -294,7 +294,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     <tr>
                         <td>Farbe der Wände</td>
                         <td colspan="5">
-                            <input type="text" id="wandfarbe-${count}" placeholder="Farbe eingeben" class="farbe-input" autocomplete="off">
+                            <input type="text" id="wandfarbe-${count}" placeholder="" class="farbe-input" autocomplete="off">
                             <div id="farbvorschlaege-${count}" class="farbvorschlaege-container" style="display:none;"></div>
                         </td>
                     </tr>
@@ -339,7 +339,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             <tr>
                                 <td>Bodenbelag</td>
                                 <td colspan="5">
-                                    <input type="text" id="fussbodenzimm${count}" placeholder="Bodenbelag auswählen"
+                                    <input type="text" id="fussbodenzimm${count}" placeholder=""
                                         class="farbe-input" autocomplete="off">
                                 </td>
                             </tr>
@@ -392,11 +392,11 @@ document.addEventListener('DOMContentLoaded', function () {
                         </td>
                     </tr>
                     <tr class="bemerkung-row">
-                        <td>Bemerkungen</td>
+                        <td style="font-weight:600; margin-top:11px; padding-top:11px">Bemerkungen</td>
                         <td colspan="5">
                             <div class="bemerkungen-container" id="bemerkungen-container-${count}">
                                 <div class="bemerkung-eingabe">
-                                    <input type="text" id="bemerkungen-input-${count}" class="bemerkung-input" placeholder="Bemerkung eingeben">
+                                    <input type="text" id="bemerkungen-input-${count}" class="bemerkung-input" placeholder="">
                                     <div class="bemerkung-actions">
                                         <button type="button" class="add-bemerkung-btn">+</button>
                                     </div>
@@ -405,7 +405,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         </td>
                     </tr>
                     <tr class="bilder-row">
-                        <td>Fotos</td>
+                        <td>Bilder</td>
                         <td colspan="5">
                             <div class="bilder-upload-container">
                                 <button type="button" class="bilder-upload-btn">Fotos hinzufügen</button>
