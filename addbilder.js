@@ -32,17 +32,17 @@ document.addEventListener('DOMContentLoaded', function () {
         },
 
         {
-            name: 'abstell',
-            uploadBtnSelector: '.abstell .bilder-upload-btn',
-            thumbnailContainerSelector: '.abstell .bilder-thumbnails',
-            galleryContainerId: 'abstell-galerie',
-            titleElementId: 'abstell-galerie-title'
+            name: 'abstellraum',
+            uploadBtnSelector: '.abstellraum .bilder-upload-btn',
+            thumbnailContainerSelector: '.abstellraum .bilder-thumbnails',
+            galleryContainerId: 'abstellraum-galerie',
+            titleElementId: 'abstellraum-galerie-title'
         },
 
         {
             name: 'nebenraum',
-            uploadBtnSelector: '#nebenraumContainer .bilder-upload-btn',
-            thumbnailContainerSelector: '#nebenraumContainer .bilder-thumbnails',
+            uploadBtnSelector: '.nebenraum .bilder-upload-btn',
+            thumbnailContainerSelector: '.nebenraum .bilder-thumbnails',
             galleryContainerId: 'nebenraum-galerie',
             titleElementId: 'nebenraum-galerie-title'
         }
@@ -273,7 +273,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         updateTitleVisibility(container, titleElement);
     }
-
     // Alle Räume initialisieren
     roomConfigs.forEach(room => {
         initializeRoom(room);
