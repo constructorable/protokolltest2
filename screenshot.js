@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const usableHeight = pageHeight - marginTop - marginBottom;
 
             const pxPerMm = imgWidth / usableWidth;
-            const contentHeightPerPage = usableHeight * pxPerMm * 0.95; // 5% Überlapp
+            const contentHeightPerPage = usableHeight * pxPerMm * 0.98; // 1% Überlapp
 
             let currentPosition = 0;
             let pageCount = 1;
@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', function () {
             while (currentPosition < imgHeight) {
                 if (pageCount > 1) {
                     pdf.addPage();
-                    currentPosition -= (pxPerMm * marginTop); // Überlapp für Kontinuität
+                    currentPosition -= (pxPerMm * marginTop * 0.2); // Überlapp für Kontinuität
                 }
 
                 // Ausschnitt berechnen mit besonderer Behandlung der letzten Seite
