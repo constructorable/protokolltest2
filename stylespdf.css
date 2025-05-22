@@ -2189,6 +2189,7 @@ input[type="number"] {
 .column-key-headers {
 
     margin-bottom: 0px !important;
+    gap: 5px !important;
 }
 
 #objektdaten>table:nth-child(1)>tbody:nth-child(2)>tr:nth-child(4)>td:nth-child(1) {
@@ -2259,6 +2260,7 @@ tr.signature-data-row:nth-child(3)>td:nth-child(3) {
 
 .key-grid {
     margin-bottom: 2px !important;
+    gap: 5px !important;
 }
 
 .zaehler-headers {
@@ -2322,5 +2324,66 @@ tr.signature-data-row:nth-child(3)>td:nth-child(3) {
 #bemerkungen-container-6,
 #bemerkungen-container-7,
 #bemerkungen-container-8 {
-  padding-top: 11px;
+    padding-top: 11px;
+}
+
+#heatwater>table:nth-child(1) {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #607d8b;
+    color: #fff;
+    margin-top: 22px;
+    border-radius: 5px;
+
+}
+
+#zaehleraddhide {
+    display: none !important;
+}
+
+
+/* Container für die Tabelle */
+.heatwater {
+    width: 100%;
+}
+
+/* Tabellen-Stile */
+.heatwater table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* Alle Zellen linksbündig ausrichten */
+.heatwater td {
+    text-align: left !important;
+    /* Überschreibt die inline-styles */
+    padding: 8px 10px !important;
+    vertical-align: middle;
+    white-space: normal !important;
+    /* Erlaubt Zeilenumbrüche */
+}
+
+/* Labels und Checkboxen ausrichten */
+.heatwater label {
+    display: flex !important;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
+    margin-right: 10px;
+}
+
+/* Flex-Container für die Checkbox-Gruppen */
+.heatwater div[style*="display: flex"] {
+    justify-content: flex-start !important;
+    /* Linksbündig statt zentriert */
+    flex-wrap: wrap;
+}
+
+#heatwater>table:nth-child(1)>tbody:nth-child(1)>tr:nth-child(1)>td:nth-child(1) {
+    width: 10% !important;
+}
+
+#heatwater>table:nth-child(1)>tbody:nth-child(1)>tr:nth-child(1)>td:nth-child(3) {
+
+    text-align: right !important;
 }
