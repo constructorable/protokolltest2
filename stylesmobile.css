@@ -488,7 +488,7 @@ select::-ms-expand {
     padding: 10px;
 }
 
-.bilder-upload-btn {
+.bilder-upload-btn, .foto-upload-btn {
     background-color: #607d8b;
     color: white;
     border: none;
@@ -2759,6 +2759,16 @@ input.no-spin {
     font-weight: 600;
     color: #fff;
 }
+
 #objektdaten>table:nth-child(1)>tbody:nth-child(2)>tr:nth-child(4)>td:nth-child(2) {
     background: #fff !important;
+}
+
+#heatwater > table:nth-child(1) {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #607d8b;
+  color: #fff;
+  margin-top: 22px;
+
 }
