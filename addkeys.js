@@ -4,16 +4,22 @@ document.addEventListener('DOMContentLoaded', function () {
     let keyCounter = 1;
     let headersCreated = false; // Flag um zu prüfen ob Überschriften bereits erstellt wurden
 
-    // Vordefinierte Schlüsseltypen
     const keyTypes = [
-        "Haustürschlüssel",
-        "Kellerschlüssel",
-        "Dachbodenschlüssel",
-        "Briefkastenschlüssel",
-        "Zimmersschlüssel",
-        "Garagentorschlüssel",
-        "Müllraumschlüssel",
-        "Sonstiger Schlüssel"
+        "Haustür",
+        "Wohnungstür",
+        "Haustür inkl. Wohnungstür",
+        "Briefkasten",
+        "Keller",
+        "Dachboden",
+        "Garage",
+        "Doppelparkanlage",
+        "Fahrradbereich",
+        "Abstellraum",
+        "Laden",
+        "Büro",
+        "Lagerraum",
+        "Müllraum",
+        "Sonstige"
     ];
 
     // Erstelle die Überschriften
@@ -79,6 +85,14 @@ document.addEventListener('DOMContentLoaded', function () {
             createHeaders();
         }
 
+        // Button anpassen
+        addKeyButton.classList.add('keybtnhide');
+        addKeyButton.style.backgroundColor = '#fff';
+        addKeyButton.style.color = '#888';
+        addKeyButton.style.fontSize = '1.5rem';
+        addKeyButton.style.marginTop = '-10px';
+        addKeyButton.textContent = '+';
+
         const keyEntry = document.createElement('div');
         keyEntry.className = 'key-entry key-grid';
         keyEntry.id = `key-entry-${keyCounter}`;
@@ -92,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function () {
         
         const defaultOption = document.createElement('option');
         defaultOption.value = '';
-        defaultOption.textContent = '-- Bitte auswählen --';
+        defaultOption.textContent = '';
         typeSelect.appendChild(defaultOption);
         
         keyTypes.forEach(type => {
@@ -206,7 +220,6 @@ document.addEventListener('DOMContentLoaded', function () {
         .key-grid {
             display: grid;
             grid-template-columns: 1.5fr 0.7fr 2.5fr auto;
-            gap: 10px;
             align-items: center;
             margin-bottom: 10px;
         }
@@ -276,6 +289,10 @@ document.addEventListener('DOMContentLoaded', function () {
             display: flex;
             justify-content: center;
             align-items: center;
+        }
+        
+        #keysbtn {
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
     `;
     document.head.appendChild(style);
