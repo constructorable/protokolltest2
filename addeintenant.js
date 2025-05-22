@@ -7,43 +7,54 @@ document.addEventListener('DOMContentLoaded', function () {
     // Erstelle die Überschriften
     function createHeaders() {
         if (headersCreated) return;
-        
+
         const headerContainer = document.createElement('div');
         headerContainer.className = 'tenant-headers';
-        
+
         // Hauptüberschrift
         const mainHeader = document.createElement('h2');
         mainHeader.textContent = 'einziehende Mieter';
-        
+
         // Spaltenüberschriften
         const columnHeaders = document.createElement('div');
         columnHeaders.className = 'column-headers';
-        
+
         const headers = ['', '', '', '', ''];
         headers.forEach(headerText => {
             const header = document.createElement('span');
             header.textContent = headerText;
             columnHeaders.appendChild(header);
         });
-        
+
         headerContainer.appendChild(mainHeader);
         headerContainer.appendChild(columnHeaders);
         tenantButton.insertAdjacentElement('beforebegin', headerContainer);
-        
+
         headersCreated = true;
     }
 
     // Funktion zum Erstellen eines neuen Mieter-Eintrags
     function createTenantEntry() {
-        // Überschriften erstellen beim ersten Klick
         if (!headersCreated) {
             createHeaders();
+        }
+
+        tenantButton.classList.add('keybtnhide');
+        tenantButton.style.backgroundColor = '#fff';
+        tenantButton.style.color = '#888';
+        tenantButton.style.fontSize = '1.5rem';
+        tenantButton.style.marginTop = '-10px';
+        tenantButton.textContent = '+';
+
+        // Button-Text ändern, wenn noch nicht geschehen
+        if (tenantButton.textContent.trim() === '+ einziehenden Mieter hinzufügen') {
+            tenantButton.textContent = '+';
         }
 
         const tenantEntry = document.createElement('div');
         tenantEntry.className = 'tenant-entry';
         tenantEntry.id = `tenant-entry-${tenantCounter}`;
-        
+
         // Name
         const nameCell = document.createElement('div');
         nameCell.className = 'tenant-name';
@@ -51,9 +62,9 @@ document.addEventListener('DOMContentLoaded', function () {
         nameInput.type = 'text';
         nameInput.id = `tenant-name-${tenantCounter}`;
         nameInput.className = 'bemerkung-input';
-        nameInput.placeholder = 'Nachname eingeben';
+        nameInput.placeholder = 'Nachname';
         nameCell.appendChild(nameInput);
-        
+
         // Vorname
         const firstnameCell = document.createElement('div');
         firstnameCell.className = 'tenant-firstname';
@@ -61,9 +72,9 @@ document.addEventListener('DOMContentLoaded', function () {
         firstnameInput.type = 'text';
         firstnameInput.id = `tenant-firstname-${tenantCounter}`;
         firstnameInput.className = 'bemerkung-input';
-        firstnameInput.placeholder = 'Vorname eingeben';
+        firstnameInput.placeholder = 'Vorname';
         firstnameCell.appendChild(firstnameInput);
-        
+
         // Telefon
         const phoneCell = document.createElement('div');
         phoneCell.className = 'tenant-phone';
@@ -71,9 +82,9 @@ document.addEventListener('DOMContentLoaded', function () {
         phoneInput.type = 'tel';
         phoneInput.id = `tenant-phone-${tenantCounter}`;
         phoneInput.className = 'bemerkung-input';
-        phoneInput.placeholder = 'Telefonnummer eingeben';
+        phoneInput.placeholder = 'Telefonnummer';
         phoneCell.appendChild(phoneInput);
-        
+
         // E-Mail
         const emailCell = document.createElement('div');
         emailCell.className = 'tenant-email';
@@ -81,9 +92,9 @@ document.addEventListener('DOMContentLoaded', function () {
         emailInput.type = 'email';
         emailInput.id = `tenant-email-${tenantCounter}`;
         emailInput.className = 'bemerkung-input';
-        emailInput.placeholder = 'E-Mail-Adresse eingeben';
+        emailInput.placeholder = 'E-Mail-Adresse';
         emailCell.appendChild(emailInput);
-        
+
         // Löschen-Button
         const deleteCell = document.createElement('div');
         deleteCell.className = 'tenant-delete';
@@ -94,23 +105,23 @@ document.addEventListener('DOMContentLoaded', function () {
         deleteBtn.dataset.tenantId = tenantCounter;
         deleteBtn.textContent = '×';
         deleteCell.appendChild(deleteBtn);
-        
+
         // Alles zusammenfügen
         tenantEntry.appendChild(nameCell);
         tenantEntry.appendChild(firstnameCell);
         tenantEntry.appendChild(phoneCell);
         tenantEntry.appendChild(emailCell);
         tenantEntry.appendChild(deleteCell);
-        
+
         // Einfügen in DOM
         tenantButton.insertAdjacentElement('beforebegin', tenantEntry);
-        
+
         // Event Listener
         nameInput.addEventListener('change', updateSignatureName);
         firstnameInput.addEventListener('change', updateSignatureName);
         emailInput.addEventListener('input', validateEmail);
-        
-        deleteBtn.addEventListener('click', function() {
+
+        deleteBtn.addEventListener('click', function () {
             if (confirm('Möchten Sie diesen Mieter wirklich löschen?')) {
                 tenantEntry.remove();
                 const signatureContainer = document.getElementById(`tenant-signature-container-${tenantCounter}`);
@@ -120,7 +131,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Unterschriftenfeld erstellen
         createSignatureField(tenantCounter, '');
-        
+
         tenantCounter++;
     }
 
@@ -329,13 +340,13 @@ document.addEventListener('DOMContentLoaded', function () {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
         });
     }
-    
+
     // Falls bereits ein Input-Feld existiert, füge Placeholder hinzu
     const initialTenantEntry = document.getElementById('tenant-entry-1');
     if (initialTenantEntry) {
-        document.getElementById('tenant-name-1').placeholder = 'Nachname eingeben';
-        document.getElementById('tenant-firstname-1').placeholder = 'Vorname eingeben';
-        document.getElementById('tenant-phone-1').placeholder = 'Telefonnummer eingeben';
-        document.getElementById('tenant-email-1').placeholder = 'E-Mail-Adresse eingeben';
+        document.getElementById('tenant-name-1').placeholder = 'Nachname';
+        document.getElementById('tenant-firstname-1').placeholder = 'Vorname';
+        document.getElementById('tenant-phone-1').placeholder = 'Telefonnummer';
+        document.getElementById('tenant-email-1').placeholder = 'E-Mail-Adresse';
     }
 });
