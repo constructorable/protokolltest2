@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
         nebenraum: 1,
         regelungen: 1
     };
-
+    
     // Event Delegation für alle Tabellen
     document.addEventListener('click', function (e) {
         // Küche
@@ -31,13 +31,13 @@ document.addEventListener('DOMContentLoaded', function () {
             addBemerkungRow(e.target.closest('tr'), 'flur');
         }
         else if (e.target.classList.contains('add-bemerkung-btn') &&
-            e.target.closest('.table-container.abstell')) {
-            addBemerkungRow(e.target.closest('tr'), 'abstell');
+            e.target.closest('.table-container.abstellraum')) {
+            addBemerkungRow(e.target.closest('tr'), 'abstellraum');
         }
         // Nebenräume
         else if (e.target.classList.contains('add-bemerkung-btn') &&
-            e.target.closest('.table-container.neben')) {
-            addBemerkungRow(e.target.closest('tr'), 'neben');
+            e.target.closest('.table-container.nebenraum')) {
+            addBemerkungRow(e.target.closest('tr'), 'nebenraum');
         }
         // Regelungen
         else if (e.target.classList.contains('add-bemerkung-btn') &&
@@ -48,28 +48,30 @@ document.addEventListener('DOMContentLoaded', function () {
             e.target.closest('#weiterebemerkungen')) {
             addBemerkungRow(e.target.closest('tr'), 'regelungen');
         }
-
+        
         // Löschen für alle
         if (e.target.classList.contains('del-bemerkung-btn')) {
             deleteBemerkungRow(e.target.closest('tr'));
         }
     });
-
+    
     function generateBemerkungId(raum) {
         return `bemerkung-${raum}-${bemerkungCounters[raum]++}`;
     }
-
+    
     function addBemerkungRow(sourceRow, raum) {
         const newRow = document.createElement('tr');
         newRow.className = 'bemerkung-row';
         const bemerkungId = generateBemerkungId(raum);
-
+        
+        // Dynamische colspan-Bestimmung basierend auf dem Raum
+        const colspan = (raum === 'regelungen') ? '7' : '6';
+        
         newRow.innerHTML = `
-            <td></td>
-            <td colspan="5">
+            <td colspan="${colspan}">
                 <div class="bemerkung-container" data-bemerkung-id="${bemerkungId}">
-                    <input type="text" id="${bemerkungId}" class="bemerkung-input" 
-                           placeholder="Bemerkung eingeben" data-raum="${raum}">
+                    <input type="text" id="${bemerkungId}" class="bemerkung-input"
+                           placeholder="" data-raum="${raum}">
                     <div class="bemerkung-actions">
                         <button type="button" class="add-bemerkung-btn">+</button>
                         <button type="button" class="del-bemerkung-btn" style="display:none;">×</button>
@@ -77,11 +79,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 </div>
             </td>
         `;
-
+        
         sourceRow.parentNode.insertBefore(newRow, sourceRow.nextSibling);
         updateDeleteButtons(sourceRow.closest('table'));
     }
-
+    
     function deleteBemerkungRow(row) {
         const table = row.closest('table');
         if (table.querySelectorAll('.bemerkung-row').length > 1) {
@@ -89,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function () {
             updateDeleteButtons(table);
         }
     }
-
+    
     function updateDeleteButtons(table) {
         const rows = table.querySelectorAll('.bemerkung-row');
         rows.forEach((row, index) => {
