@@ -8,7 +8,10 @@ document.addEventListener('DOMContentLoaded', function () {
         "Stromzähler",
         "Gaszähler",
         "Wärmezähler",
-        "Wasserzähler",
+        "Wasserzähler (kalt)",
+        "Wasserzähler (warm)",
+        "Heizkostenverteiler",
+        "Fernwärmezähler",
         "Sonstiger Zähler"
     ];
 
