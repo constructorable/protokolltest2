@@ -5,6 +5,7 @@ setTimeout(function () {
     document.getElementById('datum').valueAsDate = heute;
 }, 100);
 
+
 document.addEventListener('DOMContentLoaded', function () {
     // Funktion zum Kopieren der Werte
     function copyInputValues() {
