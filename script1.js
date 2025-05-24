@@ -209,3 +209,63 @@ document.addEventListener('DOMContentLoaded', function () {
         document.head.appendChild(style);
     }
 });
+
+
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Canvas und Kontext initialisieren
+    const landlordCanvas = document.getElementById('landlord-signature-canvas');
+    const landlordCtx = landlordCanvas.getContext('2d');
+    
+    // Canvas-Einstellungen
+    landlordCtx.lineWidth = 7;
+    landlordCtx.lineJoin = 'round';
+    landlordCtx.lineCap = 'round';
+    landlordCtx.strokeStyle = '#373d41';
+    
+    // Zeichnen-Variablen
+    let landlordDrawing = false;
+    
+    // Zeichnen starten
+    function startLandlordDrawing(e) {
+        landlordDrawing = true;
+        const rect = landlordCanvas.getBoundingClientRect();
+        const x = e.clientX ? e.clientX : e.touches[0].clientX;
+        const y = e.clientY ? e.clientY : e.touches[0].clientY;
+        landlordCtx.beginPath();
+        landlordCtx.moveTo(x - rect.left, y - rect.top);
+        e.preventDefault();
+    }
+    
+    // Zeichnen
+    function drawLandlord(e) {
+        if (!landlordDrawing) return;
+        const rect = landlordCanvas.getBoundingClientRect();
+        const x = e.clientX ? e.clientX : e.touches[0].clientX;
+        const y = e.clientY ? e.clientY : e.touches[0].clientY;
+        landlordCtx.lineTo(x - rect.left, y - rect.top);
+        landlordCtx.stroke();
+        e.preventDefault();
+    }
+    
+    // Zeichnen beenden
+    function stopLandlordDrawing() {
+        landlordDrawing = false;
+    }
+    
+    // Event Listeners für Canvas
+    landlordCanvas.addEventListener('mousedown', startLandlordDrawing);
+    landlordCanvas.addEventListener('mousemove', drawLandlord);
+    landlordCanvas.addEventListener('mouseup', stopLandlordDrawing);
+    landlordCanvas.addEventListener('mouseout', stopLandlordDrawing);
+    landlordCanvas.addEventListener('touchstart', startLandlordDrawing);
+    landlordCanvas.addEventListener('touchmove', drawLandlord);
+    landlordCanvas.addEventListener('touchend', stopLandlordDrawing);
+    
+    // Löschen-Button
+    document.getElementById('landlord-clear-signature').addEventListener('click', () => {
+        landlordCtx.clearRect(0, 0, landlordCanvas.width, landlordCanvas.height);
+    });
+});
