@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const addZaehlerBtn = document.getElementById('addzaehlerbtn');
     const zaehlerContainer = document.getElementById('addzaehler');
     let zaehlerCounter = 1;
@@ -15,29 +15,31 @@ document.addEventListener('DOMContentLoaded', function() {
     // Erstelle die Überschriften
     function createHeaders() {
         if (headersCreated) return;
-        
+
         const headerContainer = document.createElement('div');
         headerContainer.className = 'zaehler-headers';
-        
+
         // Hauptüberschrift
         const mainHeader = document.createElement('h2');
-        mainHeader.textContent = 'Zähler';
+        mainHeader.innerHTML = '<i class="fas fa-tachometer-alt"></i> Zähler'; 
+
         
+
         // Spaltenüberschriften
         const columnHeaders = document.createElement('div');
         columnHeaders.className = 'column-zaehler-headers';
-        
+
         const headers = ['Typ', 'Zählernummer', 'Einbaulage', 'Zählerstand', ''];
         headers.forEach(headerText => {
             const header = document.createElement('span');
             header.textContent = headerText;
             columnHeaders.appendChild(header);
         });
-        
+
         headerContainer.appendChild(mainHeader);
         headerContainer.appendChild(columnHeaders);
         addZaehlerBtn.insertAdjacentElement('beforebegin', headerContainer);
-        
+
         headersCreated = true;
     }
 
@@ -48,22 +50,36 @@ document.addEventListener('DOMContentLoaded', function() {
             createHeaders();
         }
 
+        // Button anpassen
+        addZaehlerBtn.classList.add('keybtnhide');
+        addZaehlerBtn.style.backgroundColor = '#fff';
+        addZaehlerBtn.style.color = '#888';
+        addZaehlerBtn.style.fontSize = '1.5rem';
+        addZaehlerBtn.style.marginTop = '-10px';
+        addZaehlerBtn.textContent = '+';
+
+        // Button-Text ändern
+        if (addZaehlerBtn.textContent.trim() === '+ Zähler hinzufügen') {
+            addZaehlerBtn.textContent = '+';
+            addZaehlerBtn.classList.add('zaehleraddhide');
+        }
+
         const zaehlerEntry = document.createElement('div');
         zaehlerEntry.className = 'zaehler-entry';
         zaehlerEntry.id = `zaehler-entry-${zaehlerCounter}`;
-        
+
         // Zählertyp
         const typeCell = document.createElement('div');
         typeCell.className = 'zaehler-type';
         const typeSelect = document.createElement('select');
         typeSelect.id = `zaehler-type-select-${zaehlerCounter}`;
         typeSelect.required = true;
-        
+
         const defaultOption = document.createElement('option');
         defaultOption.value = '';
-        defaultOption.textContent = '-- Bitte auswählen --';
+        defaultOption.textContent = '';
         typeSelect.appendChild(defaultOption);
-        
+
         zaehlerTypes.forEach(type => {
             if (type !== "Sonstiger Zähler") {
                 const option = document.createElement('option');
@@ -72,26 +88,26 @@ document.addEventListener('DOMContentLoaded', function() {
                 typeSelect.appendChild(option);
             }
         });
-        
+
         const customOption = document.createElement('option');
         customOption.value = "custom";
         customOption.textContent = "Sonstiger Zähler";
         typeSelect.appendChild(customOption);
-        
+
         const customContainer = document.createElement('div');
         customContainer.id = `zaehler-custom-container-${zaehlerCounter}`;
         customContainer.style.display = 'none';
         customContainer.style.marginTop = '5px';
-        
+
         const customInput = document.createElement('input');
         customInput.type = 'text';
         customInput.id = `zaehler-custom-type-${zaehlerCounter}`;
         customInput.placeholder = 'Zählertyp eingeben';
         customContainer.appendChild(customInput);
-        
+
         typeCell.appendChild(typeSelect);
         typeCell.appendChild(customContainer);
-        
+
         // Zählernummer
         const numberCell = document.createElement('div');
         numberCell.className = 'zaehler-number';
@@ -100,7 +116,7 @@ document.addEventListener('DOMContentLoaded', function() {
         numberInput.id = `zaehler-number-input-${zaehlerCounter}`;
         numberInput.required = true;
         numberCell.appendChild(numberInput);
-        
+
         // Einbaulage
         const locationCell = document.createElement('div');
         locationCell.className = 'zaehler-location';
@@ -109,7 +125,7 @@ document.addEventListener('DOMContentLoaded', function() {
         locationInput.id = `zaehler-location-input-${zaehlerCounter}`;
         locationInput.required = true;
         locationCell.appendChild(locationInput);
-        
+
         // Zählerstand
         const valueCell = document.createElement('div');
         valueCell.className = 'zaehler-value';
@@ -119,7 +135,7 @@ document.addEventListener('DOMContentLoaded', function() {
         valueInput.step = '0.01';
         valueInput.required = true;
         valueCell.appendChild(valueInput);
-        
+
         // Löschen-Button
         const deleteCell = document.createElement('div');
         deleteCell.className = 'zaehler-delete';
@@ -130,28 +146,28 @@ document.addEventListener('DOMContentLoaded', function() {
         deleteBtn.dataset.zaehlerId = zaehlerCounter;
         deleteBtn.textContent = '×';
         deleteCell.appendChild(deleteBtn);
-        
+
         // Alles zusammenfügen
         zaehlerEntry.appendChild(typeCell);
         zaehlerEntry.appendChild(numberCell);
         zaehlerEntry.appendChild(locationCell);
         zaehlerEntry.appendChild(valueCell);
         zaehlerEntry.appendChild(deleteCell);
-        
+
         // Einfügen in DOM
         addZaehlerBtn.insertAdjacentElement('beforebegin', zaehlerEntry);
-        
+
         // Event Listener
-        typeSelect.addEventListener('change', function() {
+        typeSelect.addEventListener('change', function () {
             customContainer.style.display = this.value === "custom" ? "block" : "none";
         });
-        
-        deleteBtn.addEventListener('click', function() {
+
+        deleteBtn.addEventListener('click', function () {
             if (confirm('Möchten Sie diesen Zähler wirklich löschen?')) {
                 zaehlerEntry.remove();
             }
         });
-        
+
         zaehlerCounter++;
     }
 
@@ -218,20 +234,20 @@ document.addEventListener('DOMContentLoaded', function() {
             border-radius: 4px;
             cursor: pointer;
         }
-            `;
+    `;
     document.head.appendChild(style);
 
     // Event Listener für den "Zähler hinzufügen"-Button
     addZaehlerBtn.addEventListener('click', createZaehlerEntry);
 
     // Funktion zum Sammeln aller Zählerdaten
-    window.getAllZaehlerData = function() {
+    window.getAllZaehlerData = function () {
         const zaehlerData = [];
         document.querySelectorAll('.zaehler-entry').forEach(entry => {
             const id = entry.id.split('-')[2];
             const typeSelect = document.getElementById(`zaehler-type-select-${id}`);
-            const type = typeSelect.value === "custom" 
-                ? document.getElementById(`zaehler-custom-type-${id}`).value 
+            const type = typeSelect.value === "custom"
+                ? document.getElementById(`zaehler-custom-type-${id}`).value
                 : typeSelect.value;
             const number = document.getElementById(`zaehler-number-input-${id}`).value;
             const location = document.getElementById(`zaehler-location-input-${id}`).value;
