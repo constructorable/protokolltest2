@@ -326,7 +326,6 @@ document.addEventListener('DOMContentLoaded', function () {
             drawing = false;
         }
 
-        // Event Listeners
         canvas.addEventListener('mousedown', startDrawing);
         canvas.addEventListener('mousemove', draw);
         canvas.addEventListener('mouseup', stopDrawing);
@@ -341,7 +340,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Falls bereits ein Input-Feld existiert, füge Placeholder hinzu
     const initialTenantEntry = document.getElementById('tenant-entry-1');
     if (initialTenantEntry) {
         document.getElementById('tenant-name-1').placeholder = 'Nachname';
