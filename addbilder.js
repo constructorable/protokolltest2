@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', function () {
         {
             name: 'kueche',
             uploadBtnSelector: '.kueche .bilder-upload-btn',
-            cameraBtnSelector: '.kueche .foto-upload-btn',
             thumbnailContainerSelector: '.kueche .bilder-thumbnails',
             galleryContainerId: 'kueche-galerie',
             titleElementId: 'kueche-galerie-title'
@@ -81,9 +80,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // Initialisierung für jeden Raum
     async function initializeRoom(room) {
         try {
-            const [uploadBtn, cameraBtn, thumbnailContainer] = await Promise.all([
+            const [uploadBtn, thumbnailContainer] = await Promise.all([
                 waitForElement(room.uploadBtnSelector),
-                waitForElement(room.cameraBtnSelector),
                 waitForElement(room.thumbnailContainerSelector)
             ]);
 
@@ -92,23 +90,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
             console.log(`Successfully initialized ${room.name}:`, {
                 uploadBtn,
-                cameraBtn,
                 thumbnailContainer,
                 galleryContainer,
                 titleElement
             });
 
+            // Event Listener für Upload-Button
             uploadBtn.addEventListener('click', () => {
                 handleImageUpload(
-                    roomImages[room.name],
-                    thumbnailContainer,
-                    galleryContainer,
-                    titleElement
-                );
-            });
-
-            cameraBtn.addEventListener('click', () => {
-                handleCameraCapture(
                     roomImages[room.name],
                     thumbnailContainer,
                     galleryContainer,
@@ -289,120 +278,4 @@ document.addEventListener('DOMContentLoaded', function () {
     roomConfigs.forEach(room => {
         initializeRoom(room);
     });
-
-        async function handleCameraCapture(bilderArray, thumbnailContainer, galleryContainer, titleElement) {
-        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-            alert('Kamera-Zugriff wird in diesem Browser nicht unterstützt oder ist blockiert.');
-            return;
-        }
-
-        try {
-            const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-            
-            // Create camera preview modal
-            const modal = document.createElement('div');
-            modal.style.position = 'fixed';
-            modal.style.top = '0';
-            modal.style.left = '0';
-            modal.style.width = '100%';
-            modal.style.height = '100%';
-            modal.style.backgroundColor = 'rgba(0,0,0,0.9)';
-            modal.style.zIndex = '1000';
-            modal.style.display = 'flex';
-            modal.style.flexDirection = 'column';
-            modal.style.alignItems = 'center';
-            modal.style.justifyContent = 'center';
-            
-            const video = document.createElement('video');
-            video.autoplay = true;
-            video.srcObject = stream;
-            video.style.maxWidth = '100%';
-            video.style.maxHeight = '80vh';
-            
-            const buttonContainer = document.createElement('div');
-            buttonContainer.style.marginTop = '20px';
-            buttonContainer.style.display = 'flex';
-            buttonContainer.style.gap = '10px';
-            
-            const captureBtn = document.createElement('button');
-            captureBtn.textContent = 'Foto aufnehmen';
-            captureBtn.style.padding = '10px 20px';
-            captureBtn.style.fontSize = '16px';
-            
-            const cancelBtn = document.createElement('button');
-            cancelBtn.textContent = 'Abbrechen';
-            cancelBtn.style.padding = '10px 20px';
-            cancelBtn.style.fontSize = '16px';
-            
-            buttonContainer.appendChild(captureBtn);
-            buttonContainer.appendChild(cancelBtn);
-            
-            modal.appendChild(video);
-            modal.appendChild(buttonContainer);
-            document.body.appendChild(modal);
-            
-            // Handle capture
-            captureBtn.addEventListener('click', async () => {
-                try {
-                    const canvas = document.createElement('canvas');
-                    canvas.width = video.videoWidth;
-                    canvas.height = video.videoHeight;
-                    const ctx = canvas.getContext('2d');
-                    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-                    
-                    // Stop all tracks in the stream
-                    stream.getTracks().forEach(track => track.stop());
-                    
-                    // Remove modal
-                    document.body.removeChild(modal);
-                    
-                    // Process the captured image
-                    canvas.toBlob(async (blob) => {
-                        try {
-                            const file = new File([blob], 'camera-photo.jpg', { type: 'image/jpeg' });
-                            const originalImage = await loadImage(file);
-
-                            const resizedBlob = await resizeImage(originalImage, 3500, 3500);
-                            const resizedUrl = URL.createObjectURL(resizedBlob);
-
-                            const thumbnailBlob = await resizeImage(originalImage, 75, 75);
-                            const thumbnailUrl = URL.createObjectURL(thumbnailBlob);
-
-                            const galerieBlob = await resizeImage(originalImage, 1000, 1000);
-                            const galerieUrl = URL.createObjectURL(galerieBlob);
-
-                            const bildData = {
-                                originalUrl: resizedUrl,
-                                thumbnailUrl: thumbnailUrl,
-                                galerieUrl: galerieUrl
-                            };
-
-                            bilderArray.push(bildData);
-                            updateThumbnails(bilderArray, thumbnailContainer);
-                            updateGalerie(bilderArray, galleryContainer, titleElement);
-                        } catch (error) {
-                            console.error('Fehler beim Verarbeiten des aufgenommenen Bildes:', error);
-                        }
-                    }, 'image/jpeg', 0.9);
-                } catch (error) {
-                    console.error('Fehler beim Aufnehmen des Fotos:', error);
-                    stream.getTracks().forEach(track => track.stop());
-                    document.body.removeChild(modal);
-                }
-            });
-            
-            // Handle cancel
-            cancelBtn.addEventListener('click', () => {
-                stream.getTracks().forEach(track => track.stop());
-                document.body.removeChild(modal);
-            });
-            
-        } catch (error) {
-            console.error('Fehler beim Zugriff auf die Kamera:', error);
-            if (error.name === 'NotAllowedError') {
-                alert('Kamera-Zugriff wurde verweigert. Bitte erlauben Sie den Zugriff in Ihren Browsereinstellungen.');
-            }
-        }
-    }
-    
 });
