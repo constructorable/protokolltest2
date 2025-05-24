@@ -1827,6 +1827,7 @@ td {
     border-radius: 4px;
     margin: 15px 0;
     overflow: hidden;
+    border-radius: 22px;
 }
 
 .pdf-progress-bar {
@@ -1855,6 +1856,9 @@ td {
     color: #2e7d32;
     font-size: 1.5rem;
 }
+
+
+
 
 .pdf-status-message.error {
     background-color: #ffebee;
@@ -2386,4 +2390,95 @@ tr.signature-data-row:nth-child(3)>td:nth-child(3) {
 #heatwater>table:nth-child(1)>tbody:nth-child(1)>tr:nth-child(1)>td:nth-child(3) {
 
     text-align: right !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+.landlord-signature-section {
+    margin: 20px 0;
+}
+
+.landlord-signature-canvas-container {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.landlord-signature-canvas-container canvas {
+    background-color: #f9f9f9;
+}
+
+.landlord-signature-canvas-container p {
+    margin: 1px 0;
+    font-weight: bold;
+}
+
+.landlord-signature-canvas-container .delete-key-btn {
+    background: none;
+    border: none;
+    color: #ff4444;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0 8px;
+}
+
+.pdf-modal-title {
+    text-align: center;
+    margin: 0;
+}
+
+
+
+
+
+
+
+.pdf-modal {
+    display: flex;
+    flex-direction: column;
+    /* Elemente untereinander anordnen */
+    align-items: center;
+    /* Horizontal zentrieren */
+    gap: 15px;
+    /* Abstand zwischen den Elementen */
+}
+
+.pdf-modal-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pdf-modal-title {
+    text-align: center;
+    margin: 0;
+    flex-grow: 1;
+    /* Titel nimmt verfügbaren Platz ein */
+}
+
+.pdf-progress-container {
+    width: 100%;
+}
+
+.pdf-status-message {
+    text-align: center;
+    width: 100%;
+}
+
+.fa-door-open {
+    margin-right: 10px;
+}
+
+.zimmer-verfuegbar {
+    font-weight: 300;
 }
