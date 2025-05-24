@@ -113,6 +113,15 @@ document.addEventListener('DOMContentLoaded', function () {
         const zimmerContainer = document.querySelector('.table-container.zimmer-n');
         zimmerContainer.appendChild(section);
 
+        // Füge Event-Listener für den Lösch-Button hinzu
+        const removeBtn = section.querySelector(`.remove-zimmer-btn[data-zimmer="${count}"]`);
+        removeBtn.addEventListener('click', () => {
+            if (confirm('Möchten Sie dieses Zimmer wirklich entfernen?')) {
+                removeZimmer(count);
+            }
+        });
+
+        // Rest der bestehenden Initialisierung
         initColorSuggestions(count);
         initBemerkungen(count);
         initRauchmelder(count);
@@ -121,7 +130,6 @@ document.addEventListener('DOMContentLoaded', function () {
         if (window.initBodenForZimmer) {
             window.initBodenForZimmer(count);
         }
-
     }
 
     function createGalerieSection(count) {
@@ -152,8 +160,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 <thead>
                     <tr>
                         <th colspan="6" class="zimmer-header">
-                            <div class="zimmer-verfuegbar">
+                            <div class="zimmer-verfuegbar" style="padding-top:10px; padding-bottom:10px; font-weight:300;">
                                 Zimmer Nr. ${count}
+                                <button type="button" class="remove-zimmer-btn" data-zimmer="${count}">x</button>
                             </div>
                         </th>
                     </tr>
@@ -215,7 +224,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     <tr>
     <td>Zimmerschlüssel vorhanden?</td>
     <td class="select-cell" colspan="2">
-        <select id="zimm${count}-select" name="schluessel-${count}" style="padding: 5px; min-width: 120px;">
+        <select id="zimm${count}-select"  style="margin-left:2rem;" name="schluessel-${count}" style="padding: 5px; min-width: 120px;">
             <option value=""></option>
             <option value="ja">Ja</option>
             <option value="nein">Nein</option>
@@ -294,7 +303,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     <tr>
                         <td>Farbe der Wände</td>
                         <td colspan="5">
-                            <input type="text" id="wandfarbe-${count}" placeholder="" class="farbe-input" autocomplete="off">
+                            <input type="text" id="wandfarbe-${count}" placeholder="" style="margin-left:2rem" class="farbe-input" autocomplete="off">
                             <div id="farbvorschlaege-${count}" class="farbvorschlaege-container" style="display:none;"></div>
                         </td>
                     </tr>
@@ -339,7 +348,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             <tr>
                                 <td>Bodenbelag</td>
                                 <td colspan="5">
-                                    <input type="text" id="fussbodenzimm${count}" placeholder=""
+                                    <input type="text" id="fussbodenzimm${count}" placeholder="" style="margin-left:2rem"
                                         class="farbe-input" autocomplete="off">
                                 </td>
                             </tr>
@@ -392,23 +401,31 @@ document.addEventListener('DOMContentLoaded', function () {
                         </td>
                     </tr>
                     <tr class="bemerkung-row">
-                        <td style="font-weight:600; margin-top:11px; padding-top:11px">Bemerkungen</td>
-                        <td colspan="5">
+                        <td  colspan="6" style="font-weight:600; margin-top:11px; padding-top:11px">Bemerkungen:</td>
+                                      </tr>
+
+
+                     <tr class="bemerkung-row">
+                        <td colspan="6">
                             <div class="bemerkungen-container" id="bemerkungen-container-${count}">
                                 <div class="bemerkung-eingabe">
                                     <input type="text" id="bemerkungen-input-${count}" class="bemerkung-input" placeholder="">
                                     <div class="bemerkung-actions">
                                         <button type="button" class="add-bemerkung-btn">+</button>
+                                        <button type="button" class="del-bemerkung-btn" style="display:none;">×</button>
                                     </div>
                                 </div>
                             </div>
                         </td>
                     </tr>
+
+
+
                     <tr class="bilder-row">
-                        <td>Bilder</td>
-                        <td colspan="5">
+                        
+                        <td colspan="7">
                             <div class="bilder-upload-container">
-                                <button type="button" class="bilder-upload-btn">Fotos hinzufügen</button>
+                                <button type="button" class="bilder-upload-btn">+ Bilder</button>
                                 <div class="bilder-thumbnails" id="bilder-thumbnails-${count}"></div>
                             </div>
                         </td>
@@ -416,6 +433,34 @@ document.addEventListener('DOMContentLoaded', function () {
                 </tbody>
             </table>
         </div>`;
+    }
+
+    function removeZimmer(count) {
+        // Entferne das Zimmer aus dem DOM
+        const container = document.getElementById(`zimmer-container-${count}`);
+        if (container) container.remove();
+
+        // Entferne die zugehörige Galerie
+        const galerieContainer = document.getElementById(`zimmer-${count}-galerie`);
+        const galerieTitle = document.getElementById(`zimmer-${count}-galerie-title`);
+        if (galerieContainer) galerieContainer.remove();
+        if (galerieTitle) galerieTitle.remove();
+
+        // Bereinige die gespeicherten Bilder
+        if (zimmerBilder[count]) {
+            zimmerBilder[count].forEach(img => {
+                URL.revokeObjectURL(img.originalUrl);
+                URL.revokeObjectURL(img.thumbnailUrl);
+                URL.revokeObjectURL(img.galleryUrl);
+            });
+            delete zimmerBilder[count];
+        }
+
+        // Entferne die Galerie aus der Verwaltung
+        delete zimmerGalerien[count];
+
+        // Aktualisiere den Zähler (optional, falls Sie die Zimmer neu nummerieren wollen)
+        // Hier könnten Sie auch eine Logik einbauen, um die verbleibenden Zimmer neu zu nummerieren
     }
 
     function initColorSuggestions(count) {
@@ -450,40 +495,48 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    function initBemerkungen(count) {
-        const container = document.getElementById(`bemerkungen-container-${count}`);
-        let bemerkungCounter = 1; // Zähler für fortlaufende Nummerierung
+function initBemerkungen(count) {
+    const container = document.getElementById(`bemerkungen-container-${count}`);
+    const eingabeContainer = container.querySelector('.bemerkung-eingabe'); // Die Zeile mit dem Plus-Button
 
-        container.addEventListener('click', (e) => {
-            if (e.target.classList.contains('add-bemerkung-btn')) {
-                const input = e.target.closest('.bemerkung-eingabe').querySelector('.bemerkung-input');
-                const text = input.value.trim();
+    container.addEventListener('click', (e) => {
+        // "Hinzufügen"-Button
+        if (e.target.classList.contains('add-bemerkung-btn')) {
+            const input = eingabeContainer.querySelector('.bemerkung-input');
+            const text = input.value.trim();
 
-                if (text) {
-                    const bemerkung = document.createElement('div');
-                    bemerkung.className = 'bemerkung-zeile';
-                    // Format: zimmer-1-bemerkung-01, zimmer-1-bemerkung-02 usw.
-                    const bemerkungId = `zimmer${count}-bem${String(bemerkungCounter).padStart(2, '0')}`;
-                    bemerkung.innerHTML = `
-                    <input type="text" id="${bemerkungId}" 
-                           class="bemerkung-input" value="${text}" readonly>
+            // Neue Zeile erstellen
+            const neueBemerkung = document.createElement('div');
+            neueBemerkung.className = 'bemerkung-zeile';
+            neueBemerkung.innerHTML = `
+                <input type="text" class="bemerkung-input" 
+                       value="${text}" ${text ? 'readonly' : ''}
+                       placeholder="Bemerkung eingeben">
+                <div class="bemerkung-actions">
                     <button type="button" class="del-bemerkung-btn">×</button>
-                `;
-                    container.insertBefore(bemerkung, e.target.closest('.bemerkung-eingabe'));
-                    input.value = '';
-                    bemerkungCounter++; // Zähler erhöhen für nächste Bemerkung
-                }
-            }
+                </div>
+            `;
 
-            if (e.target.classList.contains('del-bemerkung-btn')) {
-                e.target.closest('.bemerkung-zeile').remove();
-                // Optional: Hier könnten Sie den Zähler zurücksetzen oder neu nummerieren
-                // wenn Sie die Lücken in der Nummerierung vermeiden wollen
-            }
-        });
-    }
+            // Neue Zeile VOR der Eingabezeile einfügen (Plus-Button bleibt unten)
+            container.insertBefore(neueBemerkung, eingabeContainer);
 
-    function initRauchmelder(count) {
+            // Leeres Eingabefeld zurücksetzen
+            input.value = '';
+            
+            // Fokus auf neues Feld (falls leer)
+            if (!text) neueBemerkung.querySelector('.bemerkung-input').focus();
+        }
+
+        // "Löschen"-Button
+        if (e.target.classList.contains('del-bemerkung-btn')) {
+            e.target.closest('.bemerkung-zeile').remove();
+        }
+    });
+}
+
+
+
+function initRauchmelder(count) {
         const input = document.getElementById(`rauchmelder-anzahl-${count}`);
         const minusBtn = input.previousElementSibling;
         const plusBtn = input.nextElementSibling;
