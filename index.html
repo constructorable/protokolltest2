@@ -27,8 +27,8 @@
     <script src="screenshot.js"></script>
     <script src="importexport.js"></script>
     <script src="saveloadlocal.js"></script>
+    <!--     <script src="loadhint.js"></script> -->
     <script src="email.js"></script>
-    <script src="loadhint.js"></script>
 </head>
 
 <body>
@@ -113,21 +113,23 @@
                 </table>
             </div>
 
-            <div class="keys" id="keys">
-                <button id="keysbtn">+ Schlüssel hinzufügen</button>
-            </div>
-
-            <div class="zahlercontainer" id="addzaehler">
-                <button id="addzaehlerbtn">+ Zähler hinzufügen</button>
-            </div>
-
             <div class="tenant" id="einzugtenantcontainer">
-                <button id="einzugtenant">+ einziehenden Mieter hinzufügen</button>
+                <button id="einzugtenant"><i class="fas fa-user"></i>+ Mieter Einzug</button>
             </div>
 
             <div class="tenant" id="auszugtenantconatainer">
-                <button id="auszugtenant">+ ausziehenden Mieter hinzufügen</button>
+                <button id="auszugtenant"><i class="fas fa-user"></i>+ Mieter Auszug</button>
             </div>
+
+            <div class="keys" id="keys">
+                <button id="keysbtn"><i class="fas fa-key" aria-hidden="true"></i>+ Schlüssel</button>
+            </div>
+
+            <div class="zahlercontainer" id="addzaehler">
+                <button id="addzaehlerbtn"><i class="fas fa-tachometer-alt"></i>+ Zähler</button>
+            </div>
+
+
 
             <div class="heatwater" id="heatwater">
                 <table style="width: 100%; border-collapse: collapse;">
@@ -136,6 +138,7 @@
                             <!-- Heizung -->
                             <td
                                 style="width: 15%; text-align: right; padding: 8px 10px; vertical-align: middle; white-space: nowrap; font-weight:600;">
+                                <i style="margin-right: 10px;" class="fas fa-fire"></i>
                                 Heizung:
                             </td>
 
@@ -157,6 +160,7 @@
                             <!-- Warmwasser -->
                             <td
                                 style="width: 15%; text-align: right; padding: 8px 10px; vertical-align: middle; white-space: nowrap; font-weight:600;">
+                                <i style="margin-right: 10px;" class="fas fa-faucet"></i>
                                 Warmwasser:
                             </td>
                             <td style="width: 35%; padding: 8px 10px;">
@@ -340,8 +344,8 @@
                                 <tr>
                                     <td>Farbe der Wände</td>
                                     <td colspan="5">
-                                        <input type="text" id="wandfarbe" placeholder=""
-                                            class="farbe-input" autocomplete="off">
+                                        <input type="text" id="wandfarbe" placeholder="" class="farbe-input"
+                                            autocomplete="off">
                                     </td>
                                 </tr>
 
@@ -396,8 +400,8 @@
                                 <tr>
                                     <td>Bodenbelag</td>
                                     <td colspan="5">
-                                        <input type="text" id="fussbodenkue" placeholder=""
-                                            class="farbe-input" autocomplete="off">
+                                        <input type="text" id="fussbodenkue" placeholder="" class="farbe-input"
+                                            autocomplete="off">
                                     </td>
                                 </tr>
 
@@ -577,21 +581,33 @@
                                 </tr>
 
                                 <tr class="bemerkung-row">
-                                    <td>Bemerkungen</td>
-                                    <td colspan="5">
+                                    <td style="font-weight:600">Bemerkungen:</td>
+                                </tr>
+
+
+                                <tr class="bemerkung-row">
+                                    <td colspan="6">
                                         <div class="bemerkung-container">
-                                            <input type="text" id="155" class="bemerkung-input"
-                                                placeholder="">
+                                            <input type="text" id="155" class="bemerkung-input" placeholder="">
                                             <div class="bemerkung-actions">
                                                 <button type="button" class="add-bemerkung-btn">+</button>
                                                 <button type="button" class="del-bemerkung-btn"
-                                                    style="display:none;">×</button>
+                                                    style="pointer-events: none; opacity:0;">×</button>
                                             </div>
                                         </div>
                                     </td>
                                 </tr>
 
-                  <!--                  <tr class="bemerkung-row">
+
+                                <!-- 
+                                <div class="bemerkung-actions">
+                                        <button type="button" class="add-bemerkung-btn">+</button>
+                                        <button type="button" class="del-bemerkung-btn" style="display: block;">×</button>
+                                    </div> -->
+
+
+
+                                <!--                  <tr class="bemerkung-row">
                                     <td>Bemerkungen</td>
                                     <td colspan="5">
                                         <div class="bemerkung-container">
@@ -607,15 +623,10 @@
                                 </tr> -->
 
                                 <tr class="bilder-row">
-                                    <td>Bilder</td>
-                                    <td colspan="5">
+                                    <!-- <td></td> -->
+                                    <td colspan="7">
                                         <div class="bilder-upload-container">
-                                            <button type="button" class="bilder-upload-btn">Bilder
-                                                hinzufügen</button>
-
-                                                   <button type="button" class="foto-upload-btn">Fotos
-                                                hinzufügen</button>
-
+                                            <button type="button" class="bilder-upload-btn">+ Bilder</button>
                                             <div class="bilder-thumbnails"></div>
                                         </div>
                                     </td>
@@ -781,8 +792,8 @@
                                 <tr>
                                     <td>Farbe der Wände</td>
                                     <td colspan="5">
-                                        <input type="text" id="wandfarbebad" placeholder=""
-                                            class="farbe-input" autocomplete="off">
+                                        <input type="text" id="wandfarbebad" placeholder="" class="farbe-input"
+                                            autocomplete="off">
                                     </td>
                                 </tr>
 
@@ -837,8 +848,8 @@
                                 <tr>
                                     <td>Bodenbelag</td>
                                     <td colspan="5">
-                                        <input type="text" id="fussbodenbad" placeholder=""
-                                            class="farbe-input" autocomplete="off">
+                                        <input type="text" id="fussbodenbad" placeholder="" class="farbe-input"
+                                            autocomplete="off">
                                     </td>
                                 </tr>
 
@@ -1050,12 +1061,11 @@
                                     <td><input type="checkbox" id="330"></td>
                                 </tr>
 
-                                <tr class="bemerkung-row">
+                                <!--                             <tr class="bemerkung-row">
                                     <td>Bemerkungen</td>
                                     <td colspan="5">
                                         <div class="bemerkung-container">
-                                            <input type="text" id="331" class="bemerkung-input"
-                                                placeholder="">
+                                            <input type="text" id="331" class="bemerkung-input" placeholder="">
                                             <div class="bemerkung-actions">
                                                 <button type="button" class="add-bemerkung-btn">+</button>
                                                 <button type="button" class="del-bemerkung-btn"
@@ -1063,14 +1073,30 @@
                                             </div>
                                         </div>
                                     </td>
+                                </tr> -->
+
+                                <tr class="bemerkung-row">
+                                    <td style="font-weight:600">Bemerkungen:</td>
+                                </tr>
+
+                                <tr class="bemerkung-row">
+                                    <td colspan="6">
+                                        <div class="bemerkung-container">
+                                            <input type="text" id="331" class="bemerkung-input" placeholder="">
+                                            <div class="bemerkung-actions">
+                                                <button type="button" class="add-bemerkung-btn">+</button>
+                                                <button type="button" class="del-bemerkung-btn"
+                                                    style="pointer-events: none; opacity:0;">×</button>
+                                            </div>
+                                        </div>
+                                    </td>
                                 </tr>
 
                                 <tr class="bilder-row">
-                                    <td>Bilder</td>
-                                    <td colspan="5">
+                                    <!-- <td></td> -->
+                                    <td colspan="7">
                                         <div class="bilder-upload-container badezimmer">
-                                            <button type="button" class="bilder-upload-btn">Fotos
-                                                hinzufügen</button>
+                                            <button type="button" class="bilder-upload-btn">+ Bilder</button>
                                             <div class="bilder-thumbnails"></div>
                                         </div>
                                     </td>
@@ -1240,8 +1266,8 @@
                                 <tr>
                                     <td>Farbe der Wände</td>
                                     <td colspan="5">
-                                        <input type="text" id="wandfarbewc" placeholder=""
-                                            class="farbe-input" autocomplete="off">
+                                        <input type="text" id="wandfarbewc" placeholder="" class="farbe-input"
+                                            autocomplete="off">
                                     </td>
                                 </tr>
 
@@ -1296,8 +1322,8 @@
                                 <tr>
                                     <td>Bodenbelag</td>
                                     <td colspan="5">
-                                        <input type="text" id="fussbodenwc" placeholder=""
-                                            class="farbe-input" autocomplete="off">
+                                        <input type="text" id="fussbodenwc" placeholder="" class="farbe-input"
+                                            autocomplete="off">
                                     </td>
                                 </tr>
 
@@ -1511,12 +1537,11 @@
 
 
                                 <!-- Gemeinsame Felder -->
-                                <tr class="bemerkung-row">
+                                <!--                               <tr class="bemerkung-row">
                                     <td>Bemerkungen</td>
                                     <td colspan="5">
                                         <div class="bemerkung-container">
-                                            <input type="text" id="510" class="bemerkung-input"
-                                                placeholder="">
+                                            <input type="text" id="510" class="bemerkung-input" placeholder="">
                                             <div class="bemerkung-actions">
                                                 <button type="button" class="add-bemerkung-btn">+</button>
                                                 <button type="button" class="del-bemerkung-btn"
@@ -1524,14 +1549,31 @@
                                             </div>
                                         </div>
                                     </td>
+                                </tr> -->
+
+                                <tr class="bemerkung-row">
+                                    <td style="font-weight:600">Bemerkungen:</td>
+                                </tr>
+
+
+                                <tr class="bemerkung-row">
+                                    <td colspan="6">
+                                        <div class="bemerkung-container">
+                                            <input type="text" id="510" class="bemerkung-input" placeholder="">
+                                            <div class="bemerkung-actions">
+                                                <button type="button" class="add-bemerkung-btn">+</button>
+                                                <button type="button" class="del-bemerkung-btn"
+                                                    style="pointer-events: none; opacity:0;">×</button>
+                                            </div>
+                                        </div>
+                                    </td>
                                 </tr>
 
                                 <tr class="bilder-row">
-                                    <td>Bilder</td>
-                                    <td colspan="5">
+                                   <!--  <td></td> -->
+                                    <td colspan="7">
                                         <div class="bilder-upload-container wc">
-                                            <button type="button" class="bilder-upload-btn">Fotos
-                                                hinzufügen</button>
+                                            <button type="button" class="bilder-upload-btn">+ Bilder</button>
                                             <div class="bilder-thumbnails"></div>
                                         </div>
                                     </td>
@@ -1702,8 +1744,8 @@
                                 <tr>
                                     <td>Farbe der Wände</td>
                                     <td colspan="5">
-                                        <input type="text" id="wandfarbeflur" placeholder=""
-                                            class="farbe-input" autocomplete="off">
+                                        <input type="text" id="wandfarbeflur" placeholder="" class="farbe-input"
+                                            autocomplete="off">
                                     </td>
                                 </tr>
 
@@ -1728,8 +1770,8 @@
                                 <tr>
                                     <td>Bodenbelag</td>
                                     <td colspan="5">
-                                        <input type="text" id="fussbodenflur" placeholder=""
-                                            class="farbe-input" autocomplete="off">
+                                        <input type="text" id="fussbodenflur" placeholder="" class="farbe-input"
+                                            autocomplete="off">
                                     </td>
                                 </tr>
 
@@ -1781,12 +1823,11 @@
 
 
                                 <!-- Gemeinsame Felder -->
-                                <tr class="bemerkung-row">
+                                <!--                               <tr class="bemerkung-row">
                                     <td>Bemerkungen</td>
                                     <td colspan="5">
                                         <div class="bemerkung-container">
-                                            <input type="text" id="584" class="bemerkung-input"
-                                                placeholder="">
+                                            <input type="text" id="584" class="bemerkung-input" placeholder="">
                                             <div class="bemerkung-actions">
                                                 <button type="button" class="add-bemerkung-btn">+</button>
                                                 <button type="button" class="del-bemerkung-btn"
@@ -1794,14 +1835,32 @@
                                             </div>
                                         </div>
                                     </td>
+                                </tr> -->
+
+
+                                <tr class="bemerkung-row">
+                                    <td style="font-weight:600">Bemerkungen:</td>
+                                </tr>
+
+
+                                <tr class="bemerkung-row">
+                                    <td colspan="6">
+                                        <div class="bemerkung-container">
+                                            <input type="text" id="584" class="bemerkung-input" placeholder="">
+                                            <div class="bemerkung-actions">
+                                                <button type="button" class="add-bemerkung-btn">+</button>
+                                                <button type="button" class="del-bemerkung-btn"
+                                                    style="pointer-events: none; opacity:0;">×</button>
+                                            </div>
+                                        </div>
+                                    </td>
                                 </tr>
 
                                 <tr class="bilder-row">
-                                    <td>Bilder</td>
-                                    <td colspan="5">
+                                    <!-- <td></td> -->
+                                    <td colspan="7">
                                         <div class="bilder-upload-container flur">
-                                            <button type="button" class="bilder-upload-btn">Fotos
-                                                hinzufügen</button>
+                                            <button type="button" class="bilder-upload-btn">+ Bilder</button>
                                             <div class="bilder-thumbnails"></div>
                                         </div>
                                     </td>
@@ -1831,7 +1890,7 @@
                         <table>
                             <thead>
                                 <tr>
-                                    <th colspan="6" class="kueche-header">
+                                    <th colspan="6" class="abstell-header">
                                         <div class="abstellraum-verfuegbar">
                                             Abstellraum
                                         </div>
@@ -1991,8 +2050,8 @@
                                 <tr>
                                     <td>Farbe der Wände</td>
                                     <td colspan="5">
-                                        <input type="text" id="wandfarbeabstell" placeholder=""
-                                            class="farbe-input" autocomplete="off">
+                                        <input type="text" id="wandfarbeabstell" placeholder="" class="farbe-input"
+                                            autocomplete="off">
                                     </td>
                                 </tr>
 
@@ -2017,8 +2076,8 @@
                                 <tr>
                                     <td>Bodenbelag</td>
                                     <td colspan="5">
-                                        <input type="text" id="fussbodenabstell" placeholder=""
-                                            class="farbe-input" autocomplete="off">
+                                        <input type="text" id="fussbodenabstell" placeholder="" class="farbe-input"
+                                            autocomplete="off">
                                     </td>
                                 </tr>
 
@@ -2068,12 +2127,11 @@
                                     </td>
                                 </tr>
 
-                                <tr class="bemerkung-row">
+                                <!--              <tr class="bemerkung-row">
                                     <td>Bemerkungen</td>
                                     <td colspan="5">
                                         <div class="bemerkung-container">
-                                            <input type="text" id="658" class="bemerkung-input"
-                                                placeholder="">
+                                            <input type="text" id="658" class="bemerkung-input" placeholder="">
                                             <div class="bemerkung-actions">
                                                 <button type="button" class="add-bemerkung-btn">+</button>
                                                 <button type="button" class="del-bemerkung-btn"
@@ -2081,14 +2139,33 @@
                                             </div>
                                         </div>
                                     </td>
+                                </tr> -->
+
+
+                                <tr class="bemerkung-row">
+                                    <td style="font-weight:600">Bemerkungen:</td>
                                 </tr>
 
+
+                                <tr class="bemerkung-row">
+                                    <td colspan="6">
+                                        <div class="bemerkung-container">
+                                            <input type="text" id="658" class="bemerkung-input" placeholder="">
+                                            <div class="bemerkung-actions">
+                                                <button type="button" class="add-bemerkung-btn">+</button>
+                                                <button type="button" class="del-bemerkung-btn"
+                                                    style="pointer-events: none; opacity:0;">×</button>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+
                                 <tr class="bilder-row">
-                                    <td>Bilder</td>
-                                    <td colspan="5">
+                                   <!--  <td></td> -->
+                                    <td colspan="7">
                                         <div class="bilder-upload-container flur">
-                                            <button type="button" class="bilder-upload-btn">Fotos
-                                                hinzufügen</button>
+                                            <button type="button" class="bilder-upload-btn">+ Bilder</button>
                                             <div class="bilder-thumbnails"></div>
                                         </div>
                                     </td>
@@ -2187,16 +2264,33 @@
                                     </tr>
 
 
-                                    <tr class="bemerkung-row">
+                                    <!-- <tr class="bemerkung-row">
                                         <td>Bemerkungen</td>
                                         <td colspan="5">
                                             <div class="bemerkung-container">
-                                                <input type="text" id="677" class="bemerkung-input"
-                                                    placeholder="">
+                                                <input type="text" id="677" class="bemerkung-input" placeholder="">
                                                 <div class="bemerkung-actions">
                                                     <button type="button" class="add-bemerkung-btn">+</button>
                                                     <button type="button" class="del-bemerkung-btn"
                                                         style="display:none;">×</button>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr> -->
+
+                                    <tr class="bemerkung-row">
+                                        <td style="font-weight:600">Bemerkungen:</td>
+                                    </tr>
+
+
+                                    <tr class="bemerkung-row">
+                                        <td colspan="6">
+                                            <div class="bemerkung-container">
+                                                <input type="text" id="677" class="bemerkung-input" placeholder="">
+                                                <div class="bemerkung-actions">
+                                                    <button type="button" class="add-bemerkung-btn">+</button>
+                                                    <button type="button" class="del-bemerkung-btn"
+                                                        style="pointer-events: none; opacity:0;">×</button>
                                                 </div>
                                             </div>
                                         </td>
@@ -2205,11 +2299,10 @@
 
 
                                     <tr class="bilder-row">
-                                        <td>Bilder</td>
-                                        <td colspan="5">
+                                       <!--  <td></td> -->
+                                        <td colspan="7">
                                             <div class="bilder-upload-container nebenraum">
-                                                <button type="button" class="bilder-upload-btn">Fotos
-                                                    hinzufügen</button>
+                                                <button type="button" class="bilder-upload-btn">+ Bilder</button>
                                                 <div class="bilder-thumbnails"></div>
                                             </div>
                                         </td>
@@ -2232,7 +2325,7 @@
 
 
             <div class="addzimmer" id="adzimmer">
-                <button id="addzimmert">+ Zimmer hinzufügen</button>
+                <button id="addzimmert"><i class="fas fa-door-open"></i>+ Zimmer</button>
             </div>
 
 
@@ -2307,22 +2400,32 @@
                         </tr>
 
                         <tr class="bemerkung-row">
-                            <td style="font-weight:bold;">Bemerkungen zur Mängelbeseitigung</td>
+                            <td style="font-weight:bold;">Bemerkungen zur Mängelbeseitigung:</td>
                         </tr>
 
 
                         <tr class="bemerkung-row">
                             <td colspan="7" class="long">
                                 <div class="bemerkung-container">
-                                    <input type="text" id="690" class="bemerkung-input"
-                                        placeholder="">
+                                    <input type="text" id="677" class="bemerkung-input" placeholder="">
                                     <div class="bemerkung-actions">
                                         <button type="button" class="add-bemerkung-btn">+</button>
-                                        <button type="button" class="del-bemerkung-btn" style="display:none;">×</button>
+                                        <button type="button" class="del-bemerkung-btn"
+                                            style="pointer-events: none; opacity:0;">×</button>
                                     </div>
                                 </div>
                             </td>
                         </tr>
+
+
+                        <!--        <div class="bemerkung-container">
+                            <input type="text" id="677" class="bemerkung-input" placeholder="">
+                            <div class="bemerkung-actions">
+                                <button type="button" class="add-bemerkung-btn">+</button>
+                                <button type="button" class="del-bemerkung-btn"
+                                    style="pointer-events: none; opacity:0;">×</button>
+                            </div>
+                        </div> -->
 
 
 
@@ -2357,27 +2460,36 @@
                                     <label style="display: flex; align-items: center; gap: 5px;">
                                         <input type="checkbox" id="691" name="protokoll_ja" value="ja"> Ja
                                     </label>
-                                    <!--  <label style="display: flex; align-items: center; gap: 5px;">
-                                        <input type="checkbox" id="692" name="protokoll_nein" value="nein"> Nein
-                                    </label> -->
                                 </div>
                             </td>
                         </tr>
 
 
                         <tr class="bemerkung-row">
-                            <td colspan="1" style="font-weight:600;">sonstige Bemerkungen</td>
-                            <td colspan="3" class="long">
+                            <td colspan="7" style="font-weight:bold;">Sonstige Bemerkungen:</td>
+                        </tr>
+
+
+                        <tr class="bemerkung-row">
+                            <td colspan="7" class="long">
                                 <div class="bemerkung-container">
-                                    <input type="text" id="693" class="bemerkung-input"
-                                        placeholder="">
+                                    <input type="text" id="6777" class="bemerkung-input" placeholder="">
                                     <div class="bemerkung-actions">
                                         <button type="button" class="add-bemerkung-btn">+</button>
-                                        <button type="button" class="del-bemerkung-btn" style="display:none;">×</button>
+                                        <button type="button" class="del-bemerkung-btn"
+                                            style="pointer-events: none; opacity:0;">×</button>
                                     </div>
                                 </div>
                             </td>
                         </tr>
+
+
+
+
+
+
+
+
                     </tbody>
                 </table>
             </div>
@@ -2391,16 +2503,16 @@
                 <table>
 
                     <tbody>
-                         <tr>
+                        <tr>
                             <th class="header-further">
                                 Unterschriften
                             </th>
                             <th></th>
                             <th></th>
                             <th></th>
-                        </tr> 
+                        </tr>
 
-                      <!--   <tr class="signature-header-row ">
+                        <!--   <tr class="signature-header-row ">
                             <th class="header-further signature-col-1 header-further">
                                 Unterschriften
                             </th>
@@ -2480,6 +2592,16 @@
                 </table>
             </div>
 
+            <div class="landlord-signature-section" id="landlord-signature-section">
+                <div class="landlord-signature-canvas-container">
+                    <canvas id="landlord-signature-canvas" width="666" height="222"
+                        style="border:1px solid #000; touch-action: none;"></canvas>
+                    <p>Vermieter <span class="signature-name" id="landlord-signature-name"></span></p>
+                    <div>
+                        <button type="button" id="landlord-clear-signature" class="delete-key-btn">x</button>
+                    </div>
+                </div>
+            </div>
             <div class="signtenant" id="signtenant1"></div>
 
         </div>
