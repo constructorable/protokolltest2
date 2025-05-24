@@ -271,7 +271,7 @@ document.addEventListener('DOMContentLoaded', function () {
         } else if (!emailRegex.test(email)) {
             emailInput.style.border = '3px solid red';
         } else {
-            emailInput.style.border = '3px solid green';
+            emailInput.style.border = '0px solid green';
         }
     }
 
