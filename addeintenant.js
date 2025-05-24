@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Hauptüberschrift
         const mainHeader = document.createElement('h2');
-        mainHeader.textContent = 'einziehende Mieter';
+        mainHeader.innerHTML = '<i class="fas fa-user"></i> einziehende Mieter';
 
         // Spaltenüberschriften
         const columnHeaders = document.createElement('div');
@@ -240,8 +240,8 @@ document.addEventListener('DOMContentLoaded', function () {
             /* Löschen-Button rechts neben dem Formular platzieren */
             .tenant-delete {
                 position: absolute;
-                right: 1px;
-                top: 98px;
+                left: 0px;
+                top: 105px;
             }
         }
     `;
