@@ -31,7 +31,12 @@ document.addEventListener('DOMContentLoaded', function () {
         
         // Hauptüberschrift
         const mainHeader = document.createElement('h2');
-        mainHeader.textContent = 'Schlüssel';
+        /* mainHeader.textContent = 'Schlüssel'; */
+
+        mainHeader.innerHTML = '<i class="fas fa-key" aria-hidden="true"></i> Schlüssel';
+        /* mainHeader.innerHTML = '<i class="fas fa-user"></i> ausziehende Mieter'; */
+        
+        
         headerContainer.appendChild(mainHeader);
         
         // Spaltenüberschriften im Grid-Layout
