@@ -55,7 +55,7 @@ td {
 }
 
 th {
-    background-color: #607d8b;
+    background-color: #335d92;
     color: white;
     font-weight: 600;
     border-color: #506873;
@@ -202,6 +202,10 @@ td[colspan="5"] {
 .farbe-input::placeholder {
     color: #999;
 }
+
+
+
+
 
 /* Responsive Anpassungen */
 @media (max-width: 768px) {
@@ -356,8 +360,9 @@ select::-ms-expand {
 
 .header,
 .header-regel,
-.kueche-header {
-    background-color: #607d8b;
+.kueche-header,
+.abstell-header {
+    background-color: #335d92;
     color: white;
     padding: 0;
     text-align: left;
@@ -382,7 +387,7 @@ select::-ms-expand {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: #607d8b;
+    background: #335d92;
     padding: 8px;
     border-radius: 5px;
     color: white;
@@ -414,7 +419,7 @@ select::-ms-expand {
 }
 
 .zustand-header {
-    background-color: #607d8b;
+    background-color: #335d92;
     color: white;
     padding: 10px 15px;
     text-align: center;
@@ -426,7 +431,7 @@ select::-ms-expand {
     display: inline-block;
     width: 18px;
     height: 18px;
-    border: 2px solid #607d8b;
+    border: 2px solid #335d92;
     border-radius: 50%;
     position: relative;
     cursor: pointer;
@@ -440,7 +445,7 @@ select::-ms-expand {
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: #607d8b;
+    background: #335d92;
     opacity: 0;
 }
 
@@ -455,7 +460,7 @@ select::-ms-expand {
 }
 
 .aa {
-    background: #8da5b2;
+    background: #2961a590;
 }
 
 .aa1 {
@@ -486,10 +491,12 @@ select::-ms-expand {
 
 .bilder-upload-container {
     padding: 10px;
+    text-align: right;
 }
 
-.bilder-upload-btn, .foto-upload-btn {
-    background-color: #607d8b;
+.bilder-upload-btn,
+.foto-upload-btn {
+    background-color: #335d92;
     color: white;
     border: none;
     padding: 8px 15px;
@@ -686,7 +693,7 @@ select::-ms-expand {
 .zaehler-headers,
 .tenant-headers,
 .moveout-headers {
-    background-color: #607d8b;
+    background-color: #335d92;
     color: white;
     border: none;
     padding: 8px 15px;
@@ -730,7 +737,7 @@ select::-ms-expand {
 }
 
 .tenant-form h3 {
-    color: #607d8b;
+    color: #335d92;
     margin-bottom: 15px;
     font-size: 1rem;
 }
@@ -758,7 +765,7 @@ select::-ms-expand {
 }
 
 .form-group input:focus {
-    border-color: #607d8b;
+    border-color: #335d92;
     outline: none;
 }
 
@@ -803,7 +810,7 @@ select::-ms-expand {
 }
 
 .tenant-display h4 {
-    color: #607d8b;
+    color: #335d92;
     margin-bottom: 10px;
     font-size: 1rem;
 }
@@ -889,7 +896,7 @@ select::-ms-expand {
 }
 
 .tenant-table .tenant-input:focus {
-    border-color: #607d8b;
+    border-color: #335d92;
     outline: none;
 }
 
@@ -1207,7 +1214,7 @@ select::-ms-expand {
 }
 
 #protokollart1 {
-    max-width: 60vw !important;
+    max-width: 100vw !important;
 }
 
 
@@ -1479,7 +1486,7 @@ tr.bemerkung-row:nth-child(7)>td:nth-child(4) {
     left: 2px;
     height: calc(100% - 4px);
     width: calc(50% - 2px);
-    background: linear-gradient(to right, #607d8b, #6b8490);
+    background: #335d92;
     border-radius: 50px;
     transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -1549,7 +1556,7 @@ tr.bemerkung-row:nth-child(7)>td:nth-child(4) {
 
 
     .toggle-options::after {
-        background: linear-gradient(to right, #607d8b, #ad6d2e);
+        background: linear-gradient(to right, #335d92, #ad6d2e);
     }
 
     .room-container {
@@ -1652,7 +1659,7 @@ tr.bemerkung-row:nth-child(7)>td:nth-child(4) {
 }
 
 .modal-btn.confirm {
-    background: #607d8b;
+    background: #335d92;
     color: #fff;
 }
 
@@ -1721,6 +1728,36 @@ tr.bemerkung-row:nth-child(7)>td:nth-child(4) {
     margin-left: 10px;
     margin-right: 11px;
 }
+
+.landlord-signature-section {
+    margin: 20px 0;
+}
+
+.landlord-signature-canvas-container {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.landlord-signature-canvas-container canvas {
+    background-color: #f9f9f9;
+}
+
+.landlord-signature-canvas-container p {
+    margin: 1px 0;
+    font-weight: bold;
+}
+
+.landlord-signature-canvas-container .delete-key-btn {
+    background: none;
+    border: none;
+    color: #cd0808;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0 8px;
+}
+
 
 #signtenant1 {
     margin-top: 55px;
@@ -1984,7 +2021,7 @@ input[type="number"] {
 
 
 .key-headers {
-    background: #607d8b;
+    background: #335d92;
     padding: 8px;
     border-radius: 5px;
     color: white;
@@ -2143,6 +2180,26 @@ input[type="number"] {
     background-color: #f9f9f9;
 }
 
+#tenant-signature-canvas-1,
+#tenant-signature-canvas-2,
+#tenant-signature-canvas-3,
+#tenant-signature-canvas-4,
+#tenant-signature-canvas-5,
+#tenant-signature-canvas-6 {
+    background: #ecf2fc;
+}
+
+
+#moveout-signature-canvas-1,
+#moveout-signature-canvas-2,
+#moveout-signature-canvas-3,
+#moveout-signature-canvas-4,
+#moveout-signature-canvas-5,
+#moveout-signature-canvas-6 {
+    background: #fffdf2;
+}
+
+
 
 
 
@@ -2218,8 +2275,8 @@ input[type="number"] {
 
 /* Löschen-Button rechts neben dem Formular platzieren */
 .tenant-delete {
-    position: absolute;
-    right: -30px;
+    position: inherit;
+    /* right: -30px; */
     top: 0;
 }
 
@@ -2328,7 +2385,7 @@ input[type="number"] {
 }
 
 /* Anpassung für zweispaltige Ansicht */
-@media (max-width: 992px) {
+@media (max-width: 1679px) {
     .column-headers {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -2380,8 +2437,8 @@ input[type="number"] {
 
     /* Löschen-Button rechts neben dem Formular platzieren */
     .moveout-delete {
-        position: absolute;
-        right: -30px;
+        position: inherit;
+
         top: 0;
     }
 }
@@ -2446,19 +2503,6 @@ input[type="number"] {
 .signContainer>table:nth-child(1)>tbody:nth-child(1)>tr:nth-child(3)>td:nth-child(3) {
     padding-left: 11px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /* Grundlegende Tabellen-Stile */
 .signature-table {
@@ -2551,39 +2595,6 @@ input[type="number"] {
 Element #objektdaten>table:nth-child(1)>tbody:nth-child(2)>tr:nth-child(4)>td:nth-child(2) {
     background-color: #fff;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /* Schlüssel-Manager Grid-Layout */
 .key-grid {
@@ -2699,18 +2710,20 @@ input.no-spin {
 
 /* Löschen-Button Styling */
 .delete-key-btn {
-    width: 30px;
-    height: 30px;
+
     border-radius: 5%;
     border: none;
     background: #fff;
-    color: #b40000;
-    font-size: 24px;
+    color: #cc0000;
+
     cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
     transition: background-color 0.2s;
+    width: 20px;
+    height: 20px;
+    font-size: 1rem;
 }
 
 .delete-key-btn:hover {
@@ -2764,11 +2777,243 @@ input.no-spin {
     background: #fff !important;
 }
 
-#heatwater > table:nth-child(1) {
-  width: 100%;
-  border-collapse: collapse;
-  background-color: #607d8b;
-  color: #fff;
-  margin-top: 22px;
+#heatwater>table:nth-child(1) {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #335d92;
+    color: #fff;
+    margin-top: 22px;
 
+}
+
+#einzugtenant>i:nth-child(1),
+#auszugtenant>i:nth-child(1),
+.fa-key,
+.fa-tachometer-alt {
+    margin-right: 12px !important;
+}
+
+.haus>h2:nth-child(2) {
+    color: #4e4e4e;
+}
+
+
+.remove-zimmer-btn {
+    background: #80a0c6;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 1rem;
+    line-height: 24px;
+    cursor: pointer;
+    margin-left: 10px;
+    float: right;
+    padding-bottom: 7px;
+}
+
+.remove-zimmer-btn:hover {
+    background: #cc0000;
+}
+
+.pdf-modal-title {
+    text-align: center;
+    margin: 0;
+}
+
+.pdf-modal {
+    display: flex;
+    flex-direction: column;
+    /* Elemente untereinander anordnen */
+    align-items: center;
+    /* Horizontal zentrieren */
+    gap: 15px;
+    /* Abstand zwischen den Elementen */
+}
+
+.pdf-modal-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pdf-modal-title {
+    text-align: center;
+    margin: 0;
+    flex-grow: 1;
+    /* Titel nimmt verfügbaren Platz ein */
+}
+
+.pdf-progress-container {
+    width: 100%;
+}
+
+.pdf-status-message {
+    text-align: center;
+    width: 100%;
+}
+
+#keySelect,
+#keySelect2,
+#keySelect3,
+#keySelect4,
+#keySelect5 {
+    padding: 5px;
+    min-width: 120px;
+    margin-left: 2rem;
+    width: 1rem;
+}
+
+
+
+#wandfarbe,
+#wandfarbebad {
+    margin-left: 2rem;
+    width: 27rem;
+}
+
+#fussbodenkue,
+#fussbodenbad {
+    margin-left: 2rem;
+    width: 60vw !important;
+    width: 27rem;
+}
+
+
+.fa-door-open {
+    margin-right: 10px;
+}
+
+
+#addzimmert {
+    width: 100%;
+    padding: 25px;
+    margin-bottom: 25px;
+    margin-top: 10px;
+}
+
+div.table-container:nth-child(7) {
+    margin-top: 35px;
+}
+
+
+
+#regelungen>div:nth-child(1)>table:nth-child(1)>tbody:nth-child(1)>tr:nth-child(7)>td:nth-child(1),
+tr.bemerkung-row:nth-child(4)>td:nth-child(1) {
+    font-weight: bold;
+    vertical-align: bottom;
+}
+
+.addzimmer {
+    padding: 15px 0px 10px 0px;
+
+}
+
+.toggle-options::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    height: calc(100% - 4px);
+    width: calc(50% - 2px);
+    background: #335d92;
+    border-radius: 50px;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+#einzugtenantcontainer,
+#auszugtenantconatainer,
+#keys,
+#addzaehler {
+    text-align: right;
+}
+
+#addzaehlerbtn {
+    margin-top: 0;
+}
+
+
+.tenant-delete,
+.moveout-delete {
+    position: absolute;
+    left: 0px !important;
+    top: 121px;
+}
+
+.tenant-headers,
+.moveout-headers,
+.key-headers,
+.zaehler-headers {
+    margin-bottom: 10px;
+    text-align: left;
+    cursor: unset;
+}
+
+
+.toggle-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.toggle-options {
+    display: flex;
+
+}
+
+.abstell-header {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 15px;
+}
+
+
+.abstellraum>table:nth-child(1)>thead:nth-child(1)>tr:nth-child(2)>td:nth-child(1) {
+    margin-left: 11px;
+    padding-left: 15px;
+}
+
+.options-header {
+    background: #83a3c9 !important;
+    color: #fff;
+
+}
+
+
+.options-header>td:nth-child(1) {
+    padding-left: 15px;
+}
+
+.options-header>td:nth-child(3),
+.options-header>td:nth-child(5) {
+    text-align: center;
+}
+
+.options-header>td:nth-child(7) {
+    text-align: right;
+    padding-right: 11px;
+}
+
+
+#regelungen>div:nth-child(1)>table:nth-child(1)>tbody:nth-child(1)>tr:nth-child(3)>td:nth-child(1),
+#regelungen>div:nth-child(1)>table:nth-child(1)>tbody:nth-child(1)>tr:nth-child(4)>td:nth-child(1),
+#regelungen>div:nth-child(1)>table:nth-child(1)>tbody:nth-child(1)>tr:nth-child(5)>td:nth-child(1),
+#regelungen>div:nth-child(1)>table:nth-child(1)>tbody:nth-child(1)>tr:nth-child(6)>td:nth-child(1) {
+    padding-left: 15px;
+    padding-bottom: 10px;
+    padding-top: 5px;
+}
+
+#objektdaten>table:nth-child(1)>tbody:nth-child(2)>tr:nth-child(2) {
+    background-color: #fff;
+}
+
+
+#objektdaten>table:nth-child(1)>tbody:nth-child(2)>tr:nth-child(2)>td:nth-child(3),
+#objektdaten>table:nth-child(1)>tbody:nth-child(2)>tr:nth-child(3)>td:nth-child(3) {
+    text-align: right;
 }
