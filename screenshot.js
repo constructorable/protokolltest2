@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
         document.head.appendChild(script);
     }
 
-     const pdfSections = [
+    const pdfSections = [
         {
             name: 'Allgemein',
             selector: '#allgemein',
@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function () {
             selector: '.room-toggle[data-room="nebenraum"]',
             type: 'room'
         },
-     
+
         // Kombinierte Rest-Sektionen inkl. nicht vorhandener Räume
         {
             name: 'Restliche Informationen',
@@ -56,15 +56,32 @@ document.addEventListener('DOMContentLoaded', function () {
             type: 'combined',
             combinedSections: [
                 { name: 'Restliche Informationen', selector: '#rest1' },
-                { 
-                    name: 'Nicht vorhandene Räume', 
+                {
+                    name: 'Nicht vorhandene Räume',
                     selector: '.room-toggle[data-room]',
                     process: (element) => {
                         const toggleOptions = element.querySelector('.toggle-options');
                         if (toggleOptions && toggleOptions.getAttribute('data-active-option') === '0') {
-                            const roomName = element.querySelector('.toggle-header')?.textContent
-                                .replace(' vorhanden?', '')
-                                .trim() || element.getAttribute('data-room');
+                            // 1. Versuche den Raumnamen aus dem Header zu extrahieren
+                            let roomName = element.querySelector('.toggle-header')?.textContent || '';
+
+                            // 2. Entferne alle unerwünschten Texte
+                            roomName = roomName
+                                .replace(/ vorhanden\?/gi, '')  // Entfernt " vorhanden?"
+                                .replace(/:\s*(Ja|Nein)/gi, '')  // Entfernt ": Ja" oder ": Nein"
+                                .replace(/\s*(Ja|Nein)\s*/gi, '') // Entfernt alle verbleibenden "Ja/Nein"
+                                .trim();
+
+                            // 3. Fallback auf data-room Attribut wenn kein brauchbarer Text
+                            if (!roomName) {
+                                roomName = element.getAttribute('data-room');
+                            }
+
+                            // 4. Formatierung bereinigen
+                            roomName = roomName
+                                .replace(/^./, c => c.toUpperCase()) // Ersten Buchstaben groß
+                                .replace(/-/g, ' '); // Bindestriche durch Leerzeichen ersetzen
+
                             return `${roomName}: Nicht vorhanden`;
                         }
                         return null;
@@ -79,7 +96,7 @@ document.addEventListener('DOMContentLoaded', function () {
             selector: '#sign',
             type: 'signatures'
         },
-           {
+        {
             name: 'Bildergalerie',
             selector: '.bildergalerie-container',
             type: 'gallery',
@@ -98,7 +115,16 @@ document.addEventListener('DOMContentLoaded', function () {
         pdfStyleLink.rel = 'stylesheet';
         pdfStyleLink.href = 'stylespdf.css';
         pdfStyleLink.id = 'pdf-styles';
-        document.head.appendChild(pdfStyleLink);
+
+        await new Promise((resolve) => {
+            pdfStyleLink.onload = resolve;
+            document.head.appendChild(pdfStyleLink);
+
+            // Fallback für den Fall, dass onload nicht ausgelöst wird
+            setTimeout(resolve, 1000); // 1 Sekunde Wartezeit als Fallback
+        });
+
+        await new Promise(resolve => setTimeout(resolve, 500));
 
         // Button-Text-Updates für bessere PDF-Darstellung
         const keysBtn = document.getElementById('keysbtn');
@@ -147,6 +173,18 @@ document.addEventListener('DOMContentLoaded', function () {
         closeButton.onclick = closeModal;
 
         const startTime = Date.now();
+
+
+        document.querySelectorAll('[placeholder]').forEach(el => {
+            const originalColor = el.style.color;
+            el.style.color = '#333';
+
+            // Stelle die ursprüngliche Farbe nach der PDF-Erstellung wieder her
+            setTimeout(() => {
+                el.style.color = originalColor;
+            }, 5000);
+        });
+
 
         try {
             // Warte auf jsPDF
@@ -253,13 +291,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 const section = availableSections[i];
 
 
-      if (section.type === 'room') {
-            const element = document.querySelector(section.selector);
-            const toggleOptions = element?.querySelector('.toggle-options');
-            if (toggleOptions && toggleOptions.getAttribute('data-active-option') === '0') {
-                continue; // Überspringen wenn Raum nicht vorhanden
-            }
-        }
+                if (section.type === 'room') {
+                    const element = document.querySelector(section.selector);
+                    const toggleOptions = element?.querySelector('.toggle-options');
+                    if (toggleOptions && toggleOptions.getAttribute('data-active-option') === '0') {
+                        continue; // Überspringen wenn Raum nicht vorhanden
+                    }
+                }
 
 
 
@@ -267,7 +305,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 const sectionText = `Sektion "${section.name}" wird verarbeitet... (${i + 1}/${availableSections.length})`;
                 statusMessage.textContent = sectionText;
-                button.textContent = sectionText;
+                 button.textContent = sectionText; 
                 if (modalTitle) modalTitle.textContent = sectionText;
 
                 let canvas;
@@ -444,7 +482,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     ? `${section.name}`
                     : `${section.name} (Seite ${i + 1})`;
 
-                pdf.text(headerText, marginLeft, marginTop - 2);
+                pdf.text(headerText, pageWidth - marginRight - pdf.getStringUnitWidth(headerText) * pdf.getFontSize() / 2.5, pageHeight - marginBottom + 5);
+
+                // Für Galeriebilder (unten rechts)
+                pdf.text(headerText, pageWidth - marginRight - pdf.getStringUnitWidth(headerText) * pdf.getFontSize() / 2.5, pageHeight - marginBottom + 5);
 
                 const currentProgress = 30 + ((i + 1) * sectionProgressStep);
                 progressBar.style.width = Math.round(currentProgress) + '%';
