@@ -15,7 +15,7 @@ html {
 }
 
 .container {
-    width: 100%;
+    max-width: 1280px;
     margin: 0 auto;
     padding: 20px 5px 20px 5px;
     margin-top: 5rem;
@@ -1389,7 +1389,7 @@ tr.bemerkung-row:nth-child(7)>td:nth-child(4) {
     flex-wrap: wrap;
     gap: 10px;
     padding: 10px;
-    max-width: 93%;
+    max-width: 1280px;
     margin: 0 auto;
     opacity: 0.9;
     border-radius: 5px;
@@ -3016,4 +3016,19 @@ tr.bemerkung-row:nth-child(4)>td:nth-child(1) {
 #objektdaten>table:nth-child(1)>tbody:nth-child(2)>tr:nth-child(2)>td:nth-child(3),
 #objektdaten>table:nth-child(1)>tbody:nth-child(2)>tr:nth-child(3)>td:nth-child(3) {
     text-align: right;
+}
+
+
+.haus {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-left: 8px;
+}
+
+.haus img {
+    width: 250px;
+    /* Größe anpassen nach Bedarf */
+    margin-left: auto;
+    /* Schiebt das Logo nach rechts */
 }
