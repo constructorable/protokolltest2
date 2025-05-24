@@ -13,7 +13,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Hauptüberschrift
         const mainHeader = document.createElement('h2');
-        mainHeader.textContent = 'ausziehende Mieter';
+        mainHeader.innerHTML = '<i class="fas fa-user"></i> ausziehende Mieter';
+     /*     mainHeader.innerHTML = '<i class="fas fa-user"></i> einziehende Mieter';
+ */
+      
 
         // Spaltenüberschriften
         const columnHeaders = document.createElement('div');
@@ -40,6 +43,20 @@ document.addEventListener('DOMContentLoaded', function () {
             createHeaders();
         }
 
+
+        moveOutButton.classList.add('keybtnhide');
+        moveOutButton.style.backgroundColor = '#fff';
+        moveOutButton.style.color = '#888';
+        moveOutButton.style.fontSize = '1.5rem';
+        moveOutButton.style.marginTop = '-10px';
+        moveOutButton.textContent = '+';
+
+
+        // Button-Text ändern, wenn noch nicht geschehen
+        if (moveOutButton.textContent.trim() === '+ ausziehenden Mieter hinzufügen') {
+            moveOutButton.textContent = '+';
+        }
+
         const moveOutEntry = document.createElement('div');
         moveOutEntry.className = 'tenant-entry moveout-entry';
         moveOutEntry.id = `moveout-entry-${moveOutTenantCounter}`;
@@ -51,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function () {
         nameInput.type = 'text';
         nameInput.id = `moveout-name-${moveOutTenantCounter}`;
         nameInput.className = 'bemerkung-input';
-        nameInput.placeholder = 'Vor- / Nachname eingeben';
+        nameInput.placeholder = 'Vor- / Nachname';
         nameCell.appendChild(nameInput);
 
         // Vorname
@@ -81,7 +98,7 @@ document.addEventListener('DOMContentLoaded', function () {
         emailInput.type = 'email';
         emailInput.id = `moveout-email-${moveOutTenantCounter}`;
         emailInput.className = 'bemerkung-input';
-        emailInput.placeholder = 'E-Mail-Adresse eingeben';
+        emailInput.placeholder = 'E-Mail-Adresse';
         emailCell.appendChild(emailInput);
 
         // Löschen-Button
@@ -233,8 +250,8 @@ document.addEventListener('DOMContentLoaded', function () {
             /* Löschen-Button rechts neben dem Formular platzieren */
             .moveout-delete {
                 position: absolute;
-                right: 1px;
-                top: 98px;
+                left: 0px;
+                top: 105px;
             }
         }
     `;
@@ -337,9 +354,9 @@ document.addEventListener('DOMContentLoaded', function () {
     // Falls bereits ein Input-Feld existiert, füge Placeholder hinzu
     const initialMoveOutEntry = document.getElementById('moveout-entry-1');
     if (initialMoveOutEntry) {
-        document.getElementById('moveout-name-1').placeholder = 'Nachname eingeben';
-        document.getElementById('moveout-firstname-1').placeholder = 'Vorname eingeben';
-        document.getElementById('moveout-phone-1').placeholder = 'Telefonnummer eingeben';
-        document.getElementById('moveout-email-1').placeholder = 'E-Mail-Adresse eingeben';
+        document.getElementById('moveout-name-1').placeholder = 'Nachname';
+        document.getElementById('moveout-firstname-1').placeholder = 'Vorname';
+        document.getElementById('moveout-phone-1').placeholder = 'Telefonnummer';
+        document.getElementById('moveout-email-1').placeholder = 'E-Mail-Adresse';
     }
 });
