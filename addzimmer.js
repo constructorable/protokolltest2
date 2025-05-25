@@ -511,7 +511,7 @@ function initBemerkungen(count) {
             neueBemerkung.innerHTML = `
                 <input type="text" class="bemerkung-input" 
                        value="${text}" ${text ? 'readonly' : ''}
-                       placeholder="Bemerkung eingeben">
+                       placeholder="">
                 <div class="bemerkung-actions">
                     <button type="button" class="del-bemerkung-btn">×</button>
                 </div>
