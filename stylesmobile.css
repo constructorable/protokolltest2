@@ -1098,13 +1098,16 @@ select::-ms-expand {
 
 .add-bemerkung-btn {
     margin: 12px 1px 1px 1px;
-    background: #a5c2c5;
-    color: white;
+    background: #fff0;
+    color: #414141;
     border: none;
     border-radius: 4px;
     padding: 0 9px;
     cursor: pointer;
+    font-size: 22px;
 }
+
+
 
 
 
@@ -3031,4 +3034,294 @@ tr.bemerkung-row:nth-child(4)>td:nth-child(1) {
     /* Größe anpassen nach Bedarf */
     margin-left: auto;
     /* Schiebt das Logo nach rechts */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Design Selection Modal Styles */
+.design-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.design-modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.design-modal-container {
+    background: #ffffff;
+    border-radius: 16px;
+    max-width: 800px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+    transform: scale(0.9) translateY(20px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.design-modal-overlay.active .design-modal-container {
+    transform: scale(1) translateY(0);
+}
+
+.design-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 24px 16px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.design-modal-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.design-modal-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #6b7280;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.design-modal-close:hover {
+    background: #f3f4f6;
+    color: #374151;
+}
+
+.design-modal-content {
+    padding: 24px;
+}
+
+.design-modal-content p {
+    margin: 0 0 24px;
+    color: #6b7280;
+    font-size: 1rem;
+}
+
+.design-profiles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.design-profile-card {
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: #ffffff;
+}
+
+.design-profile-card:hover {
+    border-color: #3b82f6;
+    transform: translateY(-4px);
+    box-shadow: 0 12px 25px rgba(59, 130, 246, 0.15);
+}
+
+.design-profile-preview {
+    height: 120px;
+    position: relative;
+    overflow: hidden;
+}
+
+.design-preview-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    color: white;
+    font-size: 1.1rem;
+    position: relative;
+}
+
+.design-preview-placeholder.desktop {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.design-preview-placeholder.pdf {
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+}
+
+.design-preview-placeholder.mobile {
+    background: linear-gradient(135deg, #ff6b6b 0%, #feca57 50%, #48dbfb 100%);
+}
+
+.design-preview-placeholder::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.1);
+    transition: background 0.3s ease;
+}
+
+.design-profile-card:hover .design-preview-placeholder::after {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.design-profile-info {
+    padding: 16px;
+}
+
+.design-profile-info h3 {
+    margin: 0 0 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.design-profile-info p {
+    margin: 0 0 16px;
+    color: #6b7280;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.design-select-btn {
+    width: 100%;
+    background: #3b82f6;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+}
+
+.design-select-btn:hover {
+    background: #2563eb;
+    transform: translateY(-1px);
+}
+
+.design-select-btn:active {
+    transform: translateY(0);
+}
+
+.design-modal-footer {
+    padding: 16px 24px 24px;
+    border-top: 1px solid #e5e7eb;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.design-cancel-btn {
+    background: #f3f4f6;
+    color: #374151;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.design-cancel-btn:hover {
+    background: #e5e7eb;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .design-modal-container {
+        width: 95%;
+        max-height: 95vh;
+    }
+    
+    .design-profiles-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    
+    .design-modal-header,
+    .design-modal-content,
+    .design-modal-footer {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+}
+
+/* Animation für sanftes Erscheinen */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.design-profile-card {
+    animation: fadeInUp 0.5s ease forwards;
+}
+
+.design-profile-card:nth-child(1) { animation-delay: 0.1s; }
+.design-profile-card:nth-child(2) { animation-delay: 0.2s; }
+.design-profile-card:nth-child(3) { animation-delay: 0.3s; }
+
+
+
+
+
+
+
+
+
+div.design-profile-card:nth-child(1),
+div.design-profile-card:nth-child(3)  {
+  display: none !important;
 }
