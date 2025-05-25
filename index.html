@@ -148,10 +148,10 @@
 
                                     <label style="display: flex; align-items: center; gap: 5px;">
 
-                                    <!--     <span class="custom-checkbox" data-checked="false" id="heatzent-custom">✓</span>
+                                        <!--     <span class="custom-checkbox" data-checked="false" id="heatzent-custom">✓</span>
                                         <input type="hidden" name="heat_zentral" id="heatzent" value=""> -->
 
-                                            <input type="checkbox" name="heat_zentral" value="zentral" id="heatzent"> 
+                                        <input type="checkbox" name="heat_zentral" value="zentral" id="heatzent">
                                         zentral
                                     </label>
 
@@ -195,13 +195,14 @@
             <div class="room-toggle" data-room="kueche">
                 <div class="toggle-header">
                     Küche vorhanden?
-                    <div class="toggle-options">
+                    <div class="toggle-options" data-active-option="0">
                         <div class="toggle-option active" data-value="nein">Nein</div>
                         <div class="toggle-option" data-value="ja">Ja</div>
                     </div>
                 </div>
 
-                <div class="room-container" id="kueche-container">
+                <div class="room-container" id="kueche-container"
+                    style="animation: 0.3s ease-in-out fadeOut; display: none;">
                     <div class="table-container kueche" id="kueche-container">
 
                         <table>
@@ -257,7 +258,7 @@
                                     <td><input type="checkbox" id="010"></td>
                                     <td><input type="checkbox" id="011"></td>
                                     <td>
-                                        <select>
+                                        <select id="0001">
                                             <option value="na" id="012">-</option>
                                             <option value="mieter" id="013">Mieter</option>
                                             <option value="landl" id="014">Vermieter</option>
@@ -286,7 +287,7 @@
                                     <td><input type="checkbox" id="020"></td>
                                     <td><input type="checkbox" id="021"></td>
                                     <td>
-                                        <select>
+                                        <select id="0002">
                                             <option value="na" id="022">-</option>
                                             <option value="mieter" id="023">Mieter</option>
                                             <option value="landl" id="024">Vermieter</option>
@@ -303,7 +304,7 @@
                                     <td><input type="checkbox" id="028"></td>
                                     <td><input type="checkbox" id="029"></td>
                                     <td>
-                                        <select>
+                                        <select id="0003">
                                             <option value="na" id="030">-</option>
                                             <option value="mieter" id="031">Mieter</option>
                                             <option value="landl" id="032">Vermieter</option>
@@ -319,7 +320,7 @@
                                     <td><input type="checkbox" id="036"></td>
                                     <td><input type="checkbox" id="037"></td>
                                     <td>
-                                        <select>
+                                        <select id="0004">
                                             <option value="na" id="038">-</option>
                                             <option value="mieter" id="039">Mieter</option>
                                             <option value="landl" id="040">Vermieter</option>
@@ -335,7 +336,7 @@
                                     <td><input type="checkbox" id="044"></td>
                                     <td><input type="checkbox" id="045"></td>
                                     <td>
-                                        <select>
+                                        <select id="0005">
                                             <option value="na" id="046">-</option>
                                             <option value="mieter" id="047">Mieter</option>
                                             <option value="landl" id="048">Vermieter</option>
@@ -360,7 +361,7 @@
                                     <td><input type="checkbox" id="052"></td>
                                     <td><input type="checkbox" id="053"></td>
                                     <td>
-                                        <select>
+                                        <select id="0006">
                                             <option value="na" id="054">-</option>
                                             <option value="mieter" id="055">Mieter</option>
                                             <option value="landl" id="056">Vermieter</option>
@@ -376,7 +377,7 @@
                                     <td><input type="checkbox" id="060"></td>
                                     <td><input type="checkbox" id="061"></td>
                                     <td>
-                                        <select>
+                                        <select id="0007">
                                             <option value="na" id="062">-</option>
                                             <option value="mieter" id="063">Mieter</option>
                                             <option value="landl" id="064">Vermieter</option>
@@ -392,7 +393,7 @@
                                     <td><input type="checkbox" id="068"></td>
                                     <td><input type="checkbox" id="069"></td>
                                     <td>
-                                        <select>
+                                        <select id="0008">
                                             <option value="na" id="070">-</option>
                                             <option value="mieter" id="071">Mieter</option>
                                             <option value="landl" id="072">Vermieter</option>
@@ -416,7 +417,7 @@
                                     <td><input type="checkbox" id="076"></td>
                                     <td><input type="checkbox" id="077"></td>
                                     <td>
-                                        <select>
+                                        <select id="0009">
                                             <option value="na" id="078">-</option>
                                             <option value="mieter" id="079">Mieter</option>
                                             <option value="landl" id="080">Vermieter</option>
@@ -432,7 +433,7 @@
                                     <td><input type="checkbox" id="084"></td>
                                     <td><input type="checkbox" id="085"></td>
                                     <td>
-                                        <select>
+                                        <select id="0010">
                                             <option value="na" id="086">-</option>
                                             <option value="mieter" id="087">Mieter</option>
                                             <option value="landl" id="088">Vermieter</option>
@@ -448,7 +449,7 @@
                                     <td><input type="checkbox" id="092"></td>
                                     <td><input type="checkbox" id="093"></td>
                                     <td>
-                                        <select>
+                                        <select id="0011">
                                             <option value="na" id="094">-</option>
                                             <option value="mieter" id="095">Mieter</option>
                                             <option value="landl" id="096">Vermieter</option>
@@ -464,7 +465,7 @@
                                     <td><input type="checkbox" id="100"></td>
                                     <td><input type="checkbox" id="101"></td>
                                     <td>
-                                        <select>
+                                        <select id="0012">
                                             <option value="na" id="102">-</option>
                                             <option value="mieter" id="103">Mieter</option>
                                             <option value="landl" id="104">Vermieter</option>
@@ -480,7 +481,7 @@
                                     <td><input type="checkbox" id="108"></td>
                                     <td><input type="checkbox" id="109"></td>
                                     <td>
-                                        <select>
+                                        <select id="0013">
                                             <option value="na" id="110">-</option>
                                             <option value="mieter" id="111">Mieter</option>
                                             <option value="landl" id="112">Vermieter</option>
@@ -498,7 +499,7 @@
                                     <td><input type="checkbox" id="116"></td>
                                     <td><input type="checkbox" id="117"></td>
                                     <td>
-                                        <select>
+                                        <select id="0014">
                                             <option value="na" id="118">-</option>
                                             <option value="mieter" id="119">Mieter</option>
                                             <option value="landl" id="120">Vermieter</option>
@@ -514,7 +515,7 @@
                                     <td><input type="checkbox" id="124"></td>
                                     <td><input type="checkbox" id="125"></td>
                                     <td>
-                                        <select>
+                                        <select id="0015">
                                             <option value="na" id="126">-</option>
                                             <option value="mieter" id="127">Mieter</option>
                                             <option value="landl" id="128">Vermieter</option>
@@ -531,7 +532,7 @@
                                     <td><input type="checkbox" id="132"></td>
                                     <td><input type="checkbox" id="133"></td>
                                     <td>
-                                        <select>
+                                        <select id="0016">
                                             <option value="na" id="134">-</option>
                                             <option value="mieter" id="135">Mieter</option>
                                             <option value="landl" id="136">Vermieter</option>
@@ -547,7 +548,7 @@
                                     <td><input type="checkbox" id="140"></td>
                                     <td><input type="checkbox" id="141"></td>
                                     <td>
-                                        <select>
+                                        <select id="0017">
                                             <option value="na" id="142">-</option>
                                             <option value="mieter" id="143">Mieter</option>
                                             <option value="landl" id="144">Vermieter</option>
@@ -563,7 +564,7 @@
                                     <td><input type="checkbox" id="148"></td>
                                     <td><input type="checkbox" id="149"></td>
                                     <td>
-                                        <select>
+                                        <select id="0018">
                                             <option value="na" id="150">-</option>
                                             <option value="mieter" id="151">Mieter</option>
                                             <option value="landl" id="152">Vermieter</option>
@@ -628,7 +629,7 @@
             <div class="room-toggle" data-room="bad">
                 <div class="toggle-header">
                     Badezimmer vorhanden?
-                    <div class="toggle-options">
+                    <div class="toggle-options" data-active-option="0">
                         <div class="toggle-option active" data-value="nein">Nein</div>
                         <div class="toggle-option" data-value="ja">Ja</div>
                     </div>
@@ -636,7 +637,8 @@
 
 
 
-                <div class="room-container" id="bad-container">
+                <div class="room-container" id="bad-container"
+                    style="animation: 0.3s ease-in-out fadeOut; display: none;">
                     <div class="table-container bad" id="bad-container">
                         <table>
                             <thead>
@@ -684,7 +686,7 @@
                                     <td><input type="checkbox" id="162"></td>
                                     <td><input type="checkbox" id="163"></td>
                                     <td>
-                                        <select>
+                                        <select id="0019">
                                             <option value="na" id="164">-</option>
                                             <option value="mieter" id="165">Mieter</option>
                                             <option value="landl" id="166">Vermieter</option>
@@ -713,7 +715,7 @@
                                     <td><input type="checkbox" id="172"></td>
                                     <td><input type="checkbox" id="173"></td>
                                     <td>
-                                        <select>
+                                        <select id="0020">
                                             <option value="na" id="174">-</option>
                                             <option value="mieter" id="175">Mieter</option>
                                             <option value="landl" id="176">Vermieter</option>
@@ -730,7 +732,7 @@
                                     <td><input type="checkbox" id="180"></td>
                                     <td><input type="checkbox" id="181"></td>
                                     <td>
-                                        <select>
+                                        <select id="0021">
                                             <option value="na" id="182">-</option>
                                             <option value="mieter" id="183">Mieter</option>
                                             <option value="landl" id="184">Vermieter</option>
@@ -746,7 +748,7 @@
                                     <td><input type="checkbox" id="188"></td>
                                     <td><input type="checkbox" id="189"></td>
                                     <td>
-                                        <select>
+                                        <select id="0022">
                                             <option value="na" id="190">-</option>
                                             <option value="mieter" id="191">Mieter</option>
                                             <option value="landl" id="192">Vermieter</option>
@@ -762,7 +764,7 @@
                                     <td><input type="checkbox" id="196"></td>
                                     <td><input type="checkbox" id="197"></td>
                                     <td>
-                                        <select>
+                                        <select id="0023">
                                             <option value="na" id="198">-</option>
                                             <option value="mieter" id="199">Mieter</option>
                                             <option value="landl" id="200">Vermieter</option>
@@ -786,7 +788,7 @@
                                     <td><input type="checkbox" id="204"></td>
                                     <td><input type="checkbox" id="205"></td>
                                     <td>
-                                        <select>
+                                        <select id="0024">
                                             <option value="na" id="206">-</option>
                                             <option value="mieter" id="207">Mieter</option>
                                             <option value="landl" id="208">Vermieter</option>
@@ -802,7 +804,7 @@
                                     <td><input type="checkbox" id="212"></td>
                                     <td><input type="checkbox" id="213"></td>
                                     <td>
-                                        <select>
+                                        <select id="0025">
                                             <option value="na" id="214">-</option>
                                             <option value="mieter" id="215">Mieter</option>
                                             <option value="landl" id="216">Vermieter</option>
@@ -818,7 +820,7 @@
                                     <td><input type="checkbox" id="220"></td>
                                     <td><input type="checkbox" id="221"></td>
                                     <td>
-                                        <select>
+                                        <select id="0026">
                                             <option value="na" id="222">-</option>
                                             <option value="mieter" id="223">Mieter</option>
                                             <option value="landl" id="224">Vermieter</option>
@@ -842,7 +844,7 @@
                                     <td><input type="checkbox" id="228"></td>
                                     <td><input type="checkbox" id="229"></td>
                                     <td>
-                                        <select>
+                                        <select id="0027">
                                             <option value="na" id="230">-</option>
                                             <option value="mieter" id="231">Mieter</option>
                                             <option value="landl" id="232">Vermieter</option>
@@ -858,7 +860,7 @@
                                     <td><input type="checkbox" id="236"></td>
                                     <td><input type="checkbox" id="237"></td>
                                     <td>
-                                        <select>
+                                        <select id="0028">
                                             <option value="na" id="238">-</option>
                                             <option value="mieter" id="239">Mieter</option>
                                             <option value="landl" id="240">Vermieter</option>
@@ -874,7 +876,7 @@
                                     <td><input type="checkbox" id="244"></td>
                                     <td><input type="checkbox" id="245"></td>
                                     <td>
-                                        <select>
+                                        <select id="0029">
                                             <option value="na" id="246">-</option>
                                             <option value="mieter" id="247">Mieter</option>
                                             <option value="landl" id="248">Vermieter</option>
@@ -890,7 +892,7 @@
                                     <td><input type="checkbox" id="252"></td>
                                     <td><input type="checkbox" id="253"></td>
                                     <td>
-                                        <select>
+                                        <select id="0030">
                                             <option value="na" id="254">-</option>
                                             <option value="mieter" id="255">Mieter</option>
                                             <option value="landl" id="256">Vermieter</option>
@@ -906,7 +908,7 @@
                                     <td><input type="checkbox" id="260"></td>
                                     <td><input type="checkbox" id="261"></td>
                                     <td>
-                                        <select>
+                                        <select id="0031">
                                             <option value="na" id="262">-</option>
                                             <option value="mieter" id="263">Mieter</option>
                                             <option value="landl" id="264">Vermieter</option>
@@ -922,7 +924,7 @@
                                     <td><input type="checkbox" id="268"></td>
                                     <td><input type="checkbox" id="269"></td>
                                     <td>
-                                        <select>
+                                        <select id="0032">
                                             <option value="na" id="270">-</option>
                                             <option value="mieter" id="271">Mieter</option>
                                             <option value="landl" id="272">Vermieter</option>
@@ -938,7 +940,7 @@
                                     <td><input type="checkbox" id="276"></td>
                                     <td><input type="checkbox" id="277"></td>
                                     <td>
-                                        <select>
+                                        <select id="0033">
                                             <option value="na" id="278">-</option>
                                             <option value="mieter" id="279">Mieter</option>
                                             <option value="landl" id="280">Vermieter</option>
@@ -954,7 +956,7 @@
                                     <td><input type="checkbox" id="284"></td>
                                     <td><input type="checkbox" id="285"></td>
                                     <td>
-                                        <select>
+                                        <select id="0034">
                                             <option value="na" id="286">-</option>
                                             <option value="mieter" id="287">Mieter</option>
                                             <option value="landl" id="288">Vermieter</option>
@@ -970,7 +972,7 @@
                                     <td><input type="checkbox" id="292"></td>
                                     <td><input type="checkbox" id="293"></td>
                                     <td>
-                                        <select>
+                                        <select id="0035">
                                             <option value="na" id="294">-</option>
                                             <option value="mieter" id="295">Mieter</option>
                                             <option value="landl" id="296">Vermieter</option>
@@ -986,7 +988,7 @@
                                     <td><input type="checkbox" id="300"></td>
                                     <td><input type="checkbox" id="301"></td>
                                     <td>
-                                        <select>
+                                        <select id="0036">
                                             <option value="na" id="302">-</option>
                                             <option value="mieter" id="303">Mieter</option>
                                             <option value="landl" id="304">Vermieter</option>
@@ -1002,7 +1004,7 @@
                                     <td><input type="checkbox" id="308"></td>
                                     <td><input type="checkbox" id="309"></td>
                                     <td>
-                                        <select>
+                                        <select id="0037">
                                             <option value="na" id="310">-</option>
                                             <option value="mieter" id="311">Mieter</option>
                                             <option value="landl" id="312">Vermieter</option>
@@ -1018,7 +1020,7 @@
                                     <td><input type="checkbox" id="316"></td>
                                     <td><input type="checkbox" id="317"></td>
                                     <td>
-                                        <select>
+                                        <select id="0038">
                                             <option value="na" id="318">-</option>
                                             <option value="mieter" id="319">Mieter</option>
                                             <option value="landl" id="320">Vermieter</option>
@@ -1034,7 +1036,7 @@
                                     <td><input type="checkbox" id="324"></td>
                                     <td><input type="checkbox" id="325"></td>
                                     <td>
-                                        <select>
+                                        <select id="0039">
                                             <option value="na" id="326">-</option>
                                             <option value="mieter" id="327">Mieter</option>
                                             <option value="landl" id="328">Vermieter</option>
@@ -1084,14 +1086,15 @@
             <div class="room-toggle" data-room="wc">
                 <div class="toggle-header">
                     separates WC vorhanden?
-                    <div class="toggle-options">
+                    <div class="toggle-options" data-active-option="0">
                         <div class="toggle-option active" data-value="nein">Nein</div>
                         <div class="toggle-option" data-value="ja">Ja</div>
                     </div>
                 </div>
 
 
-                <div class="room-container" id="wc-container">
+                <div class="room-container" id="wc-container"
+                    style="animation: 0.3s ease-in-out fadeOut; display: none;">
                     <div class="table-container wc" id="wc-container">
                         <table>
                             <thead>
@@ -1145,7 +1148,7 @@
                                     <td><input type="checkbox" id="341"></td>
                                     <td><input type="checkbox" id="342"></td>
                                     <td>
-                                        <select>
+                                        <select id="0040">
                                             <option value="na" id="343">-</option>
                                             <option value="mieter" id="344">Mieter</option>
                                             <option value="landl" id="345">Vermieter</option>
@@ -1174,7 +1177,7 @@
                                     <td><input type="checkbox" id="351"></td>
                                     <td><input type="checkbox" id="352"></td>
                                     <td>
-                                        <select>
+                                        <select id="0041">
                                             <option value="na" id="353">-</option>
                                             <option value="mieter" id="354">Mieter</option>
                                             <option value="landl" id="355">Vermieter</option>
@@ -1191,7 +1194,7 @@
                                     <td><input type="checkbox" id="359"></td>
                                     <td><input type="checkbox" id="360"></td>
                                     <td>
-                                        <select>
+                                        <select id="0042">
                                             <option value="na" id="361">-</option>
                                             <option value="mieter" id="362">Mieter</option>
                                             <option value="landl" id="363">Vermieter</option>
@@ -1207,7 +1210,7 @@
                                     <td><input type="checkbox" id="367"></td>
                                     <td><input type="checkbox" id="368"></td>
                                     <td>
-                                        <select>
+                                        <select id="0043">
                                             <option value="na" id="369">-</option>
                                             <option value="mieter" id="370">Mieter</option>
                                             <option value="landl" id="371">Vermieter</option>
@@ -1223,7 +1226,7 @@
                                     <td><input type="checkbox" id="375"></td>
                                     <td><input type="checkbox" id="376"></td>
                                     <td>
-                                        <select>
+                                        <select id="0044">
                                             <option value="na" id="377">-</option>
                                             <option value="mieter" id="378">Mieter</option>
                                             <option value="landl" id="379">Vermieter</option>
@@ -1247,7 +1250,7 @@
                                     <td><input type="checkbox" id="383"></td>
                                     <td><input type="checkbox" id="384"></td>
                                     <td>
-                                        <select>
+                                        <select id="0045">
                                             <option value="na" id="385">-</option>
                                             <option value="mieter" id="386">Mieter</option>
                                             <option value="landl" id="387">Vermieter</option>
@@ -1263,7 +1266,7 @@
                                     <td><input type="checkbox" id="391"></td>
                                     <td><input type="checkbox" id="392"></td>
                                     <td>
-                                        <select>
+                                        <select id="0046">
                                             <option value="na" id="393">-</option>
                                             <option value="mieter" id="394">Mieter</option>
                                             <option value="landl" id="395">Vermieter</option>
@@ -1279,7 +1282,7 @@
                                     <td><input type="checkbox" id="399"></td>
                                     <td><input type="checkbox" id="400"></td>
                                     <td>
-                                        <select>
+                                        <select id="0047">
                                             <option value="na" id="401">-</option>
                                             <option value="mieter" id="402">Mieter</option>
                                             <option value="landl" id="403">Vermieter</option>
@@ -1303,7 +1306,7 @@
                                     <td><input type="checkbox" id="407"></td>
                                     <td><input type="checkbox" id="408"></td>
                                     <td>
-                                        <select>
+                                        <select id="0048">
                                             <option value="na" id="409">-</option>
                                             <option value="mieter" id="410">Mieter</option>
                                             <option value="landl" id="411">Vermieter</option>
@@ -1319,7 +1322,7 @@
                                     <td><input type="checkbox" id="415"></td>
                                     <td><input type="checkbox" id="416"></td>
                                     <td>
-                                        <select>
+                                        <select id="0049">
                                             <option value="na" id="417">-</option>
                                             <option value="mieter" id="418">Mieter</option>
                                             <option value="landl" id="419">Vermieter</option>
@@ -1335,7 +1338,7 @@
                                     <td><input type="checkbox" id="423"></td>
                                     <td><input type="checkbox" id="424"></td>
                                     <td>
-                                        <select>
+                                        <select id="0050">
                                             <option value="na" id="425">-</option>
                                             <option value="mieter" id="426">Mieter</option>
                                             <option value="landl" id="427">Vermieter</option>
@@ -1351,7 +1354,7 @@
                                     <td><input type="checkbox" id="431"></td>
                                     <td><input type="checkbox" id="432"></td>
                                     <td>
-                                        <select>
+                                        <select id="0051">
                                             <option value="na" id="433">-</option>
                                             <option value="mieter" id="434">Mieter</option>
                                             <option value="landl" id="435">Vermieter</option>
@@ -1367,7 +1370,7 @@
                                     <td><input type="checkbox" id="439"></td>
                                     <td><input type="checkbox" id="440"></td>
                                     <td>
-                                        <select>
+                                        <select id="0052">
                                             <option value="na" id="441">-</option>
                                             <option value="mieter" id="442">Mieter</option>
                                             <option value="landl" id="443">Vermieter</option>
@@ -1383,7 +1386,7 @@
                                     <td><input type="checkbox" id="447"></td>
                                     <td><input type="checkbox" id="448"></td>
                                     <td>
-                                        <select>
+                                        <select id="0053">
                                             <option value="na" id="449">-</option>
                                             <option value="mieter" id="450">Mieter</option>
                                             <option value="landl" id="451">Vermieter</option>
@@ -1399,7 +1402,7 @@
                                     <td><input type="checkbox" id="455"></td>
                                     <td><input type="checkbox" id="456"></td>
                                     <td>
-                                        <select>
+                                        <select id="0054">
                                             <option value="na" id="457">-</option>
                                             <option value="mieter" id="458">Mieter</option>
                                             <option value="landl" id="459">Vermieter</option>
@@ -1415,7 +1418,7 @@
                                     <td><input type="checkbox" id="463"></td>
                                     <td><input type="checkbox" id="464"></td>
                                     <td>
-                                        <select>
+                                        <select id="0055">
                                             <option value="na" id="465">-</option>
                                             <option value="mieter" id="466">Mieter</option>
                                             <option value="landl" id="467">Vermieter</option>
@@ -1431,7 +1434,7 @@
                                     <td><input type="checkbox" id="471"></td>
                                     <td><input type="checkbox" id="472"></td>
                                     <td>
-                                        <select>
+                                        <select id="0056">
                                             <option value="na" id="473">-</option>
                                             <option value="mieter" id="474">Mieter</option>
                                             <option value="landl" id="475">Vermieter</option>
@@ -1447,7 +1450,7 @@
                                     <td><input type="checkbox" id="479"></td>
                                     <td><input type="checkbox" id="480"></td>
                                     <td>
-                                        <select>
+                                        <select id="0057">
                                             <option value="na" id="481">-</option>
                                             <option value="mieter" id="482">Mieter</option>
                                             <option value="landl" id="483">Vermieter</option>
@@ -1463,7 +1466,7 @@
                                     <td><input type="checkbox" id="487"></td>
                                     <td><input type="checkbox" id="488"></td>
                                     <td>
-                                        <select>
+                                        <select id="0058">
                                             <option value="na" id="489">-</option>
                                             <option value="mieter" id="490">Mieter</option>
                                             <option value="landl" id="491">Vermieter</option>
@@ -1479,7 +1482,7 @@
                                     <td><input type="checkbox" id="495"></td>
                                     <td><input type="checkbox" id="496"></td>
                                     <td>
-                                        <select>
+                                        <select id="0059">
                                             <option value="na" id="497">-</option>
                                             <option value="mieter" id="498">Mieter</option>
                                             <option value="landl" id="499">Vermieter</option>
@@ -1495,7 +1498,7 @@
                                     <td><input type="checkbox" id="503"></td>
                                     <td><input type="checkbox" id="504"></td>
                                     <td>
-                                        <select>
+                                        <select id="0060">
                                             <option value="na" id="505">-</option>
                                             <option value="mieter" id="506">Mieter</option>
                                             <option value="landl" id="507">Vermieter</option>
@@ -1552,13 +1555,14 @@
             <div class="room-toggle" data-room="flur">
                 <div class="toggle-header">
                     Diele / Flur vorhanden?
-                    <div class="toggle-options">
+                    <div class="toggle-options" data-active-option="0">
                         <div class="toggle-option active" data-value="nein">Nein</div>
                         <div class="toggle-option" data-value="ja">Ja</div>
                     </div>
                 </div>
 
-                <div class="room-container" id="flur-container">
+                <div class="room-container" id="flur-container"
+                    style="animation: 0.3s ease-in-out fadeOut; display: none;">
                     <div class="table-container flur" id="flur-container">
 
                         <table>
@@ -1585,13 +1589,7 @@
                                     <td><input type="checkbox" id="513"></td>
                                     <td><input type="checkbox" id="514"></td>
                                     <td><input type="checkbox" id="515"></td>
-                                    <td>
-                                        <select id="boden-status3">
-                                            <option value="offen" id="516">Offen</option>
-                                            <option value="in-arbeit" id="517">In Arbeit</option>
-                                            <option value="fertig" id="518">Fertig</option>
-                                        </select>
-                                    </td>
+                                    <td><input type="checkbox" id="519a"></td>
                                     <td><input type="checkbox" id="519"></td>
                                 </tr>
 
@@ -1619,7 +1617,7 @@
                                     <td><input type="checkbox" id="521"></td>
                                     <td><input type="checkbox" id="522"></td>
                                     <td>
-                                        <select>
+                                        <select id="0061">
                                             <option value="na" id="523">-</option>
                                             <option value="mieter" id="524">Mieter</option>
                                             <option value="landl" id="525">Vermieter</option>
@@ -1629,13 +1627,26 @@
                                     <td><input type="checkbox" id="527"></td>
                                 </tr>
 
+                                <!--      <tr>
+                                    <td>Schlüssel vorhanden?</td>
+                                    <td class="select-cell" colspan="2">
+                                        <select id="keySelect3" name="key_status"
+                                            style="padding: 5px; min-width: 120px;">
+                                            <option value=""></option>
+                                            <option value="j">Ja</option>
+                                            <option value="n">Nein</option>
+                                        </select>
+                                    </td>
+                                    <td colspan="3"></td>
+                                </tr> -->
+
                                 <tr>
                                     <td>Klingel / Türöffner / Sprechanlage</td>
                                     <td><input type="checkbox" id="528"></td>
                                     <td><input type="checkbox" id="529"></td>
                                     <td><input type="checkbox" id="530"></td>
                                     <td>
-                                        <select>
+                                        <select id="0062">
                                             <option value="na" id="531">-</option>
                                             <option value="mieter" id="532">Mieter</option>
                                             <option value="landl" id="533">Vermieter</option>
@@ -1651,7 +1662,7 @@
                                     <td><input type="checkbox" id="537"></td>
                                     <td><input type="checkbox" id="538"></td>
                                     <td>
-                                        <select>
+                                        <select id="0063">
                                             <option value="na" id="539">-</option>
                                             <option value="mieter" id="540">Mieter</option>
                                             <option value="landl" id="541">Vermieter</option>
@@ -1668,7 +1679,7 @@
                                     <td><input type="checkbox" id="545"></td>
                                     <td><input type="checkbox" id="546"></td>
                                     <td>
-                                        <select>
+                                        <select id="0064">
                                             <option value="na" id="547">-</option>
                                             <option value="mieter" id="548">Mieter</option>
                                             <option value="landl" id="549">Vermieter</option>
@@ -1685,7 +1696,7 @@
                                     <td><input type="checkbox" id="553"></td>
                                     <td><input type="checkbox" id="554"></td>
                                     <td>
-                                        <select>
+                                        <select id="0065">
                                             <option value="na" id="555">-</option>
                                             <option value="mieter" id="556">Mieter</option>
                                             <option value="landl" id="557">Vermieter</option>
@@ -1714,7 +1725,7 @@
                                     <td><input type="checkbox" id="561"></td>
                                     <td><input type="checkbox" id="562"></td>
                                     <td>
-                                        <select>
+                                        <select id="0066">
                                             <option value="na" id="563">-</option>
                                             <option value="mieter" id="564">Mieter</option>
                                             <option value="landl" id="565">Vermieter</option>
@@ -1738,7 +1749,7 @@
                                     <td><input type="checkbox" id="569"></td>
                                     <td><input type="checkbox" id="570"></td>
                                     <td>
-                                        <select>
+                                        <select id="0067">
                                             <option value="na" id="571">-</option>
                                             <option value="mieter" id="572">Mieter</option>
                                             <option value="landl" id="573">Vermieter</option>
@@ -1755,7 +1766,7 @@
                                     <td><input type="checkbox" id="577"></td>
                                     <td><input type="checkbox" id="578"></td>
                                     <td>
-                                        <select>
+                                        <select id="0068">
                                             <option value="na" id="579">-</option>
                                             <option value="mieter" id="580">Mieter</option>
                                             <option value="landl" id="581">Vermieter</option>
@@ -1780,7 +1791,7 @@
 
 
                                 <tr class="bemerkung-row">
-                                    <td colspan="6" style="font-weight:600">Bemerkungen:</td>
+                                    <td style="font-weight:600">Bemerkungen:</td>
                                 </tr>
 
 
@@ -1818,14 +1829,15 @@
             <div class="room-toggle" data-room="abstellraum">
                 <div class="toggle-header">
                     Abstellraum vorhanden?
-                    <div class="toggle-options">
+                    <div class="toggle-options" data-active-option="0">
                         <div class="toggle-option active" data-value="nein">Nein</div>
                         <div class="toggle-option" data-value="ja">Ja</div>
                     </div>
 
                 </div>
 
-                <div class="room-container" id="abstellraum-container">
+                <div class="room-container" id="abstellraum-container"
+                    style="animation: 0.3s ease-in-out fadeOut; display: none;">
                     <div class="table-container abstellraum" id="abstellraum-container">
 
                         <table>
@@ -1890,7 +1902,7 @@
                                     <td><input type="checkbox" id="595"></td>
                                     <td><input type="checkbox" id="596"></td>
                                     <td>
-                                        <select>
+                                        <select id="0069">
                                             <option value="na" id="597">-</option>
                                             <option value="mieter" id="598">Mieter</option>
                                             <option value="landl" id="599">Vermieter</option>
@@ -1919,7 +1931,7 @@
                                     <td><input type="checkbox" id="603"></td>
                                     <td><input type="checkbox" id="604"></td>
                                     <td>
-                                        <select>
+                                        <select id="0070">
                                             <option value="na" id="605">-</option>
                                             <option value="mieter" id="606">Mieter</option>
                                             <option value="landl" id="607">Vermieter</option>
@@ -1935,7 +1947,7 @@
                                     <td><input type="checkbox" id="611"></td>
                                     <td><input type="checkbox" id="612"></td>
                                     <td>
-                                        <select>
+                                        <select id="0071">
                                             <option value="na" id="613">-</option>
                                             <option value="mieter" id="614">Mieter</option>
                                             <option value="landl" id="615">Vermieter</option>
@@ -1952,7 +1964,7 @@
                                     <td><input type="checkbox" id="619"></td>
                                     <td><input type="checkbox" id="620"></td>
                                     <td>
-                                        <select>
+                                        <select id="0072">
                                             <option value="na" id="621">-</option>
                                             <option value="mieter" id="622">Mieter</option>
                                             <option value="landl" id="623">Vermieter</option>
@@ -1969,7 +1981,7 @@
                                     <td><input type="checkbox" id="627"></td>
                                     <td><input type="checkbox" id="628"></td>
                                     <td>
-                                        <select>
+                                        <select id="0073">
                                             <option value="na" id="629">-</option>
                                             <option value="mieter" id="630">Mieter</option>
                                             <option value="landl" id="631">Vermieter</option>
@@ -2004,7 +2016,7 @@
                                     <td><input type="checkbox" id="635"></td>
                                     <td><input type="checkbox" id="636"></td>
                                     <td>
-                                        <select>
+                                        <select id="0074">
                                             <option value="na" id="637">-</option>
                                             <option value="mieter" id="638">Mieter</option>
                                             <option value="landl" id="639">Vermieter</option>
@@ -2028,7 +2040,7 @@
                                     <td><input type="checkbox" id="643"></td>
                                     <td><input type="checkbox" id="644"></td>
                                     <td>
-                                        <select>
+                                        <select id="0075">
                                             <option value="na" id="645">-</option>
                                             <option value="mieter" id="646">Mieter</option>
                                             <option value="landl" id="647">Vermieter</option>
@@ -2045,7 +2057,7 @@
                                     <td><input type="checkbox" id="651"></td>
                                     <td><input type="checkbox" id="652"></td>
                                     <td>
-                                        <select>
+                                        <select id="0076">
                                             <option value="na" id="653">-</option>
                                             <option value="mieter" id="654">Mieter</option>
                                             <option value="landl" id="655">Vermieter</option>
@@ -2113,7 +2125,7 @@
             <div class="room-toggle" data-room="nebenraum">
                 <div class="toggle-header">
                     Nebenräume vorhanden?
-                    <div class="toggle-options">
+                    <div class="toggle-options" data-active-option="0">
                         <div class="toggle-option active" data-value="nein">Nein</div>
                         <div class="toggle-option" data-value="ja">Ja</div>
                     </div>
@@ -2121,109 +2133,114 @@
 
 
 
-                <div class="room-container" id="nebenraum-container">
+                <div class="room-container" id="nebenraum-container"
+                    style="animation: 0.3s ease-in-out fadeOut; display: none;">
                     <div class="table-container nebenraum" id="nebenraum-container">
+                        <tr">
+                        </tr">
                         <table>
 
-                            <tr>
-                                <th colspan="6" class="kueche-header">
-                                    <div class="kueche-verfuegbar">
-                                        Nebenräume
-                                    </div>
-                                </th>
-                            </tr>
                             <tbody>
-                                <tr">
+                                <tr>
+                                    <th colspan="6" class="kueche-header">
+                                        <div class="kueche-verfuegbar">
+                                            Nebenräume
+                                        </div>
+                                    </th>
+                                </tr>
+                            </tbody>
+                            <tbody>
+                                <tr>
                                     <th style="background-color: #8da5b2">Bereich</th>
                                     <th style="background-color: #8da5b2">in Ordnung</th>
                                     <th style="background-color: #8da5b2">geringe Gebrauchs - spuren</th>
                                     <th style="background-color: #8da5b2">repa.bedürftig</th>
                                     <th style="background-color: #8da5b2">Reparatur durch</th>
                                     <th style="background-color: #8da5b2">nicht vorhanden</th>
-                                    </tr>
-                                    <tr>
-                                        <td>Balkon/Terrasse/Loggia</td>
-                                        <td><input type="checkbox" id="661"></td>
-                                        <td><input type="checkbox" id="662"></td>
-                                        <td><input type="checkbox" id="663"></td>
-                                        <td>
-                                            <select>
-                                                <option>-</option>
-                                                <option>Mieter</option>
-                                                <option>Vermieter</option>
-                                            </select>
-                                        </td>
-                                        <td><input type="checkbox" id="664"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Keller</td>
-                                        <td><input type="checkbox" id="665"></td>
-                                        <td><input type="checkbox" id="666"></td>
-                                        <td><input type="checkbox" id="667"></td>
-                                        <td><select>
-                                                <option>-</option>
-                                                <option>Mieter</option>
-                                                <option>Vermieter</option>
-                                            </select></td>
-                                        <td><input type="checkbox" id="668"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Dachboden</td>
-                                        <td><input type="checkbox" id="669"></td>
-                                        <td><input type="checkbox" id="670"></td>
-                                        <td><input type="checkbox" id="671"></td>
-                                        <td><select>
-                                                <option>-</option>
-                                                <option>Mieter</option>
-                                                <option>Vermieter</option>
-                                            </select></td>
-                                        <td><input type="checkbox" id="672"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Garage/Stellplatz</td>
-                                        <td><input type="checkbox" id="673"></td>
-                                        <td><input type="checkbox" id="674"></td>
-                                        <td><input type="checkbox" id="675"></td>
-                                        <td><select>
-                                                <option>-</option>
-                                                <option>Mieter</option>
-                                                <option>Vermieter</option>
-                                            </select></td>
-                                        <td><input type="checkbox" id="676"></td>
-                                    </tr>
+                                </tr>
+                                <tr>
+                                    <td>Balkon/Terrasse/Loggia</td>
+                                    <td><input type="checkbox" id="661"></td>
+                                    <td><input type="checkbox" id="662"></td>
+                                    <td><input type="checkbox" id="663"></td>
+                                    <td>
+                                        <select id="0077">
+                                            <option>-</option>
+                                            <option>Mieter</option>
+                                            <option>Vermieter</option>
+                                        </select>
+                                    </td>
+                                    <td><input type="checkbox" id="664"></td>
+                                </tr>
+                                <tr>
+                                    <td>Keller</td>
+                                    <td><input type="checkbox" id="665"></td>
+                                    <td><input type="checkbox" id="666"></td>
+                                    <td><input type="checkbox" id="667"></td>
+                                    <td><select id="0078">
+                                            <option>-</option>
+                                            <option>Mieter</option>
+                                            <option>Vermieter</option>
+                                        </select></td>
+                                    <td><input type="checkbox" id="668"></td>
+                                </tr>
+                                <tr>
+                                    <td>Dachboden</td>
+                                    <td><input type="checkbox" id="669"></td>
+                                    <td><input type="checkbox" id="670"></td>
+                                    <td><input type="checkbox" id="671"></td>
+                                    <td><select id="0079">
+                                            <option>-</option>
+                                            <option>Mieter</option>
+                                            <option>Vermieter</option>
+                                        </select></td>
+                                    <td><input type="checkbox" id="672"></td>
+                                </tr>
+                                <tr>
+                                    <td>Garage/Stellplatz</td>
+                                    <td><input type="checkbox" id="673"></td>
+                                    <td><input type="checkbox" id="674"></td>
+                                    <td><input type="checkbox" id="675"></td>
+                                    <td><select id="0080">
+                                            <option>-</option>
+                                            <option>Mieter</option>
+                                            <option>Vermieter</option>
+                                        </select></td>
+                                    <td><input type="checkbox" id="676"></td>
+                                </tr>
 
 
 
 
-                                    <tr class="bemerkung-row">
-                                        <td colspan="6" style="font-weight:600">Bemerkungen:</td>
-                                    </tr>
+                                <tr class="bemerkung-row">
+                                    <td style="font-weight:600">Bemerkungen:</td>
+                                </tr>
 
 
-                                    <tr class="bemerkung-row">
-                                        <td colspan="6">
-                                            <div class="bemerkung-container">
-                                                <input type="text" id="677" class="bemerkung-input" placeholder="">
-                                                <div class="bemerkung-actions">
-                                                    <button type="button" class="add-bemerkung-btn">+</button>
-                                                    <button type="button" class="del-bemerkung-btn"
-                                                        style="pointer-events: none; opacity:0;">×</button>
-                                                </div>
+                                <tr class="bemerkung-row">
+                                    <td colspan="6">
+                                        <div class="bemerkung-container">
+                                            <input type="text" id="677" class="bemerkung-input" placeholder="">
+                                            <div class="bemerkung-actions">
+                                                <button type="button" class="add-bemerkung-btn">+</button>
+                                                <button type="button" class="del-bemerkung-btn"
+                                                    style="pointer-events: none; opacity:0;">×</button>
                                             </div>
-                                        </td>
-                                    </tr>
+                                        </div>
+                                    </td>
+                                </tr>
 
 
 
-                                    <tr class="bilder-row">
-                                        <!--  <td></td> -->
-                                        <td colspan="7">
-                                            <div class="bilder-upload-container nebenraum">
-                                                <button type="button" class="bilder-upload-btn">+ Bilder</button>
-                                                <div class="bilder-thumbnails"></div>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                <tr class="bilder-row">
+                                    <!--  <td></td> -->
+                                    <td colspan="7">
+                                        <div class="bilder-upload-container nebenraum">
+                                            <button type="button" class="bilder-upload-btn">+ Bilder</button>
+                                            <div class="bilder-thumbnails"></div>
+                                        </div>
+                                    </td>
+                                </tr>
 
 
 
@@ -2351,12 +2368,14 @@
                 <table>
                     <tbody>
 
-                        <th colspan="6" class="header-further">
-                            <div>
-                                weitere sonstige Bemerkungen
-                            </div>
-                        </th>
+                        <tr>
+                            <th colspan="6" class="header-further">
+                                <div>
+                                    weitere sonstige Bemerkungen
+                                </div>
+                            </th>
 
+                        </tr>
                         <tr>
                             <th></th>
                             <th style="text-align:center;"></th>
@@ -2536,7 +2555,7 @@
         <div class="pdf-modal">
             <div class="pdf-modal-header">
                 <h3 class="pdf-modal-title">PDF wird erstellt</h3>
-                <button class="pdf-modal-close">&times;</button>
+                <button class="pdf-modal-close">×</button>
             </div>
             <div class="pdf-progress-container">
                 <div id="pdf-progress-bar" class="pdf-progress-bar" style="width: 0%">0%</div>
@@ -2546,6 +2565,11 @@
     </div>
 
     <div id="suggestionList" style="display: none;"></div>
+
+
+
+    <div style="display: none; transition: opacity 0.5s; opacity: 0;"><span
+            style="position: absolute; top: 5px; right: 10px; cursor: pointer; font-size: 1rem;">×</span></div>
 
 </body>
 
