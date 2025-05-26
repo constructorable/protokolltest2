@@ -3,9 +3,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const bemerkungCounters = {
         kueche: 1,
         bad: 1,
-        WC: 1,
+        wc: 1,
         flur: 1,
-        abstell: 1,
+        abstellraum: 1,
         nebenraum: 1,
         regelungen: 1
     };
