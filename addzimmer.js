@@ -703,7 +703,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const thumb = document.createElement('div');
             thumb.className = 'thumbnail';
             thumb.innerHTML = `
-                <img src="${img.thumbnailUrl}" alt="Thumbnail" loading="lazy">
+                <img src="${img.thumbnailUrl}" alt="Thumbnail">
                 <button class="thumbnail-remove" data-index="${index}" title="Bild entfernen">×</button>
                 <div class="thumbnail-name">${img.name}</div>
             `;
@@ -725,7 +725,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     <div class="bild-info">
                         <span>Zimmer ${count} - Bild ${index + 1}</span>
                                            </div>
-                    <img src="${img.galleryUrl}" alt="Galeriebild" loading="lazy">
+                    <img src="${img.galleryUrl}" alt="Galeriebild">
                 `;
                 container.appendChild(imgElement);
             });
