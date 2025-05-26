@@ -11,80 +11,189 @@ document.addEventListener('DOMContentLoaded', function () {
         'Schlafzimmer', 'Abstellraum', 'Esszimmer', 'Hobbyraum'
     ];
 
+    // Set für bereits initialisierte Inputs (verhindert doppelte Event Listener)
+    const initializedInputs = new Set();
+
+    // Debounce-Funktion um Performance zu verbessern
+    function debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    }
+
     // Hauptfunktion für Autovervollständigung
     function initAutocomplete() {
-        // Finde alle relevanten Input-Felder
-        const inputs = document.querySelectorAll('input[id^="lageinputzimm"]');
-
+        // Finde alle relevanten Input-Felder (erweitert für alle lageinput-Felder)
+        const inputs = document.querySelectorAll('input[id^="lageinput"]');
+        
         inputs.forEach(input => {
+            // Überspringe bereits initialisierte Inputs
+            if (initializedInputs.has(input.id)) {
+                return;
+            }
+
             const id = input.id;
-            const zimmerNr = id.replace('lageinputzimm', '');
-            const container = document.getElementById(`lagecontainerzimm${zimmerNr}`);
+            let container = null;
 
-            if (!container) return;
+            // Bestimme Container basierend auf Input-ID
+            if (id.startsWith('lageinputzimm')) {
+                const zimmerNr = id.replace('lageinputzimm', '');
+                container = document.getElementById(`lagecontainerzimm${zimmerNr}`);
+            } else if (id === 'lageinputabstell') {
+                container = document.getElementById('lagecontainerabstell');
+            } else {
+                // Fallback: ersetze lageinput mit lagecontainer
+                const containerId = id.replace('lageinput', 'lagecontainer');
+                container = document.getElementById(containerId);
+            }
 
-            // Input-Event Listener
-            input.addEventListener('input', function () {
-                const value = this.value.toLowerCase();
+            if (!container) {
+                console.warn(`Container für ${id} nicht gefunden`);
+                return;
+            }
+
+            // Markiere als initialisiert
+            initializedInputs.add(input.id);
+
+            // Debounced Input Handler für bessere Performance
+            const debouncedHandler = debounce(function(value) {
+                const normalizedValue = value.toLowerCase();
                 container.innerHTML = '';
-
-                if (value.length === 0) {
+                
+                if (normalizedValue.length === 0) {
                     container.style.display = 'none';
                     return;
                 }
-
-                // Filtere Vorschläge
-                const suggestions = zimmerVorschlaege.filter(item =>
-                    item.toLowerCase().includes(value)
-                );
-
+                
+                // Filtere Vorschläge (limitiert auf 10 für Performance)
+                const suggestions = zimmerVorschlaege
+                    .filter(item => item.toLowerCase().includes(normalizedValue))
+                    .slice(0, 10);
+                
                 if (suggestions.length === 0) {
                     container.style.display = 'none';
                     return;
                 }
-
-                // Erstelle Vorschlags-Elemente
+                
+                // Erstelle Vorschlags-Elemente mit Document Fragment (Performance)
+                const fragment = document.createDocumentFragment();
                 suggestions.forEach(item => {
                     const div = document.createElement('div');
                     div.className = 'suggestion-item';
                     div.textContent = item;
-                    div.addEventListener('click', () => {
+                    
+                    // Verwende mousedown statt click für besseres Timing
+                    div.addEventListener('mousedown', (e) => {
+                        e.preventDefault(); // Verhindert blur-Event
                         input.value = item;
                         container.style.display = 'none';
                     });
-                    container.appendChild(div);
+                    
+                    fragment.appendChild(div);
                 });
-
+                container.appendChild(fragment);
+                
                 // Positioniere und zeige die Liste
                 container.style.width = `${input.offsetWidth}px`;
                 container.style.top = `${input.offsetTop + input.offsetHeight}px`;
                 container.style.left = `${input.offsetLeft}px`;
-                container.style.display = 'contents';
+                container.style.display = 'contents'; // Geändert von 'contents' zu 'block'
+            }, 150);
+
+            // Input-Event Listener mit Debounce
+            input.addEventListener('input', function () {
+                debouncedHandler(this.value);
             });
 
-            // Verstecke Vorschläge bei Klick außerhalb
-            document.addEventListener('click', function (e) {
-                if (e.target !== input && !container.contains(e.target)) {
+            // Blur-Event mit Verzögerung für mousedown-Events
+            input.addEventListener('blur', function() {
+                setTimeout(() => {
                     container.style.display = 'none';
-                }
+                }, 200);
             });
         });
     }
 
+    // Globaler Click-Handler (nur einmal registrieren)
+    let globalClickHandlerAdded = false;
+    function addGlobalClickHandler() {
+        if (globalClickHandlerAdded) return;
+        
+        document.addEventListener('click', function (e) {
+            // Verstecke alle Container wenn außerhalb geklickt wird
+            const allContainers = document.querySelectorAll('[id^="lagecontainer"]');
+            allContainers.forEach(container => {
+                let inputId = '';
+                const containerId = container.id;
+                
+                if (containerId.startsWith('lagecontainerzimm')) {
+                    const zimmerNr = containerId.replace('lagecontainerzimm', '');
+                    inputId = `lageinputzimm${zimmerNr}`;
+                } else if (containerId === 'lagecontainerabstell') {
+                    inputId = 'lageinputabstell';
+                } else {
+                    inputId = containerId.replace('lagecontainer', 'lageinput');
+                }
+                
+                const input = document.getElementById(inputId);
+                if (input && e.target !== input && !container.contains(e.target)) {
+                    container.style.display = 'none';
+                }
+            });
+        });
+        
+        globalClickHandlerAdded = true;
+    }
+
     // Initialisierung
     initAutocomplete();
+    addGlobalClickHandler();
 
-    // Für dynamisch hinzugefügte Elemente
-    const observer = new MutationObserver(function (mutations) {
+    // Optimierter MutationObserver (verhindert Endlosschleifen)
+    const observer = new MutationObserver(debounce(function (mutations) {
+        let shouldReinit = false;
+        
         mutations.forEach(function (mutation) {
+            // Prüfe nur auf hinzugefügte Input-Nodes
             if (mutation.addedNodes.length) {
-                initAutocomplete();
+                mutation.addedNodes.forEach(node => {
+                    if (node.nodeType === Node.ELEMENT_NODE) {
+                        // Direkt ein Input-Element
+                        if (node.matches && node.matches('input[id^="lageinput"]')) {
+                            shouldReinit = true;
+                        }
+                        // Oder Container mit Input-Elementen
+                        else if (node.querySelectorAll) {
+                            const newInputs = node.querySelectorAll('input[id^="lageinput"]');
+                            if (newInputs.length > 0) {
+                                shouldReinit = true;
+                            }
+                        }
+                    }
+                });
             }
         });
-    });
+        
+        if (shouldReinit) {
+            console.log('Neue Input-Felder erkannt, initialisiere Autocomplete...');
+            initAutocomplete();
+        }
+    }, 200)); // Längere Debounce-Zeit für Observer
 
     observer.observe(document.body, {
         childList: true,
         subtree: true
+    });
+
+    // Cleanup bei Page Unload
+    window.addEventListener('beforeunload', function() {
+        observer.disconnect();
+        initializedInputs.clear();
     });
 });
