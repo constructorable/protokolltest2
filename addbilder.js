@@ -138,112 +138,75 @@ document.addEventListener('DOMContentLoaded', function () {
             dialog.style.left = '0';
             dialog.style.width = '100%';
             dialog.style.height = '100%';
-            dialog.style.backgroundColor = 'rgba(255, 255, 255, 0.95)'; // Leichter weißer Overlay
+            dialog.style.backgroundColor = 'rgba(0,0,0,0.7)';
             dialog.style.display = 'flex';
             dialog.style.flexDirection = 'column';
             dialog.style.justifyContent = 'center';
             dialog.style.alignItems = 'center';
             dialog.style.zIndex = '1000';
-            dialog.style.fontFamily = '"Segoe UI", Roboto, sans-serif';
-
+            
             const dialogContent = document.createElement('div');
             dialogContent.style.backgroundColor = 'white';
-            dialogContent.style.padding = '30px';
-            dialogContent.style.borderRadius = '12px';
+            dialogContent.style.padding = '20px';
+            dialogContent.style.borderRadius = '10px';
             dialogContent.style.textAlign = 'center';
-            dialogContent.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
-            dialogContent.style.width = 'min(90%, 400px)'; // Optimale Breite für Tablets
-            dialogContent.style.border = '1px solid #e0e0e0';
-
+            
             const title = document.createElement('h3');
             title.textContent = 'Bildquelle wählen';
-            title.style.color = '#2c3e50'; // Modernes Dunkelblau
-            title.style.margin = '0 0 25px 0';
-            title.style.fontSize = '20px';
-            title.style.fontWeight = '500';
             dialogContent.appendChild(title);
-
-            const buttonContainer = document.createElement('div');
-            buttonContainer.style.display = 'flex';
-            buttonContainer.style.flexDirection = 'column';
-            buttonContainer.style.gap = '15px'; // Gleichmäßiger Abstand zwischen Buttons
-
+            
             const cameraBtn = document.createElement('button');
             cameraBtn.textContent = 'Kamera verwenden';
-            cameraBtn.style.padding = '14px 20px';
-            cameraBtn.style.backgroundColor = '#3498db'; // Modernes Blau
+            cameraBtn.style.margin = '10px';
+            cameraBtn.style.padding = '10px 20px';
+            cameraBtn.style.backgroundColor = '#4CAF50';
             cameraBtn.style.color = 'white';
             cameraBtn.style.border = 'none';
-            cameraBtn.style.borderRadius = '8px';
+            cameraBtn.style.borderRadius = '5px';
             cameraBtn.style.cursor = 'pointer';
-            cameraBtn.style.fontSize = '16px';
-            cameraBtn.style.fontWeight = '500';
-            cameraBtn.style.transition = 'background-color 0.2s ease';
-            cameraBtn.style.boxShadow = '0 2px 5px rgba(52, 152, 219, 0.2)';
-
-            // Hover-Effekt
-            cameraBtn.onmouseover = () => cameraBtn.style.backgroundColor = '#2980b9';
-            cameraBtn.onmouseout = () => cameraBtn.style.backgroundColor = '#3498db';
-
+            
             const galleryBtn = document.createElement('button');
             galleryBtn.textContent = 'Aus Galerie wählen';
-            galleryBtn.style.padding = '14px 20px';
-            galleryBtn.style.backgroundColor = '#2c3e50'; // Modernes Dunkelblau
+            galleryBtn.style.margin = '10px';
+            galleryBtn.style.padding = '10px 20px';
+            galleryBtn.style.backgroundColor = '#2196F3';
             galleryBtn.style.color = 'white';
             galleryBtn.style.border = 'none';
-            galleryBtn.style.borderRadius = '8px';
+            galleryBtn.style.borderRadius = '5px';
             galleryBtn.style.cursor = 'pointer';
-            galleryBtn.style.fontSize = '16px';
-            galleryBtn.style.fontWeight = '500';
-            galleryBtn.style.transition = 'background-color 0.2s ease';
-            galleryBtn.style.boxShadow = '0 2px 5px rgba(44, 62, 80, 0.2)';
-
-            // Hover-Effekt
-            galleryBtn.onmouseover = () => galleryBtn.style.backgroundColor = '#1a252f';
-            galleryBtn.onmouseout = () => galleryBtn.style.backgroundColor = '#2c3e50';
-
+            
             const cancelBtn = document.createElement('button');
             cancelBtn.textContent = 'Abbrechen';
-            cancelBtn.style.padding = '14px 20px';
-            cancelBtn.style.backgroundColor = 'transparent';
-            cancelBtn.style.color = '#7f8c8d';
-            cancelBtn.style.border = '1px solid #e0e0e0';
-            cancelBtn.style.borderRadius = '8px';
+            cancelBtn.style.margin = '10px';
+            cancelBtn.style.padding = '10px 20px';
+            cancelBtn.style.backgroundColor = '#f44336';
+            cancelBtn.style.color = 'white';
+            cancelBtn.style.border = 'none';
+            cancelBtn.style.borderRadius = '5px';
             cancelBtn.style.cursor = 'pointer';
-            cancelBtn.style.fontSize = '16px';
-            cancelBtn.style.fontWeight = '500';
-            cancelBtn.style.transition = 'all 0.2s ease';
-
-            // Hover-Effekt
-            cancelBtn.onmouseover = () => {
-                cancelBtn.style.backgroundColor = '#f5f5f5';
-                cancelBtn.style.color = '#34495e';
-            };
-            cancelBtn.onmouseout = () => {
-                cancelBtn.style.backgroundColor = 'transparent';
-                cancelBtn.style.color = '#7f8c8d';
-            };
-
-            // Buttons zum Container hinzufügen
-            buttonContainer.appendChild(cameraBtn);
-            buttonContainer.appendChild(galleryBtn);
-            buttonContainer.appendChild(cancelBtn);
-
-            dialogContent.appendChild(buttonContainer);
+            
+            cameraBtn.addEventListener('click', () => {
+                document.body.removeChild(dialog);
+                handleCameraImage(bilderArray, thumbnailContainer, galleryContainer, titleElement);
+            });
+            
+            galleryBtn.addEventListener('click', () => {
+                document.body.removeChild(dialog);
+                handleImageUpload(bilderArray, thumbnailContainer, galleryContainer, titleElement);
+            });
+            
+            cancelBtn.addEventListener('click', () => {
+                document.body.removeChild(dialog);
+            });
+            
+            dialogContent.appendChild(cameraBtn);
+            dialogContent.appendChild(galleryBtn);
+            dialogContent.appendChild(cancelBtn);
             dialog.appendChild(dialogContent);
             document.body.appendChild(dialog);
-        } if (window.innerWidth >= 768 && window.innerWidth <= 1024) {
-            dialogContent.style.padding = '40px';
-            dialogContent.style.width = 'min(80%, 450px)';
-            title.style.fontSize = '22px';
-            title.style.marginBottom = '30px';
-
-            [cameraBtn, galleryBtn, cancelBtn].forEach(btn => {
-                btn.style.padding = '16px 24px';
-                btn.style.fontSize = '17px';
-            });
-
-            buttonContainer.style.gap = '20px';
+        } else {
+            // Auf Desktop direkt den Dateiauswahldialog öffnen
+            handleImageUpload(bilderArray, thumbnailContainer, galleryContainer, titleElement);
         }
     }
 
@@ -253,22 +216,10 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Kamera-Funktion
-    // [Vorheriger Code bleibt gleich bis zur handleCameraImage Funktion]
-
-    // Kamera-Funktion mit Rückkamera-Priorisierung
     function handleCameraImage(bilderArray, thumbnailContainer, galleryContainer, titleElement) {
         if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-            // Konfiguration für Rückkamera (environment)
-            const constraints = {
-                video: {
-                    facingMode: { ideal: 'environment' }, // Priorisiert Rückkamera
-                    width: { ideal: 1920 },  // Höhere Auflösung für bessere Qualität
-                    height: { ideal: 1080 }
-                }
-            };
-
-            navigator.mediaDevices.getUserMedia(constraints)
-                .then(function (stream) {
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(function(stream) {
                     // Video-Element erstellen
                     const video = document.createElement('video');
                     video.style.position = 'fixed';
@@ -280,19 +231,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     video.style.backgroundColor = 'black';
                     video.srcObject = stream;
                     video.play();
-
-                    // Kamera-Info anzeigen (optional)
-                    const cameraInfo = document.createElement('div');
-                    cameraInfo.style.position = 'fixed';
-                    cameraInfo.style.top = '20px';
-                    cameraInfo.style.left = '0';
-                    cameraInfo.style.width = '100%';
-                    cameraInfo.style.textAlign = 'center';
-                    cameraInfo.style.color = 'white';
-                    cameraInfo.style.zIndex = '1001';
-                    cameraInfo.textContent = 'Rückkamera aktiv - Zimmer fotografieren';
-                    document.body.appendChild(cameraInfo);
-
+                    
                     // Kontroll-Elemente erstellen
                     const controls = document.createElement('div');
                     controls.style.position = 'fixed';
@@ -302,7 +241,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     controls.style.display = 'flex';
                     controls.style.justifyContent = 'center';
                     controls.style.zIndex = '1001';
-
+                    
                     const captureBtn = document.createElement('button');
                     captureBtn.textContent = 'Foto aufnehmen';
                     captureBtn.style.padding = '15px 30px';
@@ -312,17 +251,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     captureBtn.style.borderRadius = '5px';
                     captureBtn.style.margin = '0 10px';
                     captureBtn.style.cursor = 'pointer';
-
-                    const switchCameraBtn = document.createElement('button');
-                    switchCameraBtn.textContent = 'Kamera wechseln';
-                    switchCameraBtn.style.padding = '15px 30px';
-                    switchCameraBtn.style.backgroundColor = '#FF9800';
-                    switchCameraBtn.style.color = 'white';
-                    switchCameraBtn.style.border = 'none';
-                    switchCameraBtn.style.borderRadius = '5px';
-                    switchCameraBtn.style.margin = '0 10px';
-                    switchCameraBtn.style.cursor = 'pointer';
-
+                    
                     const cancelBtn = document.createElement('button');
                     cancelBtn.textContent = 'Abbrechen';
                     cancelBtn.style.padding = '15px 30px';
@@ -332,102 +261,55 @@ document.addEventListener('DOMContentLoaded', function () {
                     cancelBtn.style.borderRadius = '5px';
                     cancelBtn.style.margin = '0 10px';
                     cancelBtn.style.cursor = 'pointer';
-
-                    captureBtn.addEventListener('click', function () {
+                    
+                    captureBtn.addEventListener('click', function() {
                         // Canvas erstellen um das Bild aufzunehmen
                         const canvas = document.createElement('canvas');
                         canvas.width = video.videoWidth;
                         canvas.height = video.videoHeight;
                         const ctx = canvas.getContext('2d');
                         ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-
+                        
                         // Stream stoppen
                         stream.getTracks().forEach(track => track.stop());
-
+                        
                         // Elemente entfernen
                         document.body.removeChild(video);
                         document.body.removeChild(controls);
-                        document.body.removeChild(cameraInfo);
-
+                        
                         // Bild verarbeiten
-                        canvas.toBlob(async function (blob) {
+                        canvas.toBlob(async function(blob) {
                             try {
-                                const file = new File([blob], 'room-photo.jpg', {
-                                    type: 'image/jpeg',
-                                    lastModified: Date.now()
-                                });
+                                const file = new File([blob], 'camera-photo.jpg', { type: 'image/jpeg' });
                                 await processImageFile(file, bilderArray, thumbnailContainer, galleryContainer, titleElement);
                             } catch (error) {
                                 console.error('Fehler beim Verarbeiten des Kamerabildes:', error);
                             }
-                        }, 'image/jpeg', 0.9); // Hohe Qualität für Raumfotos
+                        }, 'image/jpeg', 0.9);
                     });
-
-                    // Kamera-Wechsel-Funktion
-                    let currentFacingMode = 'environment';
-                    switchCameraBtn.addEventListener('click', function () {
-                        currentFacingMode = currentFacingMode === 'environment' ? 'user' : 'environment';
-
-                        // Neuen Stream mit anderer Kamera erstellen
-                        const newConstraints = {
-                            video: {
-                                facingMode: { ideal: currentFacingMode },
-                                width: { ideal: 1920 },
-                                height: { ideal: 1080 }
-                            }
-                        };
-
-                        // Alten Stream stoppen
-                        stream.getTracks().forEach(track => track.stop());
-
-                        // Neue Kamera starten
-                        navigator.mediaDevices.getUserMedia(newConstraints)
-                            .then(function (newStream) {
-                                video.srcObject = newStream;
-                                stream = newStream;
-                                cameraInfo.textContent = currentFacingMode === 'environment'
-                                    ? 'Rückkamera aktiv - Zimmer fotografieren'
-                                    : 'Frontkamera aktiv';
-                            })
-                            .catch(function (error) {
-                                console.error('Kamerawechsel fehlgeschlagen:', error);
-                            });
-                    });
-
-                    cancelBtn.addEventListener('click', function () {
+                    
+                    cancelBtn.addEventListener('click', function() {
                         // Stream stoppen und Elemente entfernen
                         stream.getTracks().forEach(track => track.stop());
                         document.body.removeChild(video);
                         document.body.removeChild(controls);
-                        document.body.removeChild(cameraInfo);
                     });
-
+                    
                     controls.appendChild(captureBtn);
-                    controls.appendChild(switchCameraBtn);
                     controls.appendChild(cancelBtn);
                     document.body.appendChild(video);
                     document.body.appendChild(controls);
                 })
-                .catch(function (error) {
-                    console.error('Rückkamera konnte nicht gestartet werden:', error);
-                    // Fallback: Versuche mit beliebiger Kamera
-                    const fallbackConstraints = { video: true };
-                    navigator.mediaDevices.getUserMedia(fallbackConstraints)
-                        .then(function (stream) {
-                            // ... gleiche Implementierung wie oben ...
-                        })
-                        .catch(function (fallbackError) {
-                            console.error('Auch Fallback-Kamera konnte nicht gestartet werden:', fallbackError);
-                            // Finaler Fallback zum normalen Upload
-                            handleImageUpload(bilderArray, thumbnailContainer, galleryContainer, titleElement);
-                        });
+                .catch(function(error) {
+                    console.error('Kamera konnte nicht gestartet werden:', error);
+                    // Fallback zum normalen Upload
+                    handleImageUpload(bilderArray, thumbnailContainer, galleryContainer, titleElement);
                 });
         } else {
             // Kamera-API nicht verfügbar, Fallback zum normalen Upload
             handleImageUpload(bilderArray, thumbnailContainer, galleryContainer, titleElement);
         }
     }
-
 
     // Zentrale Upload-Funktion (für Galerie)
     function handleImageUpload(bilderArray, thumbnailContainer, galleryContainer, titleElement) {
@@ -575,7 +457,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         updateTitleVisibility(container, titleElement);
     }
-
     // Alle Räume initialisieren
     roomConfigs.forEach(room => {
         initializeRoom(room);
