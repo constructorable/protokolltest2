@@ -32,41 +32,34 @@ document.addEventListener('DOMContentLoaded', function () {
         "moosgrün",
         "zitronengelb",
         "sonstige",
-
         "rot",
         "hellrot",
         "dunkelrot",
         "karminrot",
         "weinrot",
-
         "grün",
         "hellgrün",
         "dunkelgrün",
         "waldgrün",
         "apfelgrün",
-
         "braun",
         "hellbraun",
         "dunkelbraun",
         "kakao",
         "mahagoni",
-
         "mittelgrau",
         "steingrau",
         "silbergrau",
-
         "lila",
         "helllila",
         "dunkellila",
         "flieder",
         "lavendel",
-
         "rosa",
         "hellrosa",
         "dunkelrosa",
         "puderrosa",
         "altrosa",
-
         "gelb",
         "hellgelb",
         "dunkelgelb",
@@ -495,21 +488,65 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-function initBemerkungen(count) {
-    const container = document.getElementById(`bemerkungen-container-${count}`);
-    const eingabeContainer = container.querySelector('.bemerkung-eingabe'); // Die Zeile mit dem Plus-Button
+    /*    function initBemerkungen(count) {
+           const container = document.getElementById(`bemerkungen-container-${count}`);
+           const eingabeContainer = container.querySelector('.bemerkung-eingabe'); // Die Zeile mit dem Plus-Button
+   
+           container.addEventListener('click', (e) => {
+               // "Hinzufügen"-Button
+               if (e.target.classList.contains('add-bemerkung-btn')) {
+                   const input = eingabeContainer.querySelector('.bemerkung-input');
+                   const text = input.value.trim();
+   
+                   // Neue Zeile erstellen
+                   const neueBemerkung = document.createElement('div');
+                   neueBemerkung.className = 'bemerkung-zeile';
+                   neueBemerkung.innerHTML = `
+                   <input id="zimm${count}-bem" type="text" class="bemerkung-input" 
+                          value="${text}" ${text ? 'readonly' : ''}
+                          placeholder="">
+                   <div class="bemerkung-actions">
+                       <button type="button" class="del-bemerkung-btn">×</button>
+                   </div>
+               `;
+   
+                   // Neue Zeile VOR der Eingabezeile einfügen (Plus-Button bleibt unten)
+                   container.insertBefore(neueBemerkung, eingabeContainer);
+   
+                   // Leeres Eingabefeld zurücksetzen
+                   input.value = '';
+   
+                   // Fokus auf neues Feld (falls leer)
+                   if (!text) neueBemerkung.querySelector('.bemerkung-input').focus();
+               }
+   
+               // "Löschen"-Button
+               if (e.target.classList.contains('del-bemerkung-btn')) {
+                   e.target.closest('.bemerkung-zeile').remove();
+               }
+           });
+       } */
 
-    container.addEventListener('click', (e) => {
-        // "Hinzufügen"-Button
-        if (e.target.classList.contains('add-bemerkung-btn')) {
-            const input = eingabeContainer.querySelector('.bemerkung-input');
-            const text = input.value.trim();
+    function initBemerkungen(count) {
+        const container = document.getElementById(`bemerkungen-container-${count}`);
+        const eingabeContainer = container.querySelector('.bemerkung-eingabe');
 
-            // Neue Zeile erstellen
-            const neueBemerkung = document.createElement('div');
-            neueBemerkung.className = 'bemerkung-zeile';
-            neueBemerkung.innerHTML = `
-                <input type="text" class="bemerkung-input" 
+        container.addEventListener('click', (e) => {
+            // "Hinzufügen"-Button
+            if (e.target.classList.contains('add-bemerkung-btn')) {
+                const input = eingabeContainer.querySelector('.bemerkung-input');
+                const text = input.value.trim();
+
+                // Neue Zeile erstellen
+                const neueBemerkung = document.createElement('div');
+                neueBemerkung.className = 'bemerkung-zeile';
+
+                // Anzahl der bestehenden Bemerkungszeilen ermitteln (ohne die Eingabezeile)
+                const vorhandeneBemerkungen = container.querySelectorAll('.bemerkung-zeile').length;
+                const bemerkungsNummer = vorhandeneBemerkungen + 1;
+
+                neueBemerkung.innerHTML = `
+                <input id="zimm-${count}-bem-${bemerkungsNummer}" type="text" class="bemerkung-input" 
                        value="${text}" ${text ? 'readonly' : ''}
                        placeholder="">
                 <div class="bemerkung-actions">
@@ -517,26 +554,35 @@ function initBemerkungen(count) {
                 </div>
             `;
 
-            // Neue Zeile VOR der Eingabezeile einfügen (Plus-Button bleibt unten)
-            container.insertBefore(neueBemerkung, eingabeContainer);
+                // Neue Zeile VOR der Eingabezeile einfügen
+                container.insertBefore(neueBemerkung, eingabeContainer);
 
-            // Leeres Eingabefeld zurücksetzen
-            input.value = '';
-            
-            // Fokus auf neues Feld (falls leer)
-            if (!text) neueBemerkung.querySelector('.bemerkung-input').focus();
-        }
+                // Leeres Eingabefeld zurücksetzen
+                input.value = '';
 
-        // "Löschen"-Button
-        if (e.target.classList.contains('del-bemerkung-btn')) {
-            e.target.closest('.bemerkung-zeile').remove();
-        }
-    });
-}
+                // Fokus auf neues Feld (falls leer)
+                if (!text) neueBemerkung.querySelector('.bemerkung-input').focus();
+            }
 
+            // "Löschen"-Button
+            if (e.target.classList.contains('del-bemerkung-btn')) {
+                e.target.closest('.bemerkung-zeile').remove();
+                // Nach dem Löschen die IDs der verbleibenden Bemerkungen aktualisieren
+                updateBemerkungIDs(container, count);
+            }
+        });
+    }
 
+    // Hilfsfunktion zum Aktualisieren der IDs nach dem Löschen
+    function updateBemerkungIDs(container, zimmerNummer) {
+        const bemerkungen = container.querySelectorAll('.bemerkung-zeile');
+        bemerkungen.forEach((bemerkung, index) => {
+            const input = bemerkung.querySelector('.bemerkung-input');
+            input.id = `zimm-${zimmerNummer}-bem-${index + 1}`;
+        });
+    }
 
-function initRauchmelder(count) {
+    function initRauchmelder(count) {
         const input = document.getElementById(`rauchmelder-anzahl-${count}`);
         const minusBtn = input.previousElementSibling;
         const plusBtn = input.nextElementSibling;
