@@ -82,7 +82,7 @@ document.addEventListener("DOMContentLoaded", (function () {
         title.style.cssText = `
             margin: 0 0 20px 0;
             color: #333;
-            font-size: 2rem;
+            font-size: 1.4rem;
         `;
         dialog.appendChild(title);
 
@@ -93,9 +93,9 @@ document.addEventListener("DOMContentLoaded", (function () {
             // Kamera-Label bestimmen
             let cameraLabel = camera.label || `Kamera ${index + 1}`;
             if (cameraLabel.toLowerCase().includes('front') || cameraLabel.toLowerCase().includes('user')) {
-                cameraLabel = `Front (Selfie) (${cameraLabel})`;
+                cameraLabel = `Front (Selfie)`;
             } else if (cameraLabel.toLowerCase().includes('back') || cameraLabel.toLowerCase().includes('environment')) {
-                cameraLabel = `Rückkamera (${cameraLabel})`;
+                cameraLabel = `Rückkamera`;
             } else {
                 cameraLabel = `${cameraLabel}`;
             }
@@ -111,7 +111,7 @@ document.addEventListener("DOMContentLoaded", (function () {
                 border: none;
                 border-radius: 8px;
                 cursor: pointer;
-                font-size: 2rem;
+                font-size: 1.4rem;
                 transition: all 0.3s ease;
             `;
 
@@ -146,7 +146,7 @@ document.addEventListener("DOMContentLoaded", (function () {
             border: none;
             border-radius: 8px;
             cursor: pointer;
-            font-size: 2rem;
+            font-size: 1.4rem;
         `;
 
         cancelButton.addEventListener('click', () => {
@@ -237,7 +237,7 @@ document.addEventListener("DOMContentLoaded", (function () {
             const cameraButton = document.createElement("button");
             cameraButton.textContent = "Kamera verwenden";
             cameraButton.style.cssText = `
-            font-size: 2rem;
+            font-size: 1.4rem;
                 margin: 10px;
                 padding: 10px 20px;
                 background-color: #466c9c;
@@ -250,7 +250,7 @@ document.addEventListener("DOMContentLoaded", (function () {
             const galleryButton = document.createElement("button");
             galleryButton.textContent = "Aus Galerie wählen";
             galleryButton.style.cssText = `
-            font-size: 2rem;
+            font-size: 1.4rem;
                 margin: 10px;
                 padding: 10px 20px;
                 background-color: #466c9c;
@@ -263,7 +263,7 @@ document.addEventListener("DOMContentLoaded", (function () {
             const cancelButton = document.createElement("button");
             cancelButton.textContent = "Abbrechen";
             cancelButton.style.cssText = `
-            font-size; 2rem;
+            font-size; 1.4rem;
                 margin: 10px;
                 padding: 10px 20px;
                 background-color:rgb(130, 24, 16);
@@ -361,21 +361,21 @@ document.addEventListener("DOMContentLoaded", (function () {
                         border-radius: 25px;
                         margin: 0 10px;
                         cursor: pointer;
-                        font-size: 2rem;
+                        font-size: 1.4rem;
                         box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
                     `;
 
                     const cancelCameraButton = document.createElement("button");
-                    cancelCameraButton.textContent = "❌ Abbrechen";
+                    cancelCameraButton.textContent = "Abbrechen";
                     cancelCameraButton.style.cssText = `
                         padding: 15px 30px;
-                        background: linear-gradient(135deg,rgb(90, 20, 15), #d32f2f);
+                        background: linear-gradient(135deg,rgb(90, 20, 15),rgb(109, 22, 22));
                         color: white;
                         border: none;
                         border-radius: 25px;
                         margin: 0 10px;
                         cursor: pointer;
-                        font-size: 2rem;
+                        font-size: 1.4rem;
                         box-shadow: 0 4px 15px rgba(244, 67, 54, 0.3);
                     `;
 
