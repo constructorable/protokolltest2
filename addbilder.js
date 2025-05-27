@@ -1,5 +1,4 @@
-
-document.addEventListener("DOMContentLoaded", (function() {
+document.addEventListener("DOMContentLoaded", (function () {
     const e = [{
         name: "kueche",
         uploadBtnSelector: ".kueche .bilder-upload-btn",
@@ -37,7 +36,7 @@ document.addEventListener("DOMContentLoaded", (function() {
         galleryContainerId: "nebenraum-galerie",
         titleElementId: "nebenraum-galerie-title"
     }];
-    
+
     const t = {};
 
     // Verfügbare Kameras ermitteln
@@ -90,47 +89,47 @@ document.addEventListener("DOMContentLoaded", (function() {
         // Kamera-Buttons erstellen
         cameras.forEach((camera, index) => {
             const button = document.createElement("button");
-            
+
             // Kamera-Label bestimmen
             let cameraLabel = camera.label || `Kamera ${index + 1}`;
             if (cameraLabel.toLowerCase().includes('front') || cameraLabel.toLowerCase().includes('user')) {
-                cameraLabel = `📱 Frontkamera (${cameraLabel})`;
+                cameraLabel = `Front (Selfie) (${cameraLabel})`;
             } else if (cameraLabel.toLowerCase().includes('back') || cameraLabel.toLowerCase().includes('environment')) {
-                cameraLabel = `📸 Rückkamera (${cameraLabel})`;
+                cameraLabel = `Rückkamera (${cameraLabel})`;
             } else {
-                cameraLabel = `📷 ${cameraLabel}`;
+                cameraLabel = `${cameraLabel}`;
             }
-            
+
             button.textContent = cameraLabel;
             button.style.cssText = `
                 display: block;
                 width: 100%;
                 margin: 10px 0;
                 padding: 15px;
-                background: linear-gradient(135deg, #4CAF50, #45a049);
+                background: linear-gradient(135deg, #466c9c, #466c9c);
                 color: white;
                 border: none;
                 border-radius: 8px;
                 cursor: pointer;
-                font-size: 1rem;
+                font-size: 2rem;
                 transition: all 0.3s ease;
             `;
-            
+
             button.onmouseover = () => {
                 button.style.transform = 'translateY(-2px)';
                 button.style.boxShadow = '0 5px 15px rgba(76, 175, 80, 0.3)';
             };
-            
+
             button.onmouseout = () => {
                 button.style.transform = 'translateY(0)';
                 button.style.boxShadow = 'none';
             };
-            
+
             button.addEventListener('click', () => {
                 document.body.removeChild(overlay);
                 callback(camera.deviceId);
             });
-            
+
             dialog.appendChild(button);
         });
 
@@ -142,18 +141,18 @@ document.addEventListener("DOMContentLoaded", (function() {
             width: 100%;
             margin: 20px 0 0 0;
             padding: 12px;
-            background: #f44336;
+            background:rgb(117, 27, 20);
             color: white;
             border: none;
             border-radius: 8px;
             cursor: pointer;
-            font-size: 1rem;
+            font-size: 2rem;
         `;
-        
+
         cancelButton.addEventListener('click', () => {
             document.body.removeChild(overlay);
         });
-        
+
         dialog.appendChild(cancelButton);
         overlay.appendChild(dialog);
         document.body.appendChild(overlay);
@@ -185,12 +184,12 @@ document.addEventListener("DOMContentLoaded", (function() {
                 galleryContainer: c,
                 titleElement: s
             });
-            
+
             l.addEventListener("click", (() => {
                 showImageSourceDialog(t[e.name], i, c, s)
             }));
-            
-            i.addEventListener("click", (function(n) {
+
+            i.addEventListener("click", (function (n) {
                 if (n.target.classList.contains("thumbnail-remove")) {
                     const l = n.target.getAttribute("data-index");
                     t[e.name][l] && (URL.revokeObjectURL(t[e.name][l].originalUrl), URL.revokeObjectURL(t[e.name][l].thumbnailUrl), URL.revokeObjectURL(t[e.name][l].galerieUrl));
@@ -199,7 +198,7 @@ document.addEventListener("DOMContentLoaded", (function() {
                     d(t[e.name], c, s)
                 }
             }));
-            
+
             d(t[e.name], c, s)
         } catch (t) {
             console.error(`Error initializing ${e.name}:`, t)
@@ -236,11 +235,12 @@ document.addEventListener("DOMContentLoaded", (function() {
             dialog.appendChild(title);
 
             const cameraButton = document.createElement("button");
-            cameraButton.textContent = "📸 Kamera verwenden";
+            cameraButton.textContent = "Kamera verwenden";
             cameraButton.style.cssText = `
+            font-size: 2rem;
                 margin: 10px;
                 padding: 10px 20px;
-                background-color: #4CAF50;
+                background-color: #466c9c;
                 color: white;
                 border: none;
                 border-radius: 5px;
@@ -248,11 +248,12 @@ document.addEventListener("DOMContentLoaded", (function() {
             `;
 
             const galleryButton = document.createElement("button");
-            galleryButton.textContent = "🖼️ Aus Galerie wählen";
+            galleryButton.textContent = "Aus Galerie wählen";
             galleryButton.style.cssText = `
+            font-size: 2rem;
                 margin: 10px;
                 padding: 10px 20px;
-                background-color: #2196F3;
+                background-color: #466c9c;
                 color: white;
                 border: none;
                 border-radius: 5px;
@@ -262,9 +263,10 @@ document.addEventListener("DOMContentLoaded", (function() {
             const cancelButton = document.createElement("button");
             cancelButton.textContent = "Abbrechen";
             cancelButton.style.cssText = `
+            font-size; 2rem;
                 margin: 10px;
                 padding: 10px 20px;
-                background-color: #f44336;
+                background-color:rgb(130, 24, 16);
                 color: white;
                 border: none;
                 border-radius: 5px;
@@ -273,15 +275,15 @@ document.addEventListener("DOMContentLoaded", (function() {
 
             cameraButton.addEventListener("click", async () => {
                 document.body.removeChild(overlay);
-                
+
                 // Verfügbare Kameras ermitteln
                 const cameras = await getAvailableCameras();
-                
+
                 if (cameras.length === 0) {
                     alert('Keine Kameras gefunden!');
                     return;
                 }
-                
+
                 if (cameras.length === 1) {
                     // Nur eine Kamera verfügbar
                     startCameraWithDeviceId(cameras[0].deviceId, imageArray, thumbnailContainer, galleryContainer, titleElement);
@@ -323,7 +325,7 @@ document.addEventListener("DOMContentLoaded", (function() {
             };
 
             navigator.mediaDevices.getUserMedia(constraints)
-                .then(function(stream) {
+                .then(function (stream) {
                     const video = document.createElement("video");
                     video.style.cssText = `
                         position: fixed;
@@ -359,7 +361,7 @@ document.addEventListener("DOMContentLoaded", (function() {
                         border-radius: 25px;
                         margin: 0 10px;
                         cursor: pointer;
-                        font-size: 1.1rem;
+                        font-size: 1.2rem;
                         box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
                     `;
 
@@ -373,21 +375,21 @@ document.addEventListener("DOMContentLoaded", (function() {
                         border-radius: 25px;
                         margin: 0 10px;
                         cursor: pointer;
-                        font-size: 1.1rem;
+                        font-size: 1.2rem;
                         box-shadow: 0 4px 15px rgba(244, 67, 54, 0.3);
                     `;
 
-                    captureButton.addEventListener("click", function() {
+                    captureButton.addEventListener("click", function () {
                         const canvas = document.createElement("canvas");
                         canvas.width = video.videoWidth;
                         canvas.height = video.videoHeight;
                         canvas.getContext("2d").drawImage(video, 0, 0, canvas.width, canvas.height);
-                        
+
                         stream.getTracks().forEach(track => track.stop());
                         document.body.removeChild(video);
                         document.body.removeChild(controls);
-                        
-                        canvas.toBlob(async function(blob) {
+
+                        canvas.toBlob(async function (blob) {
                             try {
                                 const file = new File([blob], "camera-photo.jpg", { type: "image/jpeg" });
                                 await processImage(file, imageArray, thumbnailContainer, galleryContainer, titleElement);
@@ -397,7 +399,7 @@ document.addEventListener("DOMContentLoaded", (function() {
                         }, "image/jpeg", 0.9);
                     });
 
-                    cancelCameraButton.addEventListener("click", function() {
+                    cancelCameraButton.addEventListener("click", function () {
                         stream.getTracks().forEach(track => track.stop());
                         document.body.removeChild(video);
                         document.body.removeChild(controls);
@@ -408,7 +410,7 @@ document.addEventListener("DOMContentLoaded", (function() {
                     document.body.appendChild(video);
                     document.body.appendChild(controls);
                 })
-                .catch(function(error) {
+                .catch(function (error) {
                     console.error("Kamera konnte nicht gestartet werden:", error);
                     selectFromGallery(imageArray, thumbnailContainer, galleryContainer, titleElement);
                 });
@@ -422,8 +424,8 @@ document.addEventListener("DOMContentLoaded", (function() {
         input.type = "file";
         input.accept = "image/*";
         input.multiple = true;
-        
-        input.onchange = async function(event) {
+
+        input.onchange = async function (event) {
             const files = event.target.files;
             if (files.length > 0) {
                 for (const file of Array.from(files)) {
@@ -435,7 +437,7 @@ document.addEventListener("DOMContentLoaded", (function() {
                 }
             }
         };
-        
+
         input.click();
     }
 
@@ -447,13 +449,13 @@ document.addEventListener("DOMContentLoaded", (function() {
         const thumbnailUrl = URL.createObjectURL(thumbnailBlob);
         const galleryBlob = await resizeImage(img, 1000, 1000);
         const galleryUrl = URL.createObjectURL(galleryBlob);
-        
+
         const imageData = {
             originalUrl: originalUrl,
             thumbnailUrl: thumbnailUrl,
             galerieUrl: galleryUrl
         };
-        
+
         imageArray.push(imageData);
         updateThumbnails(imageArray, thumbnailContainer);
         updateGallery(imageArray, galleryContainer, titleElement);
@@ -479,13 +481,13 @@ document.addEventListener("DOMContentLoaded", (function() {
         return new Promise(resolve => {
             const canvas = document.createElement("canvas");
             let { width, height } = img;
-            
+
             if (width > maxWidth || height > maxHeight) {
                 const scale = Math.min(maxWidth / width, maxHeight / height);
                 width = Math.floor(width * scale);
                 height = Math.floor(height * scale);
             }
-            
+
             canvas.width = width;
             canvas.height = height;
             canvas.getContext("2d").drawImage(img, 0, 0, width, height);
@@ -495,7 +497,7 @@ document.addEventListener("DOMContentLoaded", (function() {
 
     function updateThumbnails(imageArray, container) {
         if (!container) return;
-        
+
         container.innerHTML = "";
         imageArray.forEach((imageData, index) => {
             const thumbnail = document.createElement("div");
@@ -510,10 +512,10 @@ document.addEventListener("DOMContentLoaded", (function() {
 
     function updateGallery(imageArray, container, titleElement) {
         if (!container || !titleElement) return;
-        
+
         container.innerHTML = "";
         const categoryName = container.id.replace("-galerie", "");
-        
+
         imageArray.forEach((imageData, index) => {
             const galleryImage = document.createElement("div");
             galleryImage.className = "galerie-bild";
@@ -524,7 +526,7 @@ document.addEventListener("DOMContentLoaded", (function() {
             `;
             container.appendChild(galleryImage);
         });
-        
+
         // Titel-Element Sichtbarkeit
         if (container && titleElement) {
             if (container.children.length > 0) {
@@ -540,8 +542,9 @@ document.addEventListener("DOMContentLoaded", (function() {
     e.forEach(category => {
         t[category.name] = [];
     });
-    
+
     e.forEach(category => {
         l(category);
     });
 }));
+
