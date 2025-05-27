@@ -394,7 +394,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         </td>
                     </tr>
                     <tr class="bemerkung-row">
-                        <td  colspan="6" style="font-weight:600; margin-top:11px; padding-top:11px">Bemerkungen:</td>
+                        <td style="font-weight:600; background:#fff; margin-top:11px; padding-top:11px">Bemerkungen:</td>
                                       </tr>
 
 
