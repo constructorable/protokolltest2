@@ -1045,7 +1045,11 @@ select::-ms-expand {
 .bemerkung-eingabe {
     display: flex;
     gap: 8px;
+    margin-left: 13px;
+    margin-right: 5px;
 }
+
+
 
 
 .bemerkung-input {
@@ -1081,7 +1085,7 @@ select::-ms-expand {
     align-items: center;
     justify-content: space-between;
     padding: 6px 12px;
-    background-color: #f5f5f5;
+    background-color: #ffffff;
     border-radius: 4px;
 }
 
@@ -1970,13 +1974,16 @@ td {
 }
 
 tr.bilder-row:nth-child(24),
-.bad>table:nth-child(1)>tbody:nth-child(2)>tr:nth-child(26)>td:nth-child(1),
-div.room-toggle:nth-child(3)>div:nth-child(2)>div:nth-child(1)>table:nth-child(1)>tbody:nth-child(2)>tr:nth-child(26),
 tr.bilder-row:nth-child(13),
 tr.bilder-row:nth-child(14)>td:nth-child(1),
 tr.bilder-row:nth-child(7)>td:nth-child(1) {
     display: none;
 }
+
+/* .bad > table:nth-child(1) > tbody:nth-child(2) > tr:nth-child(26) > td:nth-child(1) {
+    display:block;
+    background:#fc0;
+} */
 
 .heading {
     font-weight: 600;
@@ -2716,7 +2723,8 @@ tr.bemerkung-row:nth-child(6)>td:nth-child(1) {
 
 #wandfarbe,
 #fussbodenkue,
-#rauchmelder-anzahl, #keySelect3,
+#rauchmelder-anzahl,
+#keySelect3,
 #wandfarbewc,
 #fussbodenwc,
 #wandfarbebad,
@@ -2726,7 +2734,7 @@ tr.bemerkung-row:nth-child(6)>td:nth-child(1) {
 #keySelect4,
 #wandfarbeabstell,
 #fussbodenabstell,
-.abstellraum > table:nth-child(1) > tbody:nth-child(2) > tr:nth-child(12) > td:nth-child(2) > div:nth-child(1) {
+.abstellraum>table:nth-child(1)>tbody:nth-child(2)>tr:nth-child(12)>td:nth-child(2)>div:nth-child(1) {
     margin-left: 2.4rem !important;
 }
 
@@ -3036,12 +3044,12 @@ body.pdf-export .remove-zimmer-btn {
         width: 95%;
         max-height: 95vh;
     }
-    
+
     .design-profiles-grid {
         grid-template-columns: 1fr;
         gap: 16px;
     }
-    
+
     .design-modal-header,
     .design-modal-content,
     .design-modal-footer {
@@ -3056,6 +3064,7 @@ body.pdf-export .remove-zimmer-btn {
         opacity: 0;
         transform: translateY(30px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -3066,9 +3075,17 @@ body.pdf-export .remove-zimmer-btn {
     animation: fadeInUp 0.5s ease forwards;
 }
 
-.design-profile-card:nth-child(1) { animation-delay: 0.1s; }
-.design-profile-card:nth-child(2) { animation-delay: 0.2s; }
-.design-profile-card:nth-child(3) { animation-delay: 0.3s; }
+.design-profile-card:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.design-profile-card:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.design-profile-card:nth-child(3) {
+    animation-delay: 0.3s;
+}
 
 
 
@@ -3077,7 +3094,7 @@ body.pdf-export .remove-zimmer-btn {
     background: white;
     border: 1px solid #ccc;
     border-radius: 4px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     max-height: 200px;
     overflow-y: auto;
     z-index: 1000;
