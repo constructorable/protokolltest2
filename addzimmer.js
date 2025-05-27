@@ -227,7 +227,7 @@ document.addEventListener('DOMContentLoaded', function () {
             dialog.appendChild(title);
 
             const cameraButton = document.createElement("button");
-            cameraButton.textContent = "📸 Kamera verwenden";
+            cameraButton.textContent = "Kamera verwenden";
             cameraButton.style.cssText = `
           font-size: 1.4rem;
                 margin: 10px;
@@ -240,7 +240,7 @@ document.addEventListener('DOMContentLoaded', function () {
             `;
 
             const galleryButton = document.createElement("button");
-            galleryButton.textContent = "🖼️ Aus Galerie wählen";
+            galleryButton.textContent = "Aus Galerie wählen";
             galleryButton.style.cssText = `
                 font-size: 1.4rem;
                 margin: 10px;
@@ -344,7 +344,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     `;
 
                     const captureButton = document.createElement("button");
-                    captureButton.textContent = "📷 Foto aufnehmen";
+                    captureButton.textContent = "Foto aufnehmen";
                     captureButton.style.cssText = `
                         padding: 15px 30px;
                         background: linear-gradient(135deg, #466c9c, #466c9c);
@@ -358,7 +358,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     `;
 
                     const cancelCameraButton = document.createElement("button");
-                    cancelCameraButton.textContent = "❌ Abbrechen";
+                    cancelCameraButton.textContent = "Abbrechen";
                     cancelCameraButton.style.cssText = `
                            padding: 15px 30px;
                         background: linear-gradient(135deg,rgb(90, 20, 15),rgb(109, 22, 22));
@@ -1067,4 +1067,5 @@ document.addEventListener('DOMContentLoaded', function () {
         updateGalerie(count);
     }
 });
+
 
