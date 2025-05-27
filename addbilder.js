@@ -135,7 +135,7 @@ document.addEventListener("DOMContentLoaded", (function () {
 
         // Abbrechen-Button
         const cancelButton = document.createElement("button");
-        cancelButton.textContent = "Abbrechen";
+        cancelButton.textContent = "x";
         cancelButton.style.cssText = `
             display: block;
             width: 100%;
@@ -261,9 +261,9 @@ document.addEventListener("DOMContentLoaded", (function () {
             `;
 
             const cancelButton = document.createElement("button");
-            cancelButton.textContent = "Abbrechen";
+            cancelButton.textContent = "x";
             cancelButton.style.cssText = `
-            font-size; 1.4rem;
+            font-size: 1.4rem;
                 margin: 10px;
                 padding: 10px 20px;
                 background-color:rgb(130, 24, 16);
@@ -366,7 +366,7 @@ document.addEventListener("DOMContentLoaded", (function () {
                     `;
 
                     const cancelCameraButton = document.createElement("button");
-                    cancelCameraButton.textContent = "Abbrechen";
+                    cancelCameraButton.textContent = "x";
                     cancelCameraButton.style.cssText = `
                         padding: 15px 30px;
                         background: linear-gradient(135deg,rgb(90, 20, 15),rgb(109, 22, 22));
