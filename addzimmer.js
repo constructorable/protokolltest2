@@ -132,25 +132,25 @@ document.addEventListener('DOMContentLoaded', function () {
             // Kamera-Label bestimmen
             let cameraLabel = camera.label || `Kamera ${index + 1}`;
             if (cameraLabel.toLowerCase().includes('front') || cameraLabel.toLowerCase().includes('user')) {
-                cameraLabel = `📱 Frontkamera (Selfie)`;
+                cameraLabel = `Frontkamera (Selfie)`;
             } else if (cameraLabel.toLowerCase().includes('back') || cameraLabel.toLowerCase().includes('environment')) {
-                cameraLabel = `📸 Rückkamera`;
+                cameraLabel = `Rückkamera`;
             } else {
-                cameraLabel = `📷 ${cameraLabel}`;
+                cameraLabel = `${cameraLabel}`;
             }
             
             button.textContent = cameraLabel;
             button.style.cssText = `
-                display: block;
+             display: block;
                 width: 100%;
                 margin: 10px 0;
                 padding: 15px;
-                background: linear-gradient(135deg, #4CAF50, #45a049);
+                background: linear-gradient(135deg, #466c9c, #466c9c);
                 color: white;
                 border: none;
                 border-radius: 8px;
                 cursor: pointer;
-                font-size: 1rem;
+                font-size: 1.4rem;
                 transition: all 0.3s ease;
             `;
             
@@ -176,16 +176,16 @@ document.addEventListener('DOMContentLoaded', function () {
         const cancelButton = document.createElement("button");
         cancelButton.textContent = "Abbrechen";
         cancelButton.style.cssText = `
-            display: block;
+     display: block;
             width: 100%;
             margin: 20px 0 0 0;
             padding: 12px;
-            background: #f44336;
+            background:rgb(117, 27, 20);
             color: white;
             border: none;
             border-radius: 8px;
             cursor: pointer;
-            font-size: 1rem;
+            font-size: 1.4rem;
         `;
         
         cancelButton.addEventListener('click', () => {
@@ -201,7 +201,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (void 0 !== window.orientation || -1 !== navigator.userAgent.indexOf("IEMobile")) {
             const overlay = document.createElement("div");
             overlay.style.cssText = `
-                position: fixed;
+          position: fixed;
                 top: 0;
                 left: 0;
                 width: 100%;
@@ -229,9 +229,10 @@ document.addEventListener('DOMContentLoaded', function () {
             const cameraButton = document.createElement("button");
             cameraButton.textContent = "📸 Kamera verwenden";
             cameraButton.style.cssText = `
+          font-size: 1.4rem;
                 margin: 10px;
                 padding: 10px 20px;
-                background-color: #4CAF50;
+                background-color: #466c9c;
                 color: white;
                 border: none;
                 border-radius: 5px;
@@ -241,9 +242,10 @@ document.addEventListener('DOMContentLoaded', function () {
             const galleryButton = document.createElement("button");
             galleryButton.textContent = "🖼️ Aus Galerie wählen";
             galleryButton.style.cssText = `
+                font-size: 1.4rem;
                 margin: 10px;
                 padding: 10px 20px;
-                background-color: #2196F3;
+                background-color: #466c9c;
                 color: white;
                 border: none;
                 border-radius: 5px;
@@ -253,9 +255,10 @@ document.addEventListener('DOMContentLoaded', function () {
             const cancelButton = document.createElement("button");
             cancelButton.textContent = "Abbrechen";
             cancelButton.style.cssText = `
+             font-size: 1.4rem;
                 margin: 10px;
                 padding: 10px 20px;
-                background-color: #f44336;
+                background-color:rgb(130, 24, 16);
                 color: white;
                 border: none;
                 border-radius: 5px;
@@ -317,7 +320,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 .then(function(stream) {
                     const video = document.createElement("video");
                     video.style.cssText = `
-                        position: fixed;
+                          position: fixed;
                         top: 0;
                         left: 0;
                         width: 100%;
@@ -331,7 +334,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     const controls = document.createElement("div");
                     controls.style.cssText = `
-                        position: fixed;
+                      position: fixed;
                         bottom: 20px;
                         left: 0;
                         width: 100%;
@@ -344,27 +347,27 @@ document.addEventListener('DOMContentLoaded', function () {
                     captureButton.textContent = "📷 Foto aufnehmen";
                     captureButton.style.cssText = `
                         padding: 15px 30px;
-                        background: linear-gradient(135deg, #4CAF50, #45a049);
+                        background: linear-gradient(135deg, #466c9c, #466c9c);
                         color: white;
                         border: none;
                         border-radius: 25px;
                         margin: 0 10px;
                         cursor: pointer;
-                        font-size: 1.1rem;
+                        font-size: 1.4rem;
                         box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
                     `;
 
                     const cancelCameraButton = document.createElement("button");
                     cancelCameraButton.textContent = "❌ Abbrechen";
                     cancelCameraButton.style.cssText = `
-                        padding: 15px 30px;
-                        background: linear-gradient(135deg, #f44336, #d32f2f);
+                           padding: 15px 30px;
+                        background: linear-gradient(135deg,rgb(90, 20, 15),rgb(109, 22, 22));
                         color: white;
                         border: none;
                         border-radius: 25px;
                         margin: 0 10px;
                         cursor: pointer;
-                        font-size: 1.1rem;
+                        font-size: 1.4rem;
                         box-shadow: 0 4px 15px rgba(244, 67, 54, 0.3);
                     `;
 
