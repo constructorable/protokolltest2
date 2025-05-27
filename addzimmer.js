@@ -74,11 +74,367 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // DOM-Elemente
     const addZimmerButton = document.getElementById('addzimmert');
-    /*  const zimmerContainer = document.getElementById('adzimmer'); */
     const galerieContainer = document.querySelector('.bildergalerie-container');
 
     // Initialisierung
     init();
+
+    // Kamera-Funktionen
+    async function getAvailableCameras() {
+        try {
+            const devices = await navigator.mediaDevices.enumerateDevices();
+            return devices.filter(device => device.kind === 'videoinput');
+        } catch (error) {
+            console.error('Fehler beim Ermitteln der Kameras:', error);
+            return [];
+        }
+    }
+
+    function showCameraSelectionDialog(cameras, callback) {
+        const overlay = document.createElement("div");
+        overlay.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1001;
+        `;
+
+        const dialog = document.createElement("div");
+        dialog.style.cssText = `
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        `;
+
+        const title = document.createElement("h3");
+        title.textContent = "Kamera auswählen";
+        title.style.cssText = `
+            margin: 0 0 20px 0;
+            color: #333;
+            font-size: 1.5rem;
+        `;
+        dialog.appendChild(title);
+
+        // Kamera-Buttons erstellen
+        cameras.forEach((camera, index) => {
+            const button = document.createElement("button");
+            
+            // Kamera-Label bestimmen
+            let cameraLabel = camera.label || `Kamera ${index + 1}`;
+            if (cameraLabel.toLowerCase().includes('front') || cameraLabel.toLowerCase().includes('user')) {
+                cameraLabel = `📱 Frontkamera (Selfie)`;
+            } else if (cameraLabel.toLowerCase().includes('back') || cameraLabel.toLowerCase().includes('environment')) {
+                cameraLabel = `📸 Rückkamera`;
+            } else {
+                cameraLabel = `📷 ${cameraLabel}`;
+            }
+            
+            button.textContent = cameraLabel;
+            button.style.cssText = `
+                display: block;
+                width: 100%;
+                margin: 10px 0;
+                padding: 15px;
+                background: linear-gradient(135deg, #4CAF50, #45a049);
+                color: white;
+                border: none;
+                border-radius: 8px;
+                cursor: pointer;
+                font-size: 1rem;
+                transition: all 0.3s ease;
+            `;
+            
+            button.onmouseover = () => {
+                button.style.transform = 'translateY(-2px)';
+                button.style.boxShadow = '0 5px 15px rgba(76, 175, 80, 0.3)';
+            };
+            
+            button.onmouseout = () => {
+                button.style.transform = 'translateY(0)';
+                button.style.boxShadow = 'none';
+            };
+            
+            button.addEventListener('click', () => {
+                document.body.removeChild(overlay);
+                callback(camera.deviceId);
+            });
+            
+            dialog.appendChild(button);
+        });
+
+        // Abbrechen-Button
+        const cancelButton = document.createElement("button");
+        cancelButton.textContent = "Abbrechen";
+        cancelButton.style.cssText = `
+            display: block;
+            width: 100%;
+            margin: 20px 0 0 0;
+            padding: 12px;
+            background: #f44336;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+        `;
+        
+        cancelButton.addEventListener('click', () => {
+            document.body.removeChild(overlay);
+        });
+        
+        dialog.appendChild(cancelButton);
+        overlay.appendChild(dialog);
+        document.body.appendChild(overlay);
+    }
+
+    function showImageSourceDialog(count) {
+        if (void 0 !== window.orientation || -1 !== navigator.userAgent.indexOf("IEMobile")) {
+            const overlay = document.createElement("div");
+            overlay.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.7);
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                z-index: 1000;
+            `;
+
+            const dialog = document.createElement("div");
+            dialog.style.cssText = `
+                background: white;
+                padding: 20px;
+                border-radius: 10px;
+                text-align: center;
+            `;
+
+            const title = document.createElement("h3");
+            title.textContent = "Bildquelle wählen";
+            dialog.appendChild(title);
+
+            const cameraButton = document.createElement("button");
+            cameraButton.textContent = "📸 Kamera verwenden";
+            cameraButton.style.cssText = `
+                margin: 10px;
+                padding: 10px 20px;
+                background-color: #4CAF50;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            `;
+
+            const galleryButton = document.createElement("button");
+            galleryButton.textContent = "🖼️ Aus Galerie wählen";
+            galleryButton.style.cssText = `
+                margin: 10px;
+                padding: 10px 20px;
+                background-color: #2196F3;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            `;
+
+            const cancelButton = document.createElement("button");
+            cancelButton.textContent = "Abbrechen";
+            cancelButton.style.cssText = `
+                margin: 10px;
+                padding: 10px 20px;
+                background-color: #f44336;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            `;
+
+            cameraButton.addEventListener("click", async () => {
+                document.body.removeChild(overlay);
+                
+                // Verfügbare Kameras ermitteln
+                const cameras = await getAvailableCameras();
+                
+                if (cameras.length === 0) {
+                    alert('Keine Kameras gefunden!');
+                    return;
+                }
+                
+                if (cameras.length === 1) {
+                    // Nur eine Kamera verfügbar
+                    startCameraWithDeviceId(cameras[0].deviceId, count);
+                } else {
+                    // Mehrere Kameras - Auswahl anzeigen
+                    showCameraSelectionDialog(cameras, (deviceId) => {
+                        startCameraWithDeviceId(deviceId, count);
+                    });
+                }
+            });
+
+            galleryButton.addEventListener("click", () => {
+                document.body.removeChild(overlay);
+                selectFromGallery(count);
+            });
+
+            cancelButton.addEventListener("click", () => {
+                document.body.removeChild(overlay);
+            });
+
+            dialog.appendChild(cameraButton);
+            dialog.appendChild(galleryButton);
+            dialog.appendChild(cancelButton);
+            overlay.appendChild(dialog);
+            document.body.appendChild(overlay);
+        } else {
+            selectFromGallery(count);
+        }
+    }
+
+    function startCameraWithDeviceId(deviceId, count) {
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            const constraints = {
+                video: {
+                    deviceId: deviceId ? { exact: deviceId } : undefined,
+                    width: { ideal: 1920 },
+                    height: { ideal: 1080 }
+                }
+            };
+
+            navigator.mediaDevices.getUserMedia(constraints)
+                .then(function(stream) {
+                    const video = document.createElement("video");
+                    video.style.cssText = `
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        z-index: 1000;
+                        background-color: black;
+                        object-fit: cover;
+                    `;
+                    video.srcObject = stream;
+                    video.play();
+
+                    const controls = document.createElement("div");
+                    controls.style.cssText = `
+                        position: fixed;
+                        bottom: 20px;
+                        left: 0;
+                        width: 100%;
+                        display: flex;
+                        justify-content: center;
+                        z-index: 1001;
+                    `;
+
+                    const captureButton = document.createElement("button");
+                    captureButton.textContent = "📷 Foto aufnehmen";
+                    captureButton.style.cssText = `
+                        padding: 15px 30px;
+                        background: linear-gradient(135deg, #4CAF50, #45a049);
+                        color: white;
+                        border: none;
+                        border-radius: 25px;
+                        margin: 0 10px;
+                        cursor: pointer;
+                        font-size: 1.1rem;
+                        box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+                    `;
+
+                    const cancelCameraButton = document.createElement("button");
+                    cancelCameraButton.textContent = "❌ Abbrechen";
+                    cancelCameraButton.style.cssText = `
+                        padding: 15px 30px;
+                        background: linear-gradient(135deg, #f44336, #d32f2f);
+                        color: white;
+                        border: none;
+                        border-radius: 25px;
+                        margin: 0 10px;
+                        cursor: pointer;
+                        font-size: 1.1rem;
+                        box-shadow: 0 4px 15px rgba(244, 67, 54, 0.3);
+                    `;
+
+                    captureButton.addEventListener("click", function() {
+                        const canvas = document.createElement("canvas");
+                        canvas.width = video.videoWidth;
+                        canvas.height = video.videoHeight;
+                        canvas.getContext("2d").drawImage(video, 0, 0, canvas.width, canvas.height);
+                        
+                        stream.getTracks().forEach(track => track.stop());
+                        document.body.removeChild(video);
+                        document.body.removeChild(controls);
+                        
+                        canvas.toBlob(async function(blob) {
+                            try {
+                                const file = new File([blob], "camera-photo.jpg", { type: "image/jpeg" });
+                                const imageData = await processImage(file);
+                                zimmerBilder[count].push(imageData);
+                                updateThumbnails(count);
+                                updateGalerie(count);
+                            } catch (error) {
+                                console.error("Fehler beim Verarbeiten des Kamerabildes:", error);
+                            }
+                        }, "image/jpeg", 0.9);
+                    });
+
+                    cancelCameraButton.addEventListener("click", function() {
+                        stream.getTracks().forEach(track => track.stop());
+                        document.body.removeChild(video);
+                        document.body.removeChild(controls);
+                    });
+
+                    controls.appendChild(captureButton);
+                    controls.appendChild(cancelCameraButton);
+                    document.body.appendChild(video);
+                    document.body.appendChild(controls);
+                })
+                .catch(function(error) {
+                    console.error("Kamera konnte nicht gestartet werden:", error);
+                    selectFromGallery(count);
+                });
+        } else {
+            selectFromGallery(count);
+        }
+    }
+
+    function selectFromGallery(count) {
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = 'image/*';
+        input.multiple = true;
+
+        input.onchange = async (e) => {
+            const files = Array.from(e.target.files || []);
+            if (files.length === 0) return;
+
+            for (const file of files.slice(0, CONFIG.maxImages - zimmerBilder[count].length)) {
+                try {
+                    const imageData = await processImage(file);
+                    zimmerBilder[count].push(imageData);
+                    updateThumbnails(count);
+                    updateGalerie(count);
+                } catch (error) {
+                    console.error('Fehler beim Bildupload:', error);
+                }
+            }
+        };
+
+        input.click();
+    }
 
     // Funktionen
     function init() {
@@ -130,7 +486,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const title = document.createElement('h3');
         title.id = `zimmer-${count}-galerie-title`;
-        /* title.textContent = `Zimmer ${count} Bilder`; */
         title.style.display = 'none';
 
         const galerie = document.createElement('div');
@@ -451,14 +806,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Entferne die Galerie aus der Verwaltung
         delete zimmerGalerien[count];
-
-        // Aktualisiere den Zähler (optional, falls Sie die Zimmer neu nummerieren wollen)
-        // Hier könnten Sie auch eine Logik einbauen, um die verbleibenden Zimmer neu zu nummerieren
     }
 
     function initColorSuggestions(count) {
         const input = document.getElementById(`wandfarbe-${count}`);
         const suggestions = document.getElementById(`farbvorschlaege-${count}`);
+
+        if (!input || !suggestions) return;
 
         input.addEventListener('input', (e) => {
             const value = e.target.value.trim().toLowerCase();
@@ -488,47 +842,10 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    /*    function initBemerkungen(count) {
-           const container = document.getElementById(`bemerkungen-container-${count}`);
-           const eingabeContainer = container.querySelector('.bemerkung-eingabe'); // Die Zeile mit dem Plus-Button
-   
-           container.addEventListener('click', (e) => {
-               // "Hinzufügen"-Button
-               if (e.target.classList.contains('add-bemerkung-btn')) {
-                   const input = eingabeContainer.querySelector('.bemerkung-input');
-                   const text = input.value.trim();
-   
-                   // Neue Zeile erstellen
-                   const neueBemerkung = document.createElement('div');
-                   neueBemerkung.className = 'bemerkung-zeile';
-                   neueBemerkung.innerHTML = `
-                   <input id="zimm${count}-bem" type="text" class="bemerkung-input" 
-                          value="${text}" ${text ? 'readonly' : ''}
-                          placeholder="">
-                   <div class="bemerkung-actions">
-                       <button type="button" class="del-bemerkung-btn">×</button>
-                   </div>
-               `;
-   
-                   // Neue Zeile VOR der Eingabezeile einfügen (Plus-Button bleibt unten)
-                   container.insertBefore(neueBemerkung, eingabeContainer);
-   
-                   // Leeres Eingabefeld zurücksetzen
-                   input.value = '';
-   
-                   // Fokus auf neues Feld (falls leer)
-                   if (!text) neueBemerkung.querySelector('.bemerkung-input').focus();
-               }
-   
-               // "Löschen"-Button
-               if (e.target.classList.contains('del-bemerkung-btn')) {
-                   e.target.closest('.bemerkung-zeile').remove();
-               }
-           });
-       } */
-
     function initBemerkungen(count) {
         const container = document.getElementById(`bemerkungen-container-${count}`);
+        if (!container) return;
+
         const eingabeContainer = container.querySelector('.bemerkung-eingabe');
 
         container.addEventListener('click', (e) => {
@@ -584,23 +901,31 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function initRauchmelder(count) {
         const input = document.getElementById(`rauchmelder-anzahl-${count}`);
+        if (!input) return;
+
         const minusBtn = input.previousElementSibling;
         const plusBtn = input.nextElementSibling;
 
-        minusBtn.addEventListener('click', () => {
-            let value = parseInt(input.value);
-            if (value > 0) input.value = value - 1;
-        });
+        if (minusBtn) {
+            minusBtn.addEventListener('click', () => {
+                let value = parseInt(input.value);
+                if (value > 0) input.value = value - 1;
+            });
+        }
 
-        plusBtn.addEventListener('click', () => {
-            let value = parseInt(input.value);
-            if (value < 9) input.value = value + 1;
-        });
+        if (plusBtn) {
+            plusBtn.addEventListener('click', () => {
+                let value = parseInt(input.value);
+                if (value < 9) input.value = value + 1;
+            });
+        }
     }
 
     function initImageUpload(count) {
         const uploadBtn = document.querySelector(`#zimmer-container-${count} .bilder-upload-btn`);
         const thumbnailContainer = document.getElementById(`bilder-thumbnails-${count}`);
+
+        if (!uploadBtn || !thumbnailContainer) return;
 
         uploadBtn.addEventListener('click', () => {
             if (zimmerBilder[count].length >= CONFIG.maxImages) {
@@ -608,28 +933,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 return;
             }
 
-            const input = document.createElement('input');
-            input.type = 'file';
-            input.accept = 'image/*';
-            input.multiple = true;
-
-            input.onchange = async (e) => {
-                const files = Array.from(e.target.files || []);
-                if (files.length === 0) return;
-
-                for (const file of files.slice(0, CONFIG.maxImages - zimmerBilder[count].length)) {
-                    try {
-                        const imageData = await processImage(file);
-                        zimmerBilder[count].push(imageData);
-                        updateThumbnails(count);
-                        updateGalerie(count);
-                    } catch (error) {
-                        console.error('Fehler beim Bildupload:', error);
-                    }
-                }
-            };
-
-            input.click();
+            // Prüfen ob mobile Gerät
+            if (void 0 !== window.orientation || -1 !== navigator.userAgent.indexOf("IEMobile")) {
+                showImageSourceDialog(count);
+            } else {
+                selectFromGallery(count);
+            }
         });
 
         thumbnailContainer.addEventListener('click', (e) => {
@@ -697,6 +1006,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function updateThumbnails(count) {
         const container = document.getElementById(`bilder-thumbnails-${count}`);
+        if (!container) return;
+
         container.innerHTML = '';
 
         zimmerBilder[count].forEach((img, index) => {
@@ -713,6 +1024,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function updateGalerie(count) {
         const { container, title } = zimmerGalerien[count];
+        if (!container || !title) return;
+
         container.innerHTML = '';
 
         if (zimmerBilder[count].length > 0) {
@@ -724,7 +1037,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 imgElement.innerHTML = `
                     <div class="bild-info">
                         <span>Zimmer ${count} - Bild ${index + 1}</span>
-                                           </div>
+                    </div>
                     <img src="${img.galleryUrl}" alt="Galeriebild">
                 `;
                 container.appendChild(imgElement);
@@ -751,3 +1064,4 @@ document.addEventListener('DOMContentLoaded', function () {
         updateGalerie(count);
     }
 });
+
