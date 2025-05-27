@@ -1,464 +1,547 @@
-document.addEventListener('DOMContentLoaded', function () {
-    // Konfiguration für alle Räume
-    const roomConfigs = [
-        {
-            name: 'kueche',
-            uploadBtnSelector: '.kueche .bilder-upload-btn',
-            thumbnailContainerSelector: '.kueche .bilder-thumbnails',
-            galleryContainerId: 'kueche-galerie',
-            titleElementId: 'kueche-galerie-title'
-        },
-        {
-            name: 'badezimmer',
-            uploadBtnSelector: '.badezimmer .bilder-upload-btn',
-            thumbnailContainerSelector: '.badezimmer .bilder-thumbnails',
-            galleryContainerId: 'bad-galerie',
-            titleElementId: 'bad-galerie-title'
-        },
-        {
-            name: 'wc',
-            uploadBtnSelector: '.wc .bilder-upload-btn',
-            thumbnailContainerSelector: '.wc .bilder-thumbnails',
-            galleryContainerId: 'wc-galerie',
-            titleElementId: 'wc-galerie-title'
-        },
-        {
-            name: 'flur',
-            uploadBtnSelector: '.flur .bilder-upload-btn',
-            thumbnailContainerSelector: '.flur .bilder-thumbnails',
-            galleryContainerId: 'flur-galerie',
-            titleElementId: 'flur-galerie-title'
-        },
-        {
-            name: 'abstellraum',
-            uploadBtnSelector: '.abstellraum .bilder-upload-btn',
-            thumbnailContainerSelector: '.abstellraum .bilder-thumbnails',
-            galleryContainerId: 'abstellraum-galerie',
-            titleElementId: 'abstellraum-galerie-title'
-        },
-        {
-            name: 'nebenraum',
-            uploadBtnSelector: '.nebenraum .bilder-upload-btn',
-            thumbnailContainerSelector: '.nebenraum .bilder-thumbnails',
-            galleryContainerId: 'nebenraum-galerie',
-            titleElementId: 'nebenraum-galerie-title'
-        }
-    ];
 
-    // Bildersammlung für alle Räume
-    const roomImages = {};
-    roomConfigs.forEach(room => {
-        roomImages[room.name] = [];
-    });
+document.addEventListener("DOMContentLoaded", (function() {
+    const e = [{
+        name: "kueche",
+        uploadBtnSelector: ".kueche .bilder-upload-btn",
+        thumbnailContainerSelector: ".kueche .bilder-thumbnails",
+        galleryContainerId: "kueche-galerie",
+        titleElementId: "kueche-galerie-title"
+    }, {
+        name: "badezimmer",
+        uploadBtnSelector: ".badezimmer .bilder-upload-btn",
+        thumbnailContainerSelector: ".badezimmer .bilder-thumbnails",
+        galleryContainerId: "bad-galerie",
+        titleElementId: "bad-galerie-title"
+    }, {
+        name: "wc",
+        uploadBtnSelector: ".wc .bilder-upload-btn",
+        thumbnailContainerSelector: ".wc .bilder-thumbnails",
+        galleryContainerId: "wc-galerie",
+        titleElementId: "wc-galerie-title"
+    }, {
+        name: "flur",
+        uploadBtnSelector: ".flur .bilder-upload-btn",
+        thumbnailContainerSelector: ".flur .bilder-thumbnails",
+        galleryContainerId: "flur-galerie",
+        titleElementId: "flur-galerie-title"
+    }, {
+        name: "abstellraum",
+        uploadBtnSelector: ".abstellraum .bilder-upload-btn",
+        thumbnailContainerSelector: ".abstellraum .bilder-thumbnails",
+        galleryContainerId: "abstellraum-galerie",
+        titleElementId: "abstellraum-galerie-title"
+    }, {
+        name: "nebenraum",
+        uploadBtnSelector: ".nebenraum .bilder-upload-btn",
+        thumbnailContainerSelector: ".nebenraum .bilder-thumbnails",
+        galleryContainerId: "nebenraum-galerie",
+        titleElementId: "nebenraum-galerie-title"
+    }];
+    
+    const t = {};
 
-    // Hilfsfunktion zum Warten auf Elemente
-    function waitForElement(selector) {
-        return new Promise(resolve => {
-            const element = document.querySelector(selector);
-            if (element) {
-                return resolve(element);
-            }
-
-            const observer = new MutationObserver(() => {
-                const element = document.querySelector(selector);
-                if (element) {
-                    observer.disconnect();
-                    resolve(element);
-                }
-            });
-
-            observer.observe(document.body, {
-                childList: true,
-                subtree: true
-            });
-        });
-    }
-
-    // Initialisierung für jeden Raum
-    async function initializeRoom(room) {
+    // Verfügbare Kameras ermitteln
+    async function getAvailableCameras() {
         try {
-            const [uploadBtn, thumbnailContainer] = await Promise.all([
-                waitForElement(room.uploadBtnSelector),
-                waitForElement(room.thumbnailContainerSelector)
-            ]);
+            const devices = await navigator.mediaDevices.enumerateDevices();
+            return devices.filter(device => device.kind === 'videoinput');
+        } catch (error) {
+            console.error('Fehler beim Ermitteln der Kameras:', error);
+            return [];
+        }
+    }
 
-            const galleryContainer = document.getElementById(room.galleryContainerId);
-            const titleElement = document.getElementById(room.titleElementId);
+    // Kameraauswahl-Dialog anzeigen
+    function showCameraSelectionDialog(cameras, callback) {
+        const overlay = document.createElement("div");
+        overlay.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1001;
+        `;
 
-            console.log(`Successfully initialized ${room.name}:`, {
-                uploadBtn,
-                thumbnailContainer,
-                galleryContainer,
-                titleElement
+        const dialog = document.createElement("div");
+        dialog.style.cssText = `
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        `;
+
+        const title = document.createElement("h3");
+        title.textContent = "Kamera auswählen";
+        title.style.cssText = `
+            margin: 0 0 20px 0;
+            color: #333;
+            font-size: 1.5rem;
+        `;
+        dialog.appendChild(title);
+
+        // Kamera-Buttons erstellen
+        cameras.forEach((camera, index) => {
+            const button = document.createElement("button");
+            
+            // Kamera-Label bestimmen
+            let cameraLabel = camera.label || `Kamera ${index + 1}`;
+            if (cameraLabel.toLowerCase().includes('front') || cameraLabel.toLowerCase().includes('user')) {
+                cameraLabel = `📱 Frontkamera (${cameraLabel})`;
+            } else if (cameraLabel.toLowerCase().includes('back') || cameraLabel.toLowerCase().includes('environment')) {
+                cameraLabel = `📸 Rückkamera (${cameraLabel})`;
+            } else {
+                cameraLabel = `📷 ${cameraLabel}`;
+            }
+            
+            button.textContent = cameraLabel;
+            button.style.cssText = `
+                display: block;
+                width: 100%;
+                margin: 10px 0;
+                padding: 15px;
+                background: linear-gradient(135deg, #4CAF50, #45a049);
+                color: white;
+                border: none;
+                border-radius: 8px;
+                cursor: pointer;
+                font-size: 1rem;
+                transition: all 0.3s ease;
+            `;
+            
+            button.onmouseover = () => {
+                button.style.transform = 'translateY(-2px)';
+                button.style.boxShadow = '0 5px 15px rgba(76, 175, 80, 0.3)';
+            };
+            
+            button.onmouseout = () => {
+                button.style.transform = 'translateY(0)';
+                button.style.boxShadow = 'none';
+            };
+            
+            button.addEventListener('click', () => {
+                document.body.removeChild(overlay);
+                callback(camera.deviceId);
             });
+            
+            dialog.appendChild(button);
+        });
 
-            // Event Listener für Upload-Button
-            uploadBtn.addEventListener('click', () => {
-                showImageSourceDialog(
-                    roomImages[room.name],
-                    thumbnailContainer,
-                    galleryContainer,
-                    titleElement
-                );
+        // Abbrechen-Button
+        const cancelButton = document.createElement("button");
+        cancelButton.textContent = "Abbrechen";
+        cancelButton.style.cssText = `
+            display: block;
+            width: 100%;
+            margin: 20px 0 0 0;
+            padding: 12px;
+            background: #f44336;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+        `;
+        
+        cancelButton.addEventListener('click', () => {
+            document.body.removeChild(overlay);
+        });
+        
+        dialog.appendChild(cancelButton);
+        overlay.appendChild(dialog);
+        document.body.appendChild(overlay);
+    }
+
+    function n(e) {
+        return new Promise((t => {
+            const n = document.querySelector(e);
+            if (n) return t(n);
+            const l = new MutationObserver((() => {
+                const n = document.querySelector(e);
+                n && (l.disconnect(), t(n))
+            }));
+            l.observe(document.body, {
+                childList: !0,
+                subtree: !0
+            })
+        }))
+    }
+
+    async function l(e) {
+        try {
+            const [l, i] = await Promise.all([n(e.uploadBtnSelector), n(e.thumbnailContainerSelector)]),
+                c = document.getElementById(e.galleryContainerId),
+                s = document.getElementById(e.titleElementId);
+            console.log(`Successfully initialized ${e.name}:`, {
+                uploadBtn: l,
+                thumbnailContainer: i,
+                galleryContainer: c,
+                titleElement: s
             });
+            
+            l.addEventListener("click", (() => {
+                showImageSourceDialog(t[e.name], i, c, s)
+            }));
+            
+            i.addEventListener("click", (function(n) {
+                if (n.target.classList.contains("thumbnail-remove")) {
+                    const l = n.target.getAttribute("data-index");
+                    t[e.name][l] && (URL.revokeObjectURL(t[e.name][l].originalUrl), URL.revokeObjectURL(t[e.name][l].thumbnailUrl), URL.revokeObjectURL(t[e.name][l].galerieUrl));
+                    t[e.name].splice(l, 1);
+                    a(t[e.name], i);
+                    d(t[e.name], c, s)
+                }
+            }));
+            
+            d(t[e.name], c, s)
+        } catch (t) {
+            console.error(`Error initializing ${e.name}:`, t)
+        }
+    }
 
-            // Event Delegation für Löschen von Thumbnails
-            thumbnailContainer.addEventListener('click', function (e) {
-                if (e.target.classList.contains('thumbnail-remove')) {
-                    const index = e.target.getAttribute('data-index');
+    function showImageSourceDialog(imageArray, thumbnailContainer, galleryContainer, titleElement) {
+        if (void 0 !== window.orientation || -1 !== navigator.userAgent.indexOf("IEMobile")) {
+            const overlay = document.createElement("div");
+            overlay.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.7);
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                z-index: 1000;
+            `;
 
-                    // URLs freigeben
-                    if (roomImages[room.name][index]) {
-                        URL.revokeObjectURL(roomImages[room.name][index].originalUrl);
-                        URL.revokeObjectURL(roomImages[room.name][index].thumbnailUrl);
-                        URL.revokeObjectURL(roomImages[room.name][index].galerieUrl);
-                    }
+            const dialog = document.createElement("div");
+            dialog.style.cssText = `
+                background: white;
+                padding: 20px;
+                border-radius: 10px;
+                text-align: center;
+            `;
 
-                    roomImages[room.name].splice(index, 1);
-                    updateThumbnails(roomImages[room.name], thumbnailContainer);
-                    updateGalerie(roomImages[room.name], galleryContainer, titleElement);
+            const title = document.createElement("h3");
+            title.textContent = "Bildquelle wählen";
+            dialog.appendChild(title);
+
+            const cameraButton = document.createElement("button");
+            cameraButton.textContent = "📸 Kamera verwenden";
+            cameraButton.style.cssText = `
+                margin: 10px;
+                padding: 10px 20px;
+                background-color: #4CAF50;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            `;
+
+            const galleryButton = document.createElement("button");
+            galleryButton.textContent = "🖼️ Aus Galerie wählen";
+            galleryButton.style.cssText = `
+                margin: 10px;
+                padding: 10px 20px;
+                background-color: #2196F3;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            `;
+
+            const cancelButton = document.createElement("button");
+            cancelButton.textContent = "Abbrechen";
+            cancelButton.style.cssText = `
+                margin: 10px;
+                padding: 10px 20px;
+                background-color: #f44336;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            `;
+
+            cameraButton.addEventListener("click", async () => {
+                document.body.removeChild(overlay);
+                
+                // Verfügbare Kameras ermitteln
+                const cameras = await getAvailableCameras();
+                
+                if (cameras.length === 0) {
+                    alert('Keine Kameras gefunden!');
+                    return;
+                }
+                
+                if (cameras.length === 1) {
+                    // Nur eine Kamera verfügbar
+                    startCameraWithDeviceId(cameras[0].deviceId, imageArray, thumbnailContainer, galleryContainer, titleElement);
+                } else {
+                    // Mehrere Kameras - Auswahl anzeigen
+                    showCameraSelectionDialog(cameras, (deviceId) => {
+                        startCameraWithDeviceId(deviceId, imageArray, thumbnailContainer, galleryContainer, titleElement);
+                    });
                 }
             });
 
-            // Initiale Galerie aktualisieren
-            updateGalerie(roomImages[room.name], galleryContainer, titleElement);
+            galleryButton.addEventListener("click", () => {
+                document.body.removeChild(overlay);
+                selectFromGallery(imageArray, thumbnailContainer, galleryContainer, titleElement);
+            });
 
-        } catch (error) {
-            console.error(`Error initializing ${room.name}:`, error);
-        }
-    }
+            cancelButton.addEventListener("click", () => {
+                document.body.removeChild(overlay);
+            });
 
-    // Dialog zur Auswahl der Bildquelle anzeigen
-    function showImageSourceDialog(bilderArray, thumbnailContainer, galleryContainer, titleElement) {
-        // Nur auf mobilen Geräten den Dialog anzeigen
-        if (isMobileDevice()) {
-            const dialog = document.createElement('div');
-            dialog.style.position = 'fixed';
-            dialog.style.top = '0';
-            dialog.style.left = '0';
-            dialog.style.width = '100%';
-            dialog.style.height = '100%';
-            dialog.style.backgroundColor = 'rgba(0,0,0,0.7)';
-            dialog.style.display = 'flex';
-            dialog.style.flexDirection = 'column';
-            dialog.style.justifyContent = 'center';
-            dialog.style.alignItems = 'center';
-            dialog.style.zIndex = '1000';
-            
-            const dialogContent = document.createElement('div');
-            dialogContent.style.backgroundColor = 'white';
-            dialogContent.style.padding = '20px';
-            dialogContent.style.borderRadius = '10px';
-            dialogContent.style.textAlign = 'center';
-            
-            const title = document.createElement('h3');
-            title.textContent = 'Bildquelle wählen';
-            dialogContent.appendChild(title);
-            
-            const cameraBtn = document.createElement('button');
-            cameraBtn.textContent = 'Kamera verwenden';
-            cameraBtn.style.margin = '10px';
-            cameraBtn.style.padding = '10px 20px';
-            cameraBtn.style.backgroundColor = '#4CAF50';
-            cameraBtn.style.color = 'white';
-            cameraBtn.style.border = 'none';
-            cameraBtn.style.borderRadius = '5px';
-            cameraBtn.style.cursor = 'pointer';
-            
-            const galleryBtn = document.createElement('button');
-            galleryBtn.textContent = 'Aus Galerie wählen';
-            galleryBtn.style.margin = '10px';
-            galleryBtn.style.padding = '10px 20px';
-            galleryBtn.style.backgroundColor = '#2196F3';
-            galleryBtn.style.color = 'white';
-            galleryBtn.style.border = 'none';
-            galleryBtn.style.borderRadius = '5px';
-            galleryBtn.style.cursor = 'pointer';
-            
-            const cancelBtn = document.createElement('button');
-            cancelBtn.textContent = 'Abbrechen';
-            cancelBtn.style.margin = '10px';
-            cancelBtn.style.padding = '10px 20px';
-            cancelBtn.style.backgroundColor = '#f44336';
-            cancelBtn.style.color = 'white';
-            cancelBtn.style.border = 'none';
-            cancelBtn.style.borderRadius = '5px';
-            cancelBtn.style.cursor = 'pointer';
-            
-            cameraBtn.addEventListener('click', () => {
-                document.body.removeChild(dialog);
-                handleCameraImage(bilderArray, thumbnailContainer, galleryContainer, titleElement);
-            });
-            
-            galleryBtn.addEventListener('click', () => {
-                document.body.removeChild(dialog);
-                handleImageUpload(bilderArray, thumbnailContainer, galleryContainer, titleElement);
-            });
-            
-            cancelBtn.addEventListener('click', () => {
-                document.body.removeChild(dialog);
-            });
-            
-            dialogContent.appendChild(cameraBtn);
-            dialogContent.appendChild(galleryBtn);
-            dialogContent.appendChild(cancelBtn);
-            dialog.appendChild(dialogContent);
-            document.body.appendChild(dialog);
+            dialog.appendChild(cameraButton);
+            dialog.appendChild(galleryButton);
+            dialog.appendChild(cancelButton);
+            overlay.appendChild(dialog);
+            document.body.appendChild(overlay);
         } else {
-            // Auf Desktop direkt den Dateiauswahldialog öffnen
-            handleImageUpload(bilderArray, thumbnailContainer, galleryContainer, titleElement);
+            selectFromGallery(imageArray, thumbnailContainer, galleryContainer, titleElement);
         }
     }
 
-    // Funktion zur Erkennung mobiler Geräte
-    function isMobileDevice() {
-        return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
-    }
-
-    // Kamera-Funktion
-    function handleCameraImage(bilderArray, thumbnailContainer, galleryContainer, titleElement) {
+    function startCameraWithDeviceId(deviceId, imageArray, thumbnailContainer, galleryContainer, titleElement) {
         if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-            navigator.mediaDevices.getUserMedia({ video: true })
+            const constraints = {
+                video: {
+                    deviceId: deviceId ? { exact: deviceId } : undefined,
+                    width: { ideal: 1920 },
+                    height: { ideal: 1080 }
+                }
+            };
+
+            navigator.mediaDevices.getUserMedia(constraints)
                 .then(function(stream) {
-                    // Video-Element erstellen
-                    const video = document.createElement('video');
-                    video.style.position = 'fixed';
-                    video.style.top = '0';
-                    video.style.left = '0';
-                    video.style.width = '100%';
-                    video.style.height = '100%';
-                    video.style.zIndex = '1000';
-                    video.style.backgroundColor = 'black';
+                    const video = document.createElement("video");
+                    video.style.cssText = `
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        z-index: 1000;
+                        background-color: black;
+                        object-fit: cover;
+                    `;
                     video.srcObject = stream;
                     video.play();
-                    
-                    // Kontroll-Elemente erstellen
-                    const controls = document.createElement('div');
-                    controls.style.position = 'fixed';
-                    controls.style.bottom = '20px';
-                    controls.style.left = '0';
-                    controls.style.width = '100%';
-                    controls.style.display = 'flex';
-                    controls.style.justifyContent = 'center';
-                    controls.style.zIndex = '1001';
-                    
-                    const captureBtn = document.createElement('button');
-                    captureBtn.textContent = 'Foto aufnehmen';
-                    captureBtn.style.padding = '15px 30px';
-                    captureBtn.style.backgroundColor = '#4CAF50';
-                    captureBtn.style.color = 'white';
-                    captureBtn.style.border = 'none';
-                    captureBtn.style.borderRadius = '5px';
-                    captureBtn.style.margin = '0 10px';
-                    captureBtn.style.cursor = 'pointer';
-                    
-                    const cancelBtn = document.createElement('button');
-                    cancelBtn.textContent = 'Abbrechen';
-                    cancelBtn.style.padding = '15px 30px';
-                    cancelBtn.style.backgroundColor = '#f44336';
-                    cancelBtn.style.color = 'white';
-                    cancelBtn.style.border = 'none';
-                    cancelBtn.style.borderRadius = '5px';
-                    cancelBtn.style.margin = '0 10px';
-                    cancelBtn.style.cursor = 'pointer';
-                    
-                    captureBtn.addEventListener('click', function() {
-                        // Canvas erstellen um das Bild aufzunehmen
-                        const canvas = document.createElement('canvas');
+
+                    const controls = document.createElement("div");
+                    controls.style.cssText = `
+                        position: fixed;
+                        bottom: 20px;
+                        left: 0;
+                        width: 100%;
+                        display: flex;
+                        justify-content: center;
+                        z-index: 1001;
+                    `;
+
+                    const captureButton = document.createElement("button");
+                    captureButton.textContent = "📷 Foto aufnehmen";
+                    captureButton.style.cssText = `
+                        padding: 15px 30px;
+                        background: linear-gradient(135deg, #4CAF50, #45a049);
+                        color: white;
+                        border: none;
+                        border-radius: 25px;
+                        margin: 0 10px;
+                        cursor: pointer;
+                        font-size: 1.1rem;
+                        box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+                    `;
+
+                    const cancelCameraButton = document.createElement("button");
+                    cancelCameraButton.textContent = "❌ Abbrechen";
+                    cancelCameraButton.style.cssText = `
+                        padding: 15px 30px;
+                        background: linear-gradient(135deg, #f44336, #d32f2f);
+                        color: white;
+                        border: none;
+                        border-radius: 25px;
+                        margin: 0 10px;
+                        cursor: pointer;
+                        font-size: 1.1rem;
+                        box-shadow: 0 4px 15px rgba(244, 67, 54, 0.3);
+                    `;
+
+                    captureButton.addEventListener("click", function() {
+                        const canvas = document.createElement("canvas");
                         canvas.width = video.videoWidth;
                         canvas.height = video.videoHeight;
-                        const ctx = canvas.getContext('2d');
-                        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                        canvas.getContext("2d").drawImage(video, 0, 0, canvas.width, canvas.height);
                         
-                        // Stream stoppen
                         stream.getTracks().forEach(track => track.stop());
-                        
-                        // Elemente entfernen
                         document.body.removeChild(video);
                         document.body.removeChild(controls);
                         
-                        // Bild verarbeiten
                         canvas.toBlob(async function(blob) {
                             try {
-                                const file = new File([blob], 'camera-photo.jpg', { type: 'image/jpeg' });
-                                await processImageFile(file, bilderArray, thumbnailContainer, galleryContainer, titleElement);
+                                const file = new File([blob], "camera-photo.jpg", { type: "image/jpeg" });
+                                await processImage(file, imageArray, thumbnailContainer, galleryContainer, titleElement);
                             } catch (error) {
-                                console.error('Fehler beim Verarbeiten des Kamerabildes:', error);
+                                console.error("Fehler beim Verarbeiten des Kamerabildes:", error);
                             }
-                        }, 'image/jpeg', 0.9);
+                        }, "image/jpeg", 0.9);
                     });
-                    
-                    cancelBtn.addEventListener('click', function() {
-                        // Stream stoppen und Elemente entfernen
+
+                    cancelCameraButton.addEventListener("click", function() {
                         stream.getTracks().forEach(track => track.stop());
                         document.body.removeChild(video);
                         document.body.removeChild(controls);
                     });
-                    
-                    controls.appendChild(captureBtn);
-                    controls.appendChild(cancelBtn);
+
+                    controls.appendChild(captureButton);
+                    controls.appendChild(cancelCameraButton);
                     document.body.appendChild(video);
                     document.body.appendChild(controls);
                 })
                 .catch(function(error) {
-                    console.error('Kamera konnte nicht gestartet werden:', error);
-                    // Fallback zum normalen Upload
-                    handleImageUpload(bilderArray, thumbnailContainer, galleryContainer, titleElement);
+                    console.error("Kamera konnte nicht gestartet werden:", error);
+                    selectFromGallery(imageArray, thumbnailContainer, galleryContainer, titleElement);
                 });
         } else {
-            // Kamera-API nicht verfügbar, Fallback zum normalen Upload
-            handleImageUpload(bilderArray, thumbnailContainer, galleryContainer, titleElement);
+            selectFromGallery(imageArray, thumbnailContainer, galleryContainer, titleElement);
         }
     }
 
-    // Zentrale Upload-Funktion (für Galerie)
-    function handleImageUpload(bilderArray, thumbnailContainer, galleryContainer, titleElement) {
-        const input = document.createElement('input');
-        input.type = 'file';
-        input.accept = 'image/*';
+    function selectFromGallery(imageArray, thumbnailContainer, galleryContainer, titleElement) {
+        const input = document.createElement("input");
+        input.type = "file";
+        input.accept = "image/*";
         input.multiple = true;
-
-        input.onchange = async function (e) {
-            const files = e.target.files;
+        
+        input.onchange = async function(event) {
+            const files = event.target.files;
             if (files.length > 0) {
                 for (const file of Array.from(files)) {
                     try {
-                        await processImageFile(file, bilderArray, thumbnailContainer, galleryContainer, titleElement);
+                        await processImage(file, imageArray, thumbnailContainer, galleryContainer, titleElement);
                     } catch (error) {
-                        console.error('Fehler beim Verarbeiten des Bildes:', error);
+                        console.error("Fehler beim Verarbeiten des Bildes:", error);
                     }
                 }
             }
         };
-
+        
         input.click();
     }
 
-    // Funktion zum Verarbeiten einer Bilddatei (wiederverwendbar für Kamera und Upload)
-    async function processImageFile(file, bilderArray, thumbnailContainer, galleryContainer, titleElement) {
-        const originalImage = await loadImage(file);
-
-        // Originalbild (max 3500x3500)
-        const resizedBlob = await resizeImage(originalImage, 3500, 3500);
-        const resizedUrl = URL.createObjectURL(resizedBlob);
-
-        // Thumbnail (75x75)
-        const thumbnailBlob = await resizeImage(originalImage, 75, 75);
+    async function processImage(file, imageArray, thumbnailContainer, galleryContainer, titleElement) {
+        const img = await loadImage(file);
+        const originalBlob = await resizeImage(img, 3500, 3500);
+        const originalUrl = URL.createObjectURL(originalBlob);
+        const thumbnailBlob = await resizeImage(img, 75, 75);
         const thumbnailUrl = URL.createObjectURL(thumbnailBlob);
-
-        // Galeriebild (1000x1000)
-        const galerieBlob = await resizeImage(originalImage, 1000, 1000);
-        const galerieUrl = URL.createObjectURL(galerieBlob);
-
-        const bildData = {
-            originalUrl: resizedUrl,
+        const galleryBlob = await resizeImage(img, 1000, 1000);
+        const galleryUrl = URL.createObjectURL(galleryBlob);
+        
+        const imageData = {
+            originalUrl: originalUrl,
             thumbnailUrl: thumbnailUrl,
-            galerieUrl: galerieUrl
+            galerieUrl: galleryUrl
         };
-
-        bilderArray.push(bildData);
-        updateThumbnails(bilderArray, thumbnailContainer);
-        updateGalerie(bilderArray, galleryContainer, titleElement);
+        
+        imageArray.push(imageData);
+        updateThumbnails(imageArray, thumbnailContainer);
+        updateGallery(imageArray, galleryContainer, titleElement);
     }
 
-    // Funktion zum Aktualisieren der Sichtbarkeit der Titel
-    function updateTitleVisibility(container, titleElement) {
-        if (!container || !titleElement) return;
-
-        if (container.children.length > 0) {
-            titleElement.style.display = 'block';
-            titleElement.style.animation = '0.3s ease-in-out fadeIn';
-        } else {
-            titleElement.style.display = 'none';
-        }
-    }
-
-    // Funktion zum Resizen von Bildern
-    function resizeImage(image, maxWidth, maxHeight, quality = 0.7) {
-        return new Promise((resolve) => {
-            const canvas = document.createElement('canvas');
-            let width = image.width;
-            let height = image.height;
-
-            if (width > maxWidth || height > maxHeight) {
-                const ratio = Math.min(maxWidth / width, maxHeight / height);
-                width = Math.floor(width * ratio);
-                height = Math.floor(height * ratio);
-            }
-
-            canvas.width = width;
-            canvas.height = height;
-
-            const ctx = canvas.getContext('2d');
-            ctx.drawImage(image, 0, 0, width, height);
-
-            canvas.toBlob((blob) => {
-                resolve(blob);
-            }, 'image/jpeg', quality);
-        });
-    }
-
-    // Hilfsfunktion zum Laden eines Bildes
     function loadImage(file) {
         return new Promise((resolve, reject) => {
             const img = new Image();
             const url = URL.createObjectURL(file);
-
             img.onload = () => {
                 URL.revokeObjectURL(url);
                 resolve(img);
             };
-
             img.onerror = () => {
                 URL.revokeObjectURL(url);
-                reject(new Error('Bild konnte nicht geladen werden'));
+                reject(new Error("Bild konnte nicht geladen werden"));
             };
-
             img.src = url;
         });
     }
 
-    // Thumbnails aktualisieren
-    function updateThumbnails(bilderArray, container) {
+    function resizeImage(img, maxWidth, maxHeight, quality = 0.7) {
+        return new Promise(resolve => {
+            const canvas = document.createElement("canvas");
+            let { width, height } = img;
+            
+            if (width > maxWidth || height > maxHeight) {
+                const scale = Math.min(maxWidth / width, maxHeight / height);
+                width = Math.floor(width * scale);
+                height = Math.floor(height * scale);
+            }
+            
+            canvas.width = width;
+            canvas.height = height;
+            canvas.getContext("2d").drawImage(img, 0, 0, width, height);
+            canvas.toBlob(blob => resolve(blob), "image/jpeg", quality);
+        });
+    }
+
+    function updateThumbnails(imageArray, container) {
         if (!container) return;
-
-        container.innerHTML = '';
-
-        bilderArray.forEach((bild, index) => {
-            const thumb = document.createElement('div');
-            thumb.className = 'thumbnail';
-            thumb.innerHTML = `
-                <img src="${bild.thumbnailUrl}" alt="Foto" style="width:75px; height:75px; object-fit:cover;">
+        
+        container.innerHTML = "";
+        imageArray.forEach((imageData, index) => {
+            const thumbnail = document.createElement("div");
+            thumbnail.className = "thumbnail";
+            thumbnail.innerHTML = `
+                <img src="${imageData.thumbnailUrl}" alt="Foto" style="width:75px; height:75px; object-fit:cover;">
                 <button class="thumbnail-remove" data-index="${index}">×</button>
             `;
-            container.appendChild(thumb);
+            container.appendChild(thumbnail);
         });
     }
 
-    // Galerie aktualisieren
-    function updateGalerie(bilderArray, container, titleElement) {
+    function updateGallery(imageArray, container, titleElement) {
         if (!container || !titleElement) return;
-
-        container.innerHTML = '';
-
-        // Den Raumnamen aus dem Container ableiten (z. B. "kueche-galerie" → "kueche")
-        const roomName = container.id.replace('-galerie', '');
-
-        bilderArray.forEach((bild, index) => {
-            const bildElement = document.createElement('div');
-            bildElement.className = 'galerie-bild';
-            bildElement.style.marginBottom = '20px';
-            bildElement.innerHTML = `
-                <div style="margin-bottom: 5px;">${roomName.charAt(0).toUpperCase() + roomName.slice(1)} – Bild ${index + 1}</div>
-                <img src="${bild.galerieUrl}" alt="Foto" style="max-width:1000px;">
+        
+        container.innerHTML = "";
+        const categoryName = container.id.replace("-galerie", "");
+        
+        imageArray.forEach((imageData, index) => {
+            const galleryImage = document.createElement("div");
+            galleryImage.className = "galerie-bild";
+            galleryImage.style.marginBottom = "20px";
+            galleryImage.innerHTML = `
+                <div style="margin-bottom: 5px;">${categoryName.charAt(0).toUpperCase() + categoryName.slice(1)} – Bild ${index + 1}</div>
+                <img src="${imageData.galerieUrl}" alt="Foto" style="max-width:1000px;">
             `;
-            container.appendChild(bildElement);
+            container.appendChild(galleryImage);
         });
-
-        updateTitleVisibility(container, titleElement);
+        
+        // Titel-Element Sichtbarkeit
+        if (container && titleElement) {
+            if (container.children.length > 0) {
+                titleElement.style.display = "block";
+                titleElement.style.animation = "0.3s ease-in-out fadeIn";
+            } else {
+                titleElement.style.display = "none";
+            }
+        }
     }
-    // Alle Räume initialisieren
-    roomConfigs.forEach(room => {
-        initializeRoom(room);
+
+    // Initialisierung
+    e.forEach(category => {
+        t[category.name] = [];
     });
-});
+    
+    e.forEach(category => {
+        l(category);
+    });
+}));
