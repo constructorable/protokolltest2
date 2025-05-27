@@ -11,11 +11,12 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             const msg = document.createElement('div');
             msg.textContent = message;
-            msg.style.padding = '20px 30px 20px 20px'; // Rechts mehr Platz für X
+            msg.style.padding = '58px 60px 60px 56px';
+            msg.style.fontSize = '1.5rem';
             feedback.appendChild(msg);
         }
 
-        feedback.style.backgroundColor = isSuccess ? 'rgb(252, 254, 255)' : '#F44336';
+        feedback.style.backgroundColor = isSuccess ? '#466c9c' : '#F44336';
 
         // Stile für zentrierte Positionierung
         feedback.style.position = 'fixed';
@@ -24,11 +25,11 @@ document.addEventListener('DOMContentLoaded', () => {
         feedback.style.transform = 'translate(-50%, -50%)';
         feedback.style.zIndex = '1000';
         feedback.style.borderRadius = '5px';
-        feedback.style.color = 'rgb(45, 45, 45)';
+        feedback.style.color = 'rgb(255, 255, 255)';
         feedback.style.textAlign = 'center';
-        feedback.style.boxShadow = '0 4px 8px rgba(0,0,0,0.2)';
-        feedback.style.maxWidth = '80%';
-        feedback.style.minWidth = '300px';
+        feedback.style.boxShadow = '0 0 34px 1555px rgba(0,0,0,0.2)';
+        feedback.style.maxWidth = '90%';
+        feedback.style.minWidth = '500px';
         feedback.style.width = 'auto';
 
         // Animationseinstellungen
@@ -40,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Automatisches Ausblenden nach 5 Sekunden
         const timeoutId = setTimeout(() => {
             hideFeedback(feedback);
-        }, 15000);
+        }, 115000);
 
         // Timeout bei manuellem Schließen löschen
         feedback.closeBtn = feedback.querySelector('span');
@@ -195,7 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
         closeBtn.style.top = '5px';
         closeBtn.style.right = '10px';
         closeBtn.style.cursor = 'pointer';
-        closeBtn.style.fontSize = '1rem';
+        closeBtn.style.fontSize = '2rem';
         closeBtn.addEventListener('click', () => {
             hideFeedback(feedback);
         });
@@ -211,6 +212,6 @@ document.addEventListener('DOMContentLoaded', () => {
             element.style.display = 'none';
         }, 500);
     }
-
-
 });
+
+
