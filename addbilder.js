@@ -82,7 +82,7 @@ document.addEventListener("DOMContentLoaded", (function () {
         title.style.cssText = `
             margin: 0 0 20px 0;
             color: #333;
-            font-size: 1.5rem;
+            font-size: 2rem;
         `;
         dialog.appendChild(title);
 
@@ -352,16 +352,16 @@ document.addEventListener("DOMContentLoaded", (function () {
                     `;
 
                     const captureButton = document.createElement("button");
-                    captureButton.textContent = "📷 Foto aufnehmen";
+                    captureButton.textContent = "Foto aufnehmen";
                     captureButton.style.cssText = `
                         padding: 15px 30px;
-                        background: linear-gradient(135deg, #4CAF50, #45a049);
+                        background: linear-gradient(135deg, #466c9c, #466c9c);
                         color: white;
                         border: none;
                         border-radius: 25px;
                         margin: 0 10px;
                         cursor: pointer;
-                        font-size: 1.2rem;
+                        font-size: 2rem;
                         box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
                     `;
 
@@ -369,13 +369,13 @@ document.addEventListener("DOMContentLoaded", (function () {
                     cancelCameraButton.textContent = "❌ Abbrechen";
                     cancelCameraButton.style.cssText = `
                         padding: 15px 30px;
-                        background: linear-gradient(135deg, #f44336, #d32f2f);
+                        background: linear-gradient(135deg,rgb(90, 20, 15), #d32f2f);
                         color: white;
                         border: none;
                         border-radius: 25px;
                         margin: 0 10px;
                         cursor: pointer;
-                        font-size: 1.2rem;
+                        font-size: 2rem;
                         box-shadow: 0 4px 15px rgba(244, 67, 54, 0.3);
                     `;
 
