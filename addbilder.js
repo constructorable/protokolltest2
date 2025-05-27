@@ -91,7 +91,7 @@ document.addEventListener("DOMContentLoaded", (function () {
             const button = document.createElement("button");
 
             // Kamera-Label bestimmen
-            let cameraLabel = camera.label || `Kamera ${index + 1}`;
+/*             let cameraLabel = camera.label || `Kamera ${index + 1}`;
             if (cameraLabel.toLowerCase().includes('front') || cameraLabel.toLowerCase().includes('user')) {
                 cameraLabel = `Front (Selfie)`;
             } else if (cameraLabel.toLowerCase().includes('back') || cameraLabel.toLowerCase().includes('environment')) {
@@ -99,6 +99,19 @@ document.addEventListener("DOMContentLoaded", (function () {
             } else {
                 cameraLabel = `${cameraLabel}`;
             }
+ */
+
+                        let cameraLabel = camera.label || `Kamera ${index + 1}`;
+
+                if (cameraLabel.toLowerCase().includes('back') || cameraLabel.toLowerCase().includes('environment')) {cameraLabel = `Rückkamera`;}
+
+                else if (cameraLabel.toLowerCase().includes('front') || cameraLabel.toLowerCase().includes('user')) {cameraLabel = `Front (Selfie)`; }
+
+                else {cameraLabel = `${cameraLabel}`;}
+
+
+
+
 
             button.textContent = cameraLabel;
             button.style.cssText = `
