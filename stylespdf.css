@@ -2950,15 +2950,15 @@ body.pdf-export .remove-zimmer-btn {
 }
 
 .design-preview-placeholder.desktop {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #466c9c;
 }
 
 .design-preview-placeholder.pdf {
-    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    background: #466c9c;
 }
 
 .design-preview-placeholder.mobile {
-    background: linear-gradient(135deg, #ff6b6b 0%, #feca57 50%, #48dbfb 100%);
+    background: #466c9c;
 }
 
 .design-preview-placeholder::after {
@@ -3058,18 +3058,6 @@ body.pdf-export .remove-zimmer-btn {
     }
 }
 
-/* Animation für sanftes Erscheinen */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
 
 .design-profile-card {
     animation: fadeInUp 0.5s ease forwards;
@@ -3109,3 +3097,4 @@ body.pdf-export .remove-zimmer-btn {
 .suggestion-item:hover {
     background-color: #f0f0f0;
 }
+
