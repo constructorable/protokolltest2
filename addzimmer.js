@@ -1067,5 +1067,3 @@ document.addEventListener('DOMContentLoaded', function () {
         updateGalerie(count);
     }
 });
-
-
