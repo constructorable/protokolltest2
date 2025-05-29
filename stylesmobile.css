@@ -252,18 +252,6 @@ td[colspan="5"] {
 #rauchmelder-anzahl-4,
 #rauchmelder-anzahl-5,
 #rauchmelder-anzahl-6,
-.euro {
-    width: 50px;
-    text-align: center;
-    padding: 5px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 1rem;
-}
-
-.euro {
-    width: 75px !important;
-}
 
 /* Stil für die feste Bemerkungszeile */
 tr.bemerkung-row td:first-child {
@@ -1465,21 +1453,27 @@ tr.bemerkung-row:nth-child(7)>td:nth-child(4) {
     padding: 6px 14px;
     cursor: pointer;
     z-index: 1;
-    color: #c9c9c9;
+    color: #a3afb6;
     font-weight: 500;
     font-size: 1rem;
     transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     text-align: center;
     min-width: 56px;
+    background: #ededed;
 }
 
 
 
 .toggle-option.active {
-    color: #fff;
+
     border: 2px solid #253943ab;
     border-radius: 22px;
     box-shadow: 0px 3px 4px 1px #848484;
+    color: #ededf2;
+
+    border-radius: 22px;
+
+    background: #335d92;
 }
 
 
@@ -2894,10 +2888,12 @@ input.no-spin {
 #addzimmert {
     width: 100%;
     padding: 25px;
-    margin-bottom: 25px;
+    margin-bottom: 75px;
     margin-top: 10px;
-    border: 10px solid #83a3c9;
+    border: 3px solid #83a3c9;
     box-shadow: 6px 6px 7px 1px #0000004f !important;
+ 
+
 }
 
 div.table-container:nth-child(7) {
@@ -3351,3 +3347,47 @@ div.design-profile-card:nth-child(3) {
     background-color: #f0f0f0;
 }
 
+.heatwater td {
+    text-align: left !important;
+    padding: 6px 21px !important;
+    vertical-align: middle;
+    white-space: normal !important;
+
+}
+
+#heatwater>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(1)>td:nth-child(2) {
+    width: 33% !important;
+    padding: 8px 10px !important;
+}
+
+
+#heatwater>table:nth-child(1)>tbody:nth-child(1)>tr:nth-child(1)>td:nth-child(1) {
+
+    font-size: 1.2rem;
+}
+
+#heatwater>table:nth-child(1)>tbody:nth-child(1)>tr:nth-child(1)>td:nth-child(2) {
+    font-size: 1.2rem;
+}
+
+#heatwater>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(1)>td:nth-child(1) {
+    padding-top: 0 !important;
+}
+
+Element #heatwater>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(1)>td:nth-child(2) {
+    padding-top: 0 !important;
+}
+
+#wandfarbewc,
+#fussbodenwc,
+#wandfarbeflur,
+#fussbodenflur,
+#wandfarbeabstell,
+#fussbodenabstell {
+    margin-left: 2rem;
+}
+
+tr.bemerkung-row:nth-child(12)>td:nth-child(1) {
+    font-weight: 600;
+    background: #fff;
+}
