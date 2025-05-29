@@ -1,4 +1,24 @@
+
+
 document.addEventListener('DOMContentLoaded', function () {
+
+    function getAllSaves() { /* ... */ }
+    function generateAutoSaveName() { /* ... */ }
+    function saveFormData() { /* ... */ }
+    function limitAutosaves() { /* ... */ }
+
+    // Hilfsfunktion: Alle Speicherstände holen
+    function getAllSaves() {
+        try {
+            const saves = localStorage.getItem('formSaves');
+            // Sicherstellen, dass wir immer ein Objekt zurückgeben
+            return saves ? JSON.parse(saves) : {};
+        } catch (e) {
+            console.error('Fehler beim Zugriff auf localStorage:', e);
+            return {}; // Immer ein Objekt zurückgeben
+        }
+    }
+
 
     if (!window.html2canvas) {
         const script = document.createElement('script');
@@ -17,7 +37,6 @@ document.addEventListener('DOMContentLoaded', function () {
             selector: '#allgemein',
             type: 'main'
         },
-        // Einzelne Räume (werden immer gerendert, Filterung erfolgt später)
         {
             name: 'Küche',
             selector: '.room-toggle[data-room="kueche"]',
@@ -56,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function () {
             processIndividually: true
         },
 
-        // Kombinierte Rest-Sektionen inkl. nicht vorhandener Räume
+        // Kombinierte Rest-Abschnitte inkl. nicht vorhandener Räume
         {
             name: 'Restliche Informationen',
             selector: '#rest1, #regelungen, #weiterebemerkungen, .room-toggle[data-room]',
@@ -113,9 +132,25 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-    document.getElementById('screenshot').addEventListener('click', async function () {
-        const button = this;
+document.getElementById('screenshot').addEventListener('click', async function () {
+    // 1. Button-Referenz zuerst speichern
+    const button = this;
+    
+    try {
+        // Automatische Speicherung vor der PDF-Erstellung
+        const saveName = generateAutoSaveName();
+        saveFormData(saveName);
+    } catch (e) {
+        console.error('Automatische Speicherung fehlgeschlagen:', e);
+        // Kein Abbruch, nur loggen
+    }
 
+        const saveName = generateAutoSaveName();
+        saveFormData(saveName);
+
+
+
+        
         // CSS-Profile definieren
         const cssProfiles = [
             {
@@ -141,12 +176,11 @@ document.addEventListener('DOMContentLoaded', function () {
         // Design-Auswahl Modal erstellen
         const selectedProfile = await showDesignSelectionModal(cssProfiles);
 
-        if (!selectedProfile) {
-            return; // Benutzer hat abgebrochen
-        }
+    
 
         button.disabled = true;
-        button.textContent = `PDF wird mit ${selectedProfile.name} vorbereitet...`;
+        /*     button.textContent = `PDF wird mit ${selectedProfile.name} vorbereitet...`; */
+        button.textContent = `PDF wird erstellt...`;
 
         // Gewähltes CSS-Profil laden
         const pdfStyleLink = document.createElement('link');
@@ -204,7 +238,9 @@ document.addEventListener('DOMContentLoaded', function () {
         const closeButton = modal.querySelector('.pdf-modal-close');
         const progressBar = document.getElementById('pdf-progress-bar');
         const statusMessage = document.getElementById('pdf-status-message');
+        /* const statusMessage = "test2"; */
         const modalTitle = document.querySelector('.pdf-modal-title');
+        /*    const modalTitle = "test"; */
 
         progressBar.style.width = '0%';
         progressBar.textContent = '0%';
@@ -218,11 +254,22 @@ document.addEventListener('DOMContentLoaded', function () {
             modal.classList.remove('active');
             setTimeout(() => modal.style.display = 'none', 300);
 
+            // PDF-spezifisches CSS entfernen
             const pdfStyles = document.getElementById('pdf-styles');
             if (pdfStyles) {
                 pdfStyles.remove();
             }
+
+            // HIER HINZUFÜGEN: Zurück zu stylesmobile.css schalten
+            applyStyle('stylesmobile.css');
+            localStorage.setItem('currentStyle', 'stylesmobile.css');
         };
+
+        const pdfStyles = document.getElementById('pdf-styles');
+        if (pdfStyles) {
+            pdfStyles.remove();
+        }
+
         closeButton.onclick = closeModal;
 
         const startTime = Date.now();
@@ -242,12 +289,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 checkJSPDF();
             });
 
-            const phase1Text = `Sektionen werden mit ${selectedProfile.name} analysiert...`;
+            /*  const phase1Text = `Abschnitte werden mit ${selectedProfile.name} analysiert...`; */
+            const phase1Text = `Abschnitte werden ermittelt...`;
             statusMessage.textContent = phase1Text;
-            button.textContent = phase1Text;
+            /*   button.textContent = phase1Text; */
+            button.textContent = "PDF wird erstellt...";
             if (modalTitle) modalTitle.textContent = phase1Text;
 
-            // Sammle alle verfügbaren Sektionen
+            // Sammle alle verfügbaren Abschnitte
             const availableSections = [];
             let totalProgress = 0;
             const progressStep = 30 / pdfSections.length;
@@ -255,7 +304,7 @@ document.addEventListener('DOMContentLoaded', function () {
             for (const section of pdfSections) {
                 const element = section.selector ? document.querySelector(section.selector) : null;
 
-                // Spezielle Behandlung für Zimmer-Sektionen
+                // Spezielle Behandlung für Zimmer-Abschnitte
                 if (section.type === 'zimmer' && section.processIndividually) {
                     const zimmerElements = document.querySelectorAll(section.selector);
 
@@ -324,12 +373,14 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             if (availableSections.length === 0) {
-                throw new Error('Keine PDF-Sektionen gefunden');
+                throw new Error('Keine PDF-Abschnitte gefunden');
             }
 
-            const phase2Text = `${availableSections.length} Sektionen werden mit ${selectedProfile.name} erfasst...`;
+            /* const phase2Text = `${availableSections.length} Abschnitte werden mit ${selectedProfile.name} erfasst...`; */
+            const phase2Text = `Abschnitt ${availableSections.length} wird erstellt...`;
             statusMessage.textContent = phase2Text;
-            button.textContent = phase2Text;
+            /*  button.textContent = phase2Text; */
+            button.textContent = "PDF wird erstellt...";
             if (modalTitle) modalTitle.textContent = phase2Text;
 
             const { jsPDF } = window.jspdf;
@@ -362,9 +413,11 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                 }
 
-                const sectionText = `Sektion "${section.name}" wird mit ${selectedProfile.name} verarbeitet... (${i + 1}/${availableSections.length})`;
+                /* const sectionText = `Abschnitt "${section.name}" wird mit ${selectedProfile.name} verarbeitet... (${i + 1}/${availableSections.length})`; */
+                const sectionText = `Abschnitt "${section.name}" wird verarbeitet... (${i + 1}/${availableSections.length})`;
                 statusMessage.textContent = sectionText;
-                button.textContent = sectionText;
+                /*   button.textContent = sectionText; */
+                button.textContent = "PDF wird erstellt...";
                 if (modalTitle) modalTitle.textContent = sectionText;
 
                 let canvas;
@@ -557,9 +610,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 await new Promise(resolve => setTimeout(resolve, section.type === 'gallery_image' ? 200 : 100));
             }
 
-            const phase3Text = `PDF wird mit ${selectedProfile.name} finalisiert...`;
+            /*  const phase3Text = `PDF wird mit ${selectedProfile.name} finalisiert...`; */
+            const phase3Text = `PDF wird mit fertiggestellt...`;
             statusMessage.textContent = phase3Text;
-            button.textContent = phase3Text;
+            /* button.textContent = phase3Text; */
+            button.textContent = "PDF wird erstellt...";
             if (modalTitle) modalTitle.textContent = phase3Text;
 
             for (let i = 71; i <= 95; i++) {
@@ -585,12 +640,128 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             // Speichere PDF mit Zeitstempel und Profil-Name
+            /*  const now = new Date();
+             const timestamp = now.toISOString().slice(0, 19).replace(/:/g, '-'); */
+
+
+            /*  statusMessage.textContent = `PDF erfolgreich mit ${selectedProfile.name} erstellt! ${availableSections.length} Abschnitte auf ${availableSections.length} Seiten.`; */
+            statusMessage.textContent = `PDF erfolgreich erstellt!`;
+            statusMessage.classList.add('success');
+
+            const emailButton = document.createElement('button');
+            emailButton.id = 'mail';
+            emailButton.textContent = 'E-Mail erstellen';
+            emailButton.style.marginTop = '15px';
+            emailButton.style.padding = '10px 15px';
+            emailButton.style.backgroundColor = '#466c9c';
+            emailButton.style.color = 'white';
+            emailButton.style.border = 'none';
+            emailButton.style.borderRadius = '4px';
+            emailButton.style.cursor = 'pointer';
+            emailButton.style.fontSize = '1.4rem';
+
+            // Dateiname für E-Mail speichern
             const now = new Date();
             const timestamp = now.toISOString().slice(0, 19).replace(/:/g, '-');
+            const pdfFileName = `Wohnungsprotokoll_${selectedProfile.id}_${timestamp}.pdf`;
             pdf.save(`Wohnungsprotokoll_${selectedProfile.id}_${timestamp}.pdf`);
+            localStorage.setItem('lastGeneratedPdfName', pdfFileName);
 
-            statusMessage.textContent = `PDF erfolgreich mit ${selectedProfile.name} erstellt! ${availableSections.length} Sektionen auf ${availableSections.length} Seiten.`;
-            statusMessage.classList.add('success');
+            // Button zum Modal hinzufügen
+            statusMessage.insertAdjacentElement('afterend', emailButton);
+
+            // Event Listener für den Button
+            emailButton.addEventListener('click', function () {
+                closeModal(); // Schließt zuerst das PDF-Modal
+                setTimeout(() => {
+                    showEmailMenu(pdfFileName); // Öffnet dann das E-Mail-Modal
+                }, 300); // Kleine Verzögerung für den Übergang
+            });
+
+            function showEmailMenu(fileName) {
+                const validEmails = findValidEmails();
+
+                // Zuerst alle vorhandenen E-Mail-Menüs entfernen
+                closeEmailMenu();
+
+                // Overlay erstellen
+                const overlay = document.createElement('div');
+                overlay.id = 'emailMenuOverlay';
+
+                // Modal erstellen
+                const emailMenu = document.createElement('div');
+                emailMenu.id = 'emailMenu';
+                emailMenu.innerHTML = `
+        <button id="closeModal" aria-label="Schließen" style="
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: transparent;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 5px;
+        ">×</button>
+        <div style="padding: 15px;">
+            <div class="pdf-hinweis">
+                Hinweis: Bitte PDF-Datei manuell im E-Mail-Client anhängen
+            </div>
+            <h3>Gültige E-Mail-Adressen:</h3>
+            <ul>
+                ${validEmails.map(email => `<li>${email}</li>`).join('')}
+            </ul>
+            <div style="margin-top: 20px;">
+                <button id="defaultMailClient" class="button">E-Mail öffnen</button>
+                <button id="cancel" class="button">← zurück</button>
+            </div>
+        </div>
+    `;
+
+                // Elemente einfügen
+                document.body.appendChild(overlay);
+                document.body.appendChild(emailMenu);
+
+                // Event-Listener mit besserer Fehlerbehandlung
+                const setupListeners = () => {
+                    const closeModal = () => closeEmailMenu();
+
+                    const closeBtn = document.getElementById('closeModal');
+                    const mailBtn = document.getElementById('defaultMailClient');
+                    const cancelBtn = document.getElementById('cancel');
+
+                    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+                    if (mailBtn) mailBtn.addEventListener('click', () => {
+                        sendEmail(fileName, validEmails, 'default');
+                        closeModal();
+                    });
+                    if (cancelBtn) cancelBtn.addEventListener('click', closeModal);
+
+                    overlay.addEventListener('click', closeModal);
+                    emailMenu.addEventListener('click', e => e.stopPropagation());
+                };
+
+                // Listener nach kurzer Verzögerung anbringen (für dynamische Elemente)
+                setTimeout(setupListeners, 50);
+            }
+
+            // Stil für den Button hinzufügen (falls nicht bereits vorhanden)
+            if (!document.getElementById('emailButtonStyle')) {
+                const style = document.createElement('style');
+                style.id = 'emailButtonStyle';
+                style.textContent = `
+        #mail:hover {
+            background-color: #476c9c !important;
+        }
+        #mail:active {
+            background-color: #476c9c !important;
+        }
+    `;
+                document.head.appendChild(style);
+            }
+
+
+
+
 
         } catch (error) {
             console.error('Fehler:', error);
@@ -599,9 +770,163 @@ document.addEventListener('DOMContentLoaded', function () {
         } finally {
             button.disabled = false;
             button.textContent = 'PDF erstellen';
-            setTimeout(closeModal, 3000);
+            setTimeout(closeModal, 6000);
         }
+
+          button.disabled = true;
+    button.textContent = `PDF wird erstellt...`;
+
     });
+
+    // Generiert automatischen Speichernamen
+function generateAutoSaveName() {
+    try {
+        const strasse = document.getElementById('strasseeinzug')?.value.trim() || 'Protokoll';
+        const now = new Date();
+        const dateStr = now.toLocaleDateString('de-DE') || now.toISOString().slice(0, 10);
+        const timeStr = now.toLocaleTimeString('de-DE', {hour: '2-digit', minute:'2-digit'}) || 
+                       now.toTimeString().slice(0, 5);
+        
+        return `AutoSave_${strasse}_${dateStr}_${timeStr}`.replace(/[/\\?%*:|"<>]/g, '_');
+    } catch (e) {
+        console.error('Fehler bei der Namensgenerierung:', e);
+        return `AutoSave_${Date.now()}`; // Fallback
+    }
+}
+    // Speichert Formulardaten
+    function saveFormData(saveName, isAutosave = true) {
+        try {
+            const formData = {};
+
+            // Daten sammeln
+            document.querySelectorAll('input, select, textarea').forEach(element => {
+                if (element.id) {
+                    if (element.type === 'checkbox' || element.type === 'radio') {
+                        formData[element.id] = element.checked;
+                    } else if (element.type === 'select-one') {
+                        formData[element.id] = element.value;
+                    } else {
+                        formData[element.id] = element.value;
+                    }
+                }
+            });
+
+            // Radio-Buttons speichern
+            const radioGroups = {};
+            document.querySelectorAll('input[type="radio"]').forEach(radio => {
+                if (!radioGroups[radio.name]) {
+                    radioGroups[radio.name] = document.querySelector(`input[name="${radio.name}"]:checked`)?.value || '';
+                }
+            });
+            formData.radioGroups = radioGroups;
+
+            // Sicherstellen, dass allSaves immer ein Objekt ist
+            const allSaves = getAllSaves() || {}; // Fallback auf leeres Objekt
+
+            // Neuen Speicherstand hinzufügen
+            allSaves[saveName] = {
+                data: formData,
+                timestamp: new Date().toISOString(),
+                isAutosave: isAutosave
+            };
+
+            // Speichern
+            localStorage.setItem('formSaves', JSON.stringify(allSaves));
+
+            // Automatische Speicherungen begrenzen
+            if (isAutosave) {
+                limitAutosaves(allSaves);
+            }
+        } catch (e) {
+            console.error('Speicherung fehlgeschlagen:', e);
+            throw e; // Fehler weiterwerfen für bessere Debugging
+        }
+    }
+
+    // Begrenzt automatische Speicherungen auf 5
+    function limitAutosaves(allSaves) {
+        try {
+            if (!allSaves) return; // Sicherheitscheck
+
+            const autosaves = Object.entries(allSaves)
+                .filter(([name, data]) => data && data.isAutosave)
+                .sort((a, b) => new Date(b[1].timestamp) - new Date(a[1].timestamp));
+
+            if (autosaves.length > 5) {
+                autosaves.slice(5).forEach(([name]) => {
+                    if (allSaves[name]) {
+                        delete allSaves[name];
+                    }
+                });
+                localStorage.setItem('formSaves', JSON.stringify(allSaves));
+            }
+        } catch (e) {
+            console.error('Fehler beim Begrenzen der Autosaves:', e);
+        }
+    }
+
+    function showSavedStates() {
+        const saves = getAllSaves();
+
+        if (Object.keys(saves).length === 0) {
+            showMobileAlert('Keine gespeicherten Zustände gefunden!');
+            return;
+        }
+
+        let html = `
+    <div class="saved-states-container">
+        <h3>Gespeicherte Zustände:</h3>
+        <button class="close-dialog">×</button>
+        <ul class="saved-states-list">`;
+
+        // Sortieren: zuerst manuelle Speicherungen, dann automatische (neueste zuerst)
+        const sortedSaves = Object.entries(saves).sort((a, b) => {
+            if (a[1].isAutosave === b[1].isAutosave) {
+                return new Date(b[1].timestamp) - new Date(a[1].timestamp);
+            }
+            return a[1].isAutosave ? 1 : -1;
+        });
+
+        for (const [name, data] of sortedSaves) {
+            const timestamp = new Date(data.timestamp).toLocaleString();
+            const isAutosave = data.isAutosave ? ' (Automatisch)' : '';
+            html += `
+        <li class="saved-state-item ${data.isAutosave ? 'autosave' : ''}">
+            <div class="saved-state-row">
+                <span class="saved-state-name">${name}${isAutosave}</span>
+                <span class="saved-state-date">${timestamp}</span>
+                <div class="saved-state-buttons">
+                    <button class="button load-btn" data-name="${name}">Laden</button>
+                    <button class="delete-btn2" data-name="${name}">x</button>
+                </div>
+            </div>
+        </li>`;
+        }
+
+        html += '</ul></div>';
+
+        // Rest der bestehenden Funktion...
+
+        const additionalStyles = `
+<style>
+    .saved-state-item.autosave {
+        opacity: 0.9;
+        background-color: #f9f9f9;
+    }
+    
+    .saved-state-item.autosave .saved-state-name {
+        font-style: italic;
+    }
+    
+    .saved-state-item.autosave .saved-state-date {
+        color: #888;
+    }
+</style>
+`;
+
+        document.head.insertAdjacentHTML('beforeend', additionalStyles);
+
+    }
 
     // Funktion für Design-Auswahl Modal
     function showDesignSelectionModal(cssProfiles) {
@@ -657,7 +982,7 @@ document.addEventListener('DOMContentLoaded', function () {
             };
 
             closeBtn.addEventListener('click', () => closeModal());
-           /*  cancelBtn.addEventListener('click', () => closeModal()); */
+            /*  cancelBtn.addEventListener('click', () => closeModal()); */
 
             // Klick außerhalb des Modals
             modal.addEventListener('click', (e) => {
@@ -684,3 +1009,4 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 });
+
