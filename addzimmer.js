@@ -881,7 +881,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 input.value = '';
 
                 // Fokus auf neues Feld (falls leer)
-                if (!text) neueBemerkung.querySelector('.bemerkung-input').focus();
+              /*   if (!text) neueBemerkung.querySelector('.bemerkung-input').focus(); */
             }
 
             // "Löschen"-Button
@@ -1067,5 +1067,3 @@ document.addEventListener('DOMContentLoaded', function () {
         updateGalerie(count);
     }
 });
-
-
