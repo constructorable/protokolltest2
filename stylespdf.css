@@ -2867,7 +2867,7 @@ body.pdf-export .remove-zimmer-btn {
 
 .design-modal-header {
     display: flex;
-    justify-content: space-between;
+    justify-content: end;
     align-items: center;
     padding: 24px 24px 16px;
     border-bottom: 1px solid #e5e7eb;
@@ -2883,7 +2883,7 @@ body.pdf-export .remove-zimmer-btn {
 .design-modal-close {
     background: none;
     border: none;
-    font-size: 24px;
+    font-size: 40px;
     color: #6b7280;
     cursor: pointer;
     width: 32px;
@@ -3098,3 +3098,61 @@ body.pdf-export .remove-zimmer-btn {
     background-color: #f0f0f0;
 }
 
+#heatwater>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(1)>td:nth-child(2) {
+    width: 33% !important;
+    padding: 8px 10px !important;
+}
+
+
+#heatwater>table:nth-child(1)>tbody:nth-child(1)>tr:nth-child(1)>td:nth-child(1) {
+
+    font-size: 1rem !important;
+}
+
+#heatwater>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(1)>td:nth-child(2) {
+    width: 29% !important;
+
+}
+
+#heatwater>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(1)>td:nth-child(1) {
+    padding-top: 0 !important;
+}
+
+#heatwater>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(1)>td:nth-child(2) {
+    padding-top: 0 !important;
+}
+
+#heatwater>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(1)>td:nth-child(1) {
+    width: 33%;
+}
+
+#rauchmelder-anzahl-1,
+#rauchmelder-anzahl-2,
+#rauchmelder-anzahl-3,
+#rauchmelder-anzahl-4,
+#rauchmelder-anzahl-5,
+#rauchmelder-anzahl-6,
+#rauchmelder-anzahl-7,
+#rauchmelder-anzahl-8,
+#rauchmelder-anzahl-9 {
+    margin-left: 2rem;
+}
+
+
+#weiterebemerkungen>div:nth-child(1)>table:nth-child(1)>tbody:nth-child(1)>tr:nth-child(7)>td:nth-child(1) {
+    padding-top: 0 !important;
+}
+
+tr.bemerkung-row:nth-child(10)>td:nth-child(1),
+tr.bemerkung-row:nth-child(11)>td:nth-child(1),
+tr.bemerkung-row:nth-child(11)>td:nth-child(1),
+#weiterebemerkungen>div:nth-child(1)>table:nth-child(1)>tbody:nth-child(1)>tr:nth-child(7)>td:nth-child(1),
+#weiterebemerkungen>div:nth-child(1)>table:nth-child(1)>tbody:nth-child(1)>tr:nth-child(8)>td:nth-child(1),
+#weiterebemerkungen>div:nth-child(1)>table:nth-child(1)>tbody:nth-child(1)>tr:nth-child(9)>td:nth-child(1) {
+    padding-right: 0 !important;
+}
+
+div.design-profile-card:nth-child(1),
+div.design-profile-card:nth-child(3) {
+  display: none !important;
+}
