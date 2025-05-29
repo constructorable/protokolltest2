@@ -90,24 +90,13 @@ document.addEventListener("DOMContentLoaded", (function () {
         cameras.forEach((camera, index) => {
             const button = document.createElement("button");
 
-            // Kamera-Label bestimmen
-/*             let cameraLabel = camera.label || `Kamera ${index + 1}`;
-            if (cameraLabel.toLowerCase().includes('front') || cameraLabel.toLowerCase().includes('user')) {
-                cameraLabel = `Front (Selfie)`;
-            } else if (cameraLabel.toLowerCase().includes('back') || cameraLabel.toLowerCase().includes('environment')) {
-                cameraLabel = `Rückkamera`;
-            } else {
-                cameraLabel = `${cameraLabel}`;
-            }
- */
+            let cameraLabel = camera.label || `Kamera ${index + 1}`;
 
-                        let cameraLabel = camera.label || `Kamera ${index + 1}`;
+            if (cameraLabel.toLowerCase().includes('back') || cameraLabel.toLowerCase().includes('environment')) { cameraLabel = `Rückkamera`; }
 
-                if (cameraLabel.toLowerCase().includes('back') || cameraLabel.toLowerCase().includes('environment')) {cameraLabel = `Rückkamera`;}
+            else if (cameraLabel.toLowerCase().includes('front') || cameraLabel.toLowerCase().includes('user')) { cameraLabel = `Front (Selfie)`; }
 
-                else if (cameraLabel.toLowerCase().includes('front') || cameraLabel.toLowerCase().includes('user')) {cameraLabel = `Front (Selfie)`; }
-
-                else {cameraLabel = `${cameraLabel}`;}
+            else { cameraLabel = `${cameraLabel}`; }
 
 
 
@@ -247,32 +236,6 @@ document.addEventListener("DOMContentLoaded", (function () {
             title.textContent = "Bildquelle wählen";
             dialog.appendChild(title);
 
-               const cancelButton = document.createElement("button");
-            cancelButton.textContent = "x";
-            cancelButton.style.cssText = `
-            font-size: 1.4rem;
-                margin: 10px;
-                padding: 10px 20px;
-                background-color:rgb(130, 24, 16);
-                color: white;
-                border: none;
-                border-radius: 5px;
-                cursor: pointer;
-            `;
-
-                  const galleryButton = document.createElement("button");
-            galleryButton.textContent = "Aus Galerie wählen";
-            galleryButton.style.cssText = `
-            font-size: 1.4rem;
-                margin: 10px;
-                padding: 10px 20px;
-                background-color: #466c9c;
-                color: white;
-                border: none;
-                border-radius: 5px;
-                cursor: pointer;
-            `;
-
             const cameraButton = document.createElement("button");
             cameraButton.textContent = "Kamera verwenden";
             cameraButton.style.cssText = `
@@ -286,9 +249,31 @@ document.addEventListener("DOMContentLoaded", (function () {
                 cursor: pointer;
             `;
 
-      
+            const galleryButton = document.createElement("button");
+            galleryButton.textContent = "Aus Galerie wählen";
+            galleryButton.style.cssText = `
+            font-size: 1.4rem;
+                margin: 10px;
+                padding: 10px 20px;
+                background-color: #466c9c;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            `;
 
-         
+            const cancelButton = document.createElement("button");
+            cancelButton.textContent = "x";
+            cancelButton.style.cssText = `
+            font-size: 1.4rem;
+                margin: 10px;
+                padding: 10px 20px;
+                background-color:rgb(130, 24, 16);
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            `;
 
             cameraButton.addEventListener("click", async () => {
                 document.body.removeChild(overlay);
@@ -321,9 +306,9 @@ document.addEventListener("DOMContentLoaded", (function () {
                 document.body.removeChild(overlay);
             });
 
-            dialog.appendChild(cancelButton);
-            dialog.appendChild(galleryButton);
             dialog.appendChild(cameraButton);
+            dialog.appendChild(galleryButton);
+            dialog.appendChild(cancelButton);
             overlay.appendChild(dialog);
             document.body.appendChild(overlay);
         } else {
@@ -564,4 +549,5 @@ document.addEventListener("DOMContentLoaded", (function () {
         l(category);
     });
 }));
+
 
