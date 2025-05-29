@@ -212,6 +212,7 @@ document.addEventListener('DOMContentLoaded', () => {
             element.style.display = 'none';
         }, 500);
     }
-});
 
+
+});
 
