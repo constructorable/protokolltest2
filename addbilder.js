@@ -333,8 +333,8 @@ document.addEventListener("DOMContentLoaded", (function () {
                         position: fixed;
                         top: 0;
                         left: 0;
-                        width: 55%;
-                        height: 55%;
+                        width: 100%;
+                        height: 100%;
                         z-index: 1000;
                         background-color: black;
                         object-fit: cover;
@@ -347,7 +347,7 @@ document.addEventListener("DOMContentLoaded", (function () {
                         position: fixed;
                         bottom: 20px;
                         left: 0;
-                        width: 55%;
+                        width: 100%;
                         display: flex;
                         justify-content: center;
                         z-index: 1001;
@@ -398,7 +398,7 @@ document.addEventListener("DOMContentLoaded", (function () {
                             } catch (error) {
                                 console.error("Fehler beim Verarbeiten des Kamerabildes:", error);
                             }
-                        }, "image/jpeg", 0.7);
+                        }, "image/jpeg", 0.9);
                     });
 
                     cancelCameraButton.addEventListener("click", function () {
@@ -549,7 +549,4 @@ document.addEventListener("DOMContentLoaded", (function () {
         l(category);
     });
 }));
-
-
-
 
