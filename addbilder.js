@@ -321,8 +321,8 @@ document.addEventListener("DOMContentLoaded", (function () {
             const constraints = {
                 video: {
                     deviceId: deviceId ? { exact: deviceId } : undefined,
-                    width: { ideal: 1920 },
-                    height: { ideal: 1080 }
+                    width: { ideal: 192 },
+                    height: { ideal: 108 }
                 }
             };
 
