@@ -132,25 +132,25 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-document.getElementById('screenshot').addEventListener('click', async function () {
-    // 1. Button-Referenz zuerst speichern
-    const button = this;
-    
-    try {
-        // Automatische Speicherung vor der PDF-Erstellung
-        const saveName = generateAutoSaveName();
-        saveFormData(saveName);
-    } catch (e) {
-        console.error('Automatische Speicherung fehlgeschlagen:', e);
-        // Kein Abbruch, nur loggen
-    }
+    document.getElementById('screenshot').addEventListener('click', async function () {
+        // 1. Button-Referenz zuerst speichern
+        const button = this;
+
+        try {
+            // Automatische Speicherung vor der PDF-Erstellung
+            const saveName = generateAutoSaveName();
+            saveFormData(saveName);
+        } catch (e) {
+            console.error('Automatische Speicherung fehlgeschlagen:', e);
+            // Kein Abbruch, nur loggen
+        }
 
         const saveName = generateAutoSaveName();
         saveFormData(saveName);
 
 
 
-        
+
         // CSS-Profile definieren
         const cssProfiles = [
             {
@@ -176,11 +176,11 @@ document.getElementById('screenshot').addEventListener('click', async function (
         // Design-Auswahl Modal erstellen
         const selectedProfile = await showDesignSelectionModal(cssProfiles);
 
-    
+
 
         button.disabled = true;
         /*     button.textContent = `PDF wird mit ${selectedProfile.name} vorbereitet...`; */
-        button.textContent = `PDF wird erstellt...`;
+        button.textContent = `PDF erstellen`;
 
         // Gewähltes CSS-Profil laden
         const pdfStyleLink = document.createElement('link');
@@ -611,8 +611,9 @@ document.getElementById('screenshot').addEventListener('click', async function (
             }
 
             /*  const phase3Text = `PDF wird mit ${selectedProfile.name} finalisiert...`; */
-            const phase3Text = `PDF wird mit fertiggestellt...`;
-            statusMessage.textContent = phase3Text;
+            const phase3Text = ``;
+            /* statusMessage.textContent = phase3Text; */
+            statusMessage.textContent = "";
             /* button.textContent = phase3Text; */
             button.textContent = "PDF wird erstellt...";
             if (modalTitle) modalTitle.textContent = phase3Text;
@@ -650,15 +651,29 @@ document.getElementById('screenshot').addEventListener('click', async function (
 
             const emailButton = document.createElement('button');
             emailButton.id = 'mail';
-            emailButton.textContent = 'E-Mail erstellen';
+            emailButton.className = 'email-button'; // Für bessere Stil-Kontrolle
             emailButton.style.marginTop = '15px';
-            emailButton.style.padding = '10px 15px';
+            emailButton.style.padding = '10px 15px 10px 40px'; // Mehr Platz links für Icon
             emailButton.style.backgroundColor = '#466c9c';
             emailButton.style.color = 'white';
             emailButton.style.border = 'none';
             emailButton.style.borderRadius = '4px';
             emailButton.style.cursor = 'pointer';
             emailButton.style.fontSize = '1.4rem';
+            emailButton.style.position = 'relative';
+
+            // Font Awesome Icon + Text
+            emailButton.innerHTML = `
+  <i class="fas fa-envelope" style="
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.2em;
+  "></i>
+  E-Mail erstellen
+`;
+
 
             // Dateiname für E-Mail speichern
             const now = new Date();
@@ -770,29 +785,29 @@ document.getElementById('screenshot').addEventListener('click', async function (
         } finally {
             button.disabled = false;
             button.textContent = 'PDF erstellen';
-            setTimeout(closeModal, 6000);
+            setTimeout(closeModal, 600000);
         }
 
-          button.disabled = true;
-    button.textContent = `PDF wird erstellt...`;
+        button.disabled = true;
+        button.textContent = `PDF erstellen`;
 
     });
 
     // Generiert automatischen Speichernamen
-function generateAutoSaveName() {
-    try {
-        const strasse = document.getElementById('strasseeinzug')?.value.trim() || 'Protokoll';
-        const now = new Date();
-        const dateStr = now.toLocaleDateString('de-DE') || now.toISOString().slice(0, 10);
-        const timeStr = now.toLocaleTimeString('de-DE', {hour: '2-digit', minute:'2-digit'}) || 
-                       now.toTimeString().slice(0, 5);
-        
-        return `AutoSave_${strasse}_${dateStr}_${timeStr}`.replace(/[/\\?%*:|"<>]/g, '_');
-    } catch (e) {
-        console.error('Fehler bei der Namensgenerierung:', e);
-        return `AutoSave_${Date.now()}`; // Fallback
+    function generateAutoSaveName() {
+        try {
+            const strasse = document.getElementById('strasseeinzug')?.value.trim() || 'Protokoll';
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('de-DE') || now.toISOString().slice(0, 10);
+            const timeStr = now.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' }) ||
+                now.toTimeString().slice(0, 5);
+
+            return `AutoSave_${strasse}_${dateStr}_${timeStr}`.replace(/[/\\?%*:|"<>]/g, '_');
+        } catch (e) {
+            console.error('Fehler bei der Namensgenerierung:', e);
+            return `AutoSave_${Date.now()}`; // Fallback
+        }
     }
-}
     // Speichert Formulardaten
     function saveFormData(saveName, isAutosave = true) {
         try {
@@ -1009,5 +1024,4 @@ function generateAutoSaveName() {
         });
     }
 });
-
 
