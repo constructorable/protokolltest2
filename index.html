@@ -27,7 +27,7 @@
     <script src="screenshot.js"></script>
     <script src="importexport.js"></script>
     <script src="saveloadlocal.js"></script>
-    <!--     <script src="loadhint.js"></script> -->
+    <script src="loadhint.js"></script>
     <script src="email.js"></script>
 </head>
 
@@ -36,37 +36,57 @@
 
         <div class="sticky">
 
+            <div class="menu">
+                <button id="toggleButtons" class="button">☰ Menü</button>
 
+                <div class="develop" style="display:none;">
 
+                    <button id="savelocal" class="button">Zwischenspeichern</button>
+                    
+                    <button id="screenshot" class="button"><i class="fas fa-file-pdf"></i>PDF erstellen</button>
+                    <button id="mail" class="button"><i class="fas fa-envelope"></i>E-Mail öffnen</button>
 
-            <button id="stylechange" class="button">Ansicht wechseln</button>
-            <button id="savelocal" class="button">Zwischenspeichern</button>
-            <button id="loadlocal" class="button">Laden</button>
+                    <button id="toggleAdvanced" class="button">Erweiterte Optionen ▼</button>
 
-
-            <button id="screenshot" class="button">PDF erstellen</button>
-            <button id="mail" class="button">E-Mail öffnen</button>
-
-            <button id="toggleButtons" class="button">weitere Optionen anzeigen ☰</button>
-
-            <div class="develop" style="display:none;">
-
-                <button id="delete" class="button">alle Eingaben löschen</button>
-                <button id="export" class="button">Export</button>
-                <button id="import" class="button">Import</button>
+                    <div class="advanced-options" style="display:none;">
+                        <button id="stylechange" class="button">Ansicht wechseln</button>
+                        <button id="loadlocal" class="button">Laden</button>
+                        <button id="delete" class="button">Alle Eingaben löschen</button>
+                        <button id="export" class="button">Export</button>
+                        <button id="import" class="button">Import</button>
+                    </div>
+                </div>
             </div>
 
             <script>
+                // Hauptmenü ein-/ausblenden
                 document.getElementById('toggleButtons').addEventListener('click', function () {
                     const devDiv = document.querySelector('.develop');
                     const toggleBtn = document.getElementById('toggleButtons');
 
                     if (devDiv.style.display === 'none') {
                         devDiv.style.display = 'block';
-                        toggleBtn.textContent = 'Weitere Optionen ausblenden ☰';
+                        toggleBtn.textContent = 'Menü ausblenden ☰';
                     } else {
                         devDiv.style.display = 'none';
-                        toggleBtn.textContent = 'Weitere Optionen anzeigen ☰';
+                        toggleBtn.textContent = '☰ Menü anzeigen';
+                        // Erweiterte Optionen ebenfalls ausblenden, wenn Hauptmenü geschlossen wird
+                        document.querySelector('.advanced-options').style.display = 'none';
+                        document.getElementById('toggleAdvanced').textContent = '☰ weitere Menüpunkte';
+                    }
+                });
+
+                // Erweiterte Optionen ein-/ausblenden
+                document.getElementById('toggleAdvanced').addEventListener('click', function () {
+                    const advancedDiv = document.querySelector('.advanced-options');
+                    const toggleAdvBtn = document.getElementById('toggleAdvanced');
+
+                    if (advancedDiv.style.display === 'none') {
+                        advancedDiv.style.display = 'block';
+                        toggleAdvBtn.textContent = ' ☰ weitere Menüpunkte ▲';
+                    } else {
+                        advancedDiv.style.display = 'none';
+                        toggleAdvBtn.textContent = ' ☰ weitere Menüpunkte ▼';
                     }
                 });
             </script>
@@ -2199,12 +2219,12 @@
                             </tbody>
                             <tbody>
                                 <tr>
-                                    <th style="background-color: #8da5b2">Bereich</th>
-                                    <th style="background-color: #8da5b2">in Ordnung</th>
-                                    <th style="background-color: #8da5b2">geringe Gebrauchs - spuren</th>
-                                    <th style="background-color: #8da5b2">repa.bedürftig</th>
-                                    <th style="background-color: #8da5b2">Reparatur durch</th>
-                                    <th style="background-color: #8da5b2">nicht vorhanden</th>
+                                    <th style="background-color: #80a0c6">Bereich</th>
+                                    <th style="background-color: #80a0c6">in Ordnung</th>
+                                    <th style="background-color: #80a0c6">geringe Gebrauchs - spuren</th>
+                                    <th style="background-color: #80a0c6">repa.bedürftig</th>
+                                    <th style="background-color: #80a0c6">Reparatur durch</th>
+                                    <th style="background-color: #80a0c6">nicht vorhanden</th>
                                 </tr>
                                 <tr>
                                     <td>Balkon/Terrasse/Loggia</td>
@@ -2373,10 +2393,10 @@
 
                         <tr>
                             <td>...wird diese Verpflichtung durch Zahlung eines Pauschalbetrages von € abgegolten →</td>
-                          <td><input type="number" id="687" class="euro">
-                            <!-- <span class="euro-input-container"><span>€</span> -->
-                        </td>
-                          <!--   <td>
+                            <td><input type="number" id="687" class="euro">
+                                <!-- <span class="euro-input-container"><span>€</span> -->
+                            </td>
+                            <!--   <td>
                                 <span class="euro-input-container">
                                     <input type="number" id="687" class="euro">
                                 </span>
@@ -2666,3 +2686,5 @@
 </body>
 
 </html>
+
+
