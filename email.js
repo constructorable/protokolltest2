@@ -269,3 +269,4 @@ function closeEmailMenu() {
     if (emailMenu) emailMenu.remove();
     if (overlay) overlay.remove();
 }
+
