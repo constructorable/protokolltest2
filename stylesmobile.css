@@ -18,7 +18,7 @@ html {
     max-width: 1440px;
     margin: 0 auto;
     padding: 20px 5px 20px 5px;
-    margin-top: 5rem;
+    margin-top: 0rem;
 }
 
 .table-container {
@@ -58,7 +58,7 @@ th {
     background-color: #335d92;
     color: white;
     font-weight: 600;
-    border-color: #506873;
+    border-color: #80a0c6;
 }
 
 .column-bauteil {
@@ -2892,7 +2892,7 @@ input.no-spin {
     margin-top: 10px;
     border: 3px solid #83a3c9;
     box-shadow: 6px 6px 7px 1px #0000004f !important;
- 
+
 
 }
 
@@ -3390,5 +3390,133 @@ Element #heatwater>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(1)>td:nth-
 tr.bemerkung-row:nth-child(12)>td:nth-child(1) {
     font-weight: 600;
     background: #fff;
+}
+
+#pdf-modal-overlay,
+#emailMenuOverlay {
+    backdrop-filter: blur(5px) !important;
+}
+
+
+#closeModal {
+    font-size: 1.5rem !important;
+    padding: 0px !important;
+    color: #888 !important;
+}
+
+.fa-envelope {
+
+    left: 3px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    font-size: 1.5rem !important;
+    margin-left: 10px !important;
+}
+
+.email-button {
+    padding: 10px 25px 10px 61px !important;
+
+}
+
+#screenshot {
+    background-color: #8c2323;
+}
+
+
+.fa-file-pdf {
+    margin-right: 10px;
+}
+
+.fa-envelope {
+    margin-left: 5px !important;
+    margin-right: 10px !important;
+    font-size: 1rem !important;
+    transform: translateY(-1%) !important;
+
+}
+
+#mail {
+    background-color: rgb(22, 113, 19);
+}
+
+
+
+/* Basis-Styling für die sticky-Leiste */
+.sticky {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: #fffffffe;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+
+/* Entwickler-Menü */
+.develop {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+/* Erweiterte Optionen */
+.advanced-options {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 5px;
+}
+
+/* Responsive Anpassungen */
+@media (max-width: 768px) {
+    .sticky {
+        position: fixed;
+        /* Statt sticky für bessere mobile Kontrolle */
+        top: 0;
+        left: 0;
+        right: 0;
+    }
+
+    .develop {
+        display: flex !important;
+        /* Immer anzeigen auf mobilen Geräten */
+        flex-direction: column;
+    }
+
+    #toggleButtons {
+        display: none;
+        /* Ausblenden, da Menü immer sichtbar ist */
+    }
+
+    .button {
+        width: 100%;
+        padding: 10px;
+        margin: 2px 0;
+    }
+
+    .advanced-options {
+        flex-direction: column;
+    }
+}
+
+/* Tablet-spezifische Anpassungen */
+@media (min-width: 769px) and (max-width: 1999px) {
+    .sticky {
+        position: sticky;
+        padding: 8px;
+        padding-top: 8px;
+        padding-bottom: 8px;
+        text-align: center;
+        padding-bottom: 2rem;
+        padding-top: 0.7rem;
+    }
+
+    .button {
+        padding: 8px 10px;
+        font-size: 1rem;
+    }
 }
 
