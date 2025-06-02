@@ -177,7 +177,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-        button.disabled = true;
+        button.disabled = false;
         /*     button.textContent = `PDF wird mit ${selectedProfile.name} vorbereitet...`; */
         button.textContent = `PDF erstellen`;
 
@@ -971,7 +971,7 @@ document.addEventListener('DOMContentLoaded', function () {
             setTimeout(closeModal, 600000);
         }
 
-        button.disabled = true;
+        button.disabled = false;
         button.textContent = `PDF erstellen`;
 
     });
@@ -1268,9 +1268,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     closeModal(selectedProfile);
                 });
             });
-
-            // Hover-Effekte für Karten
-            profileCards.forEach(card => {
+               profileCards.forEach(card => {
                 card.addEventListener('click', () => {
                     const profileId = card.dataset.profileId;
                     const selectedProfile = cssProfiles.find(p => p.id === profileId);
@@ -1280,3 +1278,5 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 });
+
+
