@@ -449,7 +449,7 @@ document.addEventListener("DOMContentLoaded", (function () {
         const originalUrl = URL.createObjectURL(originalBlob);
         const thumbnailBlob = await resizeImage(img, 75, 75);
         const thumbnailUrl = URL.createObjectURL(thumbnailBlob);
-        const galleryBlob = await resizeImage(img, 1000, 1000);
+        const galleryBlob = await resizeImage(img, 1400, 1400);
         const galleryUrl = URL.createObjectURL(galleryBlob);
 
         const imageData = {
@@ -479,7 +479,7 @@ document.addEventListener("DOMContentLoaded", (function () {
         });
     }
 
-    function resizeImage(img, maxWidth, maxHeight, quality = 0.7) {
+    function resizeImage(img, maxWidth, maxHeight, quality = 0.5) {
         return new Promise(resolve => {
             const canvas = document.createElement("canvas");
             let { width, height } = img;
