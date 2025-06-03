@@ -449,7 +449,7 @@ document.addEventListener("DOMContentLoaded", (function () {
         const originalUrl = URL.createObjectURL(originalBlob);
         const thumbnailBlob = await resizeImage(img, 75, 75);
         const thumbnailUrl = URL.createObjectURL(thumbnailBlob);
-        const galleryBlob = await resizeImage(img, 1400, 1400);
+        const galleryBlob = await resizeImage(img, 1250, 1250);
         const galleryUrl = URL.createObjectURL(galleryBlob);
 
         const imageData = {
