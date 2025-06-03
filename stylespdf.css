@@ -11,7 +11,7 @@ body {
 
 html {
     font-size: 20px;
-    /* somit entspricht 1rem 24 Pixel */
+
 }
 
 .container {
@@ -36,7 +36,7 @@ table {
     border-radius: 8px;
     overflow: hidden;
     min-width: 600px;
-    /* border: 1px solid #ddd; */
+
     border: none;
 }
 
@@ -47,8 +47,6 @@ td {
     text-align: left;
     vertical-align: middle;
 }
-
-
 
 th {
     background-color: #466c9c;
@@ -73,8 +71,6 @@ tr:nth-child(even) {
     background-color: #fff;
 }
 
-
-/* Formularelemente Styling */
 input[type="checkbox"] {
     transform: scale(1.5);
     cursor: pointer;
@@ -82,7 +78,6 @@ input[type="checkbox"] {
     display: block;
 
 }
-
 
 select {
     padding: 1px 12px;
@@ -118,35 +113,6 @@ input[type="radio"] {
     cursor: pointer;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .container {
-        padding: 10px;
-    }
-
-    th,
-    td {
-        padding: 10px 8px;
-        font-size: 1rem;
-    }
-
-    .radio-group {
-        flex-direction: column;
-        gap: 5px;
-    }
-
-    select {
-        max-width: 120px;
-    }
-
-    input[type="checkbox"],
-    input[type="radio"] {
-        transform: scale(1.1);
-    }
-}
-
-
-/* Falls der Platz nach unten nicht ausreicht */
 .farbe-vorschlaege-container.upwards,
 .boden-vorschlaege-container.upwards {
     bottom: 100%;
@@ -156,38 +122,28 @@ input[type="radio"] {
     border-radius: 4px 4px 0 0;
 }
 
-
-/* Positionierung relativ für das Container-Element */
 td[colspan="5"] {
     position: relative;
 }
 
-/* Number Input Styling */
-/* Number Input Styling */
 .number-input {
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-
-
-/* Eingabefeld ohne Pfeile */
 .no-spin::-webkit-inner-spin-button,
 .no-spin::-webkit-outer-spin-button {
     -webkit-appearance: none !important;
     margin: 0;
 }
 
-
-/* Spezifische Radio-Groups für Badezimmer */
 .radio-group[name="bad-wasserhaehne"],
 .radio-group[name="bad-fugen"] {
     display: flex;
     gap: 20px;
     padding: 8px 0;
 }
-
 
 .farbe-input {
     width: 100%;
@@ -205,17 +161,6 @@ td[colspan="5"] {
     padding: 1px 11px 1px 11px !important;
 }
 
-
-
-/* Responsive Anpassungen */
-@media (max-width: 768px) {
-    .farbe-input {
-        padding: 6px 8px;
-    }
-}
-
-/* Farbe Autocomplete */
-/* Farbe Autocomplete */
 .farbe-vorschlaege-container,
 .boden-vorschlaege-container {
     position: absolute;
@@ -228,12 +173,11 @@ td[colspan="5"] {
     z-index: 100;
     display: none;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    /* Neue Eigenschaften für bessere Positionierung */
+
     bottom: auto;
     top: 100%;
     margin-top: -1px;
 }
-
 
 .farbe-vorschlag,
 .boden-vorschlag {
@@ -241,8 +185,6 @@ td[colspan="5"] {
     cursor: pointer;
     transition: background-color 0.2s;
 }
-
-
 
 #rauchmelder-anzahl,
 #rauchmelder-anzahlbad,
@@ -261,7 +203,6 @@ td[colspan="5"] {
     font-size: 1rem;
 }
 
-/* Stil für die feste Bemerkungszeile */
 tr.bemerkung-row td:first-child {
     width: 40% !important;
     white-space: nowrap;
@@ -280,7 +221,7 @@ tr.bemerkung-row .bemerkung-container {
 tr.bemerkung-row .bemerkung-input {
     flex-grow: 1;
     min-width: 50px;
-    /* Mindestbreite für das Input-Feld */
+
 }
 
 tr.bemerkung-row .bemerkung-actions {
@@ -289,42 +230,27 @@ tr.bemerkung-row .bemerkung-actions {
     margin-left: 5px;
 }
 
-/* Eingabefeld ohne Pfeile */
-
-
 #keys {
     margin-bottom: 3px;
     margin-top: 0;
 }
 
-
-
-/* Optional: Eigenes Icon hinzufügen (z. B. mit Pseudoelement) */
 select::-ms-expand {
     display: none;
-    /* Internet Explorer */
+
 }
 
-
-
-/* #keysbtn {
-    margin: 15px 0;
-}
- */
 .number-input input {
     width: 50px;
     text-align: center;
     margin: 0 5px;
 }
 
-/* Bemerkungen Styling */
 .bemerkung-container {
     display: flex;
     gap: 10px;
 }
 
-
-/* Bemerkungen Styling */
 .bemerkung-actions {
     display: flex;
     gap: 5px;
@@ -339,9 +265,6 @@ select::-ms-expand {
     padding: 0 6px;
 }
 
-
-
-
 .del-bemerkung-btn {
     width: 30px;
     height: 30px;
@@ -354,7 +277,6 @@ select::-ms-expand {
     transition: all 0.2s;
 }
 
-
 .header,
 .header-regel,
 .kueche-header {
@@ -364,13 +286,11 @@ select::-ms-expand {
     text-align: left;
 }
 
-
 .header-regel,
 .header-further,
 .header-sign {
 
     padding: 5px;
-    /*     margin-top: 15px; */
 
 }
 
@@ -406,7 +326,6 @@ select::-ms-expand {
     cursor: pointer;
 }
 
-/* Zustandsbewertung Styling */
 .zustandszeile {
     background-color: #f0f0f0;
     border-bottom: 1px solid #ddd;
@@ -419,7 +338,6 @@ select::-ms-expand {
     text-align: center;
     font-weight: 600;
 }
-
 
 .rl {
     display: inline-block;
@@ -463,22 +381,6 @@ select::-ms-expand {
     border: 1px solid #ddd;
 }
 
-
-/* .bad-header,
-.WC-header,
-.flur-header,
-.abstell-header,
-.nebenraum-header,
-.header-regel {
-    background-color: #4a7b9d;
-    color: white;
-    padding: 5px 15px;
-}
- */
-
-/* Küchen-spezifisches Bilderstyling */
-/* Küchen-spezifisches Bilderstyling */
-/* Bild-Upload Bereich */
 .bilder-row {
     background-color: #fff;
 }
@@ -499,7 +401,6 @@ select::-ms-expand {
     font-size: 1rem;
 }
 
-
 .bilder-thumbnails {
     display: none;
     gap: 8px;
@@ -507,7 +408,6 @@ select::-ms-expand {
     flex-wrap: wrap;
 }
 
-/* Thumbnail Styling */
 .thumbnail {
     width: 60px;
     height: 60px;
@@ -538,7 +438,6 @@ select::-ms-expand {
     cursor: pointer;
 }
 
-/* Bildergalerie */
 .bildergalerie-container {
     margin: 3px auto;
     padding: 5px;
@@ -546,8 +445,6 @@ select::-ms-expand {
     background: #f5f5f5;
     border-radius: 8px;
 }
-
-
 
 .galerie-bild {
 
@@ -557,7 +454,7 @@ select::-ms-expand {
 
 .galerie-bild img {
     width: 100%;
-    /*   max-width: 600px; */
+
     height: auto;
     border: 1px solid #ddd;
     border-radius: 4px;
@@ -569,8 +466,6 @@ select::-ms-expand {
     color: #666;
 }
 
-/* Animationen */
-/* Animationen */
 @keyframes fadeIn {
     from {
         opacity: 0.9;
@@ -595,7 +490,6 @@ select::-ms-expand {
     }
 }
 
-/* Allgemeine Stile für die Toggle-Bereiche */
 .kueche-section,
 .bad-section,
 .WC-section,
@@ -621,22 +515,17 @@ select::-ms-expand {
     transition: background-color 0.2s;
 }
 
-
-/* Tabellencontainer */
 .table-container {
     overflow: hidden;
     transition: all 0.3s ease;
 }
 
-/* Radio-Button Stile */
 .radio-group.compact {
     display: inline-flex;
     gap: 10px;
     margin-left: 15px;
 }
 
-
-/* Galerie-Stile */
 .bildergalerie-container h3 {
     margin-top: 30px;
     margin-bottom: 15px;
@@ -654,7 +543,6 @@ select::-ms-expand {
     gap: 15px;
 }
 
-/* Tenant Section Styles */
 .tenant,
 .keys,
 .addzimmer,
@@ -663,7 +551,7 @@ select::-ms-expand {
     background-color: white;
     padding: 0;
     border-radius: 8px;
-    /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+
     box-shadow: none;
 }
 
@@ -718,7 +606,6 @@ select::-ms-expand {
     display: block;
 }
 
-
 .addzimmer {
     padding: 15px;
     display: none;
@@ -728,8 +615,6 @@ select::-ms-expand {
     margin-bottom: 5px;
 }
 
-
-/* Tenant Form Styles */
 .tenant-form {
     background-color: #fff;
     padding: 15px;
@@ -792,17 +677,12 @@ select::-ms-expand {
     border: none;
 }
 
-
-
 .cancel-tenant-btn {
     background-color: #f44336;
     color: white;
     border: none;
 }
 
-
-
-/* Tenant Display Styles */
 .tenant-display {
     background-color: white;
     padding: 0px;
@@ -844,8 +724,6 @@ select::-ms-expand {
     font-size: 1rem;
 }
 
-
-
 .delete-tenant-btn {
     background-color: #ff9800;
     color: white;
@@ -855,35 +733,6 @@ select::-ms-expand {
     font-size: 1rem;
 }
 
-
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-    .form-group {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .form-group label {
-        width: 100%;
-        margin-bottom: 5px;
-    }
-
-    .form-group input {
-        width: 100%;
-    }
-
-    .tenant-form-buttons,
-    .tenant-actions {
-        flex-direction: column;
-    }
-
-    .tenant-form-buttons button,
-    .tenant-actions button {
-        width: 100%;
-    }
-}
-
-/* Tenant Table Styles */
 .tenant-table {
     margin-bottom: 20px;
     animation: fadeIn 0.3s ease-out;
@@ -903,14 +752,13 @@ select::-ms-expand {
     outline: none;
 }
 
-
 #objektdaten {
     position: relative;
-    /* Container wird Stacking Context */
+
     z-index: 0;
-    /* Reset */
+
     overflow: visible !important;
-    /* Erzwingt Sichtbarkeit */
+
 }
 
 .suggestion-container {
@@ -920,22 +768,19 @@ select::-ms-expand {
 }
 
 .suggestion-list {
-    /* Basis-Styles */
+
     background: white !important;
     border: 1px solid #ddd !important;
     z-index: 2147483647 !important;
-    /* Höchstmöglicher z-index */
+
     max-height: calc(var(--visible-items, 7) * var(--item-height, 36px)) !important;
     overflow-y: auto !important;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
 
-    /* Notfall-Reset */
     all: initial;
     display: none;
     position: fixed !important;
 }
-
-
 
 .suggestion-item {
     padding: 8px 12px !important;
@@ -945,7 +790,6 @@ select::-ms-expand {
     font-size: 1rem !important;
     border-bottom: 1px solid #f0f0f0 !important;
 }
-
 
 .tenant-actions-row button {
     padding: 8px 15px;
@@ -965,15 +809,12 @@ select::-ms-expand {
     background-color: #fff;
 }
 
-/* Button Colors consistent with kitchen table */
 .save-tenant-btn,
 .save-edit-tenant-btn {
     background-color: #4CAF50;
     color: white;
     border: none;
 }
-
-
 
 .cancel-tenant-btn,
 .cancel-edit-tenant-btn {
@@ -982,23 +823,17 @@ select::-ms-expand {
     border: none;
 }
 
-
-
 .edit-tenant-btn {
     background-color: #2196F3;
     color: white;
     border: none;
 }
 
-
-
 .delete-tenant-btn {
     background-color: #ff9800;
     color: white;
     border: none;
 }
-
-
 
 .signature-block {
     margin-top: 1px !important;
@@ -1025,7 +860,7 @@ select::-ms-expand {
     overflow-y: auto;
     z-index: 1000;
     width: calc(100% - 2px);
-    /* passt zur Breite des Inputfelds */
+
 }
 
 .farbvorschlag {
@@ -1033,9 +868,6 @@ select::-ms-expand {
     cursor: pointer;
 }
 
-
-
-/* Stile für Bemerkungen */
 .bemerkungen-container {
     display: flex;
     flex-direction: column;
@@ -1048,9 +880,6 @@ select::-ms-expand {
     margin-left: 13px;
     margin-right: 5px;
 }
-
-
-
 
 .bemerkung-input {
     flex: 1;
@@ -1072,8 +901,7 @@ select::-ms-expand {
 #datum,
 #datum2 {
     font-family: Arial, Helvetica, sans-serif;
-    /*    margin-top: 5px;
-    margin-bottom: 5px; */
+
     font-size: 1rem;
     padding: 1px 12px;
     border: 1px solid #ddd;
@@ -1103,7 +931,6 @@ select::-ms-expand {
     margin-top: 10px;
 }
 
-
 .add-bemerkung-btn {
     display: none !important;
     margin: 12px 1px 1px 1px;
@@ -1115,8 +942,6 @@ select::-ms-expand {
     cursor: pointer;
 }
 
-
-
 .number-input input {
     width: 40px;
     text-align: center;
@@ -1127,15 +952,11 @@ select::-ms-expand {
     font-size: 1rem;
 }
 
-
-
 .no-spin {
-    /*  -moz-appearance: textfield; */
+
     width: 40px;
     text-align: center;
 }
-
-
 
 .number-btn {
     display: none !important;
@@ -1151,21 +972,17 @@ select::-ms-expand {
     justify-content: center;
 }
 
-
 .allgemein {
     background: rgb(255, 255, 255);
-    /*  background: rgb(211, 226, 236); */
-    /*   border: 3px solid black; */
+
 }
 
 .allrooms {
     margin-top: 25px;
     background: rgb(255, 255, 255);
-    /* background: rgb(219, 226, 230); */
-    /*  border: 3px solid black; */
+
 }
 
-/* Tabellen-Layout */
 .objektdaten table {
     width: 100%;
     border-collapse: collapse;
@@ -1177,17 +994,15 @@ select::-ms-expand {
     vertical-align: top;
 }
 
-/* Eingabefelder */
 .textinput,
 .full-width {
-    /*    width: 100%; */
+
     box-sizing: border-box;
     padding: 1px 8px;
     border: 1px solid #ddd;
     border-radius: 4px;
 }
 
-/* Dropdown-Liste */
 .suggestion-container {
     position: relative;
 }
@@ -1201,7 +1016,7 @@ select::-ms-expand {
     border: 1px solid #ddd;
     z-index: 10000;
     max-height: 252px;
-    /* 7 Einträge */
+
     overflow-y: auto;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: none;
@@ -1210,33 +1025,27 @@ select::-ms-expand {
 .suggestion-item {
     padding: 10px;
     white-space: nowrap;
-    /* Verhindert Zeilenumbruch */
+
     overflow: hidden;
     text-overflow: ellipsis;
-    /* ... bei zu langem Text */
+
     cursor: pointer;
 }
 
-/* Lange Texte im Dropdown */
 #protokollart1 option {
     white-space: normal;
-    /* Erlaubt Zeilenumbruch */
+
 }
 
 #protokollart1 {
     max-width: 100vw !important;
 }
 
-
-
 #objektdaten>table:nth-child(1)>tbody:nth-child(2)>tr:nth-child(2)>td:nth-child(2),
 #objektdaten>table:nth-child(1)>tbody:nth-child(2)>tr:nth-child(4)>td:nth-child(2) {
     border: none !important;
 }
 
-
-
-/* Pfeile bei ALLEN Number-Inputs entfernen */
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
     -webkit-appearance: none;
@@ -1247,11 +1056,9 @@ input[type="number"] {
     -moz-appearance: textfield;
 }
 
-
-/* suggestion-list.css */
 .lage {
     position: relative;
-    /* Wichtig für die absolute Positionierung der Dropdown */
+
 }
 
 .suggestion-list {
@@ -1271,8 +1078,6 @@ input[type="number"] {
     cursor: pointer;
     font-size: 1rem;
 }
-
-
 
 .suggestion-item {
     border-bottom: 1px solid #eee !important;
@@ -1298,11 +1103,10 @@ tr.bemerkung-row:nth-child(7)>td:nth-child(4) {
 @media print {
     .container>div {
         page-break-after: always;
-        /* Sicherer Seitenumbruch */
+
     }
 }
 
-/* Vermeidet ungewollte Seitentrennungen */
 @media print {
     div {
         page-break-inside: avoid;
@@ -1314,7 +1118,6 @@ tr.bemerkung-row:nth-child(7)>td:nth-child(4) {
     }
 }
 
-/* Temporäre PDF-Elemente */
 .temp-pdf-section {
     background: white !important;
     box-shadow: none !important;
@@ -1335,8 +1138,6 @@ tr.bemerkung-row:nth-child(7)>td:nth-child(4) {
     border-radius: 3px;
     font-size: 1rem;
 }
-
-
 
 .zaehler-actions-row td:last-child {
     text-align: right;
@@ -1363,9 +1164,6 @@ tr.bemerkung-row:nth-child(7)>td:nth-child(4) {
 
 }
 
-
-
-
 #heatzent,
 #heatdezen,
 #watazent,
@@ -1383,9 +1181,6 @@ tr.bemerkung-row:nth-child(7)>td:nth-child(4) {
     margin-top: 1px;
     margin-bottom: 1px;
 }
-
-
-
 
 .sticky {
     position: absolute;
@@ -1407,9 +1202,8 @@ tr.bemerkung-row:nth-child(7)>td:nth-child(4) {
     border-radius: 5px;
 }
 
-
 .button {
-    /* Optional: Stil für die Buttons */
+
     padding: 8px 16px;
     margin: 2px;
 
@@ -1481,15 +1275,12 @@ tr.bemerkung-row:nth-child(7)>td:nth-child(4) {
     min-width: 56px;
 }
 
-
-
 .toggle-option.active {
     color: #fff;
     border: 2px solid #253943ab;
     border-radius: 22px;
     box-shadow: 0px 3px 4px 1px #848484;
 }
-
 
 .toggle-options::after {
     content: '';
@@ -1512,14 +1303,12 @@ tr.bemerkung-row:nth-child(7)>td:nth-child(4) {
     transform: translateX(100%);
 }
 
-/* Icons - dezenter */
 .toggle-option i {
     margin-right: 5px;
     font-size: 1rem;
     opacity: 0.9;
 }
 
-/* Container - noch dezenter */
 .room-container {
     margin-top: 2px;
     margin-bottom: 22px;
@@ -1531,7 +1320,6 @@ tr.bemerkung-row:nth-child(7)>td:nth-child(4) {
     transition: all 0.25s ease-out;
 }
 
-/* Verfeinerte Animationen */
 @keyframes fadeIn {
     from {
         opacity: 0.9;
@@ -1556,7 +1344,6 @@ tr.bemerkung-row:nth-child(7)>td:nth-child(4) {
     }
 }
 
-/* Optional: Dunkler Modus Unterstützung */
 @media (prefers-color-scheme: dark) {
     .toggle-options {
         background: #1e293b;
@@ -1566,7 +1353,6 @@ tr.bemerkung-row:nth-child(7)>td:nth-child(4) {
     .toggle-option {
         color: #94a3b8;
     }
-
 
     .toggle-options::after {
         background: #466c9c;
@@ -1589,32 +1375,6 @@ tr.bemerkung-row:nth-child(7)>td:nth-child(4) {
     padding: 8px 17px 2px 15px;
     margin-top: 1px;
     padding: 3px 0px 0px 0px;
-}
-
-@media (max-width: 480px) {
-    .saved-states-container {
-        width: 95%;
-        padding: 10px;
-    }
-
-    .button-group {
-        flex-direction: column;
-        gap: 5px;
-    }
-}
-
-
-
-@media (max-width: 480px) {
-    .saved-states-container {
-        width: 95%;
-        padding: 10px;
-    }
-
-    .button-group {
-        flex-direction: column;
-        gap: 5px;
-    }
 }
 
 .modal-overlay {
@@ -1676,7 +1436,6 @@ tr.bemerkung-row:nth-child(7)>td:nth-child(4) {
     color: #fff;
 }
 
-
 @keyframes fadeInScale {
     from {
         transform: scale(0.95);
@@ -1735,8 +1494,6 @@ tr.bemerkung-row:nth-child(7)>td:nth-child(4) {
     height: 1.5rem;
 }
 
-
-/* weitere sonstige Bemerkungen */
 #\36 91 {
     margin-left: 10px;
     margin-right: 11px;
@@ -1745,7 +1502,6 @@ tr.bemerkung-row:nth-child(7)>td:nth-child(4) {
 #signtenant1 {
     margin-top: 10px;
 }
-
 
 #tenant-signature-container-1>p:nth-child(2),
 #tenant-signature-container-2>p:nth-child(2),
@@ -1772,7 +1528,6 @@ td {
     padding-left: 10px;
 }
 
-/* Modal Overlay */
 .pdf-modal-overlay {
     position: fixed;
     top: 0;
@@ -1794,7 +1549,6 @@ td {
     visibility: visible;
 }
 
-/* Modal Container */
 .pdf-modal {
     background-color: white;
     border-radius: 8px;
@@ -1810,7 +1564,6 @@ td {
     transform: translateY(0);
 }
 
-/* Modal Header */
 .pdf-modal-header {
     display: flex;
     justify-content: space-between;
@@ -1826,7 +1579,6 @@ td {
     margin: 0;
 }
 
-/* Progress Bar */
 .pdf-progress-container {
     width: 100%;
     background-color: #f3f3f3;
@@ -1849,7 +1601,6 @@ td {
     border-radius: 22px;
 }
 
-/* Status Message */
 .pdf-status-message {
     margin-top: 15px;
     padding: 10px;
@@ -1864,15 +1615,11 @@ td {
     font-weight: 300;
 }
 
-
-
-
 .pdf-status-message.error {
     background-color: #ffebee;
     color: #c62828;
 }
 
-/* Close Button */
 .pdf-modal-close {
     background: none;
     border: none;
@@ -1880,19 +1627,6 @@ td {
     cursor: pointer;
     color: #666;
     transition: color 0.2s;
-}
-
-
-/* Responsive Anpassungen */
-@media (max-width: 600px) {
-    .pdf-modal {
-        width: 95%;
-        padding: 15px;
-    }
-
-    .pdf-modal-title {
-        font-size: 1.2rem;
-    }
 }
 
 .pdf-modal-overlay {
@@ -1908,7 +1642,7 @@ td {
     opacity: 0;
     transition: opacity 0.3s ease;
     display: flex;
-    /* Wird jetzt per JS gesetzt */
+
 }
 
 .pdf-modal-overlay.active {
@@ -1962,7 +1696,6 @@ td {
     margin-top: 22px;
 }
 
-
 #weiterebemerkungen>div:nth-child(1)>table:nth-child(1)>tbody:nth-child(1)>tr:nth-child(2) {
     display: none;
 }
@@ -1978,11 +1711,6 @@ tr.bilder-row:nth-child(7)>td:nth-child(1) {
     display: none;
 }
 
-/* .bad > table:nth-child(1) > tbody:nth-child(2) > tr:nth-child(26) > td:nth-child(1) {
-    display:block;
-    background:#fc0;
-} */
-
 .heading {
     font-weight: 600;
     font-size: 1.8rem;
@@ -1994,8 +1722,6 @@ tr.bilder-row:nth-child(7)>td:nth-child(1) {
     gap: 15px;
     margin-left: 8px;
 }
-
-
 
 h3 i.fas {
     color: #575757 !important;
@@ -2014,7 +1740,6 @@ h3 i.fas {
     margin: 0;
 }
 
-
 .key-entry {
     display: grid;
     grid-template-columns: 1fr 0.3fr 3fr auto;
@@ -2032,7 +1757,6 @@ h3 i.fas {
     padding: 0;
     border-bottom: none !important;
 }
-
 
 .number-input {
     display: flex;
@@ -2071,12 +1795,9 @@ h3 i.fas {
     padding-top: 5px;
 }
 
-
 .key-headers h2 {
     color: white;
 }
-
-
 
 .zaehler-headers {
     margin-bottom: 10px;
@@ -2094,11 +1815,6 @@ h3 i.fas {
     height: 0 !important;
 }
 
-/* th.aa {
-  vertical-align: top !important;
-  padding-top: 0 !important;
-} */
-
 .zaehler-entry,
 .column-zaehler-headers {
     display: grid;
@@ -2109,16 +1825,6 @@ h3 i.fas {
     align-items: center;
 }
 
-/* select,
-input[type="text"],
-input[type="number"] {
-    width: 100%;
-    padding: 6px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    box-sizing: border-box;
-} */
-
 .delete-zaehler-btn {
     background: none;
     border: none;
@@ -2127,7 +1833,6 @@ input[type="number"] {
     cursor: pointer;
     padding: 0 8px;
 }
-
 
 select,
 input[type="text"],
@@ -2147,7 +1852,6 @@ input[type="number"] {
 #key-note-input-10 {
     padding: 1px 1px 1px 1px;
 }
-
 
 #zaehler-number-input-1,
 #zaehler-number-input-2,
@@ -2196,7 +1900,6 @@ input[type="number"] {
     margin-top: 22px;
 }
 
-
 .column-key-headers {
 
     margin-bottom: 0px !important;
@@ -2224,8 +1927,6 @@ input[type="number"] {
 .abstellraum>table:nth-child(1)>thead:nth-child(1)>tr:nth-child(2)>td:nth-child(1) {
     padding-left: 5px;
 }
-
-
 
 .options-header>td:nth-child(3),
 .options-header>td:nth-child(5) {
@@ -2258,10 +1959,8 @@ tr.signature-data-row:nth-child(3)>td:nth-child(3) {
 
 #addzaehlerbtn {
     margin-top: 0px;
-    /*! padding: 11px 11px 11px 11px; */
+
 }
-
-
 
 .options-header {
     background-color: #83a3c9 !important;
@@ -2292,7 +1991,6 @@ tr.signature-data-row:nth-child(3)>td:nth-child(3) {
     padding-top: 11px;
 }
 
-
 #zimmer-container-1>table:nth-child(1)>thead:nth-child(1)>tr:nth-child(1)>th:nth-child(1),
 #zimmer-container-2>table:nth-child(1)>thead:nth-child(1)>tr:nth-child(1)>th:nth-child(1),
 #zimmer-container-3>table:nth-child(1)>thead:nth-child(1)>tr:nth-child(1)>th:nth-child(1),
@@ -2303,7 +2001,6 @@ tr.signature-data-row:nth-child(3)>td:nth-child(3) {
 #zimmer-container-8>table:nth-child(1)>thead:nth-child(1)>tr:nth-child(1)>th:nth-child(1) {
     padding: 12px 10px;
 }
-
 
 #zimmer-container-1>table:nth-child(1)>thead:nth-child(1)>tr:nth-child(2)>td:nth-child(1),
 #zimmer-container-2>table:nth-child(1)>thead:nth-child(1)>tr:nth-child(2)>td:nth-child(1),
@@ -2352,29 +2049,24 @@ tr.signature-data-row:nth-child(3)>td:nth-child(3) {
     display: none !important;
 }
 
-
-/* Container für die Tabelle */
 .heatwater {
     width: 100%;
 }
 
-/* Tabellen-Stile */
 .heatwater table {
     width: 100%;
     border-collapse: collapse;
 }
 
-/* Alle Zellen linksbündig ausrichten */
 .heatwater td {
     text-align: left !important;
-    /* Überschreibt die inline-styles */
+
     padding: 8px 10px !important;
     vertical-align: middle;
     white-space: normal !important;
-    /* Erlaubt Zeilenumbrüche */
+
 }
 
-/* Labels und Checkboxen ausrichten */
 .heatwater label {
     display: flex !important;
     align-items: center;
@@ -2383,10 +2075,9 @@ tr.signature-data-row:nth-child(3)>td:nth-child(3) {
     margin-right: 10px;
 }
 
-/* Flex-Container für die Checkbox-Gruppen */
 .heatwater div[style*="display: flex"] {
     justify-content: flex-start !important;
-    /* Linksbündig statt zentriert */
+
     flex-wrap: wrap;
 }
 
@@ -2398,16 +2089,6 @@ tr.signature-data-row:nth-child(3)>td:nth-child(3) {
 
     text-align: right !important;
 }
-
-
-
-
-
-
-
-
-
-
 
 .landlord-signature-section {
     margin: 20px 0;
@@ -2443,20 +2124,14 @@ tr.signature-data-row:nth-child(3)>td:nth-child(3) {
     margin: 0;
 }
 
-
-
-
-
-
-
 .pdf-modal {
     display: flex;
     flex-direction: column;
-    /* Elemente untereinander anordnen */
+
     align-items: center;
-    /* Horizontal zentrieren */
+
     gap: 15px;
-    /* Abstand zwischen den Elementen */
+
 }
 
 .pdf-modal-header {
@@ -2470,7 +2145,7 @@ tr.signature-data-row:nth-child(3)>td:nth-child(3) {
     text-align: center;
     margin: 0;
     flex-grow: 1;
-    /* Titel nimmt verfügbaren Platz ein */
+
 }
 
 .pdf-progress-container {
@@ -2499,7 +2174,6 @@ tr.signature-data-row:nth-child(3)>td:nth-child(3) {
     cursor: unset;
 }
 
-
 .toggle-header {
     display: flex;
     justify-content: space-between;
@@ -2518,7 +2192,6 @@ tr.signature-data-row:nth-child(3)>td:nth-child(3) {
     padding-left: 15px;
 }
 
-
 .abstellraum>table:nth-child(1)>thead:nth-child(1)>tr:nth-child(2)>td:nth-child(1) {
     margin-left: 11px;
     padding-left: 15px;
@@ -2529,7 +2202,6 @@ tr.signature-data-row:nth-child(3)>td:nth-child(3) {
     color: #fff;
 
 }
-
 
 .options-header>td:nth-child(1) {
     padding-left: 15px;
@@ -2545,7 +2217,6 @@ tr.signature-data-row:nth-child(3)>td:nth-child(3) {
     padding-right: 11px;
 }
 
-
 #regelungen>div:nth-child(1)>table:nth-child(1)>tbody:nth-child(1)>tr:nth-child(3)>td:nth-child(1),
 #regelungen>div:nth-child(1)>table:nth-child(1)>tbody:nth-child(1)>tr:nth-child(4)>td:nth-child(1),
 #regelungen>div:nth-child(1)>table:nth-child(1)>tbody:nth-child(1)>tr:nth-child(5)>td:nth-child(1),
@@ -2558,7 +2229,6 @@ tr.signature-data-row:nth-child(3)>td:nth-child(3) {
 #objektdaten>table:nth-child(1)>tbody:nth-child(2)>tr:nth-child(2) {
     background-color: #fff;
 }
-
 
 #objektdaten>table:nth-child(1)>tbody:nth-child(2)>tr:nth-child(2)>td:nth-child(3),
 #objektdaten>table:nth-child(1)>tbody:nth-child(2)>tr:nth-child(3)>td:nth-child(3) {
@@ -2577,29 +2247,26 @@ tr.signature-data-row:nth-child(3)>td:nth-child(3) {
     padding-bottom: 5px !important;
 }
 
-
-
 ::placeholder {
     color: white !important;
     opacity: 1;
-    /* Standardmäßig haben Placeholder manchmal reduzierte Deckkraft */
+
 }
 
-/* Browser-spezifische Prefixe für maximale Kompatibilität */
 ::-webkit-input-placeholder {
-    /* Chrome, Safari, Edge */
+
     color: white !important;
 }
 
 ::-moz-placeholder {
-    /* Firefox */
+
     color: white !important;
     opacity: 1;
-    /* Firefox reduziert standardmäßig die Deckkraft */
+
 }
 
 :-ms-input-placeholder {
-    /* Internet Explorer 10-11 */
+
     color: white !important;
 }
 
@@ -2613,7 +2280,6 @@ tr.signature-data-row:nth-child(3)>td:nth-child(3) {
     padding-left: 15px !important;
     font-size: 1.4rem !important;
 }
-
 
 #heatwater>table:nth-child(1)>tbody:nth-child(1)>tr:nth-child(1)>td:nth-child(3) {
     width: 22% !important;
@@ -2631,7 +2297,6 @@ tr.signature-data-row:nth-child(3)>td:nth-child(3) {
 #plzeinzug {
     width: 102%;
 }
-
 
 #landlord-signature-canvas,
 #tenant-signature-canvas-1,
@@ -2652,7 +2317,6 @@ tr.signature-data-row:nth-child(3)>td:nth-child(3) {
 
 @media (max-width: 1680px) {
 
-
     .tenant-entry {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -2663,7 +2327,6 @@ tr.signature-data-row:nth-child(3)>td:nth-child(3) {
         position: relative;
         color: #333;
     }
-
 
 }
 
@@ -2709,11 +2372,10 @@ tr.bemerkung-row:nth-child(6)>td:nth-child(1) {
 
 .haus img {
     width: 250px;
-    /* Größe anpassen nach Bedarf */
-    margin-left: auto;
-    /* Schiebt das Logo nach rechts */
-}
 
+    margin-left: auto;
+
+}
 
 #wandfarbe,
 #fussbodenkue,
@@ -2732,10 +2394,6 @@ tr.bemerkung-row:nth-child(6)>td:nth-child(1) {
     margin-left: 2.4rem !important;
 }
 
-
-
-
-
 .kueche>table:nth-child(1)>tbody:nth-child(2)>tr:nth-child(2)>td:nth-child(2),
 .bad>table:nth-child(1)>tbody:nth-child(2)>tr:nth-child(2)>td:nth-child(2),
 .bad>table:nth-child(1)>tbody:nth-child(2)>tr:nth-child(11)>td:nth-child(2) {
@@ -2747,7 +2405,6 @@ tr.bemerkung-row:nth-child(6)>td:nth-child(1) {
     padding-top: 15px;
 }
 
-
 .header-regel,
 #weiterebemerkungen>div:nth-child(1)>table:nth-child(1)>tbody:nth-child(1)>tr:nth-child(1)>th:nth-child(1),
 .signContainer>table:nth-child(1)>tbody:nth-child(1)>tr:nth-child(1)>th:nth-child(1) {
@@ -2755,7 +2412,6 @@ tr.bemerkung-row:nth-child(6)>td:nth-child(1) {
     padding-bottom: 11px;
     padding-left: 15px;
 }
-
 
 #weiterebemerkungen>div:nth-child(1)>table:nth-child(1)>tbody:nth-child(1)>tr:nth-child(6)>td:nth-child(1) {
     padding-top: 1px;
@@ -2776,18 +2432,15 @@ Element #weiterebemerkungen>div:nth-child(1)>table:nth-child(1)>tbody:nth-child(
     display: none;
 }
 
-/* Versteckt Entfernen-Buttons im PDF */
 body.pdf-export .remove-zimmer-btn {
     display: none !important;
 }
 
-/* Stellt sicher, dass Zimmer-Header gleich breit sind */
 .zimmer-header {
     width: 100%;
 
 }
 
-/* Design Selection Modal Styles */
 .design-modal-overlay {
     position: fixed;
     top: 0;
@@ -2855,11 +2508,6 @@ body.pdf-export .remove-zimmer-btn {
     transition: all 0.2s ease;
 }
 
-.design-modal-close:hover {
-    background: #f3f4f6;
-    color: #374151;
-}
-
 .design-modal-content {
     padding: 24px;
 }
@@ -2883,12 +2531,6 @@ body.pdf-export .remove-zimmer-btn {
     cursor: pointer;
     transition: all 0.3s ease;
     background: #ffffff;
-}
-
-.design-profile-card:hover {
-    border-color: #3b82f6;
-    transform: translateY(-4px);
-    box-shadow: 0 12px 25px rgba(59, 130, 246, 0.15);
 }
 
 .design-profile-preview {
@@ -2932,7 +2574,7 @@ body.pdf-export .remove-zimmer-btn {
     transition: background 0.3s ease;
 }
 
-.design-profile-card:hover .design-preview-placeholder::after {
+.design-preview-placeholder::after {
     background: rgba(0, 0, 0, 0.05);
 }
 
@@ -2967,11 +2609,6 @@ body.pdf-export .remove-zimmer-btn {
     font-size: 0.9rem;
 }
 
-.design-select-btn:hover {
-    background: #2563eb;
-    transform: translateY(-1px);
-}
-
 .design-select-btn:active {
     transform: translateY(0);
 }
@@ -2994,31 +2631,6 @@ body.pdf-export .remove-zimmer-btn {
     transition: all 0.2s ease;
 }
 
-.design-cancel-btn:hover {
-    background: #e5e7eb;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .design-modal-container {
-        width: 95%;
-        max-height: 95vh;
-    }
-
-    .design-profiles-grid {
-        grid-template-columns: 1fr;
-        gap: 16px;
-    }
-
-    .design-modal-header,
-    .design-modal-content,
-    .design-modal-footer {
-        padding-left: 16px;
-        padding-right: 16px;
-    }
-}
-
-
 .design-profile-card {
     animation: fadeInUp 0.5s ease forwards;
 }
@@ -3034,8 +2646,6 @@ body.pdf-export .remove-zimmer-btn {
 .design-profile-card:nth-child(3) {
     animation-delay: 0.3s;
 }
-
-
 
 [id^="lagecontainer"] {
     position: absolute;
@@ -3054,15 +2664,10 @@ body.pdf-export .remove-zimmer-btn {
     border-bottom: 1px solid #eee;
 }
 
-.suggestion-item:hover {
-    background-color: #f0f0f0;
-}
-
 #heatwater>table:nth-child(2)>tbody:nth-child(1)>tr:nth-child(1)>td:nth-child(2) {
     width: 33% !important;
     padding: 8px 10px !important;
 }
-
 
 #heatwater>table:nth-child(1)>tbody:nth-child(1)>tr:nth-child(1)>td:nth-child(1) {
 
@@ -3097,7 +2702,6 @@ body.pdf-export .remove-zimmer-btn {
 #rauchmelder-anzahl-9 {
     margin-left: 2rem;
 }
-
 
 #weiterebemerkungen>div:nth-child(1)>table:nth-child(1)>tbody:nth-child(1)>tr:nth-child(7)>td:nth-child(1) {
     padding-top: 0 !important;
@@ -3141,7 +2745,6 @@ div.design-profile-card:nth-child(3) {
     padding: 10px 25px 10px 61px !important;
 
 }
-
 #screenshot {
   background-color: #8c2323;
 }
@@ -3162,19 +2765,15 @@ div.design-profile-card:nth-child(3) {
   color: #fff !important;
 }
 
-
-
 #toggleButtons {
   display: block !important;
 }
-
-
 .haus i {
     font-size: 1.4rem !important;
     color: #4e4e4e !important;
 
 }
-
 #stylechange {
     background-color:#919191 !important;
 }
+
