@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const CONFIG = {
         maxImages: 20,
         thumbnailSize: 75,
-        gallerySize: 800,
+        gallerySize: 1250,
         maxImageSize: 3500
     };
 
@@ -986,7 +986,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    function resizeImage(img, maxWidth, maxHeight, quality = 0.8) {
+    function resizeImage(img, maxWidth, maxHeight, quality = 0.5) {
         return new Promise((resolve) => {
             const canvas = document.createElement('canvas');
             let { width, height } = img;
